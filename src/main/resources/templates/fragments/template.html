@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head></head>
+  <body>
+  
+		<nav th:fragment="navigation">
+			<button id="new-issue">
+			
+			<i class="fa fa-plus-square" aria-hidden="true"></i> <span>New issue</span></button>
+			<a href="/project"><i class="fa fa-area-chart" aria-hidden="true"></i> <span>Projects</span></a>
+			<a href="/tasks" class="active"><i class="fa fa-tasks" aria-hidden="true"></i> <span>Tasks</span></a>
+			<a href="/settings"><i class="fa fa-cog" aria-hidden="true"></i> <span>Settings</span></a>
+			<a href="/messages"><i class="fa fa-commenting-o" aria-hidden="true"></i> <span>Messages</span></a>		
+			<a href="/logout"><i class="fa fa-sign-out" aria-hidden="true"></i> <span>Logout</span></a>
+		</nav>
+  
+		<th:block th:fragment="meta">
+			<meta charset="UTF-8" />
+			
+			<meta name="viewport" content="width=device-width, initial-scale=1.0">
+			 
+			<meta name="_csrf" th:content="${_csrf.token}"/>
+			<meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+			 
+			<link rel="icon" type="image/png" sizes="72x72" href="/icons/icon-72x72.png">
+			<link rel="icon" type="image/png" sizes="96x96" href="/icons/icon-96x96.png">
+			<link rel="icon" type="image/png" sizes="128x128" href="/icons/icon-128x128.png">
+			<link rel="icon" type="image/png" sizes="144x144" href="/icons/icon-144x144.png">
+			<link rel="icon" type="image/png" sizes="152x152" href="/icons/icon-152x152.png">
+			<link rel="icon" type="image/png" sizes="192x192" href="/icons/icon-192x192.png">
+			<link rel="icon" type="image/png" sizes="384x384" href="/icons/icon-384x384.png">
+			<link rel="icon" type="image/png" sizes="512x512" href="/icons/icon-512x512.png">
+			
+			<link rel="apple-touch-icon" type="image/png" sizes="72x72" href="/icons/icon-72x72.png">
+			<link rel="apple-touch-icon" type="image/png" sizes="96x96" href="/icons/icon-96x96.png">
+			<link rel="apple-touch-icon" type="image/png" sizes="128x128" href="/icons/icon-128x128.png">
+			<link rel="apple-touch-icon" type="image/png" sizes="144x144" href="/icons/icon-144x144.png">
+			<link rel="apple-touch-icon" type="image/png" sizes="152x152" href="/icons/icon-152x152.png">
+			<link rel="apple-touch-icon" type="image/png" sizes="192x192" href="/icons/icon-192x192.png">
+			<link rel="apple-touch-icon" type="image/png" sizes="384x384" href="/icons/icon-384x384.png">
+			<link rel="apple-touch-icon" type="image/png" sizes="512x512" href="/icons/icon-512x512.png">
+			 
+			<link rel="manifest" href="/manifest.json">
+			<link rel="mask-icon" href="/icons/icon-512x512.png" color="#c52864">
+			<meta name="msapplication-config" content="assets/favicons/browserconfig.xml">
+			<meta name="theme-color" content="#c52864">
+			 
+			
+			<link href="https://fonts.googleapis.com/css?family=Muli|Open+Sans|Glegoo|Cutive+Mono" rel="stylesheet" type="text/css" />
+			<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" />
+			<link href="/stylesheets/simple-scrollbar.css" media="screen, projection" rel="stylesheet" type="text/css" />
+			<link href="/stylesheets/font-awesome.min.css" media="screen, projection" rel="stylesheet" type="text/css" />
+		</th:block>
+
+ 
+  </body>
+</html>	
