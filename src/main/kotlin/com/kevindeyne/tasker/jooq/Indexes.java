@@ -4,6 +4,7 @@
 package com.kevindeyne.tasker.jooq;
 
 
+import com.kevindeyne.tasker.jooq.tables.Event;
 import com.kevindeyne.tasker.jooq.tables.Issue;
 import com.kevindeyne.tasker.jooq.tables.SchemaVersion;
 import com.kevindeyne.tasker.jooq.tables.User;
@@ -32,6 +33,7 @@ public class Indexes {
     // INDEX definitions
     // -------------------------------------------------------------------------
 
+    public static final Index EVENT_PRIMARY = Indexes0.EVENT_PRIMARY;
     public static final Index ISSUE_PRIMARY = Indexes0.ISSUE_PRIMARY;
     public static final Index SCHEMA_VERSION_PRIMARY = Indexes0.SCHEMA_VERSION_PRIMARY;
     public static final Index SCHEMA_VERSION_SCHEMA_VERSION_S_IDX = Indexes0.SCHEMA_VERSION_SCHEMA_VERSION_S_IDX;
@@ -42,6 +44,7 @@ public class Indexes {
     // -------------------------------------------------------------------------
 
     private static class Indexes0 extends AbstractKeys {
+        public static Index EVENT_PRIMARY = createIndex("PRIMARY", Event.EVENT, new OrderField[] { Event.EVENT.ID }, true);
         public static Index ISSUE_PRIMARY = createIndex("PRIMARY", Issue.ISSUE, new OrderField[] { Issue.ISSUE.ID }, true);
         public static Index SCHEMA_VERSION_PRIMARY = createIndex("PRIMARY", SchemaVersion.SCHEMA_VERSION, new OrderField[] { SchemaVersion.SCHEMA_VERSION.INSTALLED_RANK }, true);
         public static Index SCHEMA_VERSION_SCHEMA_VERSION_S_IDX = createIndex("schema_version_s_idx", SchemaVersion.SCHEMA_VERSION, new OrderField[] { SchemaVersion.SCHEMA_VERSION.SUCCESS }, false);

@@ -4,6 +4,7 @@
 package com.kevindeyne.tasker.jooq;
 
 
+import com.kevindeyne.tasker.jooq.tables.Event;
 import com.kevindeyne.tasker.jooq.tables.Issue;
 import com.kevindeyne.tasker.jooq.tables.SchemaVersion;
 import com.kevindeyne.tasker.jooq.tables.User;
@@ -23,6 +24,11 @@ import javax.annotation.Generated;
 )
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Tables {
+
+    /**
+     * The table <code>taskr.event</code>.
+     */
+    public static final Event EVENT = com.kevindeyne.tasker.jooq.tables.Event.EVENT;
 
     /**
      * The table <code>taskr.issue</code>.

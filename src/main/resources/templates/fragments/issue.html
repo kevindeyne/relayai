@@ -13,8 +13,28 @@
 	
 	<article id="main" th:fragment="main-article" th:classappend="${showCreatePage}?invisible">
 		<section id="content-userinfo">
-			<h1>INC-33442 This is an issue</h1>
-			<h2>In progress - 04:43</h2>
+			<h1>This is an issue</h1>
+			<h2><span class="changeable">In progress</span> - assigned to <span class="changeable">you</span></h2>
+			
+			<div id="content-userinfo-details">
+				<div class="userinfo-details-col">
+					<p>Created by Kevin Deyne</p>
+					<p>on 21 November 2015</p>
+				</div>			
+				<div class="userinfo-details-col">
+					<p><span class="changeable">High impact</span></p>
+					<p><span class="changeable">Low urgency</span></p>
+				</div>				
+				<div class="userinfo-details-col">
+					<p><span class="changeable">No fix version yet</span></p>
+					<p>SLA on time</p>
+				</div>
+			</div>
+			
+			<div id="content-userinfo-attachments">
+				<p><i class="fa fa-paperclip" aria-hidden="true"></i> Attachments</p>
+			</div>
+			
 		</section>
 
 		<section id="content-main">

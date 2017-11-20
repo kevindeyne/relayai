@@ -4,9 +4,11 @@
 package com.kevindeyne.tasker.jooq;
 
 
+import com.kevindeyne.tasker.jooq.tables.Event;
 import com.kevindeyne.tasker.jooq.tables.Issue;
 import com.kevindeyne.tasker.jooq.tables.SchemaVersion;
 import com.kevindeyne.tasker.jooq.tables.User;
+import com.kevindeyne.tasker.jooq.tables.records.EventRecord;
 import com.kevindeyne.tasker.jooq.tables.records.IssueRecord;
 import com.kevindeyne.tasker.jooq.tables.records.SchemaVersionRecord;
 import com.kevindeyne.tasker.jooq.tables.records.UserRecord;
@@ -36,6 +38,7 @@ public class Keys {
     // IDENTITY definitions
     // -------------------------------------------------------------------------
 
+    public static final Identity<EventRecord, Long> IDENTITY_EVENT = Identities0.IDENTITY_EVENT;
     public static final Identity<IssueRecord, Long> IDENTITY_ISSUE = Identities0.IDENTITY_ISSUE;
     public static final Identity<UserRecord, Long> IDENTITY_USER = Identities0.IDENTITY_USER;
 
@@ -43,6 +46,7 @@ public class Keys {
     // UNIQUE and PRIMARY KEY definitions
     // -------------------------------------------------------------------------
 
+    public static final UniqueKey<EventRecord> KEY_EVENT_PRIMARY = UniqueKeys0.KEY_EVENT_PRIMARY;
     public static final UniqueKey<IssueRecord> KEY_ISSUE_PRIMARY = UniqueKeys0.KEY_ISSUE_PRIMARY;
     public static final UniqueKey<SchemaVersionRecord> KEY_SCHEMA_VERSION_PRIMARY = UniqueKeys0.KEY_SCHEMA_VERSION_PRIMARY;
     public static final UniqueKey<UserRecord> KEY_USER_PRIMARY = UniqueKeys0.KEY_USER_PRIMARY;
@@ -57,11 +61,13 @@ public class Keys {
     // -------------------------------------------------------------------------
 
     private static class Identities0 extends AbstractKeys {
+        public static Identity<EventRecord, Long> IDENTITY_EVENT = createIdentity(Event.EVENT, Event.EVENT.ID);
         public static Identity<IssueRecord, Long> IDENTITY_ISSUE = createIdentity(Issue.ISSUE, Issue.ISSUE.ID);
         public static Identity<UserRecord, Long> IDENTITY_USER = createIdentity(User.USER, User.USER.ID);
     }
 
     private static class UniqueKeys0 extends AbstractKeys {
+        public static final UniqueKey<EventRecord> KEY_EVENT_PRIMARY = createUniqueKey(Event.EVENT, "KEY_event_PRIMARY", Event.EVENT.ID);
         public static final UniqueKey<IssueRecord> KEY_ISSUE_PRIMARY = createUniqueKey(Issue.ISSUE, "KEY_issue_PRIMARY", Issue.ISSUE.ID);
         public static final UniqueKey<SchemaVersionRecord> KEY_SCHEMA_VERSION_PRIMARY = createUniqueKey(SchemaVersion.SCHEMA_VERSION, "KEY_schema_version_PRIMARY", SchemaVersion.SCHEMA_VERSION.INSTALLED_RANK);
         public static final UniqueKey<UserRecord> KEY_USER_PRIMARY = createUniqueKey(User.USER, "KEY_user_PRIMARY", User.USER.ID);

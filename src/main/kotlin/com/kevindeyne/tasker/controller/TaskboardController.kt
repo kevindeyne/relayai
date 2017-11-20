@@ -1,6 +1,6 @@
 package com.kevindeyne.tasker.controller
 
-import com.kevindeyne.tasker.domain.IssueListing
+import com.kevindeyne.tasker.controller.form.IssueResponse
 import com.kevindeyne.tasker.repositories.IssueRepository
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
@@ -20,9 +20,7 @@ class TaskboardController(var issueRepository : IssueRepository) {
 	fun getTaskboard(model : Model) : String {
 		genericTaskboardBuildup(model)
 		
-		val issueList : List<IssueListing> = model.asMap().get("issueList") as List<IssueListing>
-		val firstIssue = issueList.first()
-		
+		val firstIssue : IssueResponse = issueRepository.findHighestPrioForUser()		
 		specificsTaskboardBuildup(model, firstIssue)
 		
 		return "taskboard"
@@ -38,23 +36,24 @@ class TaskboardController(var issueRepository : IssueRepository) {
 	@GetMapping(TASKBOARD_GET_SPECIFIC_ISSUE)
 	fun getTaskboardWithSpecificIssuePage(model : Model, @PathVariable issueId : String) : String {
 		genericTaskboardBuildup(model)
-		specificsTaskboardBuildup(model, issueRepository.findById(issueId.toLong()))
+		var reponse : IssueResponse = issueRepository.findById(issueId.toLong())
+		if(reponse.id == -1L){ return "redirect:/tasks" }
+		specificsTaskboardBuildup(model, reponse)
 		return "taskboard"
 	}
 	
-	
-	fun getCurrentUserId() = ""
+	///
 	
 	fun genericTaskboardBuildup(model : Model) {
-		val issueList = issueRepository.findAllForUser(getCurrentUserId())
+		val issueList = issueRepository.findAllForUser()
 		model.addAttribute("issueList", issueList);
-		model.addAttribute("urlPostIssue", IssueController.ISSUE_POST)
+		model.addAttribute("urlPostIssue", IssueController.ISSUE_DETAIL)
 	}
 	
-	fun specificsTaskboardBuildup(model : Model, issue : IssueListing) {
+	fun specificsTaskboardBuildup(model : Model, issue : IssueResponse) {
 		model.addAttribute("currentIssueId", issue.id)
 		model.addAttribute("currentIssueTitle", issue.title)
-		model.addAttribute("currentIssueDescription", issue.longDescr)
+		model.addAttribute("currentIssueDescription", issue.descr)
 		model.addAttribute("showCreatePage", false)
 	}
 	

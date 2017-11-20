@@ -71,9 +71,12 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
 body {
   display: flex;
   flex-flow: row;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
 }
 
-/* line 7, ../sass/_common.scss */
+/* line 11, ../sass/_common.scss */
 aside section, aside section p, aside section h1 {
   -webkit-user-select: none;
   /* Chrome all / Safari all */
@@ -85,12 +88,34 @@ aside section, aside section p, aside section h1 {
   /* Likely future */
 }
 
-/* line 15, ../sass/_common.scss */
+/* line 19, ../sass/_common.scss */
 #content-new-issue {
   display: none;
 }
 
-/* line 19, ../sass/_common.scss */
+/* line 23, ../sass/_common.scss */
+#overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 40;
+}
+/* line 32, ../sass/_common.scss */
+#overlay #overlay-detail {
+  position: absolute;
+  display: block;
+  top: 0;
+  left: 0;
+  width: 12em;
+  background-color: white;
+  margin-left: 1.9em;
+  margin-top: -0.5em;
+}
+
+/* line 44, ../sass/_common.scss */
 button {
   -webkit-transition: all 0.15s ease-out;
   -moz-transition: all 0.15s ease-out;
@@ -112,35 +137,35 @@ button {
   font-weight: bold;
   letter-spacing: 0.05em;
 }
-/* line 42, ../sass/_common.scss */
+/* line 67, ../sass/_common.scss */
 button span {
   padding: 0.5em;
   font-size: 0.85em;
 }
 
-/* line 48, ../sass/_common.scss */
+/* line 73, ../sass/_common.scss */
 button:hover {
   background-color: #da5185;
 }
 
-/* line 52, ../sass/_common.scss */
+/* line 77, ../sass/_common.scss */
 button.altpath {
   background-color: #808080;
   border-left: 1px solid #9c9c9c;
   border-bottom: 1px solid #4a4a4a;
 }
 
-/* line 58, ../sass/_common.scss */
+/* line 83, ../sass/_common.scss */
 button.altpath:hover {
   background-color: #9c9c9c;
 }
 
-/* line 62, ../sass/_common.scss */
+/* line 87, ../sass/_common.scss */
 .visible {
   display: block !important;
 }
 
-/* line 66, ../sass/_common.scss */
+/* line 91, ../sass/_common.scss */
 .invisible {
   display: none !important;
 }
@@ -158,7 +183,7 @@ article#loader section {
 /* line 11, ../sass/_loader.scss */
 article#loader section h1 {
   text-align: center;
-  font-family: "Roboto Slab";
+  font-family: "Roboto", Times New Roman, Helvetica, sans-serif;
   font-size: 3em;
   height: 1.5em;
   line-height: 1.5em;
@@ -189,30 +214,31 @@ nav {
   order: 1;
   padding: 1em 0 1em 1em;
   box-sizing: border-box;
-  font-family: Muli, Helvetica, sans-serif;
+  font-family: "Roboto", Times New Roman, Helvetica, sans-serif;
   font-size: 0.83em;
+  font-weight: 500;
   padding: 1em;
   padding-left: 0.5em;
 }
-/* line 20, ../sass/_menu.scss */
+/* line 21, ../sass/_menu.scss */
 nav a.hover {
   background-color: rgba(53, 57, 75, 0.5);
 }
-/* line 24, ../sass/_menu.scss */
+/* line 25, ../sass/_menu.scss */
 nav a {
   padding-left: 0.5em;
   padding-top: 0.65em;
   padding-bottom: 0.65em;
 }
-/* line 29, ../sass/_menu.scss */
+/* line 30, ../sass/_menu.scss */
 nav a i {
   padding-right: 0.25em;
 }
-/* line 34, ../sass/_menu.scss */
+/* line 35, ../sass/_menu.scss */
 nav a.active {
   background-color: #35394b;
 }
-/* line 38, ../sass/_menu.scss */
+/* line 39, ../sass/_menu.scss */
 nav button {
   -webkit-transition: all 0.15s ease-out;
   -moz-transition: all 0.15s ease-out;
@@ -230,30 +256,31 @@ nav button {
   cursor: pointer;
   margin-bottom: 0.5em;
   margin-top: 0.5em;
-  font-family: Muli, Helvetica, sans-serif;
+  font-family: "Roboto", Times New Roman, Helvetica, sans-serif;
 }
-/* line 58, ../sass/_menu.scss */
+/* line 59, ../sass/_menu.scss */
 nav button span {
   padding: 0.5em;
+  font-weight: 500;
 }
-/* line 63, ../sass/_menu.scss */
+/* line 65, ../sass/_menu.scss */
 nav button:hover {
   background-color: #da5185;
 }
 
 @media (max-width: 1201px) {
-  /* line 69, ../sass/_menu.scss */
+  /* line 71, ../sass/_menu.scss */
   nav {
     min-width: 50px;
     padding: 0.25em;
     font-size: 1.25em;
   }
-  /* line 74, ../sass/_menu.scss */
+  /* line 76, ../sass/_menu.scss */
   nav span {
     display: none !important;
   }
 }
-/* line 80, ../sass/_menu.scss */
+/* line 82, ../sass/_menu.scss */
 nav > a {
   width: 100%;
   display: block;
@@ -271,28 +298,31 @@ aside {
   flex: 3 1 15%;
   order: 2;
   color: #FFFFFF;
-  font-family: Muli, Helvetica, sans-serif;
+  font-family: "Roboto", Times New Roman, Helvetica, sans-serif;
   font-size: 0.83em;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
   cursor: pointer;
 }
-/* line 18, ../sass/_aside.scss */
+/* line 22, ../sass/_aside.scss */
 aside div.progress {
   display: block;
   width: 100%;
   height: 0.3em;
 }
 
-/* line 25, ../sass/_aside.scss */
+/* line 29, ../sass/_aside.scss */
 aside section:first-child {
   margin-top: 1em;
 }
 
-/* line 29, ../sass/_aside.scss */
+/* line 33, ../sass/_aside.scss */
 aside section:last-child {
   margin-bottom: 0.5em;
 }
 
-/* line 33, ../sass/_aside.scss */
+/* line 37, ../sass/_aside.scss */
 aside section {
   -webkit-transition: all 0.15s ease-out;
   -moz-transition: all 0.15s ease-out;
@@ -301,7 +331,7 @@ aside section {
   padding: 0.75em;
   width: 96%;
 }
-/* line 42, ../sass/_aside.scss */
+/* line 46, ../sass/_aside.scss */
 aside section i {
   float: right;
   color: #ff6e6e;
@@ -309,27 +339,28 @@ aside section i {
   line-height: 1.5em;
 }
 
-/* line 50, ../sass/_aside.scss */
+/* line 54, ../sass/_aside.scss */
 aside section.active {
   background-color: #c52864 !important;
 }
 
-/* line 54, ../sass/_aside.scss */
+/* line 58, ../sass/_aside.scss */
 aside section.hover {
   background-color: #42475d;
 }
 
-/* line 58, ../sass/_aside.scss */
+/* line 62, ../sass/_aside.scss */
 aside section > h1 {
-  font-weight: bold;
+  font-weight: 500;
   padding: 1em 1em 0.1em 1em;
   box-sizing: border-box;
 }
 
-/* line 64, ../sass/_aside.scss */
+/* line 68, ../sass/_aside.scss */
 aside section > p {
   padding: 1em;
   box-sizing: border-box;
+  font-weight: 300;
 }
 
 /* line 5, ../sass/_main.scss */
@@ -338,22 +369,22 @@ article {
   height: 100vh;
   flex: 3 1 60%;
   order: 3;
-  font-family: Open Sans, Times New Roman, Helvetica, sans-serif;
+  font-family: "Roboto", Times New Roman, Helvetica, sans-serif;
+  font-weight: 300;
   line-height: 1.4em;
 }
-/* line 16, ../sass/_main.scss */
+/* line 17, ../sass/_main.scss */
 article #content-userinfo, article #content-new-issue-title {
   position: fixed;
   background-color: #fbfbfb;
-  width: 100%;
   z-index: 35;
 }
 /* line 22, ../sass/_main.scss */
 article #content-userinfo h1, article #content-new-issue-title h1 {
   font-size: 2.35em;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
   color: #4e5369;
+  line-height: 1em;
+  width: 63vw;
 }
 /* line 29, ../sass/_main.scss */
 article #content-userinfo h2, article #content-new-issue-title h2 {
@@ -361,38 +392,69 @@ article #content-userinfo h2, article #content-new-issue-title h2 {
 }
 /* line 33, ../sass/_main.scss */
 article #content-userinfo h1, article #content-userinfo h2, article #content-new-issue-title h1, article #content-new-issue-title h2 {
-  padding: 0.5em 0.05em 0.25em 0.05em;
-  font-family: "Roboto Slab";
+  padding: 0em 0.05em 0.25em 0.05em;
+  font-family: "Roboto", Times New Roman, Helvetica, sans-serif;
+}
+/* line 38, ../sass/_main.scss */
+article #content-userinfo #content-userinfo-details, article #content-new-issue-title #content-userinfo-details {
+  padding-top: 0.7em;
+  height: 3.6em;
+}
+/* line 42, ../sass/_main.scss */
+article #content-userinfo #content-userinfo-details .userinfo-details-col, article #content-new-issue-title #content-userinfo-details .userinfo-details-col {
+  float: left;
+  width: 30%;
+}
+/* line 46, ../sass/_main.scss */
+article #content-userinfo #content-userinfo-details .userinfo-details-col p, article #content-new-issue-title #content-userinfo-details .userinfo-details-col p {
+  padding-left: 0;
+  padding-bottom: 8px;
+  padding-top: 0;
+  padding-right: 0;
+}
+/* line 55, ../sass/_main.scss */
+article #content-userinfo #content-userinfo-attachments, article #content-new-issue-title #content-userinfo-attachments {
+  clear: both;
+}
+/* line 58, ../sass/_main.scss */
+article #content-userinfo #content-userinfo-attachments p, article #content-new-issue-title #content-userinfo-attachments p {
+  padding-left: 0;
+}
+/* line 64, ../sass/_main.scss */
+article span.changeable {
+  background-color: lightgray;
+  padding: 2px 5px;
+  cursor: pointer;
 }
 
 @media (max-width: 851px) {
-  /* line 41, ../sass/_main.scss */
+  /* line 72, ../sass/_main.scss */
   article {
     display: none;
   }
 }
-/* line 46, ../sass/_main.scss */
+/* line 77, ../sass/_main.scss */
 article section {
   padding: 1em;
   box-sizing: border-box;
 }
-/* line 50, ../sass/_main.scss */
+/* line 81, ../sass/_main.scss */
 article section section:first-child {
   padding-top: 4.5em;
 }
 
-/* line 55, ../sass/_main.scss */
-article#main section p:first-child {
-  padding-top: 7em;
+/* line 86, ../sass/_main.scss */
+article#main section#content-main p:first-child {
+  padding-top: 13em;
 }
 
-/* line 59, ../sass/_main.scss */
+/* line 90, ../sass/_main.scss */
 article section p {
   padding: 0.5em;
   box-sizing: border-box;
 }
 
-/* line 64, ../sass/_main.scss */
+/* line 95, ../sass/_main.scss */
 article section p.code {
   font-family: "Cutive Mono", "Courier";
   font-size: 1em;
@@ -406,21 +468,28 @@ article section p.code {
 article form {
   padding-left: 0.5em;
   padding-top: 2em;
+  font-weight: 300;
 }
-/* line 7, ../sass/_forms.scss */
+/* line 8, ../sass/_forms.scss */
 article form label {
   display: block;
   padding: 0.5em;
   width: 90%;
   font-size: 0.9em;
-  padding-bottom: 0.1em;
+  padding-bottom: 0.4em;
   padding-left: 0em;
-  font-weight: bold;
   color: #565656;
   position: relative;
   top: 1.05em;
+  font-weight: 500;
 }
 /* line 20, ../sass/_forms.scss */
+article form label span.error {
+  padding-left: 1em;
+  font-weight: 300;
+  color: red;
+}
+/* line 27, ../sass/_forms.scss */
 article form input[type=text], article form textarea, article form select, article form option {
   -webkit-transition: all 0.30s ease-in-out;
   -moz-transition: all 0.30s ease-in-out;
@@ -435,45 +504,47 @@ article form input[type=text], article form textarea, article form select, artic
   border-bottom: 1px solid #d9dae0;
   outline: none;
   line-height: 1.5em;
-  font-family: Muli, Helvetica, sans-serif;
+  font-family: "Roboto", Times New Roman, Helvetica, sans-serif;
   font-size: 0.9em;
+  font-weight: 300;
   resize: none;
 }
-/* line 41, ../sass/_forms.scss */
+/* line 48, ../sass/_forms.scss */
 article form input[type=text], article form textarea, article form select {
   background-color: #fbfbfb;
   font-size: 1.5em;
 }
-/* line 46, ../sass/_forms.scss */
+/* line 53, ../sass/_forms.scss */
 article form option {
   color: #000000 !important;
 }
-/* line 50, ../sass/_forms.scss */
+/* line 57, ../sass/_forms.scss */
 article form input[type=text]:focus, article form textarea:focus, article form select:focus {
   border-bottom: 1px solid #ef0d63;
   color: #000000;
 }
-/* line 55, ../sass/_forms.scss */
+/* line 62, ../sass/_forms.scss */
 article form button {
-  font-family: Muli, Helvetica, sans-serif;
+  font-family: "Roboto", Times New Roman, Helvetica, sans-serif;
   height: 3em;
   width: 7em;
   text-align: center !important;
   text-transform: uppercase;
-  font-weight: bold;
+  font-weight: 300;
   letter-spacing: 0.05em;
 }
-/* line 65, ../sass/_forms.scss */
+/* line 72, ../sass/_forms.scss */
 article form div.button-group {
   display: block;
   margin-top: 1em;
 }
 
-/* line 71, ../sass/_forms.scss */
+/* line 78, ../sass/_forms.scss */
 span.length-limiter {
   color: #c52864;
   font-weight: bold;
   display: block;
   position: relative;
   top: -0.25em;
+  font-weight: 300;
 }
