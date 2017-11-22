@@ -1,6 +1,9 @@
 package com.kevindeyne.tasker.controller
 
 import com.kevindeyne.tasker.controller.form.IssueResponse
+import com.kevindeyne.tasker.domain.Impact
+import com.kevindeyne.tasker.domain.Progress
+import com.kevindeyne.tasker.domain.Urgency
 import com.kevindeyne.tasker.repositories.IssueRepository
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
@@ -48,6 +51,10 @@ class TaskboardController(var issueRepository : IssueRepository) {
 		val issueList = issueRepository.findAllForUser()
 		model.addAttribute("issueList", issueList);
 		model.addAttribute("urlPostIssue", IssueController.ISSUE_DETAIL)
+		
+		model.addAttribute("progressStates", Progress.values());
+		model.addAttribute("impactStates", Impact.values());
+		model.addAttribute("urgencyStates", Urgency.values());
 	}
 	
 	fun specificsTaskboardBuildup(model : Model, issue : IssueResponse) {

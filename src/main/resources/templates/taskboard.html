@@ -13,7 +13,7 @@
 	<article th:replace="fragments/new-issue :: content-article">New issue</article>
 	<article th:replace="fragments/loaders :: content-loader">Saving loader</article>
 	
-	<div id="overlay"></div>
+	<div th:replace="fragments/issue :: overlay-edits">Overlay and editing capability</div>
 	
 	<script src="/js/jquery-3.2.1.min.js"></script>
 	<script src="/js/simple-scrollbar.min.js"></script>
@@ -26,31 +26,6 @@
 	<script src="/js/taskr-notification-pulling.js"></script>
 	<script src="/js/taskr-aside.js"></script>
 	<script src="/js/taskr-new-issue.js"></script>
-		
-	<script>
-		$(document).ready(function() {
-			
-			$("span.changeable").click(function(){
-				var position = $(this).position();
-				$("#overlay").append($("<div id='overlay-detail' />"));
-				$("#overlay").show().css({opacity: '0'}).animate({opacity: '1'}, "fast");				
-				var left = $("nav").width() + $("aside").width() + position.left;
-				$("#overlay-detail").css({ "left": left, "top": position.top }).animate({height: '22em'}, "fast");
-			});
-			
-			$("#overlay").click(function(e){
-				var position = $("#overlay-detail").position();
-				if((e.pageX < position.left || e.pageX > (position.left + $("#overlay-detail").width())) 
-					|| (e.pageY < position.top || e.pageY > (position.top + $("#overlay-detail").height()))) {
-					closeOverlay();	
-				}
-			});
-			
-			function closeOverlay(){
-				$("#overlay").hide();
-				$("#overlay-detail").remove();	
-			}
-		});
-	</script>
+	<script src="/js/taskr-edit-overlay.js"></script>
 </body>
 </html>

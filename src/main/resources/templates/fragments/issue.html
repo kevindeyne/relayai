@@ -3,6 +3,31 @@
 <head></head>
 <body>
 
+	<div id="overlay" th:fragment="overlay-edits">
+		<div id="overlay-detail">
+			<p><span></span>: <span class="changing"></span></p>
+			<hr/>
+
+			<ul id="overlay-progress" class="overlay-options">
+				<li th:each="progressState : ${progressStates}" th:text="${progressState.text}" th:data-value="${progressState}">New, Backlog, In Progress, ...</li>
+			</ul>
+			
+			<ul id="overlay-impact" class="overlay-options">
+				<li th:each="impactState : ${impactStates}" th:text="${impactState.text}" th:data-value="${impactState}">High impact, Low impact, ...</li>
+			</ul>
+			
+			<ul id="overlay-urgency" class="overlay-options">
+				<li th:each="urgencyState : ${urgencyStates}" th:text="${urgencyState.text}" th:data-value="${urgencyState}">High priority, Low urgency, ...</li>
+			</ul>
+			
+			
+			<div class="button-group">
+				<button id="edit-changer-submit" type="button">Change</button>
+				<button type="button" class="altpath">Cancel</button>
+			</div>
+		</div>
+	</div>
+	
 	<aside th:fragment="issue-list" th:classappend="${showCreatePage}?invisible">
 		<section th:each="issue : ${issueList}" th:issue-id="${issue.id}" th:classappend="${currentIssueId == issue.id}?active">
 			<h1 th:text="${issue.title}"></h1>
@@ -14,7 +39,7 @@
 	<article id="main" th:fragment="main-article" th:classappend="${showCreatePage}?invisible">
 		<section id="content-userinfo">
 			<h1>This is an issue</h1>
-			<h2><span class="changeable">In progress</span> - assigned to <span class="changeable">you</span></h2>
+			<h2><span class="changeable" data-status="Current status" id="change-progress">In progress</span> - assigned to <span class="changeable" data-status="Current assignee" id="change-assignee">you</span></h2>
 			
 			<div id="content-userinfo-details">
 				<div class="userinfo-details-col">
@@ -22,11 +47,11 @@
 					<p>on 21 November 2015</p>
 				</div>			
 				<div class="userinfo-details-col">
-					<p><span class="changeable">High impact</span></p>
-					<p><span class="changeable">Low urgency</span></p>
-				</div>				
+					<p><span class="changeable" data-status="Current impact" id="change-impact">High impact</span></p>
+					<p><span class="changeable" data-status="Current urgency" id="change-urgency">Low urgency</span></p>
+				</div>
 				<div class="userinfo-details-col">
-					<p><span class="changeable">No fix version yet</span></p>
+					<p><span class="changeable" data-status="Current fix version" id="change-fix">No fix version yet</span></p>
 					<p>SLA on time</p>
 				</div>
 			</div>

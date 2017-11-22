@@ -1,6 +1,6 @@
 $(document).ready(function() {
 	//tasklist, nav hover on taskboard
-	$("aside section, nav a").mouseenter(function(){
+	$("aside section, nav a, ul.overlay-options li").mouseenter(function(){
 		if(!$(this).hasClass("active")){
 			$(this).addClass("hover");
 		}				
