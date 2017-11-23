@@ -12,13 +12,22 @@ $(function() {
 		  for (var newIssueIndex in data.newIssues) {
 			var newIssue = data.newIssues[newIssueIndex];
 			if(newIssue.id > maxid){ maxid = newIssue.id; }
-		    var newSection = $("<section><h1>"+newIssue.title+"</h1><p>"+newIssue.descr+"</p><div id='progress-"+newIssue.id+"' class='progress'></div></section>");
-		    $("aside.ss-container div.ss-content").prepend(newSection);		    
+			cloneAndPrepend(newIssue);
 		  }
 		});
 		
 		//load this data into jStorage for other tabs to read
 		$.jStorage.set("pulling-demo", $.jStorage.get("pulling-demo", 0) +1, {TTL: 60000})
+	}
+	
+	function cloneAndPrepend(newIssue){
+		var newSection = $("aside section:first").clone(true, true);
+		newSection.removeClass("active");
+		newSection.attr("issue-id", newIssue.id)
+		newSection.find("h1").text(newIssue.title);
+		newSection.find("p").text(newIssue.descr);
+		newSection.find("div").attr("id", "progress-"+newIssue.id);	
+	    $("aside.ss-container div.ss-content").prepend(newSection);		
 	}
 	
 	//
