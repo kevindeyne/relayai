@@ -2,6 +2,7 @@ package com.kevindeyne.tasker.controller
 
 import com.kevindeyne.tasker.controller.form.IssueResponse
 import com.kevindeyne.tasker.domain.Impact
+import com.kevindeyne.tasker.domain.IssueListing
 import com.kevindeyne.tasker.domain.Progress
 import com.kevindeyne.tasker.domain.Urgency
 import com.kevindeyne.tasker.repositories.IssueRepository
@@ -55,7 +56,11 @@ class TaskboardController(var issueRepository : IssueRepository) {
 		model.addAttribute("progressStates", Progress.values());
 		model.addAttribute("impactStates", Impact.values());
 		model.addAttribute("urgencyStates", Urgency.values());
+		
+		model.addAttribute("maxid", determineMaxId(issueList));
 	}
+	
+	fun determineMaxId(list : List<IssueListing>) : Long =  list.stream().mapToLong{ i -> i.id }.max().asLong
 	
 	fun specificsTaskboardBuildup(model : Model, issue : IssueResponse) {
 		model.addAttribute("currentIssueId", issue.id)

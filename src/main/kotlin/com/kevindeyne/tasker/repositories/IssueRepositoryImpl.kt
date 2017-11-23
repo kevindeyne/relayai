@@ -5,10 +5,10 @@ import com.kevindeyne.tasker.domain.IssueListing
 import com.kevindeyne.tasker.jooq.Tables
 import com.kevindeyne.tasker.jooq.tables.records.IssueRecord
 import org.jooq.DSLContext
-import org.jooq.Result
 import org.jooq.tools.StringUtils
 import org.springframework.stereotype.Component
 import org.springframework.transaction.annotation.Transactional
+import java.sql.Timestamp
 import java.util.stream.Collectors
 
 @Component
@@ -59,7 +59,32 @@ open class IssueRepositoryImpl (val dsl: DSLContext) : IssueRepository {
 			      n -> IssueResponse(n.get(Tables.ISSUE.ID),
 									 n.get(Tables.ISSUE.TITLE),
 									 n.get(Tables.ISSUE.DESCRIPTION))
-			   }	
+			   }
+	}
+	
+	@Transactional
+	override fun create(title : String, description : String) {
+		var timestamp : Timestamp = Timestamp(System.currentTimeMillis());
+		dsl.insertInto(Tables.ISSUE, Tables.ISSUE.TITLE, Tables.ISSUE.DESCRIPTION, Tables.ISSUE.ASSIGNED,
+				Tables.ISSUE.CREATE_USER, Tables.ISSUE.UPDATE_USER, Tables.ISSUE.CREATE_DATE, Tables.ISSUE.UPDATE_DATE)
+		   .values(title, description, 0L, "0", "0", timestamp, timestamp)
+		   .execute();
+	}
+	
+	@Transactional
+	override fun findUpdateOnIssues(sprintid : String, maxid : String) : List<IssueResponse> {
+		return dsl.selectFrom(Tables.ISSUE)
+			   .where(Tables.ISSUE.ASSIGNED.eq(getCurrentUserId()))
+			   .and(Tables.ISSUE.ID.gt(maxid.toLong()))
+			   .orderBy(Tables.ISSUE.CREATE_DATE.desc()) //by importance
+			   .fetch()
+			   .parallelStream()
+			   .map {
+			      n -> IssueResponse(n.get(Tables.ISSUE.ID),
+									 n.get(Tables.ISSUE.TITLE),
+									 abbreviate(n.get(Tables.ISSUE.DESCRIPTION)))
+			   }
+			   .collect(Collectors.toList())		
 	}
 	
 	private fun abbreviate(field : String) : String {

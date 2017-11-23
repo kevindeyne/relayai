@@ -15,6 +15,11 @@
 	
 	<div th:replace="fragments/issue :: overlay-edits">Overlay and editing capability</div>
 	
+	<script th:inline="javascript">
+	/*<![CDATA[*/
+	    var maxid = [[${maxid}]];
+	/*]]>*/
+	</script>
 	<script src="/js/jquery-3.2.1.min.js"></script>
 	<script src="/js/simple-scrollbar.min.js"></script>
 	<script src="/js/progressbar.min.js"></script>
