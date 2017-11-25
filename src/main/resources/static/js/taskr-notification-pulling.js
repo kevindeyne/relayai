@@ -8,13 +8,20 @@ $(function() {
 		var sprintId = "1";
 		var issueid = "4";
 		
-		$.getJSON("/pull/"+sprintId+"/"+issueid+"/"+maxid, function(data) {
-		  for (var newIssueIndex in data.newIssues) {
-			var newIssue = data.newIssues[newIssueIndex];
-			if(newIssue.id > maxid){ maxid = newIssue.id; }
-			cloneAndPrepend(newIssue);
-		  }
-		});
+		
+		if(typeof(maxid) === "undefined"){
+			$.getJSON("/pull/"+sprintId, function(data) {
+			  //notifications only
+			});
+		} else {
+			$.getJSON("/pull/"+sprintId+"/"+issueid+"/"+maxid, function(data) {
+			  for (var newIssueIndex in data.newIssues) {
+				var newIssue = data.newIssues[newIssueIndex];
+				if(newIssue.id > maxid){ maxid = newIssue.id; }
+				cloneAndPrepend(newIssue);
+			  }
+			});
+		}
 		
 		//load this data into jStorage for other tabs to read
 		$.jStorage.set("pulling-demo", $.jStorage.get("pulling-demo", 0) +1, {TTL: 60000})

@@ -139,11 +139,17 @@ button.altpath:hover {
 }
 
 /* line 68, ../sass/_common.scss */
+i.fa {
+  width: 1.2em;
+  text-align: center;
+}
+
+/* line 73, ../sass/_common.scss */
 .visible {
   display: block !important;
 }
 
-/* line 72, ../sass/_common.scss */
+/* line 77, ../sass/_common.scss */
 .invisible {
   display: none !important;
 }
@@ -352,26 +358,26 @@ article {
   line-height: 1.4em;
 }
 /* line 17, ../sass/_main.scss */
-article #content-userinfo, article #content-new-issue-title {
-  position: fixed;
-  background-color: #fbfbfb;
-  z-index: 35;
-}
-/* line 22, ../sass/_main.scss */
-article #content-userinfo h1, article #content-new-issue-title h1 {
+article h1 {
   font-size: 2.35em;
   color: #4e5369;
   line-height: 1em;
   width: 63vw;
 }
-/* line 29, ../sass/_main.scss */
-article #content-userinfo h2, article #content-new-issue-title h2 {
+/* line 24, ../sass/_main.scss */
+article h2 {
   font-size: 1.25em;
 }
-/* line 33, ../sass/_main.scss */
-article #content-userinfo h1, article #content-userinfo h2, article #content-new-issue-title h1, article #content-new-issue-title h2 {
+/* line 28, ../sass/_main.scss */
+article h1, article h2 {
   padding: 0em 0.05em 0.25em 0.05em;
   font-family: "Roboto", Times New Roman, Helvetica, sans-serif;
+}
+/* line 33, ../sass/_main.scss */
+article #content-userinfo, article #content-new-issue-title {
+  position: fixed;
+  background-color: #fbfbfb;
+  z-index: 35;
 }
 /* line 38, ../sass/_main.scss */
 article #content-userinfo #content-userinfo-details, article #content-new-issue-title #content-userinfo-details {
@@ -434,6 +440,54 @@ article section p.code {
   color: #ffffff;
   padding: 0.8em;
   margin: 0.5em;
+}
+
+/* line 5, ../sass/_standup.scss */
+#team-progress h2, #team-progress h3 {
+  clear: both;
+}
+/* line 9, ../sass/_standup.scss */
+#team-progress h3 {
+  background: #35394B;
+  color: #fbfbfb;
+  padding: 0.5em;
+  padding-left: 0.75em;
+  margin-top: 0.5em;
+  font-size: 1.1em;
+}
+/* line 17, ../sass/_standup.scss */
+#team-progress h3 i {
+  text-align: left;
+}
+/* line 23, ../sass/_standup.scss */
+#team-progress div section.daily-issue:last-child {
+  margin-bottom: 1em;
+}
+/* line 27, ../sass/_standup.scss */
+#team-progress div section.daily-issue {
+  padding: 0.75em;
+  width: 49%;
+  float: left;
+  padding: 1em 1em 0.1em 1em;
+  box-sizing: border-box;
+}
+/* line 34, ../sass/_standup.scss */
+#team-progress div section.daily-issue h4 {
+  font-weight: 500;
+}
+/* line 37, ../sass/_standup.scss */
+#team-progress div section.daily-issue h4 a, #team-progress div section.daily-issue h4 a:link, #team-progress div section.daily-issue h4 a:active, #team-progress div section.daily-issue h4 a:visited {
+  color: #1b1e2b;
+  text-decoration: none;
+}
+/* line 42, ../sass/_standup.scss */
+#team-progress div section.daily-issue h4 a:hover {
+  color: #35394b;
+  text-decoration: none;
+}
+/* line 47, ../sass/_standup.scss */
+#team-progress div section.daily-issue h4 span.mine {
+  color: #fb0764;
 }
 
 /* line 3, ../sass/_forms.scss */
@@ -546,10 +600,14 @@ span.length-limiter {
   line-height: 1.4em;
 }
 /* line 26, ../sass/_overlay.scss */
+#overlay #overlay-detail .overlay-options {
+  display: none;
+}
+/* line 30, ../sass/_overlay.scss */
 #overlay #overlay-detail hr {
   border: 1px solid #ececec;
 }
-/* line 30, ../sass/_overlay.scss */
+/* line 34, ../sass/_overlay.scss */
 #overlay #overlay-detail p {
   padding-top: 0.7em;
   padding-left: 0.7em;
@@ -560,28 +618,28 @@ span.length-limiter {
   -o-transition: color 0 ease-in;
   transition: none;
 }
-/* line 42, ../sass/_overlay.scss */
+/* line 46, ../sass/_overlay.scss */
 #overlay #overlay-detail ul {
   padding-left: 0.5em;
   margin-bottom: 0.5em;
 }
-/* line 46, ../sass/_overlay.scss */
+/* line 50, ../sass/_overlay.scss */
 #overlay #overlay-detail ul li {
   margin: 0.2em;
   cursor: pointer;
   padding: 0.4em 0em 0.4em 0.4em;
   margin-right: 1em;
 }
-/* line 53, ../sass/_overlay.scss */
+/* line 57, ../sass/_overlay.scss */
 #overlay #overlay-detail ul li.active {
-  background: #e2376d;
-  color: white;
+  background-color: #c52864 !important;
+  color: #ffffff;
 }
-/* line 58, ../sass/_overlay.scss */
+/* line 62, ../sass/_overlay.scss */
 #overlay #overlay-detail ul li.hover {
   background: #e6e6e6;
 }
-/* line 63, ../sass/_overlay.scss */
+/* line 67, ../sass/_overlay.scss */
 #overlay #overlay-detail span.changing {
   background-color: lightgray;
   padding: 2px 5px;
@@ -589,14 +647,14 @@ span.length-limiter {
   font-weight: 300;
   line-height: 1.4em;
 }
-/* line 72, ../sass/_overlay.scss */
+/* line 76, ../sass/_overlay.scss */
 #overlay #overlay-detail div.button-group {
   background: #e6e6e6;
   padding-left: 0.5em;
   padding-top: 0.15em;
   margin-top: 0.7em;
 }
-/* line 78, ../sass/_overlay.scss */
+/* line 82, ../sass/_overlay.scss */
 #overlay #overlay-detail div.button-group button, #overlay #overlay-detail div.button-group button.altpath {
   font-family: "Roboto", Times New Roman, Helvetica, sans-serif;
   height: 3em;
@@ -610,13 +668,13 @@ span.length-limiter {
   border: none;
   font-weight: 500;
 }
-/* line 93, ../sass/_overlay.scss */
+/* line 97, ../sass/_overlay.scss */
 #overlay #overlay-detail div.button-group button:hover {
   background-color: #35394B;
   color: #fbfbfb;
 }
 
-/* line 101, ../sass/_overlay.scss */
+/* line 105, ../sass/_overlay.scss */
 span.changeable {
   background-color: lightgray;
   padding: 2px 5px;
@@ -624,4 +682,9 @@ span.changeable {
   font-family: "Roboto", Times New Roman, Helvetica, sans-serif;
   font-weight: 300;
   line-height: 1.4em;
+}
+
+/* line 115, ../sass/_overlay.scss */
+span.changeable:hover {
+  background-color: #ececec;
 }

@@ -1,8 +1,8 @@
 package com.kevindeyne.tasker.repositories
 
 import com.kevindeyne.tasker.controller.form.IssueResponse
+import com.kevindeyne.tasker.controller.form.StandupResponse
 import com.kevindeyne.tasker.domain.IssueListing
-import java.sql.Timestamp
 
 interface IssueRepository {
 	fun findAllForUser() : List<IssueListing>
@@ -13,5 +13,7 @@ interface IssueRepository {
 	
 	fun create(title : String, description : String)
 	
-	fun findUpdateOnIssues(sprintid : String, maxid : String) : List<IssueResponse>
+	fun findUpdateOnIssues(sprintid : String, maxid : String) : List<IssueResponse> //TODO move to pulling 
+	
+	fun findStandupIssuesForSprint(sprintid : Long) : List<StandupResponse>
 }

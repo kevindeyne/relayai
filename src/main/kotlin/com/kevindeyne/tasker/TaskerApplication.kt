@@ -6,7 +6,7 @@ import org.springframework.context.annotation.PropertySource
 import org.springframework.jms.annotation.EnableJms
 
 @SpringBootApplication
-@PropertySource("classpath:application.properties")
+@PropertySource("application.properties")
 open class TaskerApplication
 
 fun main(args: Array<String>) {

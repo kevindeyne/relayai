@@ -1,6 +1,7 @@
 package com.kevindeyne.tasker.repositories
 
 import com.kevindeyne.tasker.controller.form.IssueResponse
+import com.kevindeyne.tasker.controller.form.StandupResponse
 import com.kevindeyne.tasker.domain.IssueListing
 import com.kevindeyne.tasker.jooq.Tables
 import com.kevindeyne.tasker.jooq.tables.records.IssueRecord
@@ -85,6 +86,11 @@ open class IssueRepositoryImpl (val dsl: DSLContext) : IssueRepository {
 									 abbreviate(n.get(Tables.ISSUE.DESCRIPTION)))
 			   }
 			   .collect(Collectors.toList())		
+	}
+	
+	@Transactional
+	override fun findStandupIssuesForSprint(sprintid : Long) : List<StandupResponse> {
+		return ArrayList<StandupResponse>();
 	}
 	
 	private fun abbreviate(field : String) : String {

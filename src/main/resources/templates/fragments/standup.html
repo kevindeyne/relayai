@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head></head>
+<body>
+
+	<article id="main" th:fragment="main-article">
+		<section>
+			<h1>Daily overview</h1>
+			<h2>Good work, everyone! This shows the progress you and your
+				team made every day.</h2>
+		</section>
+		
+		<section>
+			<h2>Sprint progress for <span class="changeable">18 December 2017</span></h2>
+
+			<div class="chart-container" style="position: relative; height:25vh; width:81vw">
+			    <canvas id="chart"></canvas>
+			</div>
+		</section>
+		
+		<section id="team-progress">
+			<h2>Team progress</h2>
+			
+			<h3><i class="fa fa-question-circle" aria-hidden="true"></i> Help requested</h3>
+			<div>
+				<section th:each="issue : ${issueList1}" th:issue-id="${issue.id}" class="daily-issue help">
+					<h4><a th:text="${issue.title}" href="#"></a></h4>
+					<p th:text="${issue.shortDescr}"></p>
+				</section>
+			</div>
+
+			<h3><i class="fa fa-cogs" aria-hidden="true"></i> In progress</h3>
+			<div>
+				<section th:each="issue : ${issueList2}" th:issue-id="${issue.id}" class="daily-issue inprogress">
+					<h4><a th:text="${issue.title}" href="#"></a></h4>
+					<p th:text="${issue.shortDescr}"></p>
+				</section>
+			</div>
+
+			<h3><i class="fa fa-check" aria-hidden="true"></i> Finished</h3>
+			<div>
+				<section th:each="issue : ${issueList3}" th:issue-id="${issue.id}" class="daily-issue finished">
+					<h4><a th:text="${issue.title}" href="#"></a></h4>
+					<p th:text="${issue.shortDescr}"></p>
+				</section>
+			</div>
+		</section>
+	</article>
+
+</body>
+</html>

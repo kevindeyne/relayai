@@ -45,6 +45,8 @@ $(document).ready(function() {
 	if(localStorage.getItem("current-issue") !== undefined && $("aside section.active").length == 0) {
 		$("section[issue-id='"+localStorage.getItem("current-issue")+"']").addClass("active");
 	}
+	
+	$('aside .ss-content').animate({ scrollTop: $("section.active").offset().top-10 }, 1); //scroll to active - convenience; for clarity we probably want to keep the active one fixed and inbox moving TODO
 });
 
 function handleIssueLoaded(latestClickedIssue, progressLine, issueLoadingAnimationDone, issueLoadingDone, issueId){

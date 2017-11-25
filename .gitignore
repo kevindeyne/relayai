@@ -25,4 +25,4 @@ nbdist/
 *.jar
 .mvn/wrapper/maven-wrapper.properties
 mvnw
-*.cmd
+mvnw.cmd
