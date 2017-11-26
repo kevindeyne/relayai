@@ -1,0 +1,45 @@
+article {
+	section.comments {
+		padding-top: 0.1em;
+		padding-bottom: 0.5em;
+	
+		h2{
+			font-family: "Roboto Slab";
+			font-size: 1.5em;
+			position: relative;
+			left: -0.5em;
+		}
+	}
+
+	section.accordion {
+		padding-top: 0.75em;
+		padding-bottom: 0.75em;
+				
+		h2{
+			cursor: pointer;
+			font-family: "Roboto Slab";
+			font-size: 1.5em;
+			padding-bottom: 0.55em;
+			position: relative;
+			left: -0.5em;
+		}
+		
+		.fa-folder-open-o {
+			display:none;
+		}
+		
+		.fa-folder-o {
+			display:inline-block;
+		}
+	}
+
+	section.accordion.open {
+		.fa-folder-open-o {
+			display:inline-block;
+		}
+		
+		.fa-folder-o {
+			display:none;
+		}
+	}
+}

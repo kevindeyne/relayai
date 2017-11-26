@@ -1,0 +1,79 @@
+$font-main: 'Roboto', Times New Roman, Helvetica, sans-serif;
+
+body {
+	display: flex;
+	flex-flow: row;
+	
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	text-rendering: optimizeLegibility;
+}
+
+aside {
+	section, section p, section h1 {
+	  -webkit-user-select: none;  /* Chrome all / Safari all */
+	  -moz-user-select: none;     /* Firefox all */
+	  -ms-user-select: none;      /* IE 10+ */
+	  user-select: none;          /* Likely future */  
+	}
+}
+
+#content-new-issue {
+	display: none;
+}
+
+button {
+	-webkit-transition: all 0.15s ease-out;
+	-moz-transition: all 0.15s ease-out;
+	-ms-transition: all 0.15s ease-out;
+	-o-transition: all 0.15s ease-out;
+	
+	display: inline-block;
+	text-align: left;
+	color: white;
+	background-color: #c52864;
+	border: none;
+	padding: 0.5em;
+	border-left: 1px solid #da5185;
+	border-bottom: 1px solid #a02051;
+	outline: none;
+	cursor: pointer;
+	margin-bottom: 0.5em;
+	margin-top: 0.5em;
+	
+    text-transform: uppercase;
+    font-weight: bold;
+    letter-spacing: 0.05em;
+	
+	span {
+		padding: 0.5em;
+		font-size: 0.85em;
+	}
+}
+
+button:hover {
+	background-color: #da5185;
+}
+
+button.altpath {
+	background-color: #808080;
+	border-left: 1px solid #9c9c9c;
+	border-bottom: 1px solid #4a4a4a;
+}
+
+button.altpath:hover {
+	background-color: #9c9c9c;
+}
+
+i.fa {
+    width: 1.2em;
+    text-align: center;
+}
+
+.visible{
+	display: block !important;
+}
+
+.invisible{
+	display: none !important;
+}

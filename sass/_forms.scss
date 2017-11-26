@@ -1,0 +1,85 @@
+$font-form: 'Roboto', Times New Roman, Helvetica, sans-serif;
+
+article form {	
+    padding-left: 0.5em;
+	padding-top: 2em;
+	font-weight: 300;
+	
+	label {
+		display: block;
+		padding: 0.5em;
+		width: 90%;
+		font-size: 0.9em;
+		padding-bottom: 0.4em;
+		padding-left: 0em;
+		color: #565656;
+		position: relative;
+		top: 1.05em;
+		font-weight: 500;
+		
+		span.error {
+		    padding-left: 1em;
+			font-weight: 300;
+			color: red;
+		}
+	}
+	
+	input[type=text], textarea, select, option {
+		-webkit-transition: all 0.30s ease-in-out;
+		-moz-transition: all 0.30s ease-in-out;
+		-ms-transition: all 0.30s ease-in-out;
+		-o-transition: all 0.30s ease-in-out;
+		outline: none;
+
+		padding: 0.5em;
+		width: 90%;
+		margin-bottom: 0.3em;
+		border-radius: 1px;
+		border: 1px solid #fbfbfb;
+		border-bottom: 1px solid #d9dae0;
+		outline: none;
+		line-height: 1.5em;
+		font-family: $font-form;
+		font-size:0.9em;
+		font-weight: 300;
+		resize: none;
+	}
+	
+	input[type=text], textarea, select {
+		background-color: #fbfbfb;
+		font-size: 1.5em;
+	}
+	
+	option {
+		color: #000000 !important;
+	}
+	 
+	input[type=text]:focus, textarea:focus, select:focus {
+	  border-bottom: 1px solid #ef0d63;
+	  color: #000000;
+	}
+	
+	button {
+		font-family: $font-menu;
+		height: 3em;
+		width: 7em;
+		text-align: center !important;
+		text-transform: uppercase;
+		font-weight: 300;
+		letter-spacing: 0.05em;
+	}
+			
+	div.button-group {
+		display: block;
+		margin-top: 1em;
+	}
+}
+
+span.length-limiter {
+    color: #c52864;
+    font-weight: bold;
+    display: block;
+    position: relative;
+    top: -0.25em;
+	font-weight: 300;
+}

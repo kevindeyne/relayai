@@ -6,7 +6,10 @@ package com.kevindeyne.tasker.jooq;
 
 import com.kevindeyne.tasker.jooq.tables.Event;
 import com.kevindeyne.tasker.jooq.tables.Issue;
+import com.kevindeyne.tasker.jooq.tables.Project;
+import com.kevindeyne.tasker.jooq.tables.ProjectUsers;
 import com.kevindeyne.tasker.jooq.tables.SchemaVersion;
+import com.kevindeyne.tasker.jooq.tables.Sprint;
 import com.kevindeyne.tasker.jooq.tables.User;
 
 import javax.annotation.Generated;
@@ -36,9 +39,24 @@ public class Tables {
     public static final Issue ISSUE = com.kevindeyne.tasker.jooq.tables.Issue.ISSUE;
 
     /**
+     * The table <code>taskr.project</code>.
+     */
+    public static final Project PROJECT = com.kevindeyne.tasker.jooq.tables.Project.PROJECT;
+
+    /**
+     * The table <code>taskr.project_users</code>.
+     */
+    public static final ProjectUsers PROJECT_USERS = com.kevindeyne.tasker.jooq.tables.ProjectUsers.PROJECT_USERS;
+
+    /**
      * The table <code>taskr.schema_version</code>.
      */
     public static final SchemaVersion SCHEMA_VERSION = com.kevindeyne.tasker.jooq.tables.SchemaVersion.SCHEMA_VERSION;
+
+    /**
+     * The table <code>taskr.sprint</code>.
+     */
+    public static final Sprint SPRINT = com.kevindeyne.tasker.jooq.tables.Sprint.SPRINT;
 
     /**
      * The table <code>taskr.user</code>.

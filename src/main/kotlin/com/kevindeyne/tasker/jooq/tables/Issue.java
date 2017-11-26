@@ -40,7 +40,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Issue extends TableImpl<IssueRecord> {
 
-    private static final long serialVersionUID = 1435433850;
+    private static final long serialVersionUID = -1381893844;
 
     /**
      * The reference instance of <code>taskr.issue</code>
@@ -96,6 +96,16 @@ public class Issue extends TableImpl<IssueRecord> {
     public final TableField<IssueRecord, String> UPDATE_USER = createField("update_user", org.jooq.impl.SQLDataType.VARCHAR(255).nullable(false), this, "");
 
     /**
+     * The column <code>taskr.issue.sprint_id</code>.
+     */
+    public final TableField<IssueRecord, Long> SPRINT_ID = createField("sprint_id", org.jooq.impl.SQLDataType.BIGINT.nullable(false), this, "");
+
+    /**
+     * The column <code>taskr.issue.project_id</code>.
+     */
+    public final TableField<IssueRecord, Long> PROJECT_ID = createField("project_id", org.jooq.impl.SQLDataType.BIGINT.nullable(false), this, "");
+
+    /**
      * Create a <code>taskr.issue</code> table reference
      */
     public Issue() {
@@ -137,7 +147,7 @@ public class Issue extends TableImpl<IssueRecord> {
      */
     @Override
     public List<Index> getIndexes() {
-        return Arrays.<Index>asList(Indexes.ISSUE_PRIMARY);
+        return Arrays.<Index>asList(Indexes.ISSUE_PRIMARY, Indexes.ISSUE_PROJECT_ID, Indexes.ISSUE_SPRINT_ID);
     }
 
     /**

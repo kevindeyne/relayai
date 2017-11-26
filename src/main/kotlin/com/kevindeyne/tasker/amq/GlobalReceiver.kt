@@ -1,10 +1,11 @@
 package com.kevindeyne.tasker.amq
 
-import com.kevindeyne.tasker.jooq.tables.Issue
 import com.kevindeyne.tasker.repositories.IssueRepository
+import org.springframework.context.annotation.DependsOn
 import org.springframework.jms.annotation.JmsListener
 import org.springframework.stereotype.Component
 
+@DependsOn("AMQConfig")
 @Component
 class GlobalReceiver(var issueRepository : IssueRepository) {
 	

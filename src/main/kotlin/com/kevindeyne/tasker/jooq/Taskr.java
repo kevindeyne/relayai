@@ -6,7 +6,10 @@ package com.kevindeyne.tasker.jooq;
 
 import com.kevindeyne.tasker.jooq.tables.Event;
 import com.kevindeyne.tasker.jooq.tables.Issue;
+import com.kevindeyne.tasker.jooq.tables.Project;
+import com.kevindeyne.tasker.jooq.tables.ProjectUsers;
 import com.kevindeyne.tasker.jooq.tables.SchemaVersion;
+import com.kevindeyne.tasker.jooq.tables.Sprint;
 import com.kevindeyne.tasker.jooq.tables.User;
 
 import java.util.ArrayList;
@@ -33,7 +36,7 @@ import org.jooq.impl.SchemaImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Taskr extends SchemaImpl {
 
-    private static final long serialVersionUID = -1847651895;
+    private static final long serialVersionUID = -218362385;
 
     /**
      * The reference instance of <code>taskr</code>
@@ -51,9 +54,24 @@ public class Taskr extends SchemaImpl {
     public final Issue ISSUE = com.kevindeyne.tasker.jooq.tables.Issue.ISSUE;
 
     /**
+     * The table <code>taskr.project</code>.
+     */
+    public final Project PROJECT = com.kevindeyne.tasker.jooq.tables.Project.PROJECT;
+
+    /**
+     * The table <code>taskr.project_users</code>.
+     */
+    public final ProjectUsers PROJECT_USERS = com.kevindeyne.tasker.jooq.tables.ProjectUsers.PROJECT_USERS;
+
+    /**
      * The table <code>taskr.schema_version</code>.
      */
     public final SchemaVersion SCHEMA_VERSION = com.kevindeyne.tasker.jooq.tables.SchemaVersion.SCHEMA_VERSION;
+
+    /**
+     * The table <code>taskr.sprint</code>.
+     */
+    public final Sprint SPRINT = com.kevindeyne.tasker.jooq.tables.Sprint.SPRINT;
 
     /**
      * The table <code>taskr.user</code>.
@@ -87,7 +105,10 @@ public class Taskr extends SchemaImpl {
         return Arrays.<Table<?>>asList(
             Event.EVENT,
             Issue.ISSUE,
+            Project.PROJECT,
+            ProjectUsers.PROJECT_USERS,
             SchemaVersion.SCHEMA_VERSION,
+            Sprint.SPRINT,
             User.USER);
     }
 }

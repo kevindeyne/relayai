@@ -1,0 +1,97 @@
+$font-main: 'Roboto', Times New Roman, Helvetica, sans-serif;
+$font-header: 'Roboto', Times New Roman, Helvetica, sans-serif;
+$font-code: 'Cutive Mono', 'Courier';
+
+article {
+	background-color: #fbfbfb;
+	
+	height: 100vh;
+	
+	flex: 3 1 60%;
+	order: 3;
+	
+	font-family: $font-main;
+	font-weight: 300;
+	line-height: 1.4em;
+	
+	h1 {
+		font-size: 2.35em;
+		color: #4e5369;
+		line-height: 1em;
+		width: 63vw;
+	}
+	
+	h2 {
+		font-size: 1.25em;		
+	}
+	
+	h1, h2 {
+		padding: 0em 0.05em 0.25em 0.05em;
+		font-family: $font-header;			
+	}
+	
+	#content-userinfo, #content-new-issue-title {
+		position: fixed;
+		background-color: #fbfbfb;
+		z-index: 35;
+
+		#content-userinfo-details {
+			padding-top: 0.7em;
+			height: 3.6em;
+			
+			.userinfo-details-col {
+				float: left;
+				width: 30%;
+				
+				p {
+					padding-left: 0;
+					padding-bottom: 8px;
+					padding-top: 0;
+					padding-right: 0;				
+				}
+			}
+		}
+		
+		#content-userinfo-attachments {
+			clear: both;
+
+			p {
+				padding-left: 0;			
+			}			
+		}
+	}
+	
+}
+
+@media (max-width: 851px) { 
+	article {
+		display: none;
+	}	
+}
+
+article section {
+	padding: 1em;
+	box-sizing: border-box;
+	
+	section:first-child {
+		padding-top: 4.5em;
+	}
+}
+
+article#main section#content-main p:first-child{
+	padding-top: 13em;
+}
+
+article section p{
+	padding: 0.5em;
+	box-sizing: border-box;
+}
+
+article section p.code{
+	font-family: $font-code;
+	font-size: 1em;
+	background-color: #212121;
+	color: #ffffff;
+	padding: 0.8em;
+	margin: 0.5em;
+}

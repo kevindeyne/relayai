@@ -1,0 +1,35 @@
+$font-loader: 'Roboto', Times New Roman, Helvetica, sans-serif;
+
+article#loader {
+	display: none;
+	
+	section {
+		margin-left: auto;
+		margin-right: auto;
+		margin-top: 10em;
+		
+		h1 {
+			text-align: center;
+			font-family: $font-loader;
+			font-size:3em;
+			height:1.5em;
+			line-height:1.5em;
+			display:block;
+			color: #da296c;
+		}
+		
+		div#savebar {
+			display:block;
+			margin-left: auto;
+			margin-right: auto;
+			text-align: center;
+			width:90%;
+			height:0.2em !important;
+			svg {
+				height:0.2em !important;	
+			}			
+		}
+	}
+
+}
+
