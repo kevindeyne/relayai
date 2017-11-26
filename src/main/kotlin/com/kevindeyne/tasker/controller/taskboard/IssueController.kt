@@ -19,14 +19,12 @@ class IssueController(var issueRepository : IssueRepository, var jmsTemplate : J
 	companion object {
 		const val ISSUE_DETAIL = "/issue/{id}"
 	}
-	
-	fun getCurrentUserId() = 0L
-	
+		
 	@PostMapping(ISSUE_DETAIL)
 	fun createOrEditIssue(@RequestBody form : IssueForm, @PathVariable id : String) : FormResponse {
 		var errors : Map<String, String>  = form.validate()
 		if(errors.isEmpty()){
-			jmsTemplate.convertAndSend("mailbox", AMQMessage(id, AMQMessageType.ISSUE_CREATE_OR_EDIT, "Hello world"))
+			jmsTemplate.convertAndSend("issues", AMQMessage(id, AMQMessageType.ISSUE_CREATE_OR_EDIT, "Hello world"))
 			//add to pulling notification table
 			return FormResponse(status = "OK")
 		} else{
@@ -38,6 +36,11 @@ class IssueController(var issueRepository : IssueRepository, var jmsTemplate : J
 	@GetMapping(ISSUE_DETAIL)
 	fun getIssue(@PathVariable id : String) : IssueResponse {
 		//validate access
-		return issueRepository.findById(id.toLong())
+		
+		val reponse = issueRepository.findById(id.toLong())		
+		if (reponse == null){
+			return IssueResponse(-1, "", "")
+		}
+		return reponse 
 	}	
 }

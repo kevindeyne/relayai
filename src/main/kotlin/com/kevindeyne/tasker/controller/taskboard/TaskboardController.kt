@@ -40,8 +40,8 @@ class TaskboardController(var issueRepository : IssueRepository) {
 	@GetMapping(TASKBOARD_GET_SPECIFIC_ISSUE)
 	fun getTaskboardWithSpecificIssuePage(model : Model, @PathVariable issueId : String) : String {
 		genericTaskboardBuildup(model)
-		var reponse : IssueResponse = issueRepository.findById(issueId.toLong())
-		if(reponse.id == -1L){ return "redirect:/tasks" }
+		var reponse : IssueResponse? = issueRepository.findById(issueId.toLong())
+		if(reponse == null){ return "redirect:/tasks" }
 		specificsTaskboardBuildup(model, reponse)
 		return "taskboard"
 	}

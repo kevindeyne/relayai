@@ -7,13 +7,13 @@ import com.kevindeyne.tasker.domain.IssueListing
 interface IssueRepository {
 	fun findAllForUser() : List<IssueListing>
 	
-	fun findById(issueId : Long) : IssueResponse
+	fun findById(issueId : Long) : IssueResponse?
 	
 	fun findHighestPrioForUser() : IssueResponse
 	
 	fun create(title : String, description : String)
 	
-	fun findUpdateOnIssues(sprintid : String, maxid : String) : List<IssueResponse> //TODO move to pulling 
+	fun findUpdateOnIssues(sprintid : Long, maxid : String) : List<IssueResponse> //TODO move to pulling 
 	
 	fun findStandupIssuesForSprint(sprintid : Long) : List<StandupResponse>
 }

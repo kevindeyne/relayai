@@ -5,16 +5,14 @@ $(function() {
 	//actual happy flow method being called x time
 	function activePull() {
 		//This is a pulling event that pulls every second.
-		var sprintId = "1";
 		var issueid = "4";
-		
-		
+				
 		if(typeof(maxid) === "undefined"){
-			$.getJSON("/pull/"+sprintId, function(data) {
+			$.getJSON("/pull", function(data) {
 			  //notifications only
 			});
 		} else {
-			$.getJSON("/pull/"+sprintId+"/"+issueid+"/"+maxid, function(data) {
+			$.getJSON("/pull/"+issueid+"/"+maxid, function(data) {
 			  for (var newIssueIndex in data.newIssues) {
 				var newIssue = data.newIssues[newIssueIndex];
 				if(newIssue.id > maxid){ maxid = newIssue.id; }

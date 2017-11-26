@@ -5,6 +5,7 @@ import com.kevindeyne.tasker.controller.form.StandupResponse
 import com.kevindeyne.tasker.domain.IssueListing
 import com.kevindeyne.tasker.jooq.Tables
 import com.kevindeyne.tasker.jooq.tables.records.IssueRecord
+import com.kevindeyne.tasker.service.SecurityHolder
 import org.jooq.DSLContext
 import org.jooq.tools.StringUtils
 import org.springframework.stereotype.Component
@@ -14,13 +15,11 @@ import java.util.stream.Collectors
 
 @Component
 open class IssueRepositoryImpl (val dsl: DSLContext) : IssueRepository {
-	
-	fun getCurrentUserId() = 0L
-	
+		
 	@Transactional
 	override fun findAllForUser() : List<IssueListing> {
 		return dsl.selectFrom(Tables.ISSUE)
-			   .where(Tables.ISSUE.ASSIGNED.eq(getCurrentUserId()))
+			   .where(Tables.ISSUE.ASSIGNED.eq(SecurityHolder.getUserId()))
 			   .orderBy(Tables.ISSUE.CREATE_DATE.desc()) //by importance
 			   .fetch()
 			   .parallelStream()
@@ -34,9 +33,9 @@ open class IssueRepositoryImpl (val dsl: DSLContext) : IssueRepository {
 	}
 	
 	@Transactional
-	override fun findById(issueId : Long) : IssueResponse {
+	override fun findById(issueId : Long) : IssueResponse? {
 		var response : IssueRecord? = dsl.selectFrom(Tables.ISSUE)
-			   .where(Tables.ISSUE.ID.eq(issueId).and(Tables.ISSUE.ASSIGNED.eq(getCurrentUserId())))
+			   .where(Tables.ISSUE.ID.eq(issueId).and(Tables.ISSUE.ASSIGNED.eq(SecurityHolder.getUserId())))
 			   .fetchOne();		
 		if(response != null){
 			return response.map {
@@ -45,14 +44,14 @@ open class IssueRepositoryImpl (val dsl: DSLContext) : IssueRepository {
 									 n.get(Tables.ISSUE.DESCRIPTION))
 			   }	
 		} else {
-			return IssueResponse(-1L, "", "")
+			return null
 		}	   
 	}
 	
 	@Transactional
 	override fun findHighestPrioForUser() : IssueResponse {
 		return dsl.selectFrom(Tables.ISSUE)
-			   .where(Tables.ISSUE.ASSIGNED.eq(getCurrentUserId()))
+			   .where(Tables.ISSUE.ASSIGNED.eq(SecurityHolder.getUserId()))
 			   .orderBy(Tables.ISSUE.CREATE_DATE.desc()) //by importance
 			   .limit(1)
 			   .fetchAny()
@@ -65,18 +64,25 @@ open class IssueRepositoryImpl (val dsl: DSLContext) : IssueRepository {
 	
 	@Transactional
 	override fun create(title : String, description : String) {
-		var timestamp : Timestamp = Timestamp(System.currentTimeMillis());
-		dsl.insertInto(Tables.ISSUE, Tables.ISSUE.TITLE, Tables.ISSUE.DESCRIPTION, Tables.ISSUE.ASSIGNED,
+		val timestamp = Timestamp(System.currentTimeMillis())
+		val userId = SecurityHolder.getUserId()
+		val sprintId = SecurityHolder.getSprintId()
+		val projectId = SecurityHolder.getProjectId()		
+		val createAndUpdateUser = userId.toString()
+		
+		dsl.insertInto(Tables.ISSUE,
+				Tables.ISSUE.TITLE, Tables.ISSUE.DESCRIPTION, Tables.ISSUE.ASSIGNED, Tables.ISSUE.SPRINT_ID, Tables.ISSUE.PROJECT_ID,
 				Tables.ISSUE.CREATE_USER, Tables.ISSUE.UPDATE_USER, Tables.ISSUE.CREATE_DATE, Tables.ISSUE.UPDATE_DATE)
-		   .values(title, description, 0L, "0", "0", timestamp, timestamp)
+		   .values(title, description, userId, sprintId, projectId, createAndUpdateUser, createAndUpdateUser, timestamp, timestamp)
 		   .execute();
 	}
 	
 	@Transactional
-	override fun findUpdateOnIssues(sprintid : String, maxid : String) : List<IssueResponse> {
+	override fun findUpdateOnIssues(sprintId : Long, maxid : String) : List<IssueResponse> {
 		return dsl.selectFrom(Tables.ISSUE)
-			   .where(Tables.ISSUE.ASSIGNED.eq(getCurrentUserId()))
+			   .where(Tables.ISSUE.ASSIGNED.eq(SecurityHolder.getUserId()))
 			   .and(Tables.ISSUE.ID.gt(maxid.toLong()))
+			   .and(Tables.ISSUE.SPRINT_ID.gt(sprintId))
 			   .orderBy(Tables.ISSUE.CREATE_DATE.desc()) //by importance
 			   .fetch()
 			   .parallelStream()

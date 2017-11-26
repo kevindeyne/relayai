@@ -15,7 +15,11 @@ public class UserPrincipal implements UserDetails {
 
 	private String password;
 
-	public UserPrincipal(Long userId, String userName, String password) {
+	private Long projectId;
+
+	private Long sprintId;
+
+	public UserPrincipal(Long userId, String userName, String password, Long projectId, Long sprintId) {
 		super();
 		this.userId = userId;
 		this.userName = userName;
@@ -59,5 +63,21 @@ public class UserPrincipal implements UserDetails {
 	@Override
 	public boolean isEnabled() {
 		return true;
+	}
+
+	public Long getProjectId() {
+		return projectId;
+	}
+
+	public void setProjectId(Long projectId) {
+		this.projectId = projectId;
+	}
+
+	public Long getSprintId() {
+		return sprintId;
+	}
+
+	public void setSprintId(Long sprintId) {
+		this.sprintId = sprintId;
 	}
 }

@@ -9,20 +9,17 @@ import org.springframework.stereotype.Component
 @Component
 class GlobalReceiver(var issueRepository : IssueRepository) {
 	
-	@JmsListener(destination = "mailbox", containerFactory = "myFactory")
+	@JmsListener(destination = "issues", containerFactory = "jmsFactory")
 	fun onMessage(message : AMQMessage){
 		if(AMQMessageType.ISSUE_CREATE_OR_EDIT.equals(message.type)){
 			if("new".equals(message.id)){
 				issueRepository.create(message.value, "This is a new issue and this is the description of it.");
 			} else {
-				//edit
-				
+				//edit TODO				
 			}
 		}
 			
-		println(message)
-		//println(message.type)
-		//println(message.value)
+		//TODO debug logger println(message)
 		
 	}
 }

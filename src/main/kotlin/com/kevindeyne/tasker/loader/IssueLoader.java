@@ -40,48 +40,63 @@ public class IssueLoader implements ApplicationListener<ContextRefreshedEvent>, 
     	if(generateNew) {
     		truncateAll();
 
-    		int currentUserIssuesInSprint = 0;
-
     		Faker faker = new Faker();
         	System.out.println("Generating issues ...");
 
         	Long userId = generateUsers(faker);
         	Long projectId = generateProjects(faker);
         	attachProjectAndUser(projectId, userId);
-
         	Long sprintId = generateSprints(faker, projectId);
 
+        	int currentUserIssuesInSprint = 0;
 			for (int i = 0; i < 5000 + maxUserIssuesInSprint; i++) {
-				Long assignedTo = 1L;
+				Long assignedTo = 500L;
 				if(maxUserIssuesInSprint > currentUserIssuesInSprint++) {
-					assignedTo = 0L;
+					assignedTo = userId;
 				}
 
-				dsl.insertInto(Tables.ISSUE, Tables.ISSUE.TITLE, Tables.ISSUE.DESCRIPTION,Tables.ISSUE.PROJECT_ID, Tables.ISSUE.SPRINT_ID, Tables.ISSUE.ASSIGNED, Tables.ISSUE.CREATE_DATE, Tables.ISSUE.CREATE_USER, Tables.ISSUE.UPDATE_DATE, Tables.ISSUE.UPDATE_USER)
-				   .values(faker.book().title(), mergeSentences(faker.lorem().sentences(15)), projectId, sprintId, assignedTo, getRandomTimestamp(), "1", getRandomTimestamp(), "1")
-				   .execute();
+				insertIntoIssue(faker, projectId, sprintId, assignedTo);
 			}
+
 			System.out.println("Done!");
     	}
     }
 
+	private void insertIntoIssue(Faker faker, Long projectId, Long sprintId, Long assignedTo) {
+		dsl.insertInto(Tables.ISSUE, Tables.ISSUE.TITLE, Tables.ISSUE.DESCRIPTION,Tables.ISSUE.PROJECT_ID, Tables.ISSUE.SPRINT_ID, Tables.ISSUE.ASSIGNED, Tables.ISSUE.CREATE_DATE, Tables.ISSUE.CREATE_USER, Tables.ISSUE.UPDATE_DATE, Tables.ISSUE.UPDATE_USER)
+		   .values(faker.book().title(), mergeSentences(faker.lorem().sentences(15)), projectId, sprintId, assignedTo, getRandomTimestamp(), "1", getRandomTimestamp(), "1")
+		   .execute();
+	}
+
 	private Long generateSprints(Faker faker, Long projectId) {
+		insertSprint(LocalDate.now().minusDays(1), LocalDate.now().plusDays(14), projectId);
+		Long currentSprintId = getAnySprintId();
+
+
 		int daysInThePast = totalAmountOfSprints*daysPerSprint + totalAmountOfSprints;
 		LocalDate startTime = LocalDate.now().minusDays(daysInThePast);
 
 		for (int i = 0; i < totalAmountOfSprints; i++) {
-			dsl.insertInto(Tables.SPRINT, Tables.SPRINT.START_DATE, Tables.SPRINT.END_DATE, Tables.SPRINT.PROJECT_ID)
-			   .values(Timestamp.valueOf(startTime.atStartOfDay()), Timestamp.valueOf(startTime.plusDays(14).atStartOfDay()), projectId)
-			   .execute();
+			insertSprint(startTime, startTime.plusDays(14), projectId);
 			startTime = startTime.plusDays(15);
 		}
 
+		return currentSprintId;
+	}
+
+	private Long getAnySprintId() {
 		return dsl.selectFrom(Tables.SPRINT).fetchAny().get(Tables.SPRINT.ID);
 	}
 
+	private void insertSprint(LocalDate startTime, LocalDate endTime, Long projectId) {
+		dsl.insertInto(Tables.SPRINT, Tables.SPRINT.START_DATE, Tables.SPRINT.END_DATE, Tables.SPRINT.PROJECT_ID)
+		   .values(Timestamp.valueOf(startTime.atStartOfDay()), Timestamp.valueOf(endTime.atStartOfDay()), projectId)
+		   .execute();
+	}
+
 	private void attachProjectAndUser(Long projectId, Long userId) {
-		dsl.insertInto(Tables.PROJECT_USERS, Tables.PROJECT_USERS.PROJECT_ID, Tables.PROJECT_USERS.USER_ID)
-		   .values(projectId, userId)
+		dsl.insertInto(Tables.PROJECT_USERS, Tables.PROJECT_USERS.PROJECT_ID, Tables.PROJECT_USERS.USER_ID, Tables.PROJECT_USERS.ACTIVE)
+		   .values(projectId, userId, true)
 		   .execute();
 	}
 
@@ -96,19 +111,24 @@ public class IssueLoader implements ApplicationListener<ContextRefreshedEvent>, 
 	}
 
 	private Long generateUsers(Faker faker) {
-		dsl.insertInto(Tables.USER, Tables.USER.EMAIL, Tables.USER.PASSWORD, Tables.USER.CREATE_DATE, Tables.USER.CREATE_USER, Tables.USER.UPDATE_DATE, Tables.USER.UPDATE_USER)
-		   .values("admin", passwordEncoder.encode("admin"), getRandomTimestamp(), "1", getRandomTimestamp(), "1")
-		   .execute();
-
-		Long userId = dsl.selectFrom(Tables.USER).fetchAny().get(Tables.USER.ID);
+		insertIntoUser("admin", passwordEncoder.encode("admin"));
+		Long userId = selectAnyUser();
 
 		for (int i = 0; i < 500; i++) {
-			dsl.insertInto(Tables.USER, Tables.USER.EMAIL, Tables.USER.PASSWORD, Tables.USER.CREATE_DATE, Tables.USER.CREATE_USER, Tables.USER.UPDATE_DATE, Tables.USER.UPDATE_USER)
-			   .values(faker.internet().emailAddress(), faker.internet().password(), getRandomTimestamp(), "1", getRandomTimestamp(), "1")
-			   .execute();
+			insertIntoUser(faker.internet().emailAddress(),  faker.internet().password());
 		}
 
 		return userId;
+	}
+
+	private Long selectAnyUser() {
+		return dsl.selectFrom(Tables.USER).fetchAny().get(Tables.USER.ID);
+	}
+
+	private void insertIntoUser(String username, String password) {
+		dsl.insertInto(Tables.USER, Tables.USER.EMAIL, Tables.USER.PASSWORD, Tables.USER.CREATE_DATE, Tables.USER.CREATE_USER, Tables.USER.UPDATE_DATE, Tables.USER.UPDATE_USER)
+		   .values(username, password, getRandomTimestamp(), "1", getRandomTimestamp(), "1")
+		   .execute();
 	}
 
 	private void truncateAll() {
