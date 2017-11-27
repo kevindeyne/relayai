@@ -6,6 +6,7 @@ import com.kevindeyne.tasker.domain.IssueListing
 import com.kevindeyne.tasker.domain.Progress
 import com.kevindeyne.tasker.domain.Urgency
 import com.kevindeyne.tasker.repositories.IssueRepository
+import com.kevindeyne.tasker.service.SecurityHolder
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.GetMapping
@@ -23,8 +24,8 @@ class TaskboardController(var issueRepository : IssueRepository) {
 	@GetMapping(TASKBOARD_GET)
 	fun getTaskboard(model : Model) : String {
 		genericTaskboardBuildup(model)
-		
-		val firstIssue : IssueResponse = issueRepository.findHighestPrioForUser()		
+
+		val firstIssue : IssueResponse = issueRepository.findHighestPrioForUser()
 		specificsTaskboardBuildup(model, firstIssue)
 		
 		return "taskboard"

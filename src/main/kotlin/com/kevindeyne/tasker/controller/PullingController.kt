@@ -20,14 +20,15 @@ class PullingController(val issueRepository : IssueRepository) {
 	
 	@GetMapping(PULLING_TASKBOARD)
 	fun getPullUpdateStandard(@PathVariable issueid : String, @PathVariable maxid : String) : PullUpdate {
-		val sprintId = SecurityHolder.getSprintId()		
-		if(sprintId == null){ return getPullUpdateButOnlyNotifications(); }		
+		val sprintId = SecurityHolder.getSprintId()
+		if(sprintId == null){ return getPullUpdateButOnlyNotifications(); }
 		val newIssues : List<IssueResponse> = issueRepository.findUpdateOnIssues(sprintId, maxid)
 		return PullUpdate(newIssues);
 	}
 	
 	@GetMapping(PULLING_OTHER)
 	fun getPullUpdateButOnlyNotifications() : PullUpdate {
+		println("getPullUpdateButOnlyNotifications")
 		return PullUpdate(ArrayList<IssueResponse>());
 	}	
 }

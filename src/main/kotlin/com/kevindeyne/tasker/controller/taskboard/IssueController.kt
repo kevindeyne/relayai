@@ -6,6 +6,7 @@ import com.kevindeyne.tasker.controller.form.FormResponse
 import com.kevindeyne.tasker.controller.form.IssueForm
 import com.kevindeyne.tasker.controller.form.IssueResponse
 import com.kevindeyne.tasker.repositories.IssueRepository
+import com.kevindeyne.tasker.service.SecurityHolder
 import org.springframework.jms.core.JmsTemplate
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
@@ -24,7 +25,17 @@ class IssueController(var issueRepository : IssueRepository, var jmsTemplate : J
 	fun createOrEditIssue(@RequestBody form : IssueForm, @PathVariable id : String) : FormResponse {
 		var errors : Map<String, String>  = form.validate()
 		if(errors.isEmpty()){
-			jmsTemplate.convertAndSend("issues", AMQMessage(id, AMQMessageType.ISSUE_CREATE_OR_EDIT, "Hello world"))
+			
+			val userId = SecurityHolder.getUserId()
+			val sprintId = SecurityHolder.getSprintId()
+			val projectId = SecurityHolder.getProjectId()
+			
+			if(userId == null || sprintId == null || projectId == null){
+				return FormResponse(status = "INVALID")
+			}
+			
+			val message = AMQMessage(id, AMQMessageType.ISSUE_CREATE_OR_EDIT, "Hello world", userId, sprintId, projectId)			
+			jmsTemplate.convertAndSend("issues", message)
 			//add to pulling notification table
 			return FormResponse(status = "OK")
 		} else{

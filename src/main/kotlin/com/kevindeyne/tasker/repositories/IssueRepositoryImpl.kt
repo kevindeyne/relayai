@@ -63,11 +63,8 @@ open class IssueRepositoryImpl (val dsl: DSLContext) : IssueRepository {
 	}
 	
 	@Transactional
-	override fun create(title : String, description : String) {
+	override fun create(title : String, description : String, userId : Long, sprintId : Long, projectId : Long) {
 		val timestamp = Timestamp(System.currentTimeMillis())
-		val userId = SecurityHolder.getUserId()
-		val sprintId = SecurityHolder.getSprintId()
-		val projectId = SecurityHolder.getProjectId()		
 		val createAndUpdateUser = userId.toString()
 		
 		dsl.insertInto(Tables.ISSUE,
@@ -82,7 +79,7 @@ open class IssueRepositoryImpl (val dsl: DSLContext) : IssueRepository {
 		return dsl.selectFrom(Tables.ISSUE)
 			   .where(Tables.ISSUE.ASSIGNED.eq(SecurityHolder.getUserId()))
 			   .and(Tables.ISSUE.ID.gt(maxid.toLong()))
-			   .and(Tables.ISSUE.SPRINT_ID.gt(sprintId))
+			   .and(Tables.ISSUE.SPRINT_ID.eq(sprintId))
 			   .orderBy(Tables.ISSUE.CREATE_DATE.desc()) //by importance
 			   .fetch()
 			   .parallelStream()
@@ -95,7 +92,7 @@ open class IssueRepositoryImpl (val dsl: DSLContext) : IssueRepository {
 	}
 	
 	@Transactional
-	override fun findStandupIssuesForSprint(sprintid : Long) : List<StandupResponse> {
+	override fun findStandupIssuesForSprint(sprintId : Long) : List<StandupResponse> {
 		return ArrayList<StandupResponse>();
 	}
 	

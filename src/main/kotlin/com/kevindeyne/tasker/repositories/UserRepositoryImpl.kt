@@ -18,13 +18,11 @@ open class UserRepositoryImpl (val dsl: DSLContext, val sprintRepository : Sprin
 			   .where(Tables.USER.EMAIL.eq(username))
 			   .fetchOptional()
 
-		if(record.isPresent) {	
+		if(record.isPresent) {
 			val userId : Long = getUserIdFromRecord(record.get())		
 			val projectId : Long? = getProjectId(dsl, userId)
 			val sprintId : Long? = sprintRepository.findCurrentSprintByProjectId(projectId)
 			
-			println("User: $userId, Project: $projectId, Sprint: $sprintId")
-								
 			return record.get().map {
 			      n -> UserPrincipal(userId,
 									 n.get(Tables.USER.EMAIL),

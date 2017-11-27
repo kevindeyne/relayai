@@ -1,8 +1,10 @@
 package com.kevindeyne.tasker.domain;
 
+import java.util.Arrays;
 import java.util.Collection;
 
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 public class UserPrincipal implements UserDetails {
@@ -24,11 +26,13 @@ public class UserPrincipal implements UserDetails {
 		this.userId = userId;
 		this.userName = userName;
 		this.password = password;
+		this.projectId = projectId;
+		this.sprintId = sprintId;
 	}
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		return null;
+		return Arrays.asList(new SimpleGrantedAuthority("USER"));
 	}
 
 	@Override

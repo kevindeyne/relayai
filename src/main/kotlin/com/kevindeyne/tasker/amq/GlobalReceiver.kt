@@ -13,7 +13,14 @@ class GlobalReceiver(var issueRepository : IssueRepository) {
 	fun onMessage(message : AMQMessage){
 		if(AMQMessageType.ISSUE_CREATE_OR_EDIT.equals(message.type)){
 			if("new".equals(message.id)){
-				issueRepository.create(message.value, "This is a new issue and this is the description of it.");
+								
+				val title = message.value
+				val description = "This is a new issue and this is the description of it."
+				val userId = message.userId
+				val sprintId = message.sprintId
+				val projectId = message.projectId
+					
+				issueRepository.create(title, description, userId, sprintId, projectId)
 			} else {
 				//edit TODO				
 			}

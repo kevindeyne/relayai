@@ -11,9 +11,9 @@ interface IssueRepository {
 	
 	fun findHighestPrioForUser() : IssueResponse
 	
-	fun create(title : String, description : String)
+	fun create(title : String, description : String, userId : Long, sprintId : Long, projectId : Long)
 	
-	fun findUpdateOnIssues(sprintid : Long, maxid : String) : List<IssueResponse> //TODO move to pulling 
+	fun findUpdateOnIssues(sprintId : Long, maxid : String) : List<IssueResponse> //TODO move to pulling 
 	
-	fun findStandupIssuesForSprint(sprintid : Long) : List<StandupResponse>
+	fun findStandupIssuesForSprint(sprintId : Long) : List<StandupResponse>
 }
