@@ -16,8 +16,6 @@ class PullingController(val issueRepository : IssueRepository) {
 		const val PULLING_OTHER = "/pull"
 	}
 	
-	fun getCurrentUserId() = 0L
-	
 	@GetMapping(PULLING_TASKBOARD)
 	fun getPullUpdateStandard(@PathVariable issueid : String, @PathVariable maxid : String) : PullUpdate {
 		val sprintId = SecurityHolder.getSprintId()
