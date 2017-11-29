@@ -19,7 +19,7 @@ $(document).ready(function() {
 		$("#loader").show().css({opacity: '0'}).animate({opacity: '1'}, "fast");
 		
 		var progressLine = new ProgressBar.Line("#savebar", {
-	        color: '#c52864',
+	        color: '#2070f7',
 	        duration: 1500,
 	        easing: 'easeInOut'
 	    });

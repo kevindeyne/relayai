@@ -93,63 +93,75 @@ aside section, aside section p, aside section h1 {
   display: none;
 }
 
-/* line 25, ../sass/_common.scss */
+/* line 39, ../sass/_common.scss */
 button {
   -webkit-transition: all 0.15s ease-out;
   -moz-transition: all 0.15s ease-out;
   -ms-transition: all 0.15s ease-out;
   -o-transition: all 0.15s ease-out;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  border-radius: 5px;
   display: inline-block;
-  text-align: left;
-  color: white;
-  background-color: #c52864;
-  border: none;
-  padding: 0.5em;
-  border-left: 1px solid #da5185;
-  border-bottom: 1px solid #a02051;
-  outline: none;
+  background-color: #2070f7;
+  border: 2px solid #4489ff;
+  color: #ffffff;
   cursor: pointer;
-  margin-bottom: 0.5em;
-  margin-top: 0.5em;
+  margin: 1em;
+  outline: none;
+  padding: 0.85em;
+  text-align: left;
   text-transform: uppercase;
   font-weight: bold;
   letter-spacing: 0.05em;
 }
-/* line 48, ../sass/_common.scss */
+/* line 57, ../sass/_common.scss */
+button i.fa {
+  font-size: 1.2em;
+}
+/* line 61, ../sass/_common.scss */
 button span {
-  padding: 0.5em;
-  font-size: 0.85em;
+  padding: 0em 0em 0em 0.4em;
+  font-weight: 500;
+  font-family: "Roboto", Times New Roman, Helvetica, sans-serif;
+  line-height: 1em;
+  height: 0.85em;
+  display: inline-block;
+  font-size: 1em;
+  position: relative;
+  top: -0.1em;
 }
 
-/* line 54, ../sass/_common.scss */
+/* line 74, ../sass/_common.scss */
 button:hover {
-  background-color: #da5185;
+  background-color: #4489ff;
 }
 
-/* line 58, ../sass/_common.scss */
+/* line 78, ../sass/_common.scss */
 button.altpath {
-  background-color: #808080;
-  border-left: 1px solid #9c9c9c;
-  border-bottom: 1px solid #4a4a4a;
+  background-color: #ffffff;
+  border: 2px solid #4489ff;
+  color: #0046bd;
 }
 
-/* line 64, ../sass/_common.scss */
+/* line 84, ../sass/_common.scss */
 button.altpath:hover {
-  background-color: #9c9c9c;
+  background-color: #eef4ff;
 }
 
-/* line 68, ../sass/_common.scss */
+/* line 88, ../sass/_common.scss */
 i.fa {
   width: 1.2em;
   text-align: center;
 }
 
-/* line 73, ../sass/_common.scss */
+/* line 93, ../sass/_common.scss */
 .visible {
   display: block !important;
 }
 
-/* line 77, ../sass/_common.scss */
+/* line 97, ../sass/_common.scss */
 .invisible {
   display: none !important;
 }
@@ -172,116 +184,112 @@ article#loader section h1 {
   height: 1.5em;
   line-height: 1.5em;
   display: block;
-  color: #da296c;
+  color: #2070f7;
+  width: 95%;
 }
-/* line 21, ../sass/_loader.scss */
+/* line 22, ../sass/_loader.scss */
 article#loader section div#savebar {
   display: block;
   margin-left: auto;
   margin-right: auto;
   text-align: center;
-  width: 90%;
+  width: 95%;
   height: 0.2em !important;
 }
-/* line 28, ../sass/_loader.scss */
+/* line 29, ../sass/_loader.scss */
 article#loader section div#savebar svg {
   height: 0.2em !important;
 }
 
 /* line 3, ../sass/_menu.scss */
 nav {
-  background-color: #1b1e2b;
+  background-color: #ffffff;
   height: 100vh;
   min-width: 250px;
   max-width: 5%;
   flex: 3 1 5%;
   order: 1;
-  padding: 1em 0 1em 1em;
   box-sizing: border-box;
   font-family: "Roboto", Times New Roman, Helvetica, sans-serif;
   font-size: 0.83em;
   font-weight: 500;
-  padding: 1em;
-  padding-left: 0.5em;
+  padding: 0.1em 1em 1em 0em;
 }
-/* line 21, ../sass/_menu.scss */
-nav a.hover {
-  background-color: rgba(53, 57, 75, 0.5);
+/* line 19, ../sass/_menu.scss */
+nav a:hover {
+  color: #2070f7;
 }
-/* line 25, ../sass/_menu.scss */
+/* line 22, ../sass/_menu.scss */
+nav a:hover i {
+  color: #2070f7;
+}
+/* line 27, ../sass/_menu.scss */
+nav a:first-of-type {
+  border-top: 1px solid #f0f2f5;
+}
+/* line 31, ../sass/_menu.scss */
 nav a {
+  margin: 0 !important;
   padding-left: 0.5em;
-  padding-top: 0.65em;
-  padding-bottom: 0.65em;
+  padding-top: 1.54em;
+  padding-bottom: 1.54em;
+  border-bottom: 1px solid #f0f2f5;
 }
-/* line 30, ../sass/_menu.scss */
+/* line 38, ../sass/_menu.scss */
 nav a i {
-  padding-right: 0.25em;
+  padding-right: 1.0em;
+  padding-left: 0.35em;
+  font-size: 1.2em !important;
+  position: relative;
+  top: 0.15em;
+  color: #adadad;
 }
-/* line 35, ../sass/_menu.scss */
+/* line 48, ../sass/_menu.scss */
 nav a.active {
-  background-color: #35394b;
+  background: linear-gradient(90deg, #f4f7ff, #ffffff);
+  color: #2070f7;
+  cursor: default;
 }
-/* line 39, ../sass/_menu.scss */
+/* line 53, ../sass/_menu.scss */
+nav a.active i {
+  color: #2070f7;
+}
+/* line 58, ../sass/_menu.scss */
 nav button {
-  -webkit-transition: all 0.15s ease-out;
-  -moz-transition: all 0.15s ease-out;
-  -ms-transition: all 0.15s ease-out;
-  -o-transition: all 0.15s ease-out;
   width: 90%;
-  text-align: left;
-  color: white;
-  background-color: #c52864;
-  border: none;
-  padding: 0.5em;
-  border-left: 1px solid #da5185;
-  border-bottom: 1px solid #a02051;
-  outline: none;
-  cursor: pointer;
-  margin-bottom: 0.5em;
-  margin-top: 0.5em;
-  font-family: "Roboto", Times New Roman, Helvetica, sans-serif;
-}
-/* line 59, ../sass/_menu.scss */
-nav button span {
-  padding: 0.5em;
-  font-weight: 500;
-}
-/* line 65, ../sass/_menu.scss */
-nav button:hover {
-  background-color: #da5185;
 }
 
 @media (max-width: 1201px) {
-  /* line 71, ../sass/_menu.scss */
+  /* line 64, ../sass/_menu.scss */
   nav {
     min-width: 50px;
     padding: 0.25em;
     font-size: 1.25em;
   }
-  /* line 76, ../sass/_menu.scss */
+  /* line 69, ../sass/_menu.scss */
   nav span {
     display: none !important;
   }
 }
-/* line 82, ../sass/_menu.scss */
+/* line 75, ../sass/_menu.scss */
 nav > a {
   width: 100%;
   display: block;
   margin: 0.35em 0;
   box-sizing: border-box;
-  color: #FFFFFF;
+  color: #56606f;
   text-decoration: none;
+  font-size: 1.05em;
 }
 
 /* line 3, ../sass/_aside.scss */
 aside {
-  background-color: #35394B;
+  background-color: #f3f6f8;
   height: 100vh;
   min-width: 350px;
   flex: 3 1 15%;
   order: 2;
-  color: #FFFFFF;
+  color: #404854;
   font-family: "Roboto", Times New Roman, Helvetica, sans-serif;
   font-size: 0.83em;
   -webkit-font-smoothing: antialiased;
@@ -294,28 +302,36 @@ aside div.progress {
   display: block;
   width: 100%;
   height: 0.3em;
+  border-radius: 10px;
 }
 
-/* line 29, ../sass/_aside.scss */
+/* line 30, ../sass/_aside.scss */
 aside section:first-child {
   margin-top: 1em;
 }
 
-/* line 33, ../sass/_aside.scss */
+/* line 34, ../sass/_aside.scss */
 aside section:last-child {
   margin-bottom: 0.5em;
 }
 
-/* line 37, ../sass/_aside.scss */
+/* line 38, ../sass/_aside.scss */
 aside section {
   -webkit-transition: all 0.15s ease-out;
   -moz-transition: all 0.15s ease-out;
   -ms-transition: all 0.15s ease-out;
   -o-transition: all 0.15s ease-out;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  border-radius: 5px;
   padding: 0.75em;
   width: 96%;
+  background-color: #ffffff;
+  margin: 0.7em 0em;
+  border: 2px solid #f3f6f8;
 }
-/* line 46, ../sass/_aside.scss */
+/* line 48, ../sass/_aside.scss */
 aside section i {
   float: right;
   color: #ff6e6e;
@@ -323,24 +339,26 @@ aside section i {
   line-height: 1.5em;
 }
 
-/* line 54, ../sass/_aside.scss */
+/* line 56, ../sass/_aside.scss */
 aside section.active {
-  background-color: #c52864 !important;
-}
-
-/* line 58, ../sass/_aside.scss */
-aside section.hover {
-  background-color: #42475d;
+  background-color: #2070f7 !important;
+  color: #ffffff !important;
+  cursor: default;
 }
 
 /* line 62, ../sass/_aside.scss */
+aside section.hover {
+  border: 2px solid #2070f7;
+}
+
+/* line 66, ../sass/_aside.scss */
 aside section > h1 {
   font-weight: 500;
   padding: 1em 1em 0.1em 1em;
   box-sizing: border-box;
 }
 
-/* line 68, ../sass/_aside.scss */
+/* line 72, ../sass/_aside.scss */
 aside section > p {
   padding: 1em;
   box-sizing: border-box;
@@ -546,7 +564,7 @@ article form option {
 }
 /* line 57, ../sass/_forms.scss */
 article form input[type=text]:focus, article form textarea:focus, article form select:focus {
-  border-bottom: 1px solid #ef0d63;
+  border-bottom: 1px solid #2070f7;
   color: #000000;
 }
 /* line 62, ../sass/_forms.scss */
@@ -556,7 +574,7 @@ article form button {
   width: 7em;
   text-align: center !important;
   text-transform: uppercase;
-  font-weight: 300;
+  font-weight: 500;
   letter-spacing: 0.05em;
 }
 /* line 72, ../sass/_forms.scss */
@@ -567,7 +585,7 @@ article form div.button-group {
 
 /* line 78, ../sass/_forms.scss */
 span.length-limiter {
-  color: #c52864;
+  color: #2070f7;
   font-weight: bold;
   display: block;
   position: relative;
@@ -587,6 +605,10 @@ span.length-limiter {
 }
 /* line 12, ../sass/_overlay.scss */
 #overlay #overlay-detail {
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  border-radius: 5px;
   position: absolute;
   display: block;
   top: 0;
@@ -599,15 +621,15 @@ span.length-limiter {
   font-weight: 300;
   line-height: 1.4em;
 }
-/* line 26, ../sass/_overlay.scss */
+/* line 29, ../sass/_overlay.scss */
 #overlay #overlay-detail .overlay-options {
   display: none;
 }
-/* line 30, ../sass/_overlay.scss */
+/* line 33, ../sass/_overlay.scss */
 #overlay #overlay-detail hr {
   border: 1px solid #ececec;
 }
-/* line 34, ../sass/_overlay.scss */
+/* line 37, ../sass/_overlay.scss */
 #overlay #overlay-detail p {
   padding-top: 0.7em;
   padding-left: 0.7em;
@@ -618,43 +640,47 @@ span.length-limiter {
   -o-transition: color 0 ease-in;
   transition: none;
 }
-/* line 46, ../sass/_overlay.scss */
+/* line 49, ../sass/_overlay.scss */
 #overlay #overlay-detail ul {
   padding-left: 0.5em;
   margin-bottom: 0.5em;
 }
-/* line 50, ../sass/_overlay.scss */
+/* line 53, ../sass/_overlay.scss */
 #overlay #overlay-detail ul li {
   margin: 0.2em;
   cursor: pointer;
   padding: 0.4em 0em 0.4em 0.4em;
   margin-right: 1em;
 }
-/* line 57, ../sass/_overlay.scss */
+/* line 60, ../sass/_overlay.scss */
 #overlay #overlay-detail ul li.active {
-  background-color: #c52864 !important;
+  background-color: #2070f7 !important;
   color: #ffffff;
 }
-/* line 62, ../sass/_overlay.scss */
+/* line 65, ../sass/_overlay.scss */
 #overlay #overlay-detail ul li.hover {
   background: #e6e6e6;
 }
-/* line 67, ../sass/_overlay.scss */
+/* line 70, ../sass/_overlay.scss */
 #overlay #overlay-detail span.changing {
-  background-color: lightgray;
+  background: linear-gradient(90deg, gainsboro, #e4e4e4);
   padding: 2px 5px;
   font-family: "Roboto", Times New Roman, Helvetica, sans-serif;
   font-weight: 300;
   line-height: 1.4em;
 }
-/* line 76, ../sass/_overlay.scss */
+/* line 79, ../sass/_overlay.scss */
 #overlay #overlay-detail div.button-group {
   background: #e6e6e6;
   padding-left: 0.5em;
   padding-top: 0.15em;
   margin-top: 0.7em;
+  -webkit-border-radius: 0px 0px 5px 5px;
+  -moz-border-radius: 0px 0px 5px 5px;
+  -ms-border-radius: 0px 0px 5px 5px;
+  border-radius: 0px 0px 5px 5px;
 }
-/* line 82, ../sass/_overlay.scss */
+/* line 87, ../sass/_overlay.scss */
 #overlay #overlay-detail div.button-group button, #overlay #overlay-detail div.button-group button.altpath {
   font-family: "Roboto", Times New Roman, Helvetica, sans-serif;
   height: 3em;
@@ -668,13 +694,13 @@ span.length-limiter {
   border: none;
   font-weight: 500;
 }
-/* line 97, ../sass/_overlay.scss */
+/* line 102, ../sass/_overlay.scss */
 #overlay #overlay-detail div.button-group button:hover {
   background-color: #35394B;
   color: #fbfbfb;
 }
 
-/* line 105, ../sass/_overlay.scss */
+/* line 110, ../sass/_overlay.scss */
 span.changeable {
   background-color: lightgray;
   padding: 2px 5px;
@@ -684,7 +710,7 @@ span.changeable {
   line-height: 1.4em;
 }
 
-/* line 115, ../sass/_overlay.scss */
+/* line 120, ../sass/_overlay.scss */
 span.changeable:hover {
   background-color: #ececec;
 }

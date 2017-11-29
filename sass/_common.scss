@@ -22,47 +22,67 @@ aside {
 	display: none;
 }
 
+@mixin border-radius($radius) {
+  -webkit-border-radius: $radius;
+     -moz-border-radius: $radius;
+      -ms-border-radius: $radius;
+          border-radius: $radius;
+}
+
+@mixin transition($seconds) {
+	-webkit-transition: all $seconds ease-out;
+	-moz-transition: all $seconds ease-out;
+	-ms-transition: all $seconds ease-out;
+	-o-transition: all $seconds ease-out;
+}
+
 button {
-	-webkit-transition: all 0.15s ease-out;
-	-moz-transition: all 0.15s ease-out;
-	-ms-transition: all 0.15s ease-out;
-	-o-transition: all 0.15s ease-out;
+	@include transition(0.15s);
+	@include border-radius(5px);
 	
 	display: inline-block;
-	text-align: left;
-	color: white;
-	background-color: #c52864;
-	border: none;
-	padding: 0.5em;
-	border-left: 1px solid #da5185;
-	border-bottom: 1px solid #a02051;
-	outline: none;
-	cursor: pointer;
-	margin-bottom: 0.5em;
-	margin-top: 0.5em;
-	
+
+    background-color: #2070f7;
+    border: 2px solid #4489ff;
+    color: #ffffff;
+    cursor: pointer;
+    margin: 1em;
+    outline: none;
+    padding: 0.85em;
+    text-align: left;
     text-transform: uppercase;
     font-weight: bold;
     letter-spacing: 0.05em;
 	
+	i.fa {
+		font-size: 1.2em;
+	}
+	
 	span {
-		padding: 0.5em;
-		font-size: 0.85em;
+		padding: 0em 0em 0em 0.4em;
+		font-weight: 500;
+		font-family: $font-main;
+		line-height: 1em;
+		height: 0.85em;
+		display: inline-block;
+		font-size: 1em;
+		position: relative;
+		top: -0.1em;
 	}
 }
 
 button:hover {
-	background-color: #da5185;
+	background-color: #4489ff;
 }
 
 button.altpath {
-	background-color: #808080;
-	border-left: 1px solid #9c9c9c;
-	border-bottom: 1px solid #4a4a4a;
+    background-color: #ffffff;
+    border: 2px solid #4489ff;
+    color: #0046bd;
 }
 
 button.altpath:hover {
-	background-color: #9c9c9c;
+	background-color: #eef4ff;
 }
 
 i.fa {

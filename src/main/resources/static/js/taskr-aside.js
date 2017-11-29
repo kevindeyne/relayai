@@ -18,7 +18,7 @@ $(document).ready(function() {
 			latestClickedIssue = sectionId;
 			
 			var progressLine = new ProgressBar.Line(sectionId, {
-		        color: '#c52864',
+		        color: '#2070f7',
 		        duration: 1500,
 		        easing: 'easeInOut'
 		    });

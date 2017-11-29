@@ -10,8 +10,11 @@ $font-main: 'Roboto', Times New Roman, Helvetica, sans-serif;
     z-index: 40;
 	
 	#overlay-detail {
+		@include border-radius(5px);
+			
 		position: absolute;
 		display:block;
+		
 		top: 0;
 		left: 0;
 		width: 24em;
@@ -55,7 +58,7 @@ $font-main: 'Roboto', Times New Roman, Helvetica, sans-serif;
 			}
 			
 			li.active {
-				background-color: #c52864 !important;
+				background-color: #2070f7 !important;
 				color: #ffffff;
 			}
 			
@@ -65,7 +68,7 @@ $font-main: 'Roboto', Times New Roman, Helvetica, sans-serif;
 		}
 		
 		span.changing {
-			background-color: lightgray;
+		    background: linear-gradient(90deg, gainsboro, #e4e4e4);
 			padding: 2px 5px;			
 			
 			font-family: $font-main;
@@ -78,7 +81,9 @@ $font-main: 'Roboto', Times New Roman, Helvetica, sans-serif;
 			padding-left: 0.5em;
 			padding-top: 0.15em;
 			margin-top: 0.7em;
-
+			
+			@include border-radius(0px 0px 5px 5px);
+		
 			button, button.altpath {
 				font-family: $font-main;
 				height: 3em;

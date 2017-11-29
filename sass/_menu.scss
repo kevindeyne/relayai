@@ -1,7 +1,7 @@
 $font-menu: 'Roboto', Times New Roman, Helvetica, sans-serif;
 
 nav {
-	background-color: #1b1e2b;
+	background-color: #ffffff;
 	
 	height: 100vh;
 	min-width: 250px;
@@ -10,60 +10,53 @@ nav {
 	flex: 3 1 5%;
 	order: 1;
 	
-	padding: 1em 0 1em 1em;
 	box-sizing: border-box;
 	font-family: $font-menu;
 	font-size: 0.83em;
 	font-weight: 500;
-	padding: 1em;
-	padding-left: 0.5em;
+    padding: 0.1em 1em 1em 0em;
 	
-	a.hover {
-		background-color: rgba(53, 57, 75, 0.5);
-	}
-	
-	a {
-		padding-left: 0.5em;
-		padding-top: 0.65em;
-		padding-bottom: 0.65em;
+	a:hover {		
+		color: #2070f7;
 		
 		i {
-			padding-right: 0.25em;
+		  color: #2070f7;
+		}
+	}
+	
+	a:first-of-type {
+		border-top: 1px solid #f0f2f5;
+	}
+	
+	a {	
+		margin: 0 !important;
+		padding-left: 0.5em;
+		padding-top: 1.54em;
+		padding-bottom: 1.54em;
+		border-bottom: 1px solid #f0f2f5;
+		
+		i {
+		  padding-right: 1.0em;
+		  padding-left: 0.35em;
+		  font-size: 1.2em !important;
+		  position: relative;
+		  top: 0.15em;
+		  color: #adadad;
 		}
 	}
 	
 	a.active {
-		background-color: #35394b;
-	}
-	
-	button {
-		-webkit-transition: all 0.15s ease-out;
-		-moz-transition: all 0.15s ease-out;
-		-ms-transition: all 0.15s ease-out;
-		-o-transition: all 0.15s ease-out;
+		background: linear-gradient(90deg, #f4f7ff, #ffffff);
+		color: #2070f7;
+		cursor: default;
 		
-		width: 90%;
-		text-align: left;
-		color: white;
-		background-color: #c52864;
-		border: none;
-		padding: 0.5em;
-		border-left: 1px solid #da5185;
-		border-bottom: 1px solid #a02051;
-		outline: none;
-		cursor: pointer;
-		margin-bottom: 0.5em;
-		margin-top: 0.5em;
-		font-family: $font-menu;
-		
-		span {
-			padding: 0.5em;
-			font-weight: 500;
+		i {
+			color: #2070f7;
 		}
 	}
 	
-	button:hover {
-		background-color: #da5185;
+	button {
+		width: 90%;
 	}
 }
 
@@ -86,6 +79,8 @@ nav > a {
 	margin: 0.35em 0;
 	box-sizing: border-box;
 	
-	color: #FFFFFF;
+	color: #56606f;
 	text-decoration: none;
+	
+	font-size: 1.05em;
 }

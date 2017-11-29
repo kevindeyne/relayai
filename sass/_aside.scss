@@ -1,7 +1,7 @@
 $font-aside: 'Roboto', Times New Roman, Helvetica, sans-serif;
 
 aside {
-	background-color: #35394B;
+	background-color: #f3f6f8;
 	
 	height: 100vh;
 	min-width: 350px;
@@ -9,7 +9,7 @@ aside {
 	flex: 3 1 15%;
 	order: 2;
 	
-	color: #FFFFFF;
+	color: #404854;
 	font-family: $font-aside;
 	font-size: 0.83em;
 	
@@ -22,7 +22,8 @@ aside {
 	div.progress {
 		display: block;
 		width: 100%;
-		height: 0.3em;
+		height: 0.3em; 
+		border-radius: 10px;
 	}
 }
 
@@ -35,13 +36,14 @@ aside section:last-child {
 }
 
 aside section {
-	-webkit-transition: all 0.15s ease-out;
-	-moz-transition: all 0.15s ease-out;
-	-ms-transition: all 0.15s ease-out;
-	-o-transition: all 0.15s ease-out;
+	@include transition(0.15s);
+	@include border-radius(5px);
 
 	padding: 0.75em;
 	width:96%;
+	background-color: #ffffff;
+	margin: 0.7em 0em;
+	border: 2px solid #f3f6f8;
 	
 	i {
 		float: right;
@@ -52,11 +54,13 @@ aside section {
 }
 
 aside section.active {
-	background-color: #c52864 !important;
+	background-color: #2070f7 !important;
+	color: #ffffff !important;
+	cursor: default;
 }
 
 aside section.hover {
-	background-color: #42475d;
+	border: 2px solid #2070f7;
 }
 
 aside section > h1 {

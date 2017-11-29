@@ -55,7 +55,7 @@ article form {
 	}
 	 
 	input[type=text]:focus, textarea:focus, select:focus {
-	  border-bottom: 1px solid #ef0d63;
+	  border-bottom: 1px solid #2070f7;
 	  color: #000000;
 	}
 	
@@ -65,7 +65,7 @@ article form {
 		width: 7em;
 		text-align: center !important;
 		text-transform: uppercase;
-		font-weight: 300;
+		font-weight: 500;
 		letter-spacing: 0.05em;
 	}
 			
@@ -76,7 +76,7 @@ article form {
 }
 
 span.length-limiter {
-    color: #c52864;
+    color: #2070f7;
     font-weight: bold;
     display: block;
     position: relative;
