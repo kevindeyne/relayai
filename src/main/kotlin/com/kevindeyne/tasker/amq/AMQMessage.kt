@@ -1,3 +1,3 @@
 package com.kevindeyne.tasker.amq
 
-data class AMQMessage (var id : String, var type : AMQMessageType, var value : String, var userId : Long, var sprintId : Long, var projectId : Long)
+data class AMQMessage @JvmOverloads constructor(val id: String, val type: AMQMessageType, val value: String, val userId: Long, val sprintId: Long, val projectId: Long, val issueId: Long? = -1L)

@@ -1,3 +1,4 @@
+START TRANSACTION;
 CREATE TABLE `event` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `type` varchar(255) NOT NULL,
@@ -6,3 +7,4 @@ CREATE TABLE `event` (
   `timestamp` BIGINT NOT NULL,
   PRIMARY KEY (`id`)
 );
+COMMIT;

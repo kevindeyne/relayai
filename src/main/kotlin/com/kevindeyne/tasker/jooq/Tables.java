@@ -6,10 +6,13 @@ package com.kevindeyne.tasker.jooq;
 
 import com.kevindeyne.tasker.jooq.tables.Event;
 import com.kevindeyne.tasker.jooq.tables.Issue;
+import com.kevindeyne.tasker.jooq.tables.Knowledge;
 import com.kevindeyne.tasker.jooq.tables.Project;
 import com.kevindeyne.tasker.jooq.tables.ProjectUsers;
 import com.kevindeyne.tasker.jooq.tables.SchemaVersion;
 import com.kevindeyne.tasker.jooq.tables.Sprint;
+import com.kevindeyne.tasker.jooq.tables.Tag;
+import com.kevindeyne.tasker.jooq.tables.Tagcloud;
 import com.kevindeyne.tasker.jooq.tables.User;
 
 import javax.annotation.Generated;
@@ -39,6 +42,11 @@ public class Tables {
     public static final Issue ISSUE = com.kevindeyne.tasker.jooq.tables.Issue.ISSUE;
 
     /**
+     * The table <code>taskr.knowledge</code>.
+     */
+    public static final Knowledge KNOWLEDGE = com.kevindeyne.tasker.jooq.tables.Knowledge.KNOWLEDGE;
+
+    /**
      * The table <code>taskr.project</code>.
      */
     public static final Project PROJECT = com.kevindeyne.tasker.jooq.tables.Project.PROJECT;
@@ -57,6 +65,16 @@ public class Tables {
      * The table <code>taskr.sprint</code>.
      */
     public static final Sprint SPRINT = com.kevindeyne.tasker.jooq.tables.Sprint.SPRINT;
+
+    /**
+     * The table <code>taskr.tag</code>.
+     */
+    public static final Tag TAG = com.kevindeyne.tasker.jooq.tables.Tag.TAG;
+
+    /**
+     * The table <code>taskr.tagcloud</code>.
+     */
+    public static final Tagcloud TAGCLOUD = com.kevindeyne.tasker.jooq.tables.Tagcloud.TAGCLOUD;
 
     /**
      * The table <code>taskr.user</code>.

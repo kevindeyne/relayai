@@ -4,10 +4,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 import opennlp.tools.postag.POSModel;
@@ -173,45 +171,6 @@ public class OpenNLPProcessor {
 
 	private void setPosModel(POSModel posModel) {
 		this.posModel = posModel;
-	}
-
-	private Map<String, String> tokenizeText(String text) {
-		Map<String, String> result = new HashMap<String, String>();
-		Tokenizer _tokenizer = new TokenizerME(tokenizerModel);
-
-		String[] tokens = _tokenizer.tokenize(text);
-		String[] posTags = posTagging(tokens);
-
-		for (int i = 0; i < tokens.length; i++) {
-			result.put(tokens[i], posTags[i]);
-		}
-
-		return result;
-	}
-
-	private List<String> extractNameTokens(String text) {
-		List<String> nameToken = new ArrayList<String>();
-
-		Map<String, String> tokens = tokenizeText(text);
-
-		if(tokens.size() == 1){
-			nameToken.add(text);
-			return nameToken;
-		}
-
-		for(String keyword : tokens.keySet()){
-			String token = tokens.get(keyword);
-			if(token.startsWith("N") || token.startsWith("NN") || token.startsWith("RB")){
-				nameToken.add(keyword);
-			}
-		}
-
-		if(nameToken.size() == 0){
-			nameToken.add(text);
-			return nameToken;
-		}
-
-		return nameToken;
 	}
 
 	public String processNoCount(String text) {

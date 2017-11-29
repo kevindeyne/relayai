@@ -1,3 +1,4 @@
+START TRANSACTION;
 CREATE TABLE `project` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `title` varchar(255) NOT NULL,
@@ -44,3 +45,4 @@ ADD FOREIGN KEY (user_id) REFERENCES `user`(id);
 
 ALTER TABLE sprint
 ADD FOREIGN KEY (project_id) REFERENCES project(id);
+COMMIT;

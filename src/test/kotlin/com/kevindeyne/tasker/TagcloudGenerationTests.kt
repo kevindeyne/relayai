@@ -1,9 +1,10 @@
 package com.kevindeyne.tasker
 
+import com.kevindeyne.tasker.nlp.OpenNLPProcessor
+import com.kevindeyne.tasker.service.KeywordGeneration
 import org.junit.Assert
 import org.junit.Test
 import org.tartarus.snowball.ext.EnglishStemmer
-import com.kevindeyne.tasker.nlp.OpenNLPProcessor
 
 class TagcloudGenerationTests {
 
@@ -16,10 +17,11 @@ class TagcloudGenerationTests {
 		" Chrome Version 45.0.2454.85 (64-bit)" +
 		" OS X Yosemite 10.10.5"
 		
-		val keywords = generateKeywords(sampleText)
+		val keywords = KeywordGeneration.generateKeywords(sampleText)
 		
-		Assert.assertTrue(keywords.contains("home"))
-		Assert.assertFalse(keywords.contains("http"))
+		Assert.assertTrue(keywords.contains("home")) //home is important because it shows that it can lowercase and separate the word from more than just spaces.
+		Assert.assertFalse(keywords.contains("http")) //dont interpret the useless parts of an url, but do interpret the interesting parts
+		Assert.assertTrue(keywords.contains("zhaoda"))
 	}
 	
 	
@@ -29,9 +31,9 @@ class TagcloudGenerationTests {
 		val textMatch2 = "I don't like the bread from your store. It feels old and hard."
 		val textNoMatch = "I quite like eating lots of fish and perhaps take a sip of tea."
 		
-		val keywords1 = generateKeywords(textMatch1)
-		val keywords2 = generateKeywords(textMatch2)
-		val keywords3 = generateKeywords(textNoMatch)
+		val keywords1 = KeywordGeneration.generateKeywords(textMatch1)
+		val keywords2 = KeywordGeneration.generateKeywords(textMatch2)
+		val keywords3 = KeywordGeneration.generateKeywords(textNoMatch)
 				
 		val matchesBetween1and2 = MatchFinder.findMatches(keywords1, keywords2)
 		val matchesBetween1and3 = MatchFinder.findMatches(keywords1, keywords3)
@@ -44,32 +46,4 @@ class TagcloudGenerationTests {
 		
 		Assert.assertFalse(keywords2.contains("your"))
 	}
-	
-	
-	
-	///
-	fun generateKeywords(text : String) : Set<String> {
-		val re = Regex("[^a-z]")
-		val newText = text.toLowerCase().replace(re, " ");
-		//val splitValues = text.toLowerCase().replace(re, " ").split(" ");
-		var splitValues : Set<String> = OpenNLPProcessor.getInstance().process(newText);
-		val resultSet = HashSet<String>()
-
-		val stemmer : EnglishStemmer = EnglishStemmer()
-		
-		for(splitValue in splitValues){
-			val value = splitValue.replace(re, " ")
-			if(value.length > 2 && isActiveWord(value)){
-				stemmer.setCurrent(value)
-				stemmer.stem()
-				resultSet.add(stemmer.getCurrent())	
-			}
-		}
-		
-		//println(resultSet)
-		
-		return resultSet
-	}
-	
-	fun isActiveWord(value : String) = !arrayOf("http").contains(value)
 }

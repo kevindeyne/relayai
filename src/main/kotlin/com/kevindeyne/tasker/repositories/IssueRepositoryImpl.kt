@@ -63,15 +63,15 @@ open class IssueRepositoryImpl (val dsl: DSLContext) : IssueRepository {
 	}
 	
 	@Transactional
-	override fun create(title : String, description : String, userId : Long, sprintId : Long, projectId : Long) {
+	override fun create(title : String, description : String, userId : Long, sprintId : Long, projectId : Long) : Long {
 		val timestamp = Timestamp(System.currentTimeMillis())
 		val createAndUpdateUser = userId.toString()
 		
-		dsl.insertInto(Tables.ISSUE,
+		return dsl.insertInto(Tables.ISSUE,
 				Tables.ISSUE.TITLE, Tables.ISSUE.DESCRIPTION, Tables.ISSUE.ASSIGNED, Tables.ISSUE.SPRINT_ID, Tables.ISSUE.PROJECT_ID,
 				Tables.ISSUE.CREATE_USER, Tables.ISSUE.UPDATE_USER, Tables.ISSUE.CREATE_DATE, Tables.ISSUE.UPDATE_DATE)
 		   .values(title, description, userId, sprintId, projectId, createAndUpdateUser, createAndUpdateUser, timestamp, timestamp)
-		   .execute();
+		   .returning(Tables.TAG.ID).fetchOne().get(Tables.TAG.ID);
 	}
 	
 	@Transactional

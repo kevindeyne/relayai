@@ -1,3 +1,4 @@
+START TRANSACTION;
 ALTER TABLE `user`
 ADD `create_date` DATETIME;
 
@@ -23,3 +24,4 @@ ADD `update_date` DATETIME;
 
 ALTER TABLE `issue`
 ADD `update_user` varchar(255) NOT NULL;
+COMMIT;

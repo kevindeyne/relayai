@@ -6,10 +6,13 @@ package com.kevindeyne.tasker.jooq;
 
 import com.kevindeyne.tasker.jooq.tables.Event;
 import com.kevindeyne.tasker.jooq.tables.Issue;
+import com.kevindeyne.tasker.jooq.tables.Knowledge;
 import com.kevindeyne.tasker.jooq.tables.Project;
 import com.kevindeyne.tasker.jooq.tables.ProjectUsers;
 import com.kevindeyne.tasker.jooq.tables.SchemaVersion;
 import com.kevindeyne.tasker.jooq.tables.Sprint;
+import com.kevindeyne.tasker.jooq.tables.Tag;
+import com.kevindeyne.tasker.jooq.tables.Tagcloud;
 import com.kevindeyne.tasker.jooq.tables.User;
 
 import java.util.ArrayList;
@@ -36,7 +39,7 @@ import org.jooq.impl.SchemaImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Taskr extends SchemaImpl {
 
-    private static final long serialVersionUID = -218362385;
+    private static final long serialVersionUID = 1306094073;
 
     /**
      * The reference instance of <code>taskr</code>
@@ -52,6 +55,11 @@ public class Taskr extends SchemaImpl {
      * The table <code>taskr.issue</code>.
      */
     public final Issue ISSUE = com.kevindeyne.tasker.jooq.tables.Issue.ISSUE;
+
+    /**
+     * The table <code>taskr.knowledge</code>.
+     */
+    public final Knowledge KNOWLEDGE = com.kevindeyne.tasker.jooq.tables.Knowledge.KNOWLEDGE;
 
     /**
      * The table <code>taskr.project</code>.
@@ -72,6 +80,16 @@ public class Taskr extends SchemaImpl {
      * The table <code>taskr.sprint</code>.
      */
     public final Sprint SPRINT = com.kevindeyne.tasker.jooq.tables.Sprint.SPRINT;
+
+    /**
+     * The table <code>taskr.tag</code>.
+     */
+    public final Tag TAG = com.kevindeyne.tasker.jooq.tables.Tag.TAG;
+
+    /**
+     * The table <code>taskr.tagcloud</code>.
+     */
+    public final Tagcloud TAGCLOUD = com.kevindeyne.tasker.jooq.tables.Tagcloud.TAGCLOUD;
 
     /**
      * The table <code>taskr.user</code>.
@@ -105,10 +123,13 @@ public class Taskr extends SchemaImpl {
         return Arrays.<Table<?>>asList(
             Event.EVENT,
             Issue.ISSUE,
+            Knowledge.KNOWLEDGE,
             Project.PROJECT,
             ProjectUsers.PROJECT_USERS,
             SchemaVersion.SCHEMA_VERSION,
             Sprint.SPRINT,
+            Tag.TAG,
+            Tagcloud.TAGCLOUD,
             User.USER);
     }
 }
