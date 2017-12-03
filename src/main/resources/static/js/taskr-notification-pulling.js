@@ -30,6 +30,7 @@ $(function() {
 		newSection.removeClass("active");
 		newSection.attr("issue-id", newIssue.id)
 		newSection.find("h1").text(newIssue.title);
+		newSection.find("h1").append("<i class='fa fa-circle new-issue' aria-hidden='true'></i>");
 		newSection.find("p").text(newIssue.descr);
 		newSection.find("div").attr("id", "progress-"+newIssue.id);	
 	    $("aside.ss-container div.ss-content").prepend(newSection);		

@@ -54,7 +54,8 @@ function handleIssueLoaded(latestClickedIssue, progressLine, issueLoadingAnimati
 		var sectionId = "#"+progressLine._container.id;
 		if(latestClickedIssue === sectionId){
 			$("aside .active").removeClass("active");
-			$(sectionId).parent().addClass("active");	
+			$(sectionId).parent().addClass("active");
+			$(sectionId).parent().find("h1 i.new-issue").fadeOut();
 			
 			$("#content-userinfo h1").text(issueLoaded.title);
 		 	//data.descr

@@ -1,6 +1,7 @@
 package com.kevindeyne.tasker.amq
 
 import com.kevindeyne.tasker.repositories.IssueRepository
+import com.kevindeyne.tasker.repositories.KnowledgeRepository
 import com.kevindeyne.tasker.repositories.TagcloudRepository
 import com.kevindeyne.tasker.service.KeywordGeneration
 import org.springframework.context.annotation.DependsOn
@@ -9,13 +10,14 @@ import org.springframework.stereotype.Component
 
 @DependsOn("AMQConfig")
 @Component
-class GlobalReceiver(val issueRepository: IssueRepository, val tagcloud: TagcloudRepository) {
+class GlobalReceiver(val issueRepository: IssueRepository, val tagcloud: TagcloudRepository, val knowledge: KnowledgeRepository) {
 
 	@JmsListener(destination = "issues", containerFactory = "jmsFactory")
 	fun onMessage(message: AMQMessage) {
 		when (message.type) {
 			AMQMessageType.ISSUE_CREATE_OR_EDIT -> handleCreateOrEditIssue(message)
 			AMQMessageType.ISSUE_TAGCLOUD -> handleTagcloudGeneration(message)
+			AMQMessageType.ISSUE_SOLVED -> handleSolved(message)
 			else -> println("Unknown message type")
 		}
 	}
@@ -31,5 +33,10 @@ class GlobalReceiver(val issueRepository: IssueRepository, val tagcloud: Tagclou
 	}
 
 	fun handleTagcloudGeneration(msg: AMQMessage) = KeywordGeneration.generateKeywords(msg.value).forEach { k -> tagcloud.addToIssueIfNotExists(k, msg.issueId) }
-
+	
+	fun handleSolved(message: AMQMessage) {
+		val issueId = message.value
+		val tagcloud : List<Long> = tagcloud.findByIssues(issueId.toLong())
+		tagcloud.forEach{ k -> knowledge.addToKnowledgeIfNotExists(k, message.userId) }
+	}
 }

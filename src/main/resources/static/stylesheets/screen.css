@@ -367,7 +367,7 @@ aside section > p {
 
 /* line 5, ../sass/_main.scss */
 article {
-  background-color: #fbfbfb;
+  background-color: #f3f6f8;
   height: 100vh;
   flex: 3 1 60%;
   order: 3;
@@ -392,65 +392,69 @@ article h1, article h2 {
   font-family: "Roboto", Times New Roman, Helvetica, sans-serif;
 }
 /* line 33, ../sass/_main.scss */
+article #content-new-issue-title {
+  width: 100%;
+}
+/* line 37, ../sass/_main.scss */
 article #content-userinfo, article #content-new-issue-title {
   position: fixed;
-  background-color: #fbfbfb;
+  background-color: #f3f6f8;
   z-index: 35;
 }
-/* line 38, ../sass/_main.scss */
+/* line 42, ../sass/_main.scss */
 article #content-userinfo #content-userinfo-details, article #content-new-issue-title #content-userinfo-details {
   padding-top: 0.7em;
   height: 3.6em;
 }
-/* line 42, ../sass/_main.scss */
+/* line 46, ../sass/_main.scss */
 article #content-userinfo #content-userinfo-details .userinfo-details-col, article #content-new-issue-title #content-userinfo-details .userinfo-details-col {
   float: left;
   width: 30%;
 }
-/* line 46, ../sass/_main.scss */
+/* line 50, ../sass/_main.scss */
 article #content-userinfo #content-userinfo-details .userinfo-details-col p, article #content-new-issue-title #content-userinfo-details .userinfo-details-col p {
   padding-left: 0;
   padding-bottom: 8px;
   padding-top: 0;
   padding-right: 0;
 }
-/* line 55, ../sass/_main.scss */
+/* line 59, ../sass/_main.scss */
 article #content-userinfo #content-userinfo-attachments, article #content-new-issue-title #content-userinfo-attachments {
   clear: both;
 }
-/* line 58, ../sass/_main.scss */
+/* line 62, ../sass/_main.scss */
 article #content-userinfo #content-userinfo-attachments p, article #content-new-issue-title #content-userinfo-attachments p {
   padding-left: 0;
 }
 
 @media (max-width: 851px) {
-  /* line 67, ../sass/_main.scss */
+  /* line 71, ../sass/_main.scss */
   article {
     display: none;
   }
 }
-/* line 72, ../sass/_main.scss */
+/* line 76, ../sass/_main.scss */
 article section {
   padding: 1em;
   box-sizing: border-box;
 }
-/* line 76, ../sass/_main.scss */
+/* line 80, ../sass/_main.scss */
 article section section:first-child {
   padding-top: 4.5em;
 }
 
-/* line 81, ../sass/_main.scss */
+/* line 85, ../sass/_main.scss */
 article#main section#content-main p:first-child {
   padding-top: 13em;
 }
 
-/* line 85, ../sass/_main.scss */
+/* line 89, ../sass/_main.scss */
 article section p {
   padding: 0.5em;
   box-sizing: border-box;
 }
 
-/* line 90, ../sass/_main.scss */
+/* line 94, ../sass/_main.scss */
 article section p.code {
   font-family: "Cutive Mono", "Courier";
   font-size: 1em;
@@ -460,18 +464,23 @@ article section p.code {
   margin: 0.5em;
 }
 
-/* line 5, ../sass/_standup.scss */
+/* line 3, ../sass/_standup.scss */
 #team-progress h2, #team-progress h3 {
   clear: both;
 }
-/* line 9, ../sass/_standup.scss */
+/* line 7, ../sass/_standup.scss */
 #team-progress h3 {
-  background: #35394B;
-  color: #fbfbfb;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  border-radius: 10px;
+  background: #ffffff;
+  color: #212121;
   padding: 0.5em;
   padding-left: 0.75em;
   margin-top: 0.5em;
   font-size: 1.1em;
+  font-weight: 500;
 }
 /* line 17, ../sass/_standup.scss */
 #team-progress h3 i {
@@ -483,27 +492,35 @@ article section p.code {
 }
 /* line 27, ../sass/_standup.scss */
 #team-progress div section.daily-issue {
-  padding: 0.75em;
-  width: 49%;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  border-radius: 5px;
+  width: 21em;
+  height: 10em;
   float: left;
-  padding: 1em 1em 0.1em 1em;
+  padding: 1em 1em 0.75em 1em;
   box-sizing: border-box;
+  background-color: #ffffff;
+  margin: 0.55em 0.95em 0.45em 0em;
+  font-size: 0.9em;
+  border: 2px solid #ffffff;
 }
-/* line 34, ../sass/_standup.scss */
+/* line 40, ../sass/_standup.scss */
 #team-progress div section.daily-issue h4 {
   font-weight: 500;
 }
-/* line 37, ../sass/_standup.scss */
+/* line 43, ../sass/_standup.scss */
 #team-progress div section.daily-issue h4 a, #team-progress div section.daily-issue h4 a:link, #team-progress div section.daily-issue h4 a:active, #team-progress div section.daily-issue h4 a:visited {
   color: #1b1e2b;
   text-decoration: none;
 }
-/* line 42, ../sass/_standup.scss */
+/* line 48, ../sass/_standup.scss */
 #team-progress div section.daily-issue h4 a:hover {
   color: #35394b;
   text-decoration: none;
 }
-/* line 47, ../sass/_standup.scss */
+/* line 53, ../sass/_standup.scss */
 #team-progress div section.daily-issue h4 span.mine {
   color: #fb0764;
 }
@@ -524,7 +541,7 @@ article form label {
   padding-left: 0em;
   color: #565656;
   position: relative;
-  top: 1.05em;
+  top: 0.35em;
   font-weight: 500;
 }
 /* line 20, ../sass/_forms.scss */
@@ -535,10 +552,14 @@ article form label span.error {
 }
 /* line 27, ../sass/_forms.scss */
 article form input[type=text], article form textarea, article form select, article form option {
-  -webkit-transition: all 0.30s ease-in-out;
-  -moz-transition: all 0.30s ease-in-out;
-  -ms-transition: all 0.30s ease-in-out;
-  -o-transition: all 0.30s ease-in-out;
+  -webkit-transition: all 0.3s ease-out;
+  -moz-transition: all 0.3s ease-out;
+  -ms-transition: all 0.3s ease-out;
+  -o-transition: all 0.3s ease-out;
+  -webkit-border-radius: 10px 10px 2px 2px;
+  -moz-border-radius: 10px 10px 2px 2px;
+  -ms-border-radius: 10px 10px 2px 2px;
+  border-radius: 10px 10px 2px 2px;
   outline: none;
   padding: 0.5em;
   width: 90%;
@@ -553,21 +574,21 @@ article form input[type=text], article form textarea, article form select, artic
   font-weight: 300;
   resize: none;
 }
-/* line 48, ../sass/_forms.scss */
+/* line 47, ../sass/_forms.scss */
 article form input[type=text], article form textarea, article form select {
   background-color: #fbfbfb;
   font-size: 1.5em;
 }
-/* line 53, ../sass/_forms.scss */
+/* line 52, ../sass/_forms.scss */
 article form option {
   color: #000000 !important;
 }
-/* line 57, ../sass/_forms.scss */
+/* line 56, ../sass/_forms.scss */
 article form input[type=text]:focus, article form textarea:focus, article form select:focus {
   border-bottom: 1px solid #2070f7;
   color: #000000;
 }
-/* line 62, ../sass/_forms.scss */
+/* line 61, ../sass/_forms.scss */
 article form button {
   font-family: "Roboto", Times New Roman, Helvetica, sans-serif;
   height: 3em;
@@ -577,20 +598,32 @@ article form button {
   font-weight: 500;
   letter-spacing: 0.05em;
 }
-/* line 72, ../sass/_forms.scss */
+/* line 71, ../sass/_forms.scss */
 article form div.button-group {
   display: block;
   margin-top: 1em;
 }
+/* line 75, ../sass/_forms.scss */
+article form div.button-group button {
+  margin: 0.5em;
+}
 
-/* line 78, ../sass/_forms.scss */
+/* line 81, ../sass/_forms.scss */
 span.length-limiter {
-  color: #2070f7;
-  font-weight: bold;
+  color: #ffffff;
   display: block;
   position: relative;
   top: -0.25em;
-  font-weight: 300;
+  font-weight: 500;
+  background: #2070f7;
+  border-radius: 8px 3px 8px 8px;
+  text-align: center;
+  padding: 0.1em;
+  padding-left: 0.2em;
+  padding-right: 0.21em;
+  padding-bottom: 0;
+  width: 1.5em;
+  margin-top: 0.1em;
 }
 
 /* line 3, ../sass/_overlay.scss */

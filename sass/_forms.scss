@@ -14,7 +14,7 @@ article form {
 		padding-left: 0em;
 		color: #565656;
 		position: relative;
-		top: 1.05em;
+		top: 0.35em;
 		font-weight: 500;
 		
 		span.error {
@@ -25,10 +25,9 @@ article form {
 	}
 	
 	input[type=text], textarea, select, option {
-		-webkit-transition: all 0.30s ease-in-out;
-		-moz-transition: all 0.30s ease-in-out;
-		-ms-transition: all 0.30s ease-in-out;
-		-o-transition: all 0.30s ease-in-out;
+		@include transition(0.3s);
+		@include border-radius(10px 10px 2px 2px);
+
 		outline: none;
 
 		padding: 0.5em;
@@ -72,14 +71,26 @@ article form {
 	div.button-group {
 		display: block;
 		margin-top: 1em;
+		
+		button {
+			margin: 0.5em;
+		}
 	}
 }
 
 span.length-limiter {
-    color: #2070f7;
-    font-weight: bold;
+	color: #ffffff;
     display: block;
     position: relative;
     top: -0.25em;
-	font-weight: 300;
+    font-weight: 500;
+    background: #2070f7;
+    border-radius: 8px 3px 8px 8px;
+    text-align: center;
+    padding: 0.1em;
+    padding-left: 0.2em;
+    padding-right: 0.21em;
+    padding-bottom: 0;
+    width: 1.5em;
+    margin-top: 0.1em;
 }

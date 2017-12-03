@@ -13,12 +13,14 @@ import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RestController
+import org.apache.commons.lang3.StringUtils
 
 @RestController
 class IssueController(var issueRepository : IssueRepository, var jmsTemplate : JmsTemplate) {
 	
 	companion object {
 		const val ISSUE_DETAIL = "/issue/{id}"
+		const val ISSUE_SOLVED = ISSUE_DETAIL + "/solved"
 	}
 		
 	@PostMapping(ISSUE_DETAIL)
@@ -53,5 +55,21 @@ class IssueController(var issueRepository : IssueRepository, var jmsTemplate : J
 			return IssueResponse(-1, "", "")
 		}
 		return reponse 
-	}	
+	}
+	
+	@PostMapping(ISSUE_SOLVED)
+	fun solveIssue(@PathVariable id : String) : FormResponse {
+		val userId = SecurityHolder.getUserId()
+		val sprintId = SecurityHolder.getSprintId()
+		val projectId = SecurityHolder.getProjectId()
+		
+		if(userId == null || sprintId == null || projectId == null){
+			return FormResponse(status = "INVALID")
+		}
+		
+		val message = AMQMessage(id, AMQMessageType.ISSUE_SOLVED, id, userId, sprintId, projectId)			
+		jmsTemplate.convertAndSend("issues", message)
+		//add to pulling notification table
+		return FormResponse(status = "OK")
+	}
 }

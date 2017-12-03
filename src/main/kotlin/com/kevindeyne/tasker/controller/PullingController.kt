@@ -26,7 +26,7 @@ class PullingController(val issueRepository : IssueRepository) {
 	
 	@GetMapping(PULLING_OTHER)
 	fun getPullUpdateButOnlyNotifications() : PullUpdate {
-		println("getPullUpdateButOnlyNotifications")
+		//println("getPullUpdateButOnlyNotifications")
 		return PullUpdate(ArrayList<IssueResponse>());
 	}	
 }

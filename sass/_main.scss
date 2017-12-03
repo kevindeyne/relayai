@@ -3,7 +3,7 @@ $font-header: 'Roboto', Times New Roman, Helvetica, sans-serif;
 $font-code: 'Cutive Mono', 'Courier';
 
 article {
-	background-color: #fbfbfb;
+	background-color: #f3f6f8;
 	
 	height: 100vh;
 	
@@ -30,9 +30,13 @@ article {
 		font-family: $font-header;			
 	}
 	
+	#content-new-issue-title {
+		width:100%;
+	}
+	
 	#content-userinfo, #content-new-issue-title {
 		position: fixed;
-		background-color: #fbfbfb;
+		background-color: #f3f6f8;
 		z-index: 35;
 
 		#content-userinfo-details {

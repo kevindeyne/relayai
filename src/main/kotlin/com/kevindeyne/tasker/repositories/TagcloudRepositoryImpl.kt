@@ -5,8 +5,8 @@ import com.kevindeyne.tasker.jooq.tables.records.TagRecord
 import org.jooq.DSLContext
 import org.springframework.stereotype.Component
 import org.springframework.transaction.annotation.Transactional
-import java.sql.Timestamp
 import java.util.Optional
+import java.util.stream.Collectors
 
 @Component
 open class TagcloudRepositoryImpl (val dsl: DSLContext) : TagcloudRepository {
@@ -30,5 +30,17 @@ open class TagcloudRepositoryImpl (val dsl: DSLContext) : TagcloudRepository {
 			return record.get().get(Tables.TAG.ID)
 		}		
 		return null;	
+	}
+	
+	@Transactional
+	override fun findByIssues(issueId: Long) : List<Long> {
+		return dsl.selectFrom(Tables.TAGCLOUD)
+			   .where(Tables.TAGCLOUD.ISSUE_ID.eq(issueId))
+			   .fetch()
+			   .parallelStream()
+			   .map {
+				  n -> n.get(Tables.TAGCLOUD.TAG_ID)
+			   }
+			   .collect(Collectors.toList())
 	}
 }
