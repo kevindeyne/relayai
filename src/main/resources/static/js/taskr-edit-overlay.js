@@ -32,8 +32,13 @@ $(document).ready(function() {
 	$("#edit-changer-submit").click(function () {
 		var relativeTo = "#"+$("#overlay-detail").attr("relative-to");
 		$(relativeTo).text($("#overlay-detail ul:visible li.active").text());
+		
+		if($("#overlay-detail ul:visible li.active").text() === "Done") {
+			var issueId = $("aside section.active").attr("issue-id");
+			$.post('/issue/--/solved'.replace("--", issueId), {}, function(response) {}, 'json');
+		}
+		
 		$("#overlay, #overlay-detail").hide();
-		//send postJSON
 	});
 	
 	$("#overlay").click(function(e){
