@@ -60,7 +60,7 @@ class GlobalReceiver(val issueRepository: IssueRepository, val tagcloud: Tagclou
 	
 	fun handleProgress(message: AMQMessage){
 		val status = Progress.valueOf(message.value)
-		val issueId = message.id.toLong() 
+		val issueId = message.id.toLong()
 		issueRepository.updateStatus(issueId, status)
 		
 		when(status){

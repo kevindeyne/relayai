@@ -3,6 +3,7 @@ package com.kevindeyne.tasker.repositories
 import com.kevindeyne.tasker.controller.form.IssueResponse
 import com.kevindeyne.tasker.controller.form.StandupResponse
 import com.kevindeyne.tasker.domain.IssueListing
+import com.kevindeyne.tasker.domain.Progress
 
 interface IssueRepository {
 	fun findAllActiveForUserInCurrentSprint() : List<IssueListing>
@@ -18,6 +19,8 @@ interface IssueRepository {
 	fun create(title : String, description : String, userId : Long, sprintId : Long, projectId : Long, assignedTo : Long) : Long
 	
 	fun update(issueId : Long, title : String, description : String, userId : Long)
+	
+	fun updateStatus(issueId : Long, status : Progress)
 	
 	fun assign(issueId : Long, userId : Long)
 }

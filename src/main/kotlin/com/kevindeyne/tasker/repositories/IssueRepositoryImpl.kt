@@ -88,6 +88,20 @@ open class IssueRepositoryImpl (val dsl: DSLContext) : IssueRepository {
 			.set(Tables.ISSUE.DESCRIPTION, description)
 			.set(Tables.ISSUE.UPDATE_USER, updateUser)
 			.set(Tables.ISSUE.UPDATE_DATE, timestamp)
+			.where(Tables.ISSUE.ID.eq(issueId))
+			.execute()
+	}
+			
+	@Transactional
+	override fun updateStatus(issueId : Long, status : Progress) {
+		val timestamp = Timestamp(System.currentTimeMillis())
+		val updateUser = SecurityHolder.getUserId().toString()
+		
+		dsl.update(Tables.ISSUE)
+			.set(Tables.ISSUE.STATUS, status.name)
+			.set(Tables.ISSUE.UPDATE_USER, updateUser)
+			.set(Tables.ISSUE.UPDATE_DATE, timestamp)
+			.where(Tables.ISSUE.ID.eq(issueId))
 			.execute()
 	}
 	
