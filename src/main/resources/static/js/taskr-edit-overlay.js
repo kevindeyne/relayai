@@ -48,7 +48,7 @@ $(document).ready(function() {
 function solvedFunctionality(){
 	var issueId = $("aside section.active").attr("issue-id");
 	var action = $("#overlay-detail ul:visible li.active").attr("data-value");
-	$.post('/issue/'+issueId+'/'+action), {}, function(response) {}, 'json');
+	$.post('/issue/'+issueId+'/'+action, {}, function(response) {}, 'json');
 	
 	if(action === "DONE") {		
 		$("aside section.active").hide();
