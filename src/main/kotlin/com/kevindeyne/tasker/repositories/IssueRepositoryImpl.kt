@@ -3,6 +3,7 @@ package com.kevindeyne.tasker.repositories
 import com.kevindeyne.tasker.controller.form.IssueResponse
 import com.kevindeyne.tasker.controller.form.StandupResponse
 import com.kevindeyne.tasker.domain.IssueListing
+import com.kevindeyne.tasker.domain.Progress
 import com.kevindeyne.tasker.jooq.Tables
 import com.kevindeyne.tasker.jooq.tables.records.IssueRecord
 import com.kevindeyne.tasker.service.SecurityHolder
@@ -17,9 +18,11 @@ import java.util.stream.Collectors
 open class IssueRepositoryImpl (val dsl: DSLContext) : IssueRepository {
 		
 	@Transactional
-	override fun findAllForUser() : List<IssueListing> {
+	override fun findAllActiveForUserInCurrentSprint() : List<IssueListing> {
 		return dsl.selectFrom(Tables.ISSUE)
 			   .where(Tables.ISSUE.ASSIGNED.eq(SecurityHolder.getUserId()))
+			   .and(Tables.ISSUE.SPRINT_ID.eq(SecurityHolder.getSprintId()))
+			   .and(Tables.ISSUE.STATUS.notEqual(Progress.DONE.name))
 			   .orderBy(Tables.ISSUE.CREATE_DATE.desc()) //by importance
 			   .fetch()
 			   .parallelStream()
@@ -29,7 +32,7 @@ open class IssueRepositoryImpl (val dsl: DSLContext) : IssueRepository {
 									abbreviate(n.get(Tables.ISSUE.DESCRIPTION)),
 									n.get(Tables.ISSUE.DESCRIPTION))
 			   }
-			   .collect(Collectors.toList())		
+			   .collect(Collectors.toList())
 	}
 	
 	@Transactional
@@ -63,15 +66,41 @@ open class IssueRepositoryImpl (val dsl: DSLContext) : IssueRepository {
 	}
 	
 	@Transactional
-	override fun create(title : String, description : String, userId : Long, sprintId : Long, projectId : Long) : Long {
+	override fun create(title : String, description : String, userId : Long, sprintId : Long, projectId : Long, assignedTo : Long) : Long {
 		val timestamp = Timestamp(System.currentTimeMillis())
 		val createAndUpdateUser = userId.toString()
 		
 		return dsl.insertInto(Tables.ISSUE,
 				Tables.ISSUE.TITLE, Tables.ISSUE.DESCRIPTION, Tables.ISSUE.ASSIGNED, Tables.ISSUE.SPRINT_ID, Tables.ISSUE.PROJECT_ID,
 				Tables.ISSUE.CREATE_USER, Tables.ISSUE.UPDATE_USER, Tables.ISSUE.CREATE_DATE, Tables.ISSUE.UPDATE_DATE)
-		   .values(title, description, userId, sprintId, projectId, createAndUpdateUser, createAndUpdateUser, timestamp, timestamp)
-		   .returning(Tables.TAG.ID).fetchOne().get(Tables.TAG.ID);
+		   .values(title, description, assignedTo, sprintId, projectId, createAndUpdateUser, createAndUpdateUser, timestamp, timestamp)
+		   .returning(Tables.ISSUE.ID).fetchOne().get(Tables.ISSUE.ID);
+	}
+	
+		
+	@Transactional
+	override fun update(issueId : Long, title : String, description : String, userId : Long) {
+		val timestamp = Timestamp(System.currentTimeMillis())
+		val updateUser = userId.toString()
+		
+		dsl.update(Tables.ISSUE)
+			.set(Tables.ISSUE.TITLE, title)
+			.set(Tables.ISSUE.DESCRIPTION, description)
+			.set(Tables.ISSUE.UPDATE_USER, updateUser)
+			.set(Tables.ISSUE.UPDATE_DATE, timestamp)
+			.execute()
+	}
+	
+	@Transactional
+	override fun assign(issueId : Long, userId : Long){
+		val timestamp = Timestamp(System.currentTimeMillis())
+		val updateUser = userId.toString()
+		
+		dsl.update(Tables.ISSUE)
+			.set(Tables.ISSUE.ASSIGNED, userId)
+			.set(Tables.ISSUE.UPDATE_USER, updateUser)
+			.set(Tables.ISSUE.UPDATE_DATE, timestamp)
+			.execute()
 	}
 	
 	@Transactional

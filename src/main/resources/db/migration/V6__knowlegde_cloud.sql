@@ -1,3 +1,4 @@
+START TRANSACTION;
 CREATE TABLE `tag` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `tag` varchar(255) NOT NULL,
@@ -31,3 +32,4 @@ ADD FOREIGN KEY (user_id) REFERENCES user(id);
 
 ALTER TABLE knowledge
 ADD FOREIGN KEY (tag_id) REFERENCES tag(id);
+COMMIT;

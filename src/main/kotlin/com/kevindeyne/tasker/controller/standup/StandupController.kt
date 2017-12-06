@@ -8,7 +8,7 @@ import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.GetMapping
 
 @Controller
-class StandupController(var issueRepository : IssueRepository, var sprintRepository : SprintRepository) {
+class StandupController(val issueRepository : IssueRepository, val sprintRepository : SprintRepository) {
 	
 	companion object {
 		const val STANDUP_GET = "/daily"
@@ -23,7 +23,7 @@ class StandupController(var issueRepository : IssueRepository, var sprintReposit
 		getDailyOverviewOfSpecificSprint(model, sprintId)
 				
 		//TODO test data
-		val issueList = issueRepository.findAllForUser()				
+		val issueList = issueRepository.findAllActiveForUserInCurrentSprint()				
 		model.addAttribute("issueList1", issueList.subList(0, 5));
 		model.addAttribute("issueList2", issueList.subList(6, 16));
 		model.addAttribute("issueList3", issueList.subList(17, 38));

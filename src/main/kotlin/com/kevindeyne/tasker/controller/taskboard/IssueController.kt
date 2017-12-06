@@ -20,7 +20,7 @@ class IssueController(var issueRepository : IssueRepository, var jmsTemplate : J
 	
 	companion object {
 		const val ISSUE_DETAIL = "/issue/{id}"
-		const val ISSUE_SOLVED = ISSUE_DETAIL + "/solved"
+		const val ISSUE_PROGRESS = ISSUE_DETAIL + "/{progress}"
 	}
 		
 	@PostMapping(ISSUE_DETAIL)
@@ -57,8 +57,8 @@ class IssueController(var issueRepository : IssueRepository, var jmsTemplate : J
 		return reponse 
 	}
 	
-	@PostMapping(ISSUE_SOLVED)
-	fun solveIssue(@PathVariable id : String) : FormResponse {
+	@PostMapping(ISSUE_PROGRESS)
+	fun solveIssue(@PathVariable id : String, @PathVariable progress : String) : FormResponse {
 		val userId = SecurityHolder.getUserId()
 		val sprintId = SecurityHolder.getSprintId()
 		val projectId = SecurityHolder.getProjectId()
@@ -67,7 +67,7 @@ class IssueController(var issueRepository : IssueRepository, var jmsTemplate : J
 			return FormResponse(status = "INVALID")
 		}
 		
-		val message = AMQMessage(id, AMQMessageType.ISSUE_SOLVED, id, userId, sprintId, projectId)			
+		val message = AMQMessage(id, AMQMessageType.ISSUE_PROGRESS, progress, userId, sprintId, projectId)	
 		jmsTemplate.convertAndSend("issues", message)
 		//add to pulling notification table
 		return FormResponse(status = "OK")

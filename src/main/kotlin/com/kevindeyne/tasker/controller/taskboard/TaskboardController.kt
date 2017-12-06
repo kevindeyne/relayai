@@ -50,7 +50,7 @@ class TaskboardController(var issueRepository : IssueRepository) {
 	///
 	
 	fun genericTaskboardBuildup(model : Model) {
-		val issueList = issueRepository.findAllForUser()
+		val issueList = issueRepository.findAllActiveForUserInCurrentSprint()
 		model.addAttribute("issueList", issueList);
 		model.addAttribute("urlPostIssue", IssueController.ISSUE_DETAIL)
 		
