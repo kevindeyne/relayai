@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
+import com.kevindeyne.tasker.domain.InProgressIssue
 
 @Controller
 class TaskboardController(var issueRepository : IssueRepository) {
@@ -61,6 +62,8 @@ class TaskboardController(var issueRepository : IssueRepository) {
 		model.addAttribute("maxid", determineMaxId(issueList));
 		
 		model.addAttribute("activePage", "tasks");
+
+		model.addAttribute("inProgressIssueList", issueRepository.findAllInProgress());		
 	}
 	
 	fun determineMaxId(list : List<IssueListing>) : Long =  list.stream().mapToLong{ i -> i.id }.max().asLong

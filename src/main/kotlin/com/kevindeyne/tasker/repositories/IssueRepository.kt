@@ -2,17 +2,21 @@ package com.kevindeyne.tasker.repositories
 
 import com.kevindeyne.tasker.controller.form.IssueResponse
 import com.kevindeyne.tasker.controller.form.StandupResponse
+import com.kevindeyne.tasker.domain.Impact
+import com.kevindeyne.tasker.domain.InProgressIssue
 import com.kevindeyne.tasker.domain.IssueListing
 import com.kevindeyne.tasker.domain.Progress
+import com.kevindeyne.tasker.domain.Urgency
 
 interface IssueRepository {
+	
 	fun findAllActiveForUserInCurrentSprint() : List<IssueListing>
 	
 	fun findById(issueId : Long) : IssueResponse?
 	
 	fun findHighestPrioForUser() : IssueResponse
 	
-	fun findUpdateOnIssues(sprintId : Long, maxid : String) : List<IssueResponse> //TODO move to pulling 
+	fun findUpdateOnIssues(sprintId : Long, maxid : String) : List<IssueResponse> //TODO move to pulling
 	
 	fun findStandupIssuesForSprint(sprintId : Long) : List<StandupResponse>
 	
@@ -20,7 +24,13 @@ interface IssueRepository {
 	
 	fun update(issueId : Long, title : String, description : String, userId : Long)
 	
-	fun updateStatus(issueId : Long, status : Progress)
+	fun updateStatus(issueId : Long, status : Progress, userId : Long)
+	
+	fun updateUrgency(issueId : Long, urgency : Urgency, userId : Long)
+	
+	fun updateImpact(issueId : Long, impact : Impact, userId : Long)
 	
 	fun assign(issueId : Long, userId : Long)
+	
+	fun findAllInProgress() : List<InProgressIssue>
 }

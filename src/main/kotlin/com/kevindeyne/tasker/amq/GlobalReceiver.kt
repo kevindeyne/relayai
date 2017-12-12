@@ -1,6 +1,8 @@
 package com.kevindeyne.tasker.amq
 
+import com.kevindeyne.tasker.domain.Impact
 import com.kevindeyne.tasker.domain.Progress
+import com.kevindeyne.tasker.domain.Urgency
 import com.kevindeyne.tasker.repositories.IssueRepository
 import com.kevindeyne.tasker.repositories.KnowledgeRepository
 import com.kevindeyne.tasker.repositories.TagcloudRepository
@@ -14,11 +16,15 @@ import org.springframework.stereotype.Component
 class GlobalReceiver(val issueRepository: IssueRepository, val tagcloud: TagcloudRepository, val knowledge: KnowledgeRepository) {
 
 	@JmsListener(destination = "issues", containerFactory = "jmsFactory")
-	fun onMessage(message: AMQMessage) {
-		when (message.type) {
-			AMQMessageType.ISSUE_CREATE_OR_EDIT -> handleCreateOrEditIssue(message)
-			AMQMessageType.ISSUE_PROGRESS -> handleProgress(message)
-			else -> println("Unknown message type")
+	fun onMessage(m: AMQMessage) {
+		when (m.type) {
+			AMQMessageType.ISSUE_CREATE_OR_EDIT -> handleCreateOrEditIssue(m)
+			AMQMessageType.ISSUE_PROGRESS -> handleProgress(m)
+			AMQMessageType.ISSUE_URGENCY -> issueRepository.updateUrgency(getIdFromMessage(m), Urgency.valueOf(m.value), m.userId)
+			AMQMessageType.ISSUE_IMPACT -> issueRepository.updateImpact(getIdFromMessage(m), Impact.valueOf(m.value), m.userId)
+			AMQMessageType.ISSUE_ASSIGNEE -> handleAssignee(m)
+			AMQMessageType.ISSUE_FIXVERSION -> handleFixVersion(m)
+			else -> throw RuntimeException("Unknown message type")
 		}
 	}
 
@@ -54,17 +60,23 @@ class GlobalReceiver(val issueRepository: IssueRepository, val tagcloud: Tagclou
 			println("Assigning issue to " + userId)
 			issueRepository.assign(issueId, userId)
 		} else {
-			println("Nobody to assign to, staying with current user")			
+			println("Nobody to assign to, staying with current user")
 		}
 	}
 	
-	fun handleProgress(message: AMQMessage){
-		val status = Progress.valueOf(message.value)
-		val issueId = message.id.toLong()
-		issueRepository.updateStatus(issueId, status)
+	fun getIdFromMessage(message: AMQMessage) : Long = message.id.toLong()
+	
+	fun handleAssignee(message: AMQMessage){}
+	
+	fun handleFixVersion(message: AMQMessage){}
+	
+	fun handleProgress(m: AMQMessage){
+		val status = Progress.valueOf(m.value)
+		issueRepository.updateStatus(getIdFromMessage(m), status, m.userId)
 		
 		when(status){
-			Progress.DONE -> handleSolved(issueId, message.userId)
+			Progress.DONE -> handleSolved(getIdFromMessage(m), m.userId)
+			else -> return
 		}
 	}
 	

@@ -24,11 +24,11 @@ nav {
 		}
 	}
 	
-	a:first-of-type {
+	> a:first-of-type {
 		border-top: 1px solid #f0f2f5;
 	}
 	
-	a {	
+	> a {	
 		margin: 0 !important;
 		padding-left: 0.5em;
 		padding-top: 1.54em;

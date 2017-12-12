@@ -1,7 +1,9 @@
 package com.kevindeyne.tasker.domain;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -21,6 +23,8 @@ public class UserPrincipal implements UserDetails {
 
 	private Long sprintId;
 
+	private List<InProgressIssue> trackingIssues;
+
 	public UserPrincipal(Long userId, String userName, String password, Long projectId, Long sprintId) {
 		super();
 		this.userId = userId;
@@ -28,6 +32,7 @@ public class UserPrincipal implements UserDetails {
 		this.password = password;
 		this.projectId = projectId;
 		this.sprintId = sprintId;
+		this.setTrackingIssues(new ArrayList<InProgressIssue>());
 	}
 
 	@Override
@@ -83,5 +88,13 @@ public class UserPrincipal implements UserDetails {
 
 	public void setSprintId(Long sprintId) {
 		this.sprintId = sprintId;
+	}
+
+	public List<InProgressIssue> getTrackingIssues() {
+		return trackingIssues;
+	}
+
+	public void setTrackingIssues(List<InProgressIssue> trackingIssues) {
+		this.trackingIssues = trackingIssues;
 	}
 }

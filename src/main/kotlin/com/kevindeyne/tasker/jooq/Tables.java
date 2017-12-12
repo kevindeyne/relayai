@@ -5,6 +5,7 @@ package com.kevindeyne.tasker.jooq;
 
 
 import com.kevindeyne.tasker.jooq.tables.Event;
+import com.kevindeyne.tasker.jooq.tables.InProgress;
 import com.kevindeyne.tasker.jooq.tables.Issue;
 import com.kevindeyne.tasker.jooq.tables.Knowledge;
 import com.kevindeyne.tasker.jooq.tables.Project;
@@ -35,6 +36,11 @@ public class Tables {
      * The table <code>taskr.event</code>.
      */
     public static final Event EVENT = com.kevindeyne.tasker.jooq.tables.Event.EVENT;
+
+    /**
+     * The table <code>taskr.in_progress</code>.
+     */
+    public static final InProgress IN_PROGRESS = com.kevindeyne.tasker.jooq.tables.InProgress.IN_PROGRESS;
 
     /**
      * The table <code>taskr.issue</code>.

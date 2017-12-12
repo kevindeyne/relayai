@@ -5,6 +5,7 @@ package com.kevindeyne.tasker.jooq;
 
 
 import com.kevindeyne.tasker.jooq.tables.Event;
+import com.kevindeyne.tasker.jooq.tables.InProgress;
 import com.kevindeyne.tasker.jooq.tables.Issue;
 import com.kevindeyne.tasker.jooq.tables.Knowledge;
 import com.kevindeyne.tasker.jooq.tables.Project;
@@ -15,6 +16,7 @@ import com.kevindeyne.tasker.jooq.tables.Tag;
 import com.kevindeyne.tasker.jooq.tables.Tagcloud;
 import com.kevindeyne.tasker.jooq.tables.User;
 import com.kevindeyne.tasker.jooq.tables.records.EventRecord;
+import com.kevindeyne.tasker.jooq.tables.records.InProgressRecord;
 import com.kevindeyne.tasker.jooq.tables.records.IssueRecord;
 import com.kevindeyne.tasker.jooq.tables.records.KnowledgeRecord;
 import com.kevindeyne.tasker.jooq.tables.records.ProjectRecord;
@@ -51,6 +53,7 @@ public class Keys {
     // -------------------------------------------------------------------------
 
     public static final Identity<EventRecord, Long> IDENTITY_EVENT = Identities0.IDENTITY_EVENT;
+    public static final Identity<InProgressRecord, Long> IDENTITY_IN_PROGRESS = Identities0.IDENTITY_IN_PROGRESS;
     public static final Identity<IssueRecord, Long> IDENTITY_ISSUE = Identities0.IDENTITY_ISSUE;
     public static final Identity<KnowledgeRecord, Long> IDENTITY_KNOWLEDGE = Identities0.IDENTITY_KNOWLEDGE;
     public static final Identity<ProjectRecord, Long> IDENTITY_PROJECT = Identities0.IDENTITY_PROJECT;
@@ -65,6 +68,7 @@ public class Keys {
     // -------------------------------------------------------------------------
 
     public static final UniqueKey<EventRecord> KEY_EVENT_PRIMARY = UniqueKeys0.KEY_EVENT_PRIMARY;
+    public static final UniqueKey<InProgressRecord> KEY_IN_PROGRESS_PRIMARY = UniqueKeys0.KEY_IN_PROGRESS_PRIMARY;
     public static final UniqueKey<IssueRecord> KEY_ISSUE_PRIMARY = UniqueKeys0.KEY_ISSUE_PRIMARY;
     public static final UniqueKey<KnowledgeRecord> KEY_KNOWLEDGE_PRIMARY = UniqueKeys0.KEY_KNOWLEDGE_PRIMARY;
     public static final UniqueKey<ProjectRecord> KEY_PROJECT_PRIMARY = UniqueKeys0.KEY_PROJECT_PRIMARY;
@@ -86,6 +90,7 @@ public class Keys {
 
     private static class Identities0 extends AbstractKeys {
         public static Identity<EventRecord, Long> IDENTITY_EVENT = createIdentity(Event.EVENT, Event.EVENT.ID);
+        public static Identity<InProgressRecord, Long> IDENTITY_IN_PROGRESS = createIdentity(InProgress.IN_PROGRESS, InProgress.IN_PROGRESS.ID);
         public static Identity<IssueRecord, Long> IDENTITY_ISSUE = createIdentity(Issue.ISSUE, Issue.ISSUE.ID);
         public static Identity<KnowledgeRecord, Long> IDENTITY_KNOWLEDGE = createIdentity(Knowledge.KNOWLEDGE, Knowledge.KNOWLEDGE.ID);
         public static Identity<ProjectRecord, Long> IDENTITY_PROJECT = createIdentity(Project.PROJECT, Project.PROJECT.ID);
@@ -98,6 +103,7 @@ public class Keys {
 
     private static class UniqueKeys0 extends AbstractKeys {
         public static final UniqueKey<EventRecord> KEY_EVENT_PRIMARY = createUniqueKey(Event.EVENT, "KEY_event_PRIMARY", Event.EVENT.ID);
+        public static final UniqueKey<InProgressRecord> KEY_IN_PROGRESS_PRIMARY = createUniqueKey(InProgress.IN_PROGRESS, "KEY_in_progress_PRIMARY", InProgress.IN_PROGRESS.ID);
         public static final UniqueKey<IssueRecord> KEY_ISSUE_PRIMARY = createUniqueKey(Issue.ISSUE, "KEY_issue_PRIMARY", Issue.ISSUE.ID);
         public static final UniqueKey<KnowledgeRecord> KEY_KNOWLEDGE_PRIMARY = createUniqueKey(Knowledge.KNOWLEDGE, "KEY_knowledge_PRIMARY", Knowledge.KNOWLEDGE.ID);
         public static final UniqueKey<ProjectRecord> KEY_PROJECT_PRIMARY = createUniqueKey(Project.PROJECT, "KEY_project_PRIMARY", Project.PROJECT.ID);

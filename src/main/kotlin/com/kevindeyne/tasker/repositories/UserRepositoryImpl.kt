@@ -1,19 +1,20 @@
 package com.kevindeyne.tasker.repositories
 
+import com.kevindeyne.tasker.domain.IssueListing
 import com.kevindeyne.tasker.domain.UserPrincipal
 import com.kevindeyne.tasker.jooq.Tables
 import com.kevindeyne.tasker.jooq.tables.records.UserRecord
 import org.jooq.DSLContext
 import org.springframework.stereotype.Repository
 import org.springframework.transaction.annotation.Transactional
-import java.sql.Timestamp
 import java.util.Optional
+import com.kevindeyne.tasker.domain.InProgressIssue
 
 @Repository
-open class UserRepositoryImpl (val dsl: DSLContext, val sprintRepository : SprintRepository) : UserRepository {
+open class UserRepositoryImpl (val dsl: DSLContext, val sprintRepository : SprintRepository, val issueRepository : IssueRepository) : UserRepository {
 	
 	@Transactional
-	override fun findByUsername(username : String) : UserPrincipal? {		
+	override fun findByUsername(username : String) : UserPrincipal? {
 		val record : Optional<UserRecord> = dsl.selectFrom(Tables.USER)
 			   .where(Tables.USER.EMAIL.eq(username))
 			   .fetchOptional()
@@ -22,14 +23,16 @@ open class UserRepositoryImpl (val dsl: DSLContext, val sprintRepository : Sprin
 			val userId : Long = getUserIdFromRecord(record.get())		
 			val projectId : Long? = getProjectId(dsl, userId)
 			val sprintId : Long? = sprintRepository.findCurrentSprintByProjectId(projectId)
-			
-			return record.get().map {
+
+			val up : UserPrincipal = record.get().map {
 			      n -> UserPrincipal(userId,
 									 n.get(Tables.USER.EMAIL),
 									 n.get(Tables.USER.PASSWORD),
 									 projectId,
 									 sprintId)
 			   }
+			
+			return up;
 		}
 		
 		return null;

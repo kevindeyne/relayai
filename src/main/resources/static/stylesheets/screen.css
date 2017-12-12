@@ -224,11 +224,11 @@ nav a:hover i {
   color: #2070f7;
 }
 /* line 27, ../sass/_menu.scss */
-nav a:first-of-type {
+nav > a:first-of-type {
   border-top: 1px solid #f0f2f5;
 }
 /* line 31, ../sass/_menu.scss */
-nav a {
+nav > a {
   margin: 0 !important;
   padding-left: 0.5em;
   padding-top: 1.54em;
@@ -236,7 +236,7 @@ nav a {
   border-bottom: 1px solid #f0f2f5;
 }
 /* line 38, ../sass/_menu.scss */
-nav a i {
+nav > a i {
   padding-right: 1.0em;
   padding-left: 0.35em;
   font-size: 1.2em !important;
@@ -363,6 +363,31 @@ aside section > p {
   padding: 1em;
   box-sizing: border-box;
   font-weight: 300;
+}
+
+/* line 1, ../sass/_tracker.scss */
+#nav-bottom {
+  position: absolute;
+  bottom: 2em;
+  left: 1em;
+}
+/* line 6, ../sass/_tracker.scss */
+#nav-bottom p {
+  padding-bottom: 0.5em;
+  font-size: 1.05em;
+  color: #202225;
+  max-width: 232px;
+  line-height: 1.05em;
+}
+/* line 15, ../sass/_tracker.scss */
+#nav-bottom #tracker a, #nav-bottom #tracker a:active, #nav-bottom #tracker a:visited, #nav-bottom #tracker a:link {
+  color: #2070f7;
+  text-decoration: none;
+}
+/* line 19, ../sass/_tracker.scss */
+#nav-bottom #tracker a:hover {
+  color: #2070f7;
+  text-decoration: underline;
 }
 
 /* line 5, ../sass/_main.scss */

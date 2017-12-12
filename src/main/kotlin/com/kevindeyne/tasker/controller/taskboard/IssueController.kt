@@ -20,7 +20,7 @@ class IssueController(var issueRepository : IssueRepository, var jmsTemplate : J
 	
 	companion object {
 		const val ISSUE_DETAIL = "/issue/{id}"
-		const val ISSUE_PROGRESS = ISSUE_DETAIL + "/{progress}"
+		const val ISSUE_PROGRESS = ISSUE_DETAIL + "/{action}/{changedValue}"
 	}
 		
 	@PostMapping(ISSUE_DETAIL)
@@ -52,13 +52,13 @@ class IssueController(var issueRepository : IssueRepository, var jmsTemplate : J
 		
 		val reponse = issueRepository.findById(id.toLong())		
 		if (reponse == null){
-			return IssueResponse(-1, "", "")
+			return IssueResponse(-1, "", "", "", "", "")
 		}
 		return reponse 
 	}
 	
 	@PostMapping(ISSUE_PROGRESS)
-	fun solveIssue(@PathVariable id : String, @PathVariable progress : String) : FormResponse {
+	fun progressIssue(@PathVariable id : String, @PathVariable action : String, @PathVariable changedValue : String) : FormResponse {
 		val userId = SecurityHolder.getUserId()
 		val sprintId = SecurityHolder.getSprintId()
 		val projectId = SecurityHolder.getProjectId()
@@ -66,10 +66,22 @@ class IssueController(var issueRepository : IssueRepository, var jmsTemplate : J
 		if(userId == null || sprintId == null || projectId == null){
 			return FormResponse(status = "INVALID")
 		}
-		
-		val message = AMQMessage(id, AMQMessageType.ISSUE_PROGRESS, progress, userId, sprintId, projectId)	
+				
+		val message = AMQMessage(id, determineMessageType(action), changedValue, userId, sprintId, projectId)
 		jmsTemplate.convertAndSend("issues", message)
 		//add to pulling notification table
 		return FormResponse(status = "OK")
+	}
+	
+	fun determineMessageType(action : String) : AMQMessageType{
+		when(action){
+			"progress" -> return AMQMessageType.ISSUE_PROGRESS
+			"impact" -> return AMQMessageType.ISSUE_IMPACT
+			"urgency" -> return AMQMessageType.ISSUE_URGENCY
+			"fixversion" -> return AMQMessageType.ISSUE_FIXVERSION
+			"assignee" -> return AMQMessageType.ISSUE_ASSIGNEE
+		}
+		
+		throw RuntimeException("Could not determine message type in IssueController")
 	}
 }

@@ -1,9 +1,7 @@
 $(document).ready(function() {
 	
 	$("span.changeable").click(function(){
-		var position = $(this).position();
-		var relativeTo = $(this).attr("id");
-		
+		var relativeTo = $(this).attr("id");		
 		$("#overlay-detail").attr("relative-to", relativeTo);
 		
 		$("#overlay-detail p:first span:first").text($(this).attr("data-status"));
@@ -15,14 +13,13 @@ $(document).ready(function() {
 		$("#overlay-detail ul li").removeClass("active");
 		$("#overlay-detail ul li:contains('"+$(this).text()+"')").addClass("active");	
 		
+		var position = $(this).position();
 		var left = $("nav").width() + $("aside").width() + position.left;
 		$("#overlay").show().css({opacity: '0'}).animate({opacity: '1'}, "fast");				
 		$("#overlay-detail").show().css({ "left": left, "top": position.top }).css({opacity: '0'}).animate({opacity: '1'}, "fast");				
 	});
 	
-	$("#overlay-detail button.altpath").click(function(e){
-		$("#overlay, #overlay-detail").hide();	
-	});
+	$("#overlay-detail button.altpath").click(function(){hideOverlay();});
 	
 	$("#overlay-detail ul li").click(function(e){
 		$("#overlay-detail ul li").removeClass("hover").removeClass("active");
@@ -30,27 +27,51 @@ $(document).ready(function() {
 	});
 	
 	$("#edit-changer-submit").click(function () {
-		var relativeTo = "#"+$("#overlay-detail").attr("relative-to");
-		$(relativeTo).text($("#overlay-detail ul:visible li.active").text());		
-		solvedFunctionality();		
-		$("#overlay, #overlay-detail").hide();
+		changeRelativeToText();
+		changeSubmitFunctionality();		
+		hideOverlay();
 	});
 	
 	$("#overlay").click(function(e){
 		var position = $("#overlay-detail").position();
-		if((e.pageX < position.left || e.pageX > (position.left + $("#overlay-detail").width())) 
-			|| (e.pageY < position.top || e.pageY > (position.top + $("#overlay-detail").height()))) {
-			$("#overlay, #overlay-detail").hide();		
+		if(isClickOutsideOfOverlay(e, position)) {
+			hideOverlay();	
 		}
 	});
 });
 
-function solvedFunctionality(){
+function changeSubmitFunctionality(){
 	var issueId = $("aside section.active").attr("issue-id");
 	var action = $("#overlay-detail ul:visible li.active").attr("data-value");
-	$.post('/issue/'+issueId+'/'+action, {}, function(response) {}, 'json');
-	
-	if(action === "DONE") {		
-		$("aside section.active").hide();
-	}
+	var relativeTo = $("#overlay-detail").attr("relative-to").replace("change-", "");
+	$.post("/issue/"+issueId+"/"+relativeTo+"/"+action, {}, function(response) {}, 'json');	
+	afterChange(action);
 };
+
+function afterChange(action){
+	if(action === "DONE") {
+		$("aside section.active").hide();
+	} else 	if(action === "IN_PROGRESS") {
+		var inProgressTask = $("<p class='tracking-data'><a><span></span></a></p>");
+		$(inProgressTask).find("span").text($("#content-userinfo h1").text());
+		var issueId = $("aside section.active").attr("issue-id");
+		$(inProgressTask).find("a").attr("href", "/tasks/" + issueId);
+		$("#tracker").append(inProgressTask);
+		$("#tracker").removeClass("invisible").fadeIn(200);
+	}
+}
+
+
+function isClickOutsideOfOverlay(e, position){
+	return (e.pageX < position.left || e.pageX > (position.left + $("#overlay-detail").width())) 
+	|| (e.pageY < position.top || e.pageY > (position.top + $("#overlay-detail").height()));
+}
+
+function changeRelativeToText(){
+	var relativeTo = "#"+$("#overlay-detail").attr("relative-to");
+	$(relativeTo).text($("#overlay-detail ul:visible li.active").text());	
+}
+
+function hideOverlay(e){
+	$("#overlay, #overlay-detail").hide();
+}

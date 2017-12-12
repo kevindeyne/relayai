@@ -14,6 +14,16 @@
 			<a href="/settings" th:classappend="${activePage == 'settings'}?active"><i class="fa fa-cog" aria-hidden="true"></i> <span>Settings</span></a>
 			<a href="/messages" th:classappend="${activePage == 'messages'}?active"><i class="fa fa-commenting-o" aria-hidden="true"></i> <span>Messages</span></a>		
 			<a href="/logout"><i class="fa fa-sign-out" aria-hidden="true"></i> <span>Logout</span></a>
+			
+			<section id="nav-bottom">
+				<div id="tracker" th:classappend="${#lists.isEmpty(inProgressIssueList)}?invisible">
+					<p><i class="fa fa-play-circle" aria-hidden="true"></i> Now tracking: </p>
+					<p class="tracking-data" th:each="inProgressIssue : ${inProgressIssueList}">
+						<a th:href="${'/tasks/' + inProgressIssue.id}"><span th:text="${inProgressIssue.title}"></span></a>
+					</section>
+				</div>
+			</section>
+			
 		</nav>
   
 		<th:block th:fragment="meta">

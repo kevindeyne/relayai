@@ -3,8 +3,7 @@ var latestClickedIssue = null;
 var issueLoaded = new Object();
 		
 $(document).ready(function() {
-	var aside = document.querySelector('aside');
-	SimpleScrollbar.initEl(aside);
+	initScrollbar('aside');
 	
 	//task list logic on taskboard
 	$("aside section").click(function (){
@@ -17,12 +16,7 @@ $(document).ready(function() {
 			
 			latestClickedIssue = sectionId;
 			
-			var progressLine = new ProgressBar.Line(sectionId, {
-		        color: '#2070f7',
-		        duration: 1500,
-		        easing: 'easeInOut'
-		    });
-			
+			var progressLine = buildProgressBar(sectionId);
 			var issueLoadingAnimationDone = false;
 			var issueLoadingDone = false;
 			
@@ -36,8 +30,6 @@ $(document).ready(function() {
 				issueLoadingAnimationDone = true;				
 				handleIssueLoaded(latestClickedIssue, progressLine, issueLoadingAnimationDone, issueLoadingDone, issueId);
 			});
-			
-
 		}
 	});
 	
@@ -49,6 +41,20 @@ $(document).ready(function() {
 	$('aside .ss-content').animate({ scrollTop: $("section.active").offset().top-10 }, 1); //scroll to active - convenience; for clarity we probably want to keep the active one fixed and inbox moving TODO
 });
 
+
+function initScrollbar(element){
+	var aside = document.querySelector(element);
+	SimpleScrollbar.initEl(aside);
+}
+
+function buildProgressBar(sectionId){
+	return new ProgressBar.Line(sectionId, {
+        color: '#2070f7',
+        duration: 1500,
+        easing: 'easeInOut'
+    });
+}
+
 function handleIssueLoaded(latestClickedIssue, progressLine, issueLoadingAnimationDone, issueLoadingDone, issueId){
 	if(issueLoadingAnimationDone && issueLoadingDone){
 		var sectionId = "#"+progressLine._container.id;
@@ -57,8 +63,7 @@ function handleIssueLoaded(latestClickedIssue, progressLine, issueLoadingAnimati
 			$(sectionId).parent().addClass("active");
 			$(sectionId).parent().find("h1 i.new-issue").fadeOut();
 			
-			$("#content-userinfo h1").text(issueLoaded.title);
-		 	//data.descr
+			loadingContent(issueLoaded);
 			
 			window.history.pushState('taskr-currentpage', null, '/tasks/' + issueId);
 		}
@@ -69,4 +74,18 @@ function handleIssueLoaded(latestClickedIssue, progressLine, issueLoadingAnimati
 		   //
 		}
 	}
+}
+
+function loadingContent(issue){
+	$("#content-userinfo h1").text(issueLoaded.title);
+	
+	var description = $("<p></p>");
+	description.text(issueLoaded.descr);
+	$("#content-main").html(description);
+	
+	$("#change-progress").text(issueLoaded.status);
+	$("#change-urgency").text(issueLoaded.urgency);
+	$("#change-impact").text(issueLoaded.impact);
+	
+	
 }

@@ -1,5 +1,6 @@
 package com.kevindeyne.tasker.service
 
+import com.kevindeyne.tasker.domain.InProgressIssue
 import com.kevindeyne.tasker.domain.UserPrincipal
 import org.springframework.security.authentication.AnonymousAuthenticationToken
 import org.springframework.security.core.Authentication
@@ -39,4 +40,11 @@ object SecurityHolder {
 		return null
 	}
 	
+	fun addTrackingIssue(issueId : Long, title : String) {
+		val principal: UserPrincipal? = getUserPrincipal()
+		if (null != principal) {
+			val issueListing = InProgressIssue(issueId, title)
+			principal.trackingIssues.add(issueListing)
+		}
+	}	
 }

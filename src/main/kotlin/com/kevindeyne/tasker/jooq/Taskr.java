@@ -5,6 +5,7 @@ package com.kevindeyne.tasker.jooq;
 
 
 import com.kevindeyne.tasker.jooq.tables.Event;
+import com.kevindeyne.tasker.jooq.tables.InProgress;
 import com.kevindeyne.tasker.jooq.tables.Issue;
 import com.kevindeyne.tasker.jooq.tables.Knowledge;
 import com.kevindeyne.tasker.jooq.tables.Project;
@@ -39,7 +40,7 @@ import org.jooq.impl.SchemaImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Taskr extends SchemaImpl {
 
-    private static final long serialVersionUID = 1306094073;
+    private static final long serialVersionUID = 1713251187;
 
     /**
      * The reference instance of <code>taskr</code>
@@ -50,6 +51,11 @@ public class Taskr extends SchemaImpl {
      * The table <code>taskr.event</code>.
      */
     public final Event EVENT = com.kevindeyne.tasker.jooq.tables.Event.EVENT;
+
+    /**
+     * The table <code>taskr.in_progress</code>.
+     */
+    public final InProgress IN_PROGRESS = com.kevindeyne.tasker.jooq.tables.InProgress.IN_PROGRESS;
 
     /**
      * The table <code>taskr.issue</code>.
@@ -122,6 +128,7 @@ public class Taskr extends SchemaImpl {
     private final List<Table<?>> getTables0() {
         return Arrays.<Table<?>>asList(
             Event.EVENT,
+            InProgress.IN_PROGRESS,
             Issue.ISSUE,
             Knowledge.KNOWLEDGE,
             Project.PROJECT,

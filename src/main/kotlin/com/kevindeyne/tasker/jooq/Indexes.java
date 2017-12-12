@@ -5,6 +5,7 @@ package com.kevindeyne.tasker.jooq;
 
 
 import com.kevindeyne.tasker.jooq.tables.Event;
+import com.kevindeyne.tasker.jooq.tables.InProgress;
 import com.kevindeyne.tasker.jooq.tables.Issue;
 import com.kevindeyne.tasker.jooq.tables.Knowledge;
 import com.kevindeyne.tasker.jooq.tables.Project;
@@ -40,6 +41,7 @@ public class Indexes {
     // -------------------------------------------------------------------------
 
     public static final Index EVENT_PRIMARY = Indexes0.EVENT_PRIMARY;
+    public static final Index IN_PROGRESS_PRIMARY = Indexes0.IN_PROGRESS_PRIMARY;
     public static final Index ISSUE_PRIMARY = Indexes0.ISSUE_PRIMARY;
     public static final Index ISSUE_PROJECT_ID = Indexes0.ISSUE_PROJECT_ID;
     public static final Index ISSUE_SPRINT_ID = Indexes0.ISSUE_SPRINT_ID;
@@ -67,6 +69,7 @@ public class Indexes {
 
     private static class Indexes0 extends AbstractKeys {
         public static Index EVENT_PRIMARY = createIndex("PRIMARY", Event.EVENT, new OrderField[] { Event.EVENT.ID }, true);
+        public static Index IN_PROGRESS_PRIMARY = createIndex("PRIMARY", InProgress.IN_PROGRESS, new OrderField[] { InProgress.IN_PROGRESS.ID }, true);
         public static Index ISSUE_PRIMARY = createIndex("PRIMARY", Issue.ISSUE, new OrderField[] { Issue.ISSUE.ID }, true);
         public static Index ISSUE_PROJECT_ID = createIndex("project_id", Issue.ISSUE, new OrderField[] { Issue.ISSUE.PROJECT_ID }, false);
         public static Index ISSUE_SPRINT_ID = createIndex("sprint_id", Issue.ISSUE, new OrderField[] { Issue.ISSUE.SPRINT_ID }, false);

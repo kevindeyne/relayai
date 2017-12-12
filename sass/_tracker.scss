@@ -1,0 +1,25 @@
+#nav-bottom {	
+	position: absolute;
+	bottom:2em;
+	left:1em;
+	
+	p {
+		padding-bottom:0.5em;
+		font-size: 1.05em;
+		color: #202225;
+		max-width: 232px;
+		line-height:1.05em;
+	}
+
+	#tracker {	
+		a, a:active, a:visited, a:link {
+			color: #2070f7;
+			text-decoration:none;
+		}
+		a:hover {
+			color: #2070f7;
+			text-decoration:underline;
+		}
+	}
+}
+
