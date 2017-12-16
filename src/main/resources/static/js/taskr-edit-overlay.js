@@ -49,12 +49,20 @@ function changeSubmitFunctionality(){
 };
 
 function afterChange(action){
+	var issueId = $("aside section.active").attr("issue-id");
+	
+	if(action !== "IN_PROGRESS") {
+		$("#tracker span[entity-id='"+issueId+"']").remove();
+		if($("#tracker span").length == 0){
+			$("#tracker").addClass("invisible");
+		}
+	}
+	
 	if(action === "DONE") {
 		$("aside section.active").hide();
-	} else 	if(action === "IN_PROGRESS") {
+	} else if(action === "IN_PROGRESS") {
 		var inProgressTask = $("<p class='tracking-data'><a><span></span></a></p>");
-		$(inProgressTask).find("span").text($("#content-userinfo h1").text());
-		var issueId = $("aside section.active").attr("issue-id");
+		$(inProgressTask).find("span").attr("entity-id", issueId).text($("#content-userinfo h1").text());		
 		$(inProgressTask).find("a").attr("href", "/tasks/" + issueId);
 		$("#tracker").append(inProgressTask);
 		$("#tracker").removeClass("invisible").fadeIn(200);

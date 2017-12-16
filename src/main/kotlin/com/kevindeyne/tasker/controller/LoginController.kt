@@ -3,6 +3,7 @@ package com.kevindeyne.tasker.controller
 import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.GetMapping
 import java.security.Principal
+import javax.servlet.http.HttpServletRequest
 
 @Controller
 class LoginController() {
@@ -13,6 +14,15 @@ class LoginController() {
 	}
 	
 	@GetMapping(LOGIN_GET)
-	fun getTaskboard(principal : Principal?) : String = if (principal == null) "login" else "redirect:/" 
+	fun getLoginPage(principal : Principal?) : String = if (principal == null) "login" else "redirect:/"
 	
+	
+	@GetMapping(LOGOUT_GET)
+	fun getLogout(principal : Principal?, request : HttpServletRequest) : String {
+		if (principal != null){
+			request.logout()
+		}
+		
+		return "redirect:/"
+	}	
 }

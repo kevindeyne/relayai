@@ -38,6 +38,18 @@ open class UserRepositoryImpl (val dsl: DSLContext, val sprintRepository : Sprin
 		return null;
 	}
 	
+	override fun findUsernameById(id : String) : String {
+		val record : Optional<UserRecord> = dsl.selectFrom(Tables.USER)
+			   .where(Tables.USER.ID.eq(id.toLong()))
+			   .fetchOptional()
+		
+		if(record.isPresent) {
+			return record.get().map { n -> n.get(Tables.USER.EMAIL) }
+		}
+		
+		return "System"
+	}
+	
 	fun getUserIdFromRecord(record : UserRecord) : Long = record.get(Tables.USER.ID)
 	
 	fun getProjectId(dsl: DSLContext, userId : Long) : Long? {

@@ -469,7 +469,7 @@ article section section:first-child {
 }
 
 /* line 85, ../sass/_main.scss */
-article#main section#content-main p:first-child {
+article#main section#content-main p.content {
   padding-top: 13em;
 }
 
@@ -651,6 +651,44 @@ span.length-limiter {
   margin-top: 0.1em;
 }
 
+/* line 98, ../sass/_forms.scss */
+#comment-box {
+  background-color: #e3e8ea;
+  border-radius: 15px;
+  margin: 1em 0em 0.25em 0.5em;
+  outline: none;
+  resize: none;
+  border: 1px solid #ced3dc;
+  padding: 0.8em;
+  width: 90%;
+  font-family: Roboto;
+  height: 6.5em;
+  line-height: 1.3em;
+  font-size: 1em;
+  font-weight: 100;
+}
+
+/* line 114, ../sass/_forms.scss */
+section.comment {
+  background: white;
+  border-radius: 15px;
+  padding: 0.7em 1em 0.7em 1em;
+  margin-bottom: 1em;
+}
+/* line 121, ../sass/_forms.scss */
+section.comment p strong {
+  font-weight: 500;
+  color: #565656;
+  font-size: 0.9em;
+}
+
+/* line 129, ../sass/_forms.scss */
+#content-main .button-group span {
+  position: relative;
+  top: 1px !important;
+  left: -2px !important;
+}
+
 /* line 3, ../sass/_overlay.scss */
 #overlay {
   display: none;
@@ -728,6 +766,10 @@ span.length-limiter {
   line-height: 1.4em;
 }
 /* line 79, ../sass/_overlay.scss */
+#overlay #overlay-detail span.alert {
+  background-color: #ffaaaa !important;
+}
+/* line 83, ../sass/_overlay.scss */
 #overlay #overlay-detail div.button-group {
   background: #e6e6e6;
   padding-left: 0.5em;
@@ -738,7 +780,7 @@ span.length-limiter {
   -ms-border-radius: 0px 0px 5px 5px;
   border-radius: 0px 0px 5px 5px;
 }
-/* line 87, ../sass/_overlay.scss */
+/* line 91, ../sass/_overlay.scss */
 #overlay #overlay-detail div.button-group button, #overlay #overlay-detail div.button-group button.altpath {
   font-family: "Roboto", Times New Roman, Helvetica, sans-serif;
   height: 3em;
@@ -752,13 +794,13 @@ span.length-limiter {
   border: none;
   font-weight: 500;
 }
-/* line 102, ../sass/_overlay.scss */
+/* line 106, ../sass/_overlay.scss */
 #overlay #overlay-detail div.button-group button:hover {
   background-color: #35394B;
   color: #fbfbfb;
 }
 
-/* line 110, ../sass/_overlay.scss */
+/* line 114, ../sass/_overlay.scss */
 span.changeable {
   background-color: lightgray;
   padding: 2px 5px;
@@ -768,7 +810,7 @@ span.changeable {
   line-height: 1.4em;
 }
 
-/* line 120, ../sass/_overlay.scss */
+/* line 124, ../sass/_overlay.scss */
 span.changeable:hover {
   background-color: #ececec;
 }

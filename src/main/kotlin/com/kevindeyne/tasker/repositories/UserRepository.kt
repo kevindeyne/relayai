@@ -4,6 +4,8 @@ import com.kevindeyne.tasker.domain.UserPrincipal
 
 interface UserRepository {
 	
-	fun findByUsername(username : String) : UserPrincipal? 
+	fun findByUsername(username : String) : UserPrincipal?
+	
+	fun findUsernameById(id : String) : String
 	
 }

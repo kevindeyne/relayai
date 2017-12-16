@@ -8,5 +8,9 @@ data class IssueResponse @JsonCreator constructor(
 		var descr: String,
 		var status: String,
 		var urgency: String,
-		var impact: String
+		var impact: String,		
+		var fixVersion: String,
+		var creator: String,
+		var createDate: String,
+		var slaStatus: String		
 )

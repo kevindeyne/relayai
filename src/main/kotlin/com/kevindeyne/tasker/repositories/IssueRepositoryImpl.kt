@@ -13,13 +13,18 @@ import com.kevindeyne.tasker.service.SecurityHolder
 import org.jooq.DSLContext
 import org.jooq.Record
 import org.jooq.tools.StringUtils
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 import org.springframework.transaction.annotation.Transactional
 import java.sql.Timestamp
+import java.text.SimpleDateFormat
 import java.util.stream.Collectors
 
 @Component
 open class IssueRepositoryImpl (val dsl: DSLContext) : IssueRepository {
+	
+	@Autowired
+	lateinit var userRepo : UserRepository
 		
 	@Transactional
 	override fun findAllActiveForUserInCurrentSprint() : List<IssueListing> {
@@ -155,14 +160,21 @@ open class IssueRepositoryImpl (val dsl: DSLContext) : IssueRepository {
 	
 	fun mapIssueResponse(n : Record?, abbreviate : Boolean) : IssueResponse {
 		if(n == null){
-			return IssueResponse(-1, "", "", "", "", "")
+			return IssueResponse(-1, "", "", "", "", "", "", "", "", "")
 		} else {
 			return IssueResponse(n.get(Tables.ISSUE.ID),
 							 n.get(Tables.ISSUE.TITLE),
 							 if (abbreviate) abbreviate(n.get(Tables.ISSUE.DESCRIPTION)) else n.get(Tables.ISSUE.DESCRIPTION),
 						     Progress.valueOf(n.get(Tables.ISSUE.STATUS)).text,
 						     Urgency.valueOf(n.get(Tables.ISSUE.URGENCY)).text,
-						     Impact.valueOf(n.get(Tables.ISSUE.IMPACT)).text)
+						     Impact.valueOf(n.get(Tables.ISSUE.IMPACT)).text,
+						     "3.1.14",
+						     userRepo.findUsernameById(n.get(Tables.ISSUE.CREATE_USER)),
+						     SimpleDateFormat("dd MMMMM yyyy").format(n.get(Tables.ISSUE.CREATE_DATE)),
+							 "SLA on time")
+			
+			
+
 		}
 	}
 	

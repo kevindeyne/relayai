@@ -78,11 +78,7 @@ function handleIssueLoaded(latestClickedIssue, progressLine, issueLoadingAnimati
 
 function loadingContent(issue){
 	$("#content-userinfo h1").text(issueLoaded.title);
-	
-	var description = $("<p></p>");
-	description.text(issueLoaded.descr);
-	$("#content-main").html(description);
-	
+	$("p.content").text(issueLoaded.descr);	
 	$("#change-progress").text(issueLoaded.status);
 	$("#change-urgency").text(issueLoaded.urgency);
 	$("#change-impact").text(issueLoaded.impact);

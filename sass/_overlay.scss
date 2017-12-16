@@ -73,7 +73,11 @@ $font-main: 'Roboto', Times New Roman, Helvetica, sans-serif;
 			
 			font-family: $font-main;
 			font-weight: 300;
-			line-height: 1.4em;	
+			line-height: 1.4em;
+		}
+		
+		span.alert {
+		    background-color: #ffaaaa !important;
 		}
 				
 		div.button-group {

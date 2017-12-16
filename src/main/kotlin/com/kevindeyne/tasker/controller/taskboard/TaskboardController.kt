@@ -72,6 +72,14 @@ class TaskboardController(var issueRepository : IssueRepository) {
 		model.addAttribute("currentIssueId", issue.id)
 		model.addAttribute("currentIssueTitle", issue.title)
 		model.addAttribute("currentIssueDescription", issue.descr)
+		model.addAttribute("currentIssueProgress", issue.status)
+		model.addAttribute("currentIssueImpact", issue.impact)
+		model.addAttribute("currentIssueUrgency", issue.urgency)
+		model.addAttribute("currentIssueFixVersion", issue.fixVersion)
+		model.addAttribute("currentIssueCreator", issue.creator)
+		model.addAttribute("currentIssueCreateDate", issue.createDate)
+		model.addAttribute("currentIssueSLAStatus", issue.slaStatus)
+		
 		model.addAttribute("showCreatePage", false)
 	}
 	
