@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head></head>
+<body>
+
+	<article id="main" th:fragment="main-article">
+		<section>
+			<h1>Search</h1>
+			<h2>Find anything - issues, projects, users or actions: this search will find them all for you.</h2>
+		</section>
+		
+		<section id="search-bar">
+			<form>
+				<input id="search-textbar" type="text"></input>
+			</form>
+			<div class="button-group">
+				<button id="search-submit" type="button"><span>Search</span></button>
+			</div>
+		</section>
+		
+		<section id="search-results" class="invisible">
+			<h2>Results</h2>
+			
+			<h3 id="search-in-progress" class="invisible">Searching ...</h3>
+			
+			<h3 id="search-issues" class="invisible">Issues</h3>
+			<div>
+				<section th:each="issue : ${issueList1}" th:issue-id="${issue.id}" class="daily-issue help">
+					<h4><a th:text="${issue.title}" href="#"></a></h4>
+					<p th:text="${issue.shortDescr}"></p>
+				</section>
+			</div>
+
+			<h3 id="search-users" class="invisible">Users</h3>
+			<div>
+				<section th:each="issue : ${issueList2}" th:issue-id="${issue.id}" class="daily-issue inprogress">
+					<h4><a th:text="${issue.title}" href="#"></a></h4>
+					<p th:text="${issue.shortDescr}"></p>
+				</section>
+			</div>
+
+			<h3 id="search-actions" class="invisible">Actions</h3>
+			<div>
+				<section th:each="issue : ${issueList3}" th:issue-id="${issue.id}" class="daily-issue finished">
+					<h4><a th:text="${issue.title}" href="#"></a></h4>
+					<p th:text="${issue.shortDescr}"></p>
+				</section>
+			</div>
+		</section>
+	</article>
+
+</body>
+</html>

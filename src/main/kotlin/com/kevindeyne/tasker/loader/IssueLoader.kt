@@ -12,12 +12,13 @@ import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Component
 import java.sql.Timestamp
 import java.time.LocalDate
+import com.kevindeyne.tasker.domain.SearchResultType
 
 @Component
 class IssueLoader(
 		val dsl: DSLContext,
 		val passwordEncoder : PasswordEncoder,
-		val tagcloudRepository : TagcloudRepository		
+		val tagcloudRepository : TagcloudRepository
 ) : ApplicationListener<ContextRefreshedEvent>, Ordered {
 	
 	val generateNew : Boolean = true;
@@ -128,8 +129,14 @@ class IssueLoader(
 		   .values(title, sentences, projectId, sprintId, assignedTo, getRandomTimestamp(), "1", getRandomTimestamp(), "1")
 		   .returning(Tables.TAG.ID).fetchOne().get(Tables.TAG.ID);
 		
+		var joinedText = "$title $sentences"
+		joinedText = joinedText.toLowerCase()
 		
-		KeywordGeneration.generateKeywords(title + " " + sentences).forEach{k -> tagcloudRepository.addToIssueIfNotExists(k, issueId)}
+		KeywordGeneration.generateKeywords(joinedText).forEach{k -> tagcloudRepository.addToIssueIfNotExists(k, issueId)}
+				
+		dsl.insertInto(Tables.SEARCH, Tables.SEARCH.PROJECT_ID, Tables.SEARCH.TYPE, Tables.SEARCH.SRCVAL, Tables.SEARCH.NAME, Tables.SEARCH.LINKED_ID)
+		.values(projectId, SearchResultType.ISSUE.name, joinedText, "$title", issueId)
+		.returning(Tables.SEARCH.ID).fetchOne().get(Tables.SEARCH.ID);
 	}
 	
 	fun mergeSentences(sentences : List<String>) : String {

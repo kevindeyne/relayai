@@ -5,12 +5,12 @@ package com.kevindeyne.tasker.jooq;
 
 
 import com.kevindeyne.tasker.jooq.tables.Event;
-import com.kevindeyne.tasker.jooq.tables.InProgress;
 import com.kevindeyne.tasker.jooq.tables.Issue;
 import com.kevindeyne.tasker.jooq.tables.Knowledge;
 import com.kevindeyne.tasker.jooq.tables.Project;
 import com.kevindeyne.tasker.jooq.tables.ProjectUsers;
 import com.kevindeyne.tasker.jooq.tables.SchemaVersion;
+import com.kevindeyne.tasker.jooq.tables.Search;
 import com.kevindeyne.tasker.jooq.tables.Sprint;
 import com.kevindeyne.tasker.jooq.tables.Tag;
 import com.kevindeyne.tasker.jooq.tables.Tagcloud;
@@ -38,11 +38,6 @@ public class Tables {
     public static final Event EVENT = com.kevindeyne.tasker.jooq.tables.Event.EVENT;
 
     /**
-     * The table <code>taskr.in_progress</code>.
-     */
-    public static final InProgress IN_PROGRESS = com.kevindeyne.tasker.jooq.tables.InProgress.IN_PROGRESS;
-
-    /**
      * The table <code>taskr.issue</code>.
      */
     public static final Issue ISSUE = com.kevindeyne.tasker.jooq.tables.Issue.ISSUE;
@@ -66,6 +61,11 @@ public class Tables {
      * The table <code>taskr.schema_version</code>.
      */
     public static final SchemaVersion SCHEMA_VERSION = com.kevindeyne.tasker.jooq.tables.SchemaVersion.SCHEMA_VERSION;
+
+    /**
+     * The table <code>taskr.search</code>.
+     */
+    public static final Search SEARCH = com.kevindeyne.tasker.jooq.tables.Search.SEARCH;
 
     /**
      * The table <code>taskr.sprint</code>.

@@ -5,12 +5,12 @@ package com.kevindeyne.tasker.jooq;
 
 
 import com.kevindeyne.tasker.jooq.tables.Event;
-import com.kevindeyne.tasker.jooq.tables.InProgress;
 import com.kevindeyne.tasker.jooq.tables.Issue;
 import com.kevindeyne.tasker.jooq.tables.Knowledge;
 import com.kevindeyne.tasker.jooq.tables.Project;
 import com.kevindeyne.tasker.jooq.tables.ProjectUsers;
 import com.kevindeyne.tasker.jooq.tables.SchemaVersion;
+import com.kevindeyne.tasker.jooq.tables.Search;
 import com.kevindeyne.tasker.jooq.tables.Sprint;
 import com.kevindeyne.tasker.jooq.tables.Tag;
 import com.kevindeyne.tasker.jooq.tables.Tagcloud;
@@ -41,7 +41,6 @@ public class Indexes {
     // -------------------------------------------------------------------------
 
     public static final Index EVENT_PRIMARY = Indexes0.EVENT_PRIMARY;
-    public static final Index IN_PROGRESS_PRIMARY = Indexes0.IN_PROGRESS_PRIMARY;
     public static final Index ISSUE_PRIMARY = Indexes0.ISSUE_PRIMARY;
     public static final Index ISSUE_PROJECT_ID = Indexes0.ISSUE_PROJECT_ID;
     public static final Index ISSUE_SPRINT_ID = Indexes0.ISSUE_SPRINT_ID;
@@ -54,6 +53,8 @@ public class Indexes {
     public static final Index PROJECT_USERS_USER_ID = Indexes0.PROJECT_USERS_USER_ID;
     public static final Index SCHEMA_VERSION_PRIMARY = Indexes0.SCHEMA_VERSION_PRIMARY;
     public static final Index SCHEMA_VERSION_SCHEMA_VERSION_S_IDX = Indexes0.SCHEMA_VERSION_SCHEMA_VERSION_S_IDX;
+    public static final Index SEARCH_PRIMARY = Indexes0.SEARCH_PRIMARY;
+    public static final Index SEARCH_SEARCH_INDEX = Indexes0.SEARCH_SEARCH_INDEX;
     public static final Index SPRINT_PRIMARY = Indexes0.SPRINT_PRIMARY;
     public static final Index SPRINT_PROJECT_ID = Indexes0.SPRINT_PROJECT_ID;
     public static final Index TAG_PRIMARY = Indexes0.TAG_PRIMARY;
@@ -69,7 +70,6 @@ public class Indexes {
 
     private static class Indexes0 extends AbstractKeys {
         public static Index EVENT_PRIMARY = createIndex("PRIMARY", Event.EVENT, new OrderField[] { Event.EVENT.ID }, true);
-        public static Index IN_PROGRESS_PRIMARY = createIndex("PRIMARY", InProgress.IN_PROGRESS, new OrderField[] { InProgress.IN_PROGRESS.ID }, true);
         public static Index ISSUE_PRIMARY = createIndex("PRIMARY", Issue.ISSUE, new OrderField[] { Issue.ISSUE.ID }, true);
         public static Index ISSUE_PROJECT_ID = createIndex("project_id", Issue.ISSUE, new OrderField[] { Issue.ISSUE.PROJECT_ID }, false);
         public static Index ISSUE_SPRINT_ID = createIndex("sprint_id", Issue.ISSUE, new OrderField[] { Issue.ISSUE.SPRINT_ID }, false);
@@ -82,6 +82,8 @@ public class Indexes {
         public static Index PROJECT_USERS_USER_ID = createIndex("user_id", ProjectUsers.PROJECT_USERS, new OrderField[] { ProjectUsers.PROJECT_USERS.USER_ID }, false);
         public static Index SCHEMA_VERSION_PRIMARY = createIndex("PRIMARY", SchemaVersion.SCHEMA_VERSION, new OrderField[] { SchemaVersion.SCHEMA_VERSION.INSTALLED_RANK }, true);
         public static Index SCHEMA_VERSION_SCHEMA_VERSION_S_IDX = createIndex("schema_version_s_idx", SchemaVersion.SCHEMA_VERSION, new OrderField[] { SchemaVersion.SCHEMA_VERSION.SUCCESS }, false);
+        public static Index SEARCH_PRIMARY = createIndex("PRIMARY", Search.SEARCH, new OrderField[] { Search.SEARCH.ID }, true);
+        public static Index SEARCH_SEARCH_INDEX = createIndex("search_index", Search.SEARCH, new OrderField[] { Search.SEARCH.SRCVAL }, false);
         public static Index SPRINT_PRIMARY = createIndex("PRIMARY", Sprint.SPRINT, new OrderField[] { Sprint.SPRINT.ID }, true);
         public static Index SPRINT_PROJECT_ID = createIndex("project_id", Sprint.SPRINT, new OrderField[] { Sprint.SPRINT.PROJECT_ID }, false);
         public static Index TAG_PRIMARY = createIndex("PRIMARY", Tag.TAG, new OrderField[] { Tag.TAG.ID }, true);

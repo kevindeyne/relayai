@@ -489,6 +489,17 @@ article section p.code {
   margin: 0.5em;
 }
 
+/* line 103, ../sass/_main.scss */
+div#initial-load {
+  background: #f3f6f8;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 88;
+}
+
 /* line 3, ../sass/_standup.scss */
 #team-progress h2, #team-progress h3 {
   clear: both;
@@ -548,6 +559,16 @@ article section p.code {
 /* line 53, ../sass/_standup.scss */
 #team-progress div section.daily-issue h4 span.mine {
   color: #fb0764;
+}
+
+/* line 4, ../sass/_search.scss */
+section#search-bar form {
+  padding-top: 0em;
+}
+/* line 8, ../sass/_search.scss */
+section#search-bar button span {
+  top: 0em;
+  left: -0.15em;
 }
 
 /* line 3, ../sass/_forms.scss */
@@ -683,7 +704,7 @@ section.comment p strong {
 }
 
 /* line 129, ../sass/_forms.scss */
-#content-main .button-group span {
+#content-main .button-group button span {
   position: relative;
   top: 1px !important;
   left: -2px !important;

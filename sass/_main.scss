@@ -99,3 +99,13 @@ article section p.code{
 	padding: 0.8em;
 	margin: 0.5em;
 }
+
+div#initial-load { 
+    background: #f3f6f8;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 88;
+}

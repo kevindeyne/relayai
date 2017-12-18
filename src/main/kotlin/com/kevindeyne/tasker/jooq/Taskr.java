@@ -5,12 +5,12 @@ package com.kevindeyne.tasker.jooq;
 
 
 import com.kevindeyne.tasker.jooq.tables.Event;
-import com.kevindeyne.tasker.jooq.tables.InProgress;
 import com.kevindeyne.tasker.jooq.tables.Issue;
 import com.kevindeyne.tasker.jooq.tables.Knowledge;
 import com.kevindeyne.tasker.jooq.tables.Project;
 import com.kevindeyne.tasker.jooq.tables.ProjectUsers;
 import com.kevindeyne.tasker.jooq.tables.SchemaVersion;
+import com.kevindeyne.tasker.jooq.tables.Search;
 import com.kevindeyne.tasker.jooq.tables.Sprint;
 import com.kevindeyne.tasker.jooq.tables.Tag;
 import com.kevindeyne.tasker.jooq.tables.Tagcloud;
@@ -40,7 +40,7 @@ import org.jooq.impl.SchemaImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Taskr extends SchemaImpl {
 
-    private static final long serialVersionUID = 1713251187;
+    private static final long serialVersionUID = 25625913;
 
     /**
      * The reference instance of <code>taskr</code>
@@ -51,11 +51,6 @@ public class Taskr extends SchemaImpl {
      * The table <code>taskr.event</code>.
      */
     public final Event EVENT = com.kevindeyne.tasker.jooq.tables.Event.EVENT;
-
-    /**
-     * The table <code>taskr.in_progress</code>.
-     */
-    public final InProgress IN_PROGRESS = com.kevindeyne.tasker.jooq.tables.InProgress.IN_PROGRESS;
 
     /**
      * The table <code>taskr.issue</code>.
@@ -81,6 +76,11 @@ public class Taskr extends SchemaImpl {
      * The table <code>taskr.schema_version</code>.
      */
     public final SchemaVersion SCHEMA_VERSION = com.kevindeyne.tasker.jooq.tables.SchemaVersion.SCHEMA_VERSION;
+
+    /**
+     * The table <code>taskr.search</code>.
+     */
+    public final Search SEARCH = com.kevindeyne.tasker.jooq.tables.Search.SEARCH;
 
     /**
      * The table <code>taskr.sprint</code>.
@@ -128,12 +128,12 @@ public class Taskr extends SchemaImpl {
     private final List<Table<?>> getTables0() {
         return Arrays.<Table<?>>asList(
             Event.EVENT,
-            InProgress.IN_PROGRESS,
             Issue.ISSUE,
             Knowledge.KNOWLEDGE,
             Project.PROJECT,
             ProjectUsers.PROJECT_USERS,
             SchemaVersion.SCHEMA_VERSION,
+            Search.SEARCH,
             Sprint.SPRINT,
             Tag.TAG,
             Tagcloud.TAGCLOUD,

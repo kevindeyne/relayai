@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
 	<th:block th:replace="fragments/template :: meta">Meta tags</th:block>
-    <title>Tasker - Daily overview</title>
+    <title>Tasker - Projects</title>
 </head>
 <body>
 	<nav th:replace="fragments/template :: navigation">Side menu</nav>
@@ -19,52 +19,11 @@
 	<script src="/js/taskr-navigation.js"></script>
 	<script src="/js/taskr-notification-pulling.js"></script>
 	<script src="/js/taskr-new-issue.js"></script>
-	<script src="/js/taskr-edit-overlay.js"></script>
 	
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
-	
-
 	<script>
 		$(document).ready(function() {
-			var ctx = document.getElementById('chart').getContext('2d');
-			var chart = new Chart(ctx, {
-			    type: 'bar',
-	
-			    data: {
-			        labels: ["12 Dec", "13 Dec", "14 Dec", "15 Dec", "16 Dec", "17 Dec", "18 Dec",
-			        	"19 Dec", "20 Dec", "21 Dec", "22 Dec", "23 Dec", "24 Dec", "25 Dec"],
-			        datasets: [{
-			        	type: 'line',
-			        	label: "Overall trend",
-			        	fill: false,
-			            backgroundColor: "#bdc9da",
-			            borderColor: "#bdc9da",
-			            data: [20, 19, 18, 15, 14, 13, 11, 10, 9, 8, 5, 4, 2, 1],
-			        },
-			        {
-			        	type: 'bar',
-			            label: "Issues completed in sprint",
-			            backgroundColor: "#1c6ef7",
-			            borderColor: "#1c6ef7",
-			            data: [0,1,2,5,6,7,9,10,11,12,15,16,18,19],
-			        }]
-			    },
-	
-			    options: {
-			    	maintainAspectRatio: false,
-			    	animation : false,
-			    	scales: {
-                        xAxes: [{
-                            stacked: true,
-                        }],
-                        yAxes: [{
-                            stacked: true
-                        }]
-                    }
-			    }
-			});		
+				
 		});
-	</script>
-	
+	</script>	
 </body>
 </html>

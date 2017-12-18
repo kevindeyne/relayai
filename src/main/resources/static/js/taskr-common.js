@@ -11,10 +11,17 @@ $(window).on("popstate", function () {
 });
 
 $(document).ready(function() {
+	setTimeout(function(){
+		$("#initial-load").fadeOut(100);
+	}, 200);
 	
 	setTimeout(function(){
 		location.reload();
 	}, 28800000);
+	
+	$("form").submit(function(e){
+        e.preventDefault();
+    });
 	
 	var article = document.querySelector('article');
 
