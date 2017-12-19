@@ -2,14 +2,14 @@ package com.kevindeyne.tasker.repositories
 
 import com.kevindeyne.tasker.domain.TimesheetListing
 import com.kevindeyne.tasker.jooq.Tables
-import com.kevindeyne.tasker.jooq.tables.records.TagRecord
+import com.kevindeyne.tasker.jooq.tables.records.TimesheetRecord
 import org.jooq.DSLContext
 import org.springframework.stereotype.Component
 import org.springframework.transaction.annotation.Transactional
+import java.sql.Timestamp
 import java.util.Date
 import java.util.Optional
 import java.util.stream.Collectors
-import java.sql.Timestamp
 
 @Component
 open class TimesheetRepositoryImpl (val dsl: DSLContext) : TimesheetRepository {
@@ -26,20 +26,28 @@ open class TimesheetRepositoryImpl (val dsl: DSLContext) : TimesheetRepository {
 	
 	@Transactional
 	override fun stopTrackingIssue(issueId: Long, userId: Long) {
-		val id : Long = findOngoingTracking(issueId, userId)
+		val id : Long? = findOngoingTracking(issueId, userId)
 		
-		dsl.update(Tables.ISSUE)
+		if(id != null) {
+		 dsl.update(Tables.TIMESHEET)
 			.set(Tables.TIMESHEET.END_DATE, Timestamp(System.currentTimeMillis()))
 			.where(Tables.TIMESHEET.ID.eq(id))
 			.execute()
+		}
 	}
 	
-	fun findOngoingTracking(issueId: Long, userId: Long) : Long {
-		return dsl.selectFrom(Tables.TIMESHEET)
+	fun findOngoingTracking(issueId: Long, userId: Long) : Long? {
+		val record : Optional<TimesheetRecord> = dsl.selectFrom(Tables.TIMESHEET)
 			   .where(Tables.TIMESHEET.ISSUE_ID.eq(issueId)
 					   .and(Tables.TIMESHEET.USER_ID.eq(userId))
 					   .and(Tables.TIMESHEET.END_DATE.isNull))
-			   .fetchOne().get(Tables.TIMESHEET.ID)
+			   .fetchOptional()
+		
+		if(record.isPresent){
+			return record.get().get(Tables.TIMESHEET.ID)
+		}
+		
+		return null	
 	}
 	
 	override fun getTimesheet(from : Date, until : Date, userId: Long) : List<TimesheetListing> {

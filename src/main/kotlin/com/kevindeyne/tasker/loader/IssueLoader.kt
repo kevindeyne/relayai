@@ -58,15 +58,16 @@ class IssueLoader(
 	}	
 	
 	fun truncateAll() {
-		dsl.truncate(Tables.KNOWLEDGE).execute();
-		dsl.truncate(Tables.TAGCLOUD).execute();
-		dsl.truncate(Tables.TAG).execute();
-		dsl.truncate(Tables.PROJECT_USERS).execute();
 		dsl.truncate(Tables.ISSUE).execute();
-		dsl.truncate(Tables.SPRINT).execute();
-		dsl.truncate(Tables.USER).execute();
-		dsl.truncate(Tables.PROJECT).execute();
+		dsl.truncate(Tables.KNOWLEDGE).execute();
 		dsl.truncate(Tables.SEARCH).execute();
+		dsl.truncate(Tables.SPRINT).execute();
+		dsl.truncate(Tables.TAG).execute();
+		dsl.truncate(Tables.TAGCLOUD).execute();
+		dsl.truncate(Tables.TIMESHEET).execute();
+		dsl.truncate(Tables.PROJECT).execute();				
+		dsl.truncate(Tables.PROJECT_USERS).execute();
+		dsl.truncate(Tables.USER).execute();
 	}
 	
 	fun generateUsers(faker : Faker) : Long{

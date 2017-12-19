@@ -10,10 +10,11 @@ import com.kevindeyne.tasker.service.KeywordGeneration
 import org.springframework.context.annotation.DependsOn
 import org.springframework.jms.annotation.JmsListener
 import org.springframework.stereotype.Component
+import com.kevindeyne.tasker.repositories.TimesheetRepository
 
 @DependsOn("AMQConfig")
 @Component
-class GlobalReceiver(val issueRepository: IssueRepository, val tagcloud: TagcloudRepository, val knowledge: KnowledgeRepository) {
+class GlobalReceiver(val issueRepository: IssueRepository, val tagcloud: TagcloudRepository, val knowledge: KnowledgeRepository, val timesheet : TimesheetRepository) {
 
 	@JmsListener(destination = "issues", containerFactory = "jmsFactory")
 	fun onMessage(m: AMQMessage) {
@@ -74,13 +75,17 @@ class GlobalReceiver(val issueRepository: IssueRepository, val tagcloud: Tagclou
 		val status = Progress.valueOf(m.value)
 		issueRepository.updateStatus(getIdFromMessage(m), status, m.userId)
 		
+		val issueId = getIdFromMessage(m)
+		
 		when(status){
-			Progress.DONE -> handleSolved(getIdFromMessage(m), m.userId)
-			else -> return
+			Progress.IN_PROGRESS -> timesheet.startTrackingIssue(issueId, m.userId)
+			Progress.DONE -> handleSolved(issueId, m.userId)
+			else -> timesheet.stopTrackingIssue(issueId, m.userId)
 		}
 	}
 	
 	fun handleSolved(issueId : Long, userId : Long) {
+		timesheet.stopTrackingIssue(issueId, userId)		
 		val tagcloud : List<Long> = tagcloud.findByIssues(issueId.toLong())
 		tagcloud.forEach{ k -> knowledge.addToKnowledgeIfNotExists(k, userId) }
 	}
