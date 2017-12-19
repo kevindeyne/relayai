@@ -14,6 +14,7 @@ import com.kevindeyne.tasker.jooq.tables.Search;
 import com.kevindeyne.tasker.jooq.tables.Sprint;
 import com.kevindeyne.tasker.jooq.tables.Tag;
 import com.kevindeyne.tasker.jooq.tables.Tagcloud;
+import com.kevindeyne.tasker.jooq.tables.Timesheet;
 import com.kevindeyne.tasker.jooq.tables.User;
 
 import javax.annotation.Generated;
@@ -81,6 +82,11 @@ public class Tables {
      * The table <code>taskr.tagcloud</code>.
      */
     public static final Tagcloud TAGCLOUD = com.kevindeyne.tasker.jooq.tables.Tagcloud.TAGCLOUD;
+
+    /**
+     * The table <code>taskr.timesheet</code>.
+     */
+    public static final Timesheet TIMESHEET = com.kevindeyne.tasker.jooq.tables.Timesheet.TIMESHEET;
 
     /**
      * The table <code>taskr.user</code>.

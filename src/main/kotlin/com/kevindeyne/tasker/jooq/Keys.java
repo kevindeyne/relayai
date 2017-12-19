@@ -14,6 +14,7 @@ import com.kevindeyne.tasker.jooq.tables.Search;
 import com.kevindeyne.tasker.jooq.tables.Sprint;
 import com.kevindeyne.tasker.jooq.tables.Tag;
 import com.kevindeyne.tasker.jooq.tables.Tagcloud;
+import com.kevindeyne.tasker.jooq.tables.Timesheet;
 import com.kevindeyne.tasker.jooq.tables.User;
 import com.kevindeyne.tasker.jooq.tables.records.EventRecord;
 import com.kevindeyne.tasker.jooq.tables.records.IssueRecord;
@@ -25,6 +26,7 @@ import com.kevindeyne.tasker.jooq.tables.records.SearchRecord;
 import com.kevindeyne.tasker.jooq.tables.records.SprintRecord;
 import com.kevindeyne.tasker.jooq.tables.records.TagRecord;
 import com.kevindeyne.tasker.jooq.tables.records.TagcloudRecord;
+import com.kevindeyne.tasker.jooq.tables.records.TimesheetRecord;
 import com.kevindeyne.tasker.jooq.tables.records.UserRecord;
 
 import javax.annotation.Generated;
@@ -61,6 +63,7 @@ public class Keys {
     public static final Identity<SprintRecord, Long> IDENTITY_SPRINT = Identities0.IDENTITY_SPRINT;
     public static final Identity<TagRecord, Long> IDENTITY_TAG = Identities0.IDENTITY_TAG;
     public static final Identity<TagcloudRecord, Long> IDENTITY_TAGCLOUD = Identities0.IDENTITY_TAGCLOUD;
+    public static final Identity<TimesheetRecord, Long> IDENTITY_TIMESHEET = Identities0.IDENTITY_TIMESHEET;
     public static final Identity<UserRecord, Long> IDENTITY_USER = Identities0.IDENTITY_USER;
 
     // -------------------------------------------------------------------------
@@ -77,6 +80,7 @@ public class Keys {
     public static final UniqueKey<SprintRecord> KEY_SPRINT_PRIMARY = UniqueKeys0.KEY_SPRINT_PRIMARY;
     public static final UniqueKey<TagRecord> KEY_TAG_PRIMARY = UniqueKeys0.KEY_TAG_PRIMARY;
     public static final UniqueKey<TagcloudRecord> KEY_TAGCLOUD_PRIMARY = UniqueKeys0.KEY_TAGCLOUD_PRIMARY;
+    public static final UniqueKey<TimesheetRecord> KEY_TIMESHEET_PRIMARY = UniqueKeys0.KEY_TIMESHEET_PRIMARY;
     public static final UniqueKey<UserRecord> KEY_USER_PRIMARY = UniqueKeys0.KEY_USER_PRIMARY;
 
     // -------------------------------------------------------------------------
@@ -98,6 +102,7 @@ public class Keys {
         public static Identity<SprintRecord, Long> IDENTITY_SPRINT = createIdentity(Sprint.SPRINT, Sprint.SPRINT.ID);
         public static Identity<TagRecord, Long> IDENTITY_TAG = createIdentity(Tag.TAG, Tag.TAG.ID);
         public static Identity<TagcloudRecord, Long> IDENTITY_TAGCLOUD = createIdentity(Tagcloud.TAGCLOUD, Tagcloud.TAGCLOUD.ID);
+        public static Identity<TimesheetRecord, Long> IDENTITY_TIMESHEET = createIdentity(Timesheet.TIMESHEET, Timesheet.TIMESHEET.ID);
         public static Identity<UserRecord, Long> IDENTITY_USER = createIdentity(User.USER, User.USER.ID);
     }
 
@@ -112,6 +117,7 @@ public class Keys {
         public static final UniqueKey<SprintRecord> KEY_SPRINT_PRIMARY = createUniqueKey(Sprint.SPRINT, "KEY_sprint_PRIMARY", Sprint.SPRINT.ID);
         public static final UniqueKey<TagRecord> KEY_TAG_PRIMARY = createUniqueKey(Tag.TAG, "KEY_tag_PRIMARY", Tag.TAG.ID);
         public static final UniqueKey<TagcloudRecord> KEY_TAGCLOUD_PRIMARY = createUniqueKey(Tagcloud.TAGCLOUD, "KEY_tagcloud_PRIMARY", Tagcloud.TAGCLOUD.ID);
+        public static final UniqueKey<TimesheetRecord> KEY_TIMESHEET_PRIMARY = createUniqueKey(Timesheet.TIMESHEET, "KEY_timesheet_PRIMARY", Timesheet.TIMESHEET.ID);
         public static final UniqueKey<UserRecord> KEY_USER_PRIMARY = createUniqueKey(User.USER, "KEY_user_PRIMARY", User.USER.ID);
     }
 }

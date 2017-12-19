@@ -66,6 +66,7 @@ class IssueLoader(
 		dsl.truncate(Tables.SPRINT).execute();
 		dsl.truncate(Tables.USER).execute();
 		dsl.truncate(Tables.PROJECT).execute();
+		dsl.truncate(Tables.SEARCH).execute();
 	}
 	
 	fun generateUsers(faker : Faker) : Long{
@@ -124,16 +125,16 @@ class IssueLoader(
 			sentenceList.add(faker.harryPotter().quote())
 		}
 		val sentences = mergeSentences(sentenceList)
-
+	
 		val issueId = dsl.insertInto(Tables.ISSUE, Tables.ISSUE.TITLE, Tables.ISSUE.DESCRIPTION,Tables.ISSUE.PROJECT_ID, Tables.ISSUE.SPRINT_ID, Tables.ISSUE.ASSIGNED, Tables.ISSUE.CREATE_DATE, Tables.ISSUE.CREATE_USER, Tables.ISSUE.UPDATE_DATE, Tables.ISSUE.UPDATE_USER)
 		   .values(title, sentences, projectId, sprintId, assignedTo, getRandomTimestamp(), "1", getRandomTimestamp(), "1")
-		   .returning(Tables.TAG.ID).fetchOne().get(Tables.TAG.ID);
+		   .returning(Tables.ISSUE.ID).fetchOne().get(Tables.ISSUE.ID);
 		
 		var joinedText = "$title $sentences"
 		joinedText = joinedText.toLowerCase()
 		
 		KeywordGeneration.generateKeywords(joinedText).forEach{k -> tagcloudRepository.addToIssueIfNotExists(k, issueId)}
-				
+		
 		dsl.insertInto(Tables.SEARCH, Tables.SEARCH.PROJECT_ID, Tables.SEARCH.TYPE, Tables.SEARCH.SRCVAL, Tables.SEARCH.NAME, Tables.SEARCH.LINKED_ID)
 		.values(projectId, SearchResultType.ISSUE.name, joinedText, "$title", issueId)
 		.returning(Tables.SEARCH.ID).fetchOne().get(Tables.SEARCH.ID);
