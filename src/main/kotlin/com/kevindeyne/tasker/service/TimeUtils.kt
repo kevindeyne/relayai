@@ -26,11 +26,12 @@ enum class TimeUtils() {
 	}
 	
 	fun nextDay(date : Date) : Date  = addHours(date, 24)
-	
-	fun countHoursBetween(date1 : Date, date2 : Date) : Int {
-		val hours : Long = ((date2.getTime() - date1.getTime()) / 1000) / 3600
-		return hours.toInt()
+		
+	fun countMinutesBetween(date1 : Date, date2 : Date) : Int {
+		val minutes : Long = ((date2.getTime() - date1.getTime()) / 1000) / 60
+		return minutes.toInt()
 	}
 	
-	fun toString(date : Date) : String  = "Donderdag" //TODO
+	fun toString(date : Date) : String  = SimpleDateFormat("yyyy-MM-dd").format(date)
+	
 }

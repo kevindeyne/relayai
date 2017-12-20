@@ -13,16 +13,15 @@ enum class TimesheetParser() {
 	
 	val tU = TimeUtils.INSTANCE
 		
-	fun convertEntriesToListings(entries : List<TimesheetEntry>) : List<TimesheetListing> {				
+	fun convertEntriesToListings(entries : List<TimesheetEntry>) : List<TimesheetListing> {
+
 		val timesheetMap : MutableMap<Date, List<TimesheetEntry>> = HashMap<Date, List<TimesheetEntry>>()		
-		entries.parallelStream().forEach{
+		entries.stream().forEach{
 			t -> addList(t, timesheetMap)
 		}
 		
-		println(timesheetMap)
-		
 		val result : MutableList<TimesheetListing> = mutableListOf()
-		timesheetMap.keys.parallelStream().forEach {
+		timesheetMap.keys.stream().forEach {
 			key -> convertListToListings(result, timesheetMap, key)
 		}
 		
@@ -32,14 +31,14 @@ enum class TimesheetParser() {
 	fun addList(entry : TimesheetEntry, map : MutableMap<Date, List<TimesheetEntry>>) = addListWithDatecheck(entry, map, entry.startDate)
 	
 	fun addListWithDatecheck(entry : TimesheetEntry, map : MutableMap<Date, List<TimesheetEntry>>, date : Date) {
-		if(!tU.areDatesOnSameDay(date, entry.endDate)){	
+		if(!tU.areDatesOnSameDay(date, entry.endDate)){
 			val hoursADay = entry.avgWorkday
-			val endDate = tU.addHours(date, hoursADay)		
-			addEntryToMap(entry.cloneWithEnddate(endDate), map, date)
+			val endDate = tU.addHours(date, hoursADay)
+			addEntryToMap(entry.cloneWithEnddate(date, endDate), map, date)
 
 			addListWithDatecheck(entry, map, tU.nextDay(entry.startDate))
 		} else {
-			addEntryToMap(entry, map, date)
+			addEntryToMap(entry.cloneWithEnddate(date, entry.endDate), map, date)
 		}
 	}
 	
@@ -60,14 +59,19 @@ enum class TimesheetParser() {
 			val totalDay = calculateTotal(list)
 			
 			for (entry: TimesheetEntry in list) {
-			  	result.add(TimesheetListing(key, tU.toString(key),
-					totalDay,
-					entry.issueName,
-					entry.issueId,
-					tU.countHoursBetween(entry.startDate, entry.endDate).toString()))
+				val minutes = tU.countMinutesBetween(entry.startDate, entry.endDate)
+				if(minutes > 2) {
+					val hours = minutes / 60
+					
+				  	result.add(TimesheetListing(key, tU.toString(key),
+						totalDay,
+						entry.issueName,
+						entry.issueId,
+						hours.toString()))
+					}
 			}
 		}
 	}
 	
-	fun calculateTotal(list : List<TimesheetEntry>) : String = list.sumBy { tU.countHoursBetween(it.startDate, it.endDate) }.toString()
+	fun calculateTotal(list : List<TimesheetEntry>) : String = list.sumBy { tU.countMinutesBetween(it.startDate, it.endDate) }.div(60).toString()
 }

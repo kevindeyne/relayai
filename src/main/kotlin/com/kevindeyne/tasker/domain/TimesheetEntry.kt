@@ -10,12 +10,12 @@ data class TimesheetEntry constructor(
 		val issueId: Long = 0L
 )  {
 	
-	fun cloneWithEnddate(endDate : Date) : TimesheetEntry {
-		return TimesheetEntry(this.startDate,
+	fun cloneWithEnddate(startDate : Date, endDate : Date) : TimesheetEntry {
+		return TimesheetEntry(startDate,
 		endDate,
 		this.avgWorkday,
 		this.issueName,
 		this.issueId)
 	}
-	
+		
 }
