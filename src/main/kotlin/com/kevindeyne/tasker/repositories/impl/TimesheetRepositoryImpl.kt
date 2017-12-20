@@ -1,6 +1,6 @@
 package com.kevindeyne.tasker.repositories
 
-import com.kevindeyne.tasker.domain.TimesheetListing
+import com.kevindeyne.tasker.domain.TimesheetEntry
 import com.kevindeyne.tasker.jooq.Tables
 import com.kevindeyne.tasker.jooq.tables.records.TimesheetRecord
 import org.jooq.DSLContext
@@ -50,11 +50,24 @@ open class TimesheetRepositoryImpl (val dsl: DSLContext) : TimesheetRepository {
 		return null	
 	}
 	
-	override fun getTimesheet(from : Date, until : Date, userId: Long) : List<TimesheetListing> {
+	override fun getTimesheetForSprint(sprintId : Long?, userId : Long?) : List<TimesheetEntry> {
+		if(sprintId == null || userId == null){ return listOf() }
+		
+		val entryBasis = dsl.selectFrom(Tables.SPRINT)
+		   .where(Tables.SPRINT.ID.eq(sprintId))
+		   .fetchOne().map {
+			  n -> TimesheetEntry(
+				   n.get(Tables.SPRINT.START_DATE),
+				   n.get(Tables.SPRINT.END_DATE))
+		   }
+		return getTimesheet(entryBasis.startDate, entryBasis?.endDate ?: Date(), userId);
+	}
+	
+	override fun getTimesheet(from : Date, until : Date, userId: Long) : List<TimesheetEntry> {
 		val timeFrom = Timestamp(from.getTime())
 		val timeUntil = Timestamp(until.getTime())
 		
-		return dsl.selectFrom(Tables.TIMESHEET)
+		return dsl.selectFrom(Tables.TIMESHEET.join(Tables.ISSUE).on(Tables.ISSUE.ID.eq(Tables.TIMESHEET.ISSUE_ID)))
 			   .where(Tables.TIMESHEET.USER_ID.eq(userId))
 			   .and(Tables.TIMESHEET.START_DATE.greaterThan(timeFrom))
 			   .and(Tables.TIMESHEET.END_DATE.isNull.or(Tables.TIMESHEET.END_DATE.lessThan(timeUntil)))
@@ -62,8 +75,21 @@ open class TimesheetRepositoryImpl (val dsl: DSLContext) : TimesheetRepository {
 			   .fetch()
 			   .parallelStream()
 			   .map {
-				  n -> TimesheetListing(Date(), "", "", "", 0L, "")
+				  n -> TimesheetEntry(
+					   n.get(Tables.TIMESHEET.START_DATE),
+					   endDateOrToday(n.get(Tables.TIMESHEET.END_DATE)),
+					   n.get(Tables.TIMESHEET.AVG_WORKDAY),
+					   n.get(Tables.ISSUE.TITLE),
+					   n.get(Tables.TIMESHEET.ISSUE_ID))
 			   }
 			   .collect(Collectors.toList())
+	}
+	
+	fun endDateOrToday(n : Date?) : Date {
+		if(n != null) {
+			return n
+		} else {
+			return Date()
+		}
 	}
 }

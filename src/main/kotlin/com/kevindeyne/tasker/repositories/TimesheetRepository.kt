@@ -1,6 +1,6 @@
 package com.kevindeyne.tasker.repositories
 
-import com.kevindeyne.tasker.domain.TimesheetListing
+import com.kevindeyne.tasker.domain.TimesheetEntry
 import java.util.Date
 
 interface TimesheetRepository {
@@ -8,5 +8,7 @@ interface TimesheetRepository {
 	
 	fun stopTrackingIssue(issueId: Long, userId: Long)
 	
-	fun getTimesheet(from : Date, until : Date, userId: Long) : List<TimesheetListing>
+	fun getTimesheet(from : Date, until : Date, userId: Long) : List<TimesheetEntry>
+	
+	fun getTimesheetForSprint(sprintId : Long?, userId : Long?) : List<TimesheetEntry> 
 }

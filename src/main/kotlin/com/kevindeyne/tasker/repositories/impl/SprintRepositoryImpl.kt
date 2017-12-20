@@ -11,7 +11,7 @@ open class SprintRepositoryImpl (val dsl: DSLContext) : SprintRepository {
 	override fun findCurrentSprintByProjectId(projectId : Long?) : Long? {
 		if(projectId != null) {
 			val currentTime = Timestamp(System.currentTimeMillis());
-			val sprintRecord =  dsl.selectFrom(Tables.SPRINT)
+			val sprintRecord = dsl.selectFrom(Tables.SPRINT)
 					.where(Tables.SPRINT.PROJECT_ID.eq(projectId))
 					.and(Tables.SPRINT.START_DATE.lessOrEqual(currentTime))
 					.and(Tables.SPRINT.END_DATE.greaterOrEqual(currentTime))
