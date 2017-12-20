@@ -29,6 +29,31 @@ enum class TimesheetParser() {
 		return result
 	}
 	
+	fun addList(entry : TimesheetEntry, map : MutableMap<Date, List<TimesheetEntry>>) = addListWithDatecheck(entry, map, entry.startDate)
+	
+	fun addListWithDatecheck(entry : TimesheetEntry, map : MutableMap<Date, List<TimesheetEntry>>, date : Date) {
+		if(!tU.areDatesOnSameDay(date, entry.endDate)){	
+			val hoursADay = entry.avgWorkday
+			val endDate = tU.addHours(date, hoursADay)		
+			addEntryToMap(entry.cloneWithEnddate(endDate), map, date)
+
+			addListWithDatecheck(entry, map, tU.nextDay(entry.startDate))
+		} else {
+			addEntryToMap(entry, map, date)
+		}
+	}
+	
+	fun addEntryToMap(entry : TimesheetEntry, map : MutableMap<Date, List<TimesheetEntry>>, date : Date){
+		val e = map.get(date)
+		if(e != null) {
+			val entryList = e.toMutableList()
+			entryList.add(entry)
+			map.put(date, entryList)
+		} else {
+			map.put(date, listOf(entry))
+		}
+	}
+	
 	fun convertListToListings(result : MutableList<TimesheetListing>, map : MutableMap<Date, List<TimesheetEntry>>, key : Date){
 		val list = map.get(key)
 		if(list != null){
@@ -45,32 +70,4 @@ enum class TimesheetParser() {
 	}
 	
 	fun calculateTotal(list : List<TimesheetEntry>) : String = list.sumBy { tU.countHoursBetween(it.startDate, it.endDate) }.toString()
-	
-	fun addList(entry : TimesheetEntry, map : MutableMap<Date, List<TimesheetEntry>>) = addListWithDatecheck(entry, map, entry.startDate)
-
-	fun addListWithDatecheck(entry : TimesheetEntry, map : MutableMap<Date, List<TimesheetEntry>>, date : Date) {
-
-		if(!tU.areDatesOnSameDay(date, entry.endDate)){	
-			val hoursADay = entry.avgWorkday
-			val endDate = tU.addHours(date, hoursADay)		
-			addEntryToMap(entry.cloneWithEnddate(endDate), map, date)
-
-			addListWithDatecheck(entry, map, tU.nextDay(entry.startDate))
-		} else {
-			addEntryToMap(entry, map, date)
-		}
-	}
-	
-
-	
-	fun addEntryToMap(entry : TimesheetEntry, map : MutableMap<Date, List<TimesheetEntry>>, date : Date){
-		val e = map.get(date)
-		if(e != null) {
-			val entryList = e.toMutableList()
-			entryList.add(entry)
-			map.put(date, entryList)
-		} else {
-			map.put(date, listOf(entry))
-		}
-	}
 }
