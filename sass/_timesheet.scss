@@ -11,6 +11,10 @@ section.month-view {
 		width: 3em;
 	}
 	
+	h1.today{
+		color: #004ed2;
+	}
+	
 	table {
 		border-collapse: collapse;
 		border-spacing: 0;
@@ -26,6 +30,10 @@ section.month-view {
 			font-weight: 100;
 		}
 		
+		section.inactive {
+			opacity: 0.5;
+		}
+		
 		section.day-view {
 			width: 13em;
 			padding: 0.75em;
@@ -36,7 +44,7 @@ section.month-view {
 			h2 {
 				margin-bottom: 0.55em;
 				
-				span {
+				span.total-time {
 					float: right;
 					margin-right: 0.75em;
 					background-color: #4e5369;
@@ -44,6 +52,8 @@ section.month-view {
 					padding-top: 0.1em;
 					padding-bottom: 0.1em;
 					color: white;
+					position: relative;
+					top: -0.10em;
 				}
 			}
 			
@@ -51,7 +61,7 @@ section.month-view {
 				padding-bottom: 0.5em;
 				
 				a {
-					color: #4e5369;
+					color: #0d0e13;
 					text-decoration: none;
 					font-weight: 100;
 				}
@@ -63,5 +73,4 @@ section.month-view {
 			}
 		}
 	}
-
 }

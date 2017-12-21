@@ -5,6 +5,8 @@ import com.kevindeyne.tasker.controller.timesheet.TimesheetParser
 import com.kevindeyne.tasker.domain.TimesheetEntry
 import org.junit.Assert
 import org.junit.Test
+import java.text.SimpleDateFormat
+import java.time.LocalDate
 import java.time.LocalDateTime
 import java.util.Date
 
@@ -12,6 +14,54 @@ class TimesheetTests {
 	
 	val parser = TimesheetParser.INSTANCE
 	val time = TimeUtils.INSTANCE
+	
+	val format = SimpleDateFormat("dd/MM/yyyy")
+		
+	@Test
+	fun testGenerateDays() {
+		val today = toDate(LocalDateTime.now().withHour(14))
+		val yesterday = toDate(LocalDateTime.now().withHour(14).minusDays(1))
+
+		val entry1 = TimesheetEntry(yesterday, time.addHours(yesterday, 4))
+		val entry2 = TimesheetEntry(today, time.addHours(today, 4))
+		
+		val days = parser.getTimesheetDays(listOf(entry1, entry2))
+		
+		println(days)
+		
+		Assert.assertTrue(days.get(0).days.size == 7)
+	}
+	
+		
+	@Test
+	fun testFirstSunday() {
+		val d26nov2017 = time.getDate(2017, 11, 26)
+		val d20dec2017 = time.getDate(2017, 12, 20)
+		
+		Assert.assertEquals(format.format(d26nov2017), format.format(time.localDateToDate(parser.determineStartDate(d20dec2017))))
+	}
+				
+	@Test
+	fun testFirstSundayOnSunday() {
+		val d1octOnSun = time.getDate(2017, 10, 1)
+		
+		Assert.assertEquals(format.format(d1octOnSun), format.format(time.localDateToDate(parser.determineStartDate(d1octOnSun))))
+	}
+	
+	@Test
+	fun testLastSaturday() {		
+		val d6jan2018 = time.getDate(2018, 1, 6)
+		val d20dec2017 = time.getDate(2017, 12, 20)
+		
+		Assert.assertEquals(format.format(d6jan2018), format.format(time.localDateToDate(parser.determineEndDate(d20dec2017))))
+	}
+	
+	@Test
+	fun testLastSaturdayOnSaturday() {
+		val d30sept2017OnSat = time.getDate(2017, 9, 30)
+		
+		Assert.assertEquals(format.format(d30sept2017OnSat), format.format(time.localDateToDate(parser.determineEndDate(d30sept2017OnSat))))
+	}
 	
 	@Test
 	fun testAreDatesOnSameDay() {

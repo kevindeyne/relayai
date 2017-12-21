@@ -1,8 +1,7 @@
 package com.kevindeyne.tasker.controller.timesheet
 
-import com.kevindeyne.tasker.domain.TimesheetEntry
-import com.kevindeyne.tasker.domain.TimesheetListing
 import java.text.SimpleDateFormat
+import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.ZoneId
 import java.util.Date
@@ -15,10 +14,18 @@ enum class TimeUtils() {
 		return Date.from(localDate.atZone(ZoneId.systemDefault()).toInstant());
 	}
 	
+	fun localDateToDate(localDate : LocalDate) : Date {
+		return Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+	}
+	
+	fun getDate(year : Int, month : Int, day : Int) : Date = localDateToDate(LocalDate.now().withYear(year).withMonth(month).withDayOfMonth(day))
+		
 	fun areDatesOnSameDay(date1 : Date, date2 : Date) : Boolean {
 		val fmt = SimpleDateFormat("yyyyMMdd");
 		return fmt.format(date1).equals(fmt.format(date2));
 	}
+	
+	fun isToday(date : LocalDate) : Boolean = areDatesOnSameDay(Date(), localDateToDate(date))
 	
 	fun addHours(date : Date, hours : Int) : Date {
 		val ldt : LocalDateTime = LocalDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault())

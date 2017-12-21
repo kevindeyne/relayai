@@ -154,13 +154,24 @@
 				</tr>			
 			</table>
 		</section>
+		
+		<br/>
+		
+		<section class="month-view">
+			<h1 th:text="${currentMonth}">December</h1>
+			
+			<table>
+				<tr class="week-view" th:each="week : ${timesheets}">
+					<td th:each="timesheet : ${week.days}">
+						<section class="day-view" th:classappend="${timesheet.inactive}?inactive">
+							<h1 th:text="${timesheet.day}" th:classappend="${timesheet.today}?today"></h1>
+							<h2 class="day-info"><span th:text="${timesheet.dayName}">Monday</span> <span class="total-time" th:text="${timesheet.dayTotal}">4.5h</span></h2>
 
-
-		<section th:each="timesheet : ${timesheets}">
-			<h1 th:text="${timesheet.dateString}"></h1>
-			<p th:text="${timesheet.dateTotal}"></p>			
-			<p th:text="${timesheet.issueName}"></p>
-			<p th:text="${timesheet.duration}"></p>
+							<h4 th:each="listing : ${timesheet.listings}"><a href="#" th:text="${listing.issueName}">The Last Temptation</a></h4>
+						</section>												
+					</td>					
+				</tr>			
+			</table>
 		</section>
 		
 	</article>
