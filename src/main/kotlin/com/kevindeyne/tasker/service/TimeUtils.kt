@@ -18,6 +18,10 @@ enum class TimeUtils() {
 		return Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
 	}
 	
+	fun getHours(date : Date) : Int = LocalDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault()).hour
+	
+	fun getMinutesOverHalfHour(date : Date) = LocalDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault()).minute > 25
+	
 	fun getDate(year : Int, month : Int, day : Int) : Date = localDateToDate(LocalDate.now().withYear(year).withMonth(month).withDayOfMonth(day))
 		
 	fun areDatesOnSameDay(date1 : Date, date2 : Date) : Boolean {

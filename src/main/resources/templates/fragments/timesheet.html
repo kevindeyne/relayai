@@ -7,174 +7,23 @@
 			<h1>Timesheet</h1>
 			<h2>Gives an overview of worked hours in the month</h2>
 		</section>
-		
-		<section class="month-view">			
-			<h1>December</h1>
-					
-			<table>
-				<tr class="week-view">
-					<td>
-						<section class="day-view">
-							<h1>19</h1>
-							<h2 class="day-info">Sunday</h2>
-
-							<p>None</p>
-						</section>
-					</td>				
-					<td>
-						<section class="day-view">
-							<h1>20</h1>
-							<h2 class="day-info">Monday <span>4.5h</span></h2>
-
-							<h4><a href="#">The Last Temptation</a></h4>
-							<h4><a href="#">Bury My Heart at Wounded Knee</a></h4>
-							<h4><a href="#">Let Us Now Praise Famous Men</a></h4>
-						</section>
-					</td>				
-					<td>
-						<section class="day-view">
-							<h1>21</h1>
-							<h2 class="day-info">Tuesday <span>4.5h</span></h2>
-
-							<h4><a href="#">Bury My Heart at Wounded Knee</a></h4>
-							<h4><a href="#">The Last Temptation</a></h4>
-						</section>
-					</td>				
-					<td>
-						<section class="day-view">
-							<h1>22</h1>
-							<h2 class="day-info">Wednesday</h2>
-
-							<p>None</p>
-						</section>
-					</td>				
-					<td>
-						<section class="day-view">
-							<h1>23</h1>
-							<h2 class="day-info">Thursday <span>8.5h</span></h2>
-
-							<h4><a href="#">The Last Temptation</a></h4>
-							<h4><a href="#">Bury My Heart at Wounded Knee</a></h4>
-							<h4><a href="#">Let Us Now Praise Famous Men</a></h4>
-							<h4><a href="#">Bury My Heart at Wounded Knee</a></h4>
-							<h4><a href="#">The Last Temptation</a></h4>				
-							<h4><a href="#">Let Us Now Praise Famous Men</a></h4>
-							<h4><a href="#">Bury My Heart at Wounded Knee</a></h4>
-							<h4><a href="#">Let Us Now Praise Famous Men</a></h4>
-							<h4><a href="#">The Last Temptation</a></h4>
-						</section>
-					</td>				
-					<td>
-						<section class="day-view">
-							<h1>24</h1>
-							<h2 class="day-info">Friday <span>4.5h</span></h2>
-
-							<h4><a href="#">Bury My Heart at Wounded Knee</a></h4>
-							<h4><a href="#">The Last Temptation</a></h4>
-						</section>
-					</td>				
-					<td>
-						<section class="day-view">
-							<h1>25</h1>
-							<h2 class="day-info">Saturday</h2>
-
-							<p>None</p>
-						</section>
-					</td>				
-				</tr>
-				<tr class="week-view">
-					<td>
-						<section class="day-view">
-							<h1>19</h1>
-							<h2 class="day-info">Sunday</h2>
-
-							<p>None</p>
-						</section>
-					</td>				
-					<td>
-						<section class="day-view">
-							<h1>20</h1>
-							<h2 class="day-info">Monday <span>4.5h</span></h2>
-
-							<h4><a href="#">The Last Temptation</a></h4>
-							<h4><a href="#">Bury My Heart at Wounded Knee</a></h4>
-							<h4><a href="#">Let Us Now Praise Famous Men</a></h4>
-						</section>
-					</td>				
-					<td>
-						<section class="day-view">
-							<h1>21</h1>
-							<h2 class="day-info">Tuesday <span>4.5h</span></h2>
-
-							<h4><a href="#">Bury My Heart at Wounded Knee</a></h4>
-							<h4><a href="#">The Last Temptation</a></h4>
-						</section>
-					</td>				
-					<td>
-						<section class="day-view">
-							<h1>22</h1>
-							<h2 class="day-info">Wednesday</h2>
-
-							<p>None</p>
-						</section>
-					</td>				
-					<td>
-						<section class="day-view">
-							<h1>23</h1>
-							<h2 class="day-info">Thursday <span>8.5h</span></h2>
-
-							<h4><a href="#">The Last Temptation</a></h4>
-							<h4><a href="#">Bury My Heart at Wounded Knee</a></h4>
-							<h4><a href="#">Let Us Now Praise Famous Men</a></h4>
-							<h4><a href="#">Bury My Heart at Wounded Knee</a></h4>
-							<h4><a href="#">The Last Temptation</a></h4>				
-							<h4><a href="#">Let Us Now Praise Famous Men</a></h4>
-							<h4><a href="#">Bury My Heart at Wounded Knee</a></h4>
-							<h4><a href="#">Let Us Now Praise Famous Men</a></h4>
-							<h4><a href="#">The Last Temptation</a></h4>
-						</section>
-					</td>				
-					<td>
-						<section class="day-view">
-							<h1>24</h1>
-							<h2 class="day-info">Friday <span>4.5h</span></h2>
-
-							<h4><a href="#">Bury My Heart at Wounded Knee</a></h4>
-							<h4><a href="#">The Last Temptation</a></h4>
-						</section>
-					</td>				
-					<td>
-						<section class="day-view">
-							<h1>25</h1>
-							<h2 class="day-info">Saturday</h2>
-
-							<p>None</p>
-						</section>
-					</td>				
-				</tr>			
-			</table>
-		</section>
-		
-		<br/>
-		
+				
 		<section class="month-view">
-			<h1 th:text="${currentMonth}">December</h1>
-			
+			<h1 th:text="${currentMonth}">December</h1>			
 			<table>
 				<tr class="week-view" th:each="week : ${timesheets}">
 					<td th:each="timesheet : ${week.days}">
 						<section class="day-view" th:classappend="${timesheet.inactive}?inactive">
 							<h1 th:text="${timesheet.day}" th:classappend="${timesheet.today}?today"></h1>
-							<h2 class="day-info"><span th:text="${timesheet.dayName}">Monday</span> <span class="total-time" th:text="${timesheet.dayTotal}">4.5h</span></h2>
+							<h2 class="day-info"><span th:text="${timesheet.dayName}">Monday</span> <span class="total-time" th:if="${timesheet.dayTotal != '0h'}" th:text="${timesheet.dayTotal}">4.5h</span></h2>
 
-							<h4 th:each="listing : ${timesheet.listings}"><a href="#" th:text="${listing.issueName}">The Last Temptation</a></h4>
+							<h4 th:each="listing : ${timesheet.listings}"><a href="#" th:text="${listing.issueName}">The Last Temptation</a></h4>							
+							<h4 th:if="${#lists.isEmpty(timesheet.listings)}"><span class="none">None</span></h4>				
 						</section>												
 					</td>					
 				</tr>			
 			</table>
-		</section>
-		
+		</section>	
 	</article>
-
 </body>
 </html>

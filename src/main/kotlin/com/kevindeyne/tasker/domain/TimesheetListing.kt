@@ -7,5 +7,6 @@ data class TimesheetListing constructor(
 		var dateString : String,
 		var issueName: String,
 		var issueId: Long,
-		var duration: Int
+		val startDate : Date,
+		val endDate : Date
 )  { }

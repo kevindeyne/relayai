@@ -636,7 +636,7 @@ section.month-view table section.day-view h4 {
   padding-bottom: 0.5em;
 }
 /* line 63, ../sass/_timesheet.scss */
-section.month-view table section.day-view h4 a {
+section.month-view table section.day-view h4 a, section.month-view table section.day-view h4 span.none {
   color: #0d0e13;
   text-decoration: none;
   font-weight: 100;
