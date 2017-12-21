@@ -571,6 +571,72 @@ section#search-bar button span {
   left: -0.15em;
 }
 
+/* line 3, ../sass/_timesheet.scss */
+section.month-view {
+  margin-right: 0;
+  padding-right: 0;
+  padding-top: 0;
+}
+/* line 8, ../sass/_timesheet.scss */
+section.month-view h1 {
+  margin-bottom: 0.25em;
+  font-weight: 400;
+  width: 3em;
+}
+/* line 14, ../sass/_timesheet.scss */
+section.month-view table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+/* line 18, ../sass/_timesheet.scss */
+section.month-view table tr.week-view td {
+  vertical-align: top;
+  background: white;
+  border: 0.35em solid #f3f6f8;
+}
+/* line 24, ../sass/_timesheet.scss */
+section.month-view table p {
+  padding: 0;
+  font-weight: 100;
+}
+/* line 29, ../sass/_timesheet.scss */
+section.month-view table section.day-view {
+  width: 13em;
+  padding: 0.75em;
+  display: inline-block;
+  margin-right: 0.25em;
+  margin-bottom: 0.25em;
+}
+/* line 36, ../sass/_timesheet.scss */
+section.month-view table section.day-view h2 {
+  margin-bottom: 0.55em;
+}
+/* line 39, ../sass/_timesheet.scss */
+section.month-view table section.day-view h2 span {
+  float: right;
+  margin-right: 0.75em;
+  background-color: #4e5369;
+  padding: 0.25em;
+  padding-top: 0.1em;
+  padding-bottom: 0.1em;
+  color: white;
+}
+/* line 50, ../sass/_timesheet.scss */
+section.month-view table section.day-view h4 {
+  padding-bottom: 0.5em;
+}
+/* line 53, ../sass/_timesheet.scss */
+section.month-view table section.day-view h4 a {
+  color: #4e5369;
+  text-decoration: none;
+  font-weight: 100;
+}
+/* line 59, ../sass/_timesheet.scss */
+section.month-view table section.day-view h4 a:hover {
+  color: #2070f7;
+  text-decoration: underline;
+}
+
 /* line 3, ../sass/_forms.scss */
 article form {
   padding-left: 0.5em;

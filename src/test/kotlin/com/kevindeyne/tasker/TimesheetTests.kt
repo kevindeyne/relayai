@@ -89,13 +89,13 @@ class TimesheetTests {
 		Assert.assertEquals(2, result.size)
 	}
 	
-	//TODO @Test
+	@Test
 	fun generateListingFromEntries_parallel() {
 		val today = toDate(LocalDateTime.now().withHour(14))
-		val yesterday = toDate(LocalDateTime.now().withHour(14).minusDays(1))
+		val today2 = toDate(LocalDateTime.now().withHour(15))
 
-		val entry1 = TimesheetEntry(yesterday, time.addHours(yesterday, 4))
-		val entry2 = TimesheetEntry(today, time.addHours(today, 4))
+		val entry1 = TimesheetEntry(today, time.addHours(today, 3))
+		val entry2 = TimesheetEntry(today2, time.addHours(today2, 3))
 		
 		val entries = listOf(entry1, entry2)
 		val result = parser.convertEntriesToListings(entries)

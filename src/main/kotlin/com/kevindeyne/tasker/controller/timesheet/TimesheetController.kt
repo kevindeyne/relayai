@@ -22,6 +22,7 @@ class TimesheetController(val timesheetRepository : TimesheetRepository) {
 	@GetMapping(TIME_GET)
 	fun getTimesheet(model : Model) : String {
 		model.addAttribute("activePage", "timesheet")
+		getTimesheetInfo(model)
 		return "timesheet"
 	}
 	
