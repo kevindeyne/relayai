@@ -17,8 +17,8 @@
 							<h1 th:text="${timesheet.day}" th:classappend="${timesheet.today}?today"></h1>
 							<h2 class="day-info"><span th:text="${timesheet.dayName}">Monday</span> <span class="total-time" th:if="${timesheet.dayTotal != '0h'}" th:text="${timesheet.dayTotal}">4.5h</span></h2>
 
-							<h4 th:each="listing : ${timesheet.listings}"><a href="#" th:text="${listing.issueName}">The Last Temptation</a></h4>							
-							<h4 th:if="${#lists.isEmpty(timesheet.listings)}"><span class="none">None</span></h4>				
+							<h4 th:each="listing : ${timesheet.listings}"><a th:href="${'/tasks/' + listing.issueId}" th:text="${listing.issueName}">The Last Temptation</a></h4>							
+							<h4 th:if="${#lists.isEmpty(timesheet.listings) && !timesheet.inactive}"><span class="none">None</span></h4>				
 						</section>												
 					</td>					
 				</tr>			
