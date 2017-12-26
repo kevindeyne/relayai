@@ -74,9 +74,10 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
+  min-width: 1040px;
 }
 
-/* line 13, ../sass/_common.scss */
+/* line 15, ../sass/_common.scss */
 aside section, aside section p, aside section h1 {
   -webkit-user-select: none;
   /* Chrome all / Safari all */
@@ -88,12 +89,17 @@ aside section, aside section p, aside section h1 {
   /* Likely future */
 }
 
-/* line 21, ../sass/_common.scss */
+/* line 23, ../sass/_common.scss */
 #content-new-issue {
   display: none;
 }
 
-/* line 39, ../sass/_common.scss */
+/* line 27, ../sass/_common.scss */
+#content-userinfo {
+  min-width: 680px;
+}
+
+/* line 45, ../sass/_common.scss */
 button {
   -webkit-transition: all 0.15s ease-out;
   -moz-transition: all 0.15s ease-out;
@@ -116,11 +122,11 @@ button {
   font-weight: bold;
   letter-spacing: 0.05em;
 }
-/* line 57, ../sass/_common.scss */
+/* line 63, ../sass/_common.scss */
 button i.fa {
   font-size: 1.2em;
 }
-/* line 61, ../sass/_common.scss */
+/* line 67, ../sass/_common.scss */
 button span {
   padding: 0em 0em 0em 0.4em;
   font-weight: 500;
@@ -133,35 +139,35 @@ button span {
   top: -0.1em;
 }
 
-/* line 74, ../sass/_common.scss */
+/* line 80, ../sass/_common.scss */
 button:hover {
   background-color: #4489ff;
 }
 
-/* line 78, ../sass/_common.scss */
+/* line 84, ../sass/_common.scss */
 button.altpath {
   background-color: #ffffff;
   border: 2px solid #4489ff;
   color: #0046bd;
 }
 
-/* line 84, ../sass/_common.scss */
+/* line 90, ../sass/_common.scss */
 button.altpath:hover {
   background-color: #eef4ff;
 }
 
-/* line 88, ../sass/_common.scss */
+/* line 94, ../sass/_common.scss */
 i.fa {
   width: 1.2em;
   text-align: center;
 }
 
-/* line 93, ../sass/_common.scss */
+/* line 99, ../sass/_common.scss */
 .visible {
   display: block !important;
 }
 
-/* line 97, ../sass/_common.scss */
+/* line 103, ../sass/_common.scss */
 .invisible {
   display: none !important;
 }
@@ -262,16 +268,32 @@ nav button {
 @media (max-width: 1201px) {
   /* line 64, ../sass/_menu.scss */
   nav {
-    min-width: 50px;
-    padding: 0.25em;
-    font-size: 1.25em;
+    width: 55px;
+    min-width: 55px;
+    max-width: 55px;
+    padding: 0;
   }
-  /* line 69, ../sass/_menu.scss */
+  /* line 70, ../sass/_menu.scss */
+  nav button {
+    width: 45px;
+    position: relative;
+    left: -8px;
+  }
+  /* line 76, ../sass/_menu.scss */
   nav span {
     display: none !important;
   }
+  /* line 80, ../sass/_menu.scss */
+  nav a i {
+    padding-left: 10px;
+  }
+
+  /* line 85, ../sass/_menu.scss */
+  #tracker {
+    display: none;
+  }
 }
-/* line 75, ../sass/_menu.scss */
+/* line 90, ../sass/_menu.scss */
 nav > a {
   width: 100%;
   display: block;
@@ -452,34 +474,39 @@ article #content-userinfo #content-userinfo-attachments p, article #content-new-
   padding-left: 0;
 }
 
-@media (max-width: 851px) {
+@media (max-width: 1201px) {
   /* line 71, ../sass/_main.scss */
-  article {
-    display: none;
+  aside {
+    min-width: 200px;
+  }
+
+  /* line 74, ../sass/_main.scss */
+  #content-main {
+    padding-left: 2px !important;
   }
 }
-/* line 76, ../sass/_main.scss */
+/* line 79, ../sass/_main.scss */
 article section {
   padding: 1em;
   box-sizing: border-box;
 }
-/* line 80, ../sass/_main.scss */
+/* line 83, ../sass/_main.scss */
 article section section:first-child {
   padding-top: 4.5em;
 }
 
-/* line 85, ../sass/_main.scss */
+/* line 88, ../sass/_main.scss */
 article#main section#content-main p.content {
   padding-top: 13em;
 }
 
-/* line 89, ../sass/_main.scss */
+/* line 92, ../sass/_main.scss */
 article section p {
   padding: 0.5em;
   box-sizing: border-box;
 }
 
-/* line 94, ../sass/_main.scss */
+/* line 97, ../sass/_main.scss */
 article section p.code {
   font-family: "Cutive Mono", "Courier";
   font-size: 1em;
@@ -489,7 +516,7 @@ article section p.code {
   margin: 0.5em;
 }
 
-/* line 103, ../sass/_main.scss */
+/* line 106, ../sass/_main.scss */
 div#initial-load {
   background: #f3f6f8;
   position: fixed;

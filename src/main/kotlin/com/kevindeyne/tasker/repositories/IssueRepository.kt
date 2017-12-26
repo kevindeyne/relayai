@@ -33,4 +33,7 @@ interface IssueRepository {
 	fun assign(issueId : Long, userId : Long)
 	
 	fun findAllInProgress() : List<InProgressIssue>
+	
+	fun findAllInProgress(userId : Long?, sprintId : Long?) : List<InProgressIssue>
+	
 }

@@ -7,6 +7,8 @@ body {
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 	text-rendering: optimizeLegibility;
+	
+	min-width: 1040px;
 }
 
 aside {
@@ -20,6 +22,10 @@ aside {
 
 #content-new-issue {
 	display: none;
+}
+
+#content-userinfo {
+	min-width: 680px;
 }
 
 @mixin border-radius($radius) {

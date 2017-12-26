@@ -16,6 +16,7 @@ import com.kevindeyne.tasker.jooq.tables.Tag;
 import com.kevindeyne.tasker.jooq.tables.Tagcloud;
 import com.kevindeyne.tasker.jooq.tables.Timesheet;
 import com.kevindeyne.tasker.jooq.tables.User;
+import com.kevindeyne.tasker.jooq.tables.UserRole;
 
 import javax.annotation.Generated;
 
@@ -92,4 +93,9 @@ public class Tables {
      * The table <code>taskr.user</code>.
      */
     public static final User USER = com.kevindeyne.tasker.jooq.tables.User.USER;
+
+    /**
+     * The table <code>taskr.user_role</code>.
+     */
+    public static final UserRole USER_ROLE = com.kevindeyne.tasker.jooq.tables.UserRole.USER_ROLE;
 }

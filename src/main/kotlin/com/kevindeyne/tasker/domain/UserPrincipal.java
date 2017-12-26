@@ -1,6 +1,5 @@
 package com.kevindeyne.tasker.domain;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
@@ -23,16 +22,19 @@ public class UserPrincipal implements UserDetails {
 
 	private Long sprintId;
 
+	private List<Role> roles;
+
 	private List<InProgressIssue> trackingIssues;
 
-	public UserPrincipal(Long userId, String userName, String password, Long projectId, Long sprintId) {
+	public UserPrincipal(Long userId, String userName, String password, Long projectId, Long sprintId, List<Role> roles, List<InProgressIssue> issues) {
 		super();
 		this.userId = userId;
 		this.userName = userName;
 		this.password = password;
 		this.projectId = projectId;
 		this.sprintId = sprintId;
-		this.setTrackingIssues(new ArrayList<InProgressIssue>());
+		this.setTrackingIssues(issues);
+		this.setRoles(roles);
 	}
 
 	@Override
@@ -96,5 +98,13 @@ public class UserPrincipal implements UserDetails {
 
 	public void setTrackingIssues(List<InProgressIssue> trackingIssues) {
 		this.trackingIssues = trackingIssues;
+	}
+
+	public List<Role> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(List<Role> roles) {
+		this.roles = roles;
 	}
 }

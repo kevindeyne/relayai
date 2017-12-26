@@ -16,6 +16,7 @@ import com.kevindeyne.tasker.jooq.tables.Tag;
 import com.kevindeyne.tasker.jooq.tables.Tagcloud;
 import com.kevindeyne.tasker.jooq.tables.Timesheet;
 import com.kevindeyne.tasker.jooq.tables.User;
+import com.kevindeyne.tasker.jooq.tables.UserRole;
 
 import javax.annotation.Generated;
 
@@ -68,6 +69,8 @@ public class Indexes {
     public static final Index TIMESHEET_TIMESHEET_DATE = Indexes0.TIMESHEET_TIMESHEET_DATE;
     public static final Index TIMESHEET_USER_ID = Indexes0.TIMESHEET_USER_ID;
     public static final Index USER_PRIMARY = Indexes0.USER_PRIMARY;
+    public static final Index USER_ROLE_PRIMARY = Indexes0.USER_ROLE_PRIMARY;
+    public static final Index USER_ROLE_USER_ID = Indexes0.USER_ROLE_USER_ID;
 
     // -------------------------------------------------------------------------
     // [#1459] distribute members to avoid static initialisers > 64kb
@@ -101,5 +104,7 @@ public class Indexes {
         public static Index TIMESHEET_TIMESHEET_DATE = createIndex("timesheet_date", Timesheet.TIMESHEET, new OrderField[] { Timesheet.TIMESHEET.START_DATE }, false);
         public static Index TIMESHEET_USER_ID = createIndex("user_id", Timesheet.TIMESHEET, new OrderField[] { Timesheet.TIMESHEET.USER_ID }, false);
         public static Index USER_PRIMARY = createIndex("PRIMARY", User.USER, new OrderField[] { User.USER.ID }, true);
+        public static Index USER_ROLE_PRIMARY = createIndex("PRIMARY", UserRole.USER_ROLE, new OrderField[] { UserRole.USER_ROLE.ID }, true);
+        public static Index USER_ROLE_USER_ID = createIndex("user_id", UserRole.USER_ROLE, new OrderField[] { UserRole.USER_ROLE.USER_ID }, false);
     }
 }

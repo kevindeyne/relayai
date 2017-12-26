@@ -67,10 +67,13 @@ article {
 	
 }
 
-@media (max-width: 851px) { 
-	article {
-		display: none;
+@media (max-width: 1201px) { 
+	aside {
+		min-width: 200px;
 	}	
+	#content-main {
+		padding-left: 2px !important;
+	}
 }
 
 article section {

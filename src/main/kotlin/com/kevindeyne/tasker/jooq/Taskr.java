@@ -16,6 +16,7 @@ import com.kevindeyne.tasker.jooq.tables.Tag;
 import com.kevindeyne.tasker.jooq.tables.Tagcloud;
 import com.kevindeyne.tasker.jooq.tables.Timesheet;
 import com.kevindeyne.tasker.jooq.tables.User;
+import com.kevindeyne.tasker.jooq.tables.UserRole;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -41,7 +42,7 @@ import org.jooq.impl.SchemaImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Taskr extends SchemaImpl {
 
-    private static final long serialVersionUID = -112877993;
+    private static final long serialVersionUID = 1915659879;
 
     /**
      * The reference instance of <code>taskr</code>
@@ -109,6 +110,11 @@ public class Taskr extends SchemaImpl {
     public final User USER = com.kevindeyne.tasker.jooq.tables.User.USER;
 
     /**
+     * The table <code>taskr.user_role</code>.
+     */
+    public final UserRole USER_ROLE = com.kevindeyne.tasker.jooq.tables.UserRole.USER_ROLE;
+
+    /**
      * No further instances allowed
      */
     private Taskr() {
@@ -144,6 +150,7 @@ public class Taskr extends SchemaImpl {
             Tag.TAG,
             Tagcloud.TAGCLOUD,
             Timesheet.TIMESHEET,
-            User.USER);
+            User.USER,
+            UserRole.USER_ROLE);
     }
 }

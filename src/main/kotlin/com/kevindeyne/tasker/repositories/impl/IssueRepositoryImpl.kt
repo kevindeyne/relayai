@@ -188,9 +188,13 @@ open class IssueRepositoryImpl (val dsl: DSLContext) : IssueRepository {
 	}
 	
 	override fun findAllInProgress() : List<InProgressIssue> {
+		return findAllInProgress(SecurityHolder.getUserId(), SecurityHolder.getSprintId())
+	}
+	
+	override fun findAllInProgress(userId : Long?, sprintId : Long?) : List<InProgressIssue> {
 		return dsl.selectFrom(Tables.ISSUE)
-			   .where(Tables.ISSUE.ASSIGNED.eq(SecurityHolder.getUserId()))
-			   .and(Tables.ISSUE.SPRINT_ID.eq(SecurityHolder.getSprintId()))
+			   .where(Tables.ISSUE.ASSIGNED.eq(userId))
+			   .and(Tables.ISSUE.SPRINT_ID.eq(sprintId))
 			   .and(Tables.ISSUE.STATUS.eq(Progress.IN_PROGRESS.name))
 			   .orderBy(Tables.ISSUE.CREATE_DATE.desc()) //by importance
 			   .fetch()

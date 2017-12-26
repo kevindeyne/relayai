@@ -5,5 +5,6 @@ enum class Progress(val text: String) {
 	BACKLOG("Backlog"),
 	IN_SPRINT("In sprint"),
 	IN_PROGRESS("In progress"),
+	WAITING_FOR_FEEDBACK("Waiting for user feedback"),
 	DONE("Done");
 }

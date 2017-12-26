@@ -1,6 +1,8 @@
 package com.kevindeyne.tasker.loader
 
 import com.github.javafaker.Faker
+import com.kevindeyne.tasker.domain.Role
+import com.kevindeyne.tasker.domain.SearchResultType
 import com.kevindeyne.tasker.jooq.Tables
 import com.kevindeyne.tasker.repositories.TagcloudRepository
 import com.kevindeyne.tasker.service.KeywordGeneration
@@ -12,7 +14,6 @@ import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Component
 import java.sql.Timestamp
 import java.time.LocalDate
-import com.kevindeyne.tasker.domain.SearchResultType
 
 @Component
 class IssueLoader(
@@ -21,7 +22,7 @@ class IssueLoader(
 		val tagcloudRepository : TagcloudRepository
 ) : ApplicationListener<ContextRefreshedEvent>, Ordered {
 	
-	val generateNew : Boolean = false;
+	val generateNew : Boolean = true;
 	val maxUserIssuesInSprint : Int = 40;
 	val daysPerSprint : Int = 14;
 	val totalAmountOfSprints : Int = 500;
@@ -113,11 +114,19 @@ class IssueLoader(
 		   .values(Timestamp.valueOf(startTime.atStartOfDay()), Timestamp.valueOf(endTime.atStartOfDay()), projectId)
 		   .returning(Tables.SPRINT.ID).fetchOne().get(Tables.SPRINT.ID)
 	
-	fun insertIntoUser(username : String, password : String) : Long =
-			dsl.insertInto(Tables.USER,
+	fun insertIntoUser(username : String, password : String) : Long {
+		val userId = dsl.insertInto(Tables.USER,
 			 Tables.USER.EMAIL, Tables.USER.PASSWORD, Tables.USER.CREATE_DATE, Tables.USER.CREATE_USER, Tables.USER.UPDATE_DATE, Tables.USER.UPDATE_USER)
 		   .values(username, password, getRandomTimestamp(), "1", getRandomTimestamp(), "1")
 		   .returning(Tables.USER.ID).fetchOne().get(Tables.USER.ID)
+		
+		dsl.insertInto(Tables.USER_ROLE,
+			 Tables.USER_ROLE.USER_ID, Tables.USER_ROLE.ROLE)
+		   .values(userId, Role.SHAREHOLDER.name)
+		   .execute()
+		
+		return userId
+	}
 	
 	fun insertIntoIssue(faker : Faker, projectId : Long, sprintId : Long, assignedTo : Long) {
 		val title = faker.book().title()

@@ -1,6 +1,7 @@
 package com.kevindeyne.tasker.service
 
 import com.kevindeyne.tasker.domain.InProgressIssue
+import com.kevindeyne.tasker.domain.Role
 import com.kevindeyne.tasker.domain.UserPrincipal
 import org.springframework.security.authentication.AnonymousAuthenticationToken
 import org.springframework.security.core.Authentication
@@ -30,6 +31,19 @@ object SecurityHolder {
 			return principal.projectId;
 		}
 		return null;
+	}
+	
+	fun getRoles() : List<Role> {
+		val principal: UserPrincipal? = getUserPrincipal()
+		if (null != principal) {		    
+			return principal.roles;
+		}
+		return listOf();
+	}
+	
+	fun hasRole(role : Role) : Boolean {
+		getRoles().forEach{ r -> return r.equals(role) }
+		return false
 	}
 	
 	fun getUserPrincipal() : UserPrincipal? {

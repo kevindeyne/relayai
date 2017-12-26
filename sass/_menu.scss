@@ -62,14 +62,29 @@ nav {
 
 @media (max-width: 1201px) { 
 	nav {
-		min-width: 50px;
-		padding: 0.25em;
+		width: 55px;
+		min-width: 55px;
+		max-width: 55px;
+		padding: 0;
+		
+		button {
+		    width: 45px;
+			position: relative;
+			left: -8px;
+		}
 
-		font-size: 1.25em;
 		span {
 			display: none !important;
 		}	
-	}	
+		
+		a i {
+			padding-left: 10px;
+		}
+	}
+	
+	#tracker {
+		display: none;
+	}
 }
 
 nav > a {
