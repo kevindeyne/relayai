@@ -25,7 +25,7 @@ class GlobalReceiver(val issueRepository: IssueRepository, val tagcloud: Tagclou
 			AMQMessageType.ISSUE_IMPACT -> issueRepository.updateImpact(getIdFromMessage(m), Impact.valueOf(m.value), m.userId)
 			AMQMessageType.ISSUE_ASSIGNEE -> handleAssignee(m)
 			AMQMessageType.ISSUE_FIXVERSION -> handleFixVersion(m)
-			else -> throw RuntimeException("Unknown message type")
+			//else -> throw RuntimeException("Unknown message type")
 		}
 	}
 

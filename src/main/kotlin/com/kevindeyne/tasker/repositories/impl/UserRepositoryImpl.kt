@@ -1,5 +1,6 @@
 package com.kevindeyne.tasker.repositories
 
+
 import com.kevindeyne.tasker.domain.Role
 import com.kevindeyne.tasker.domain.UserPrincipal
 import com.kevindeyne.tasker.jooq.Tables
@@ -33,7 +34,7 @@ open class UserRepositoryImpl (val dsl: DSLContext, val sprintRepository : Sprin
 									 projectId,
 									 sprintId,
 									 roles,
-									 issues)
+									 issues.toMutableList())
 			   }
 			
 			return up;

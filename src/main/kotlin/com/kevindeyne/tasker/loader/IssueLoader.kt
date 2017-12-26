@@ -22,10 +22,11 @@ class IssueLoader(
 		val tagcloudRepository : TagcloudRepository
 ) : ApplicationListener<ContextRefreshedEvent>, Ordered {
 	
-	val generateNew : Boolean = true;
-	val maxUserIssuesInSprint : Int = 40;
-	val daysPerSprint : Int = 14;
-	val totalAmountOfSprints : Int = 500;
+	val generateNew : Boolean = true
+	val maxUserIssuesInSprint : Int = 40
+	val daysPerSprint : Int = 14
+	val totalAmountOfSprints : Int = 500
+	val currentUserRole = Role.DEVELOPER
 
 	override fun getOrder() : Int {
 		return 1
@@ -69,6 +70,7 @@ class IssueLoader(
 		dsl.truncate(Tables.PROJECT).execute();				
 		dsl.truncate(Tables.PROJECT_USERS).execute();
 		dsl.truncate(Tables.USER).execute();
+		dsl.truncate(Tables.USER_ROLE).execute();
 	}
 	
 	fun generateUsers(faker : Faker) : Long{
@@ -122,7 +124,7 @@ class IssueLoader(
 		
 		dsl.insertInto(Tables.USER_ROLE,
 			 Tables.USER_ROLE.USER_ID, Tables.USER_ROLE.ROLE)
-		   .values(userId, Role.SHAREHOLDER.name)
+		   .values(userId, currentUserRole.name)
 		   .execute()
 		
 		return userId
