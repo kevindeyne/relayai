@@ -1,0 +1,6 @@
+START TRANSACTION;
+
+ALTER TABLE `user`
+ADD `username` TEXT NOT NULL;
+
+COMMIT;

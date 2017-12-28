@@ -26,7 +26,7 @@ class IssueLoader(
 	val maxUserIssuesInSprint : Int = 40
 	val daysPerSprint : Int = 14
 	val totalAmountOfSprints : Int = 500
-	val currentUserRole = Role.DEVELOPER
+	val currentUserRole = Role.SHAREHOLDER
 
 	override fun getOrder() : Int {
 		return 1
@@ -75,9 +75,10 @@ class IssueLoader(
 	}
 	
 	fun generateUsers(faker : Faker) : Long{
-		val userId = insertIntoUser("admin", passwordEncoder.encode("admin"))
+		val userId = insertIntoUser(faker.name().fullName(), "admin", passwordEncoder.encode("admin"))
+		insertIntoUser(faker.name().fullName(), "admin2", passwordEncoder.encode("admin2"))
 		for(i in 0..500){
-			insertIntoUser(faker.internet().emailAddress(),  faker.internet().password())
+			insertIntoUser(faker.name().fullName(), faker.internet().emailAddress(),  faker.internet().password())
 		}
 		return userId;
 	}
@@ -117,10 +118,10 @@ class IssueLoader(
 		   .values(Timestamp.valueOf(startTime.atStartOfDay()), Timestamp.valueOf(endTime.atStartOfDay()), projectId)
 		   .returning(Tables.SPRINT.ID).fetchOne().get(Tables.SPRINT.ID)
 	
-	fun insertIntoUser(username : String, password : String) : Long {
+	fun insertIntoUser(fullName : String, username : String, password : String) : Long {
 		val userId = dsl.insertInto(Tables.USER,
-			 Tables.USER.EMAIL, Tables.USER.PASSWORD, Tables.USER.CREATE_DATE, Tables.USER.CREATE_USER, Tables.USER.UPDATE_DATE, Tables.USER.UPDATE_USER)
-		   .values(username, password, getRandomTimestamp(), "1", getRandomTimestamp(), "1")
+			 Tables.USER.EMAIL, Tables.USER.PASSWORD, Tables.USER.USERNAME, Tables.USER.CREATE_DATE, Tables.USER.CREATE_USER, Tables.USER.UPDATE_DATE, Tables.USER.UPDATE_USER)
+		   .values(username, password, fullName, getRandomTimestamp(), "1", getRandomTimestamp(), "1")
 		   .returning(Tables.USER.ID).fetchOne().get(Tables.USER.ID)
 		
 		dsl.insertInto(Tables.USER_ROLE,

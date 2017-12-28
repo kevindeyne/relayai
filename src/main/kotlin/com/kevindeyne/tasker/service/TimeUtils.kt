@@ -45,4 +45,6 @@ enum class TimeUtils() {
 	
 	fun toString(date : Date) : String  = SimpleDateFormat("yyyy-MM-dd").format(date)
 	
+	fun toTimeString(date : Date) : String  = SimpleDateFormat("dd MMMMM yyyy H:m").format(date)
+	
 }

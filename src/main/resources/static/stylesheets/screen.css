@@ -798,15 +798,16 @@ section.comment {
   border-radius: 15px;
   padding: 0.7em 1em 0.7em 1em;
   margin-bottom: 1em;
+  width: 93%;
 }
-/* line 121, ../sass/_forms.scss */
+/* line 122, ../sass/_forms.scss */
 section.comment p strong {
   font-weight: 500;
   color: #565656;
   font-size: 0.9em;
 }
 
-/* line 129, ../sass/_forms.scss */
+/* line 130, ../sass/_forms.scss */
 #content-main .button-group button span {
   position: relative;
   top: 1px !important;

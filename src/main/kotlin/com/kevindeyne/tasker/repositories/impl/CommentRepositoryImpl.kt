@@ -22,8 +22,8 @@ open class CommentRepositoryImpl (val dsl: DSLContext) : CommentRepository {
 			   .map {
 				  n -> CommentListing(
 					    n.get(Tables.COMMENTS.ID),
-					    n.get(Tables.USER.EMAIL),
-					    tU.toString(n.get(Tables.COMMENTS.POST_DATE)),
+					    getName(n.get(Tables.USER.USERNAME), n.get(Tables.USER.EMAIL)),
+					    tU.toTimeString(n.get(Tables.COMMENTS.POST_DATE)),
 					    n.get(Tables.COMMENTS.MESSAGE))
 			   }
 			   .collect(Collectors.toList())
@@ -39,8 +39,8 @@ open class CommentRepositoryImpl (val dsl: DSLContext) : CommentRepository {
 			   .map {
 				  n -> CommentListing(
 					    n.get(Tables.COMMENTS.ID),
-					    n.get(Tables.USER.EMAIL),
-					    tU.toString(n.get(Tables.COMMENTS.POST_DATE)),
+					    getName(n.get(Tables.USER.USERNAME), n.get(Tables.USER.EMAIL)),
+					    tU.toTimeString(n.get(Tables.COMMENTS.POST_DATE)),
 					    n.get(Tables.COMMENTS.MESSAGE))
 			   }
 			   .collect(Collectors.toList())
@@ -53,11 +53,13 @@ open class CommentRepositoryImpl (val dsl: DSLContext) : CommentRepository {
 			   .map {
 				  n -> CommentListing(
 					    n.get(Tables.COMMENTS.ID),
-					    n.get(Tables.USER.EMAIL),
-					    tU.toString(n.get(Tables.COMMENTS.POST_DATE)),
+					    getName(n.get(Tables.USER.USERNAME), n.get(Tables.USER.EMAIL)),
+					    tU.toTimeString(n.get(Tables.COMMENTS.POST_DATE)),
 					    n.get(Tables.COMMENTS.MESSAGE))
 			   }
 	}
+	
+	fun getName(fullName : String?, email : String) : String = if(fullName == null || "".equals(fullName)) { email } else { fullName } 
 	
 	override fun createComment(text : String, issueId : Long, userId : Long) : CommentListing {
 		val commentId : Long = dsl.insertInto(Tables.COMMENTS,
