@@ -1,35 +1,101 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
-	<th:block th:replace="fragments/template :: meta">Meta tags</th:block>
-    <title>Tasker - Overview</title>
+<th:block th:replace="fragments/template :: meta-shareholder">Meta tags</th:block>
+<title>Tasker - Overview</title>
 </head>
 <body>
-	<article>
-			<button type="submit" class="btn">New issue</button>
-			
-			<br />
-	
-			<h1>Waiting for feedback</h1>
-			
-			<p>Issue A</p>
-			
-			
-			<h1>In progress</h1>
-			
-			<p>Issue A</p>
-			
-			
-			<h1>Completed</h1>
-			
-			<p>Issue A</p>
-		
-	</article>
-      	<script src="/js/jquery-3.2.1.min.js"></script>
-      	<script>
+	<!-- Wrapper -->
+	<div id="wrapper">
+
+		<!-- Header -->
+		<header id="header">
+			<div class="inner">
+
+				<!-- Logo -->
+				<a href="index.html" class="logo"> <span class="symbol"><img src="/icons/android-chrome-512x512.png" alt="" /></span><span class="title">Tasker</span></a>
+
+				<!-- Nav -->
+				<nav>
+					<ul>
+						<li><a href="#menu">Menu</a></li>
+					</ul>
+				</nav>
+
+			</div>
+		</header>
+
+		<!-- Main -->
+		<div id="main">
+			<div class="inner">
+				<h1>Welcome back</h1>
+
+				<ul class="actions">
+					<li><a href="#" class="button special">Register a new issue</a></li>
+				</ul>
+
+				<p>
+					<br />
+				</p>
+
+				<h2>feedback required</h2>
+
+				<p>The following issues require feedback from you before further
+					progress can be made on them:</p>
+
+				<ul class="alt">
+					<li><a href="/detail/8">Dolor pulvinar etiam.</a></li>
+					<li><a href="/detail/8">Sagittis adipiscing.</a></li>
+					<li><a href="/detail/8">Felis enim feugiat.</a></li>
+				</ul>
+
+				<p>Please respond to these as quickly and detailed as possible
+					for the quickest results.</p>
+
+				<p>
+					<br />
+				</p>
+				<h2>Available next release</h2>
+
+				<p>The following issues have a solution and will be available
+					with a future version fix:</p>
+
+				<ul class="alt">
+					<li><a href="/detail/8">Dolor pulvinar etiam.</a></li>
+					<li><a href="/detail/8">Sagittis adipiscing.</a></li>
+					<li><a href="/detail/8">Felis enim feugiat.</a></li>
+				</ul>
+
+				<p>
+					The next release is planned for <strong>25 december 2017</strong>.
+				</p>
+
+				<p>
+					<br />
+				</p>
+				<h2>in progress</h2>
+
+				<p>The following issues are actively being worked on by our
+					team:</p>
+
+				<ul class="alt">
+					<li><a href="/detail/8">Dolor pulvinar etiam.</a></li>
+					<li><a href="/detail/8">Sagittis adipiscing.</a></li>
+					<li><a href="/detail/8">Felis enim feugiat.</a></li>
+				</ul>
+
+				<p>As soon as a solution has been found, you will be alerted.</p>
+			</div>
+		</div>
+
+	</div>
+
+	<!-- Scripts -->
+	<script src="/js/jquery-3.2.1.min.js"></script>
+	<script>
 		$(document).ready(function() {
 
 		});
-      	</script>        	
+	</script>
 </body>
 </html>

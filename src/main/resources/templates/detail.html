@@ -1,21 +1,99 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
-	<th:block th:replace="fragments/template :: meta">Meta tags</th:block>
-    <title>Tasker - Detail</title>
+<th:block th:replace="fragments/template :: meta-shareholder">Meta tags</th:block>
+<title>Tasker - Overview</title>
 </head>
 <body>
-	<article>
-		<h1>Issue A</h1>
-		
-		<p>Issue A details go here</p>
-		
-	</article>
-      	<script src="/js/jquery-3.2.1.min.js"></script>
-      	<script>
+	<!-- Wrapper -->
+	<div id="wrapper">
+
+		<!-- Header -->
+		<header id="header">
+			<div class="inner">
+
+				<!-- Logo -->
+				<a href="index.html" class="logo"> <span class="symbol"><img src="/icons/android-chrome-512x512.png" alt="" /></span><span class="title">Tasker</span></a>
+
+				<!-- Nav -->
+				<nav>
+					<ul>
+						<li><a href="#menu">Menu</a></li>
+					</ul>
+				</nav>
+
+			</div>
+		</header>
+
+		<!-- Main -->
+		<div id="main">
+			<div class="inner">
+				<h1>The Curious Incident of the Dog in the Night-Time</h1>
+
+				<ul class="actions">
+					<li><a href="#" class="button special">Register a new issue</a></li>
+					<li><a href="/overview" class="button">Back to overview</a></li>
+				</ul>
+
+				<p>
+					<a href="/overview">0 Attachments for this issue</a>
+				</p>
+
+				<h2>description</h2>
+
+				<p>You're a wizard, Harry. No story lives unless someone wants
+					to listen. The stories we love best do live in us forever. So
+					whether you come back by page or by the big screen, Hogwarts will
+					always be there to welcome you home. You sort of start thinking
+					anything’s possible if you’ve got enough nerve. Just because you
+					have the emotional range of a teaspoon doesn’t mean we all have.
+					Just because you have the emotional range of a teaspoon doesn’t
+					mean we all have. Happiness can be found even in the darkest of
+					times if only one remembers to turn on the light.</p>
+
+				<h2>comments</h2>
+
+				<p>
+					<strong>Kevin Deyne</strong> at 21 November 2017, 20:05 <br /> No
+					story lives unless someone wants to listen. The stories we love
+					best do live in us forever. So whether you come back by page or by
+					the big screen, Hogwarts will always be there to welcome you home.
+					Just because you have the emotional range of a teaspoon doesn’t
+					mean we all have. It’s wingardium leviOsa, not leviosAH. You're a
+					wizard, Harry. We could all have been killed - or worse, expelled.
+					It takes a great deal of bravery to stand up to our enemies, but
+					just as much to stand up to our friends.
+				</p>
+
+				<h2>answer</h2>
+
+				<div class="12u$">
+					<div class="textarea-wrapper">
+						<textarea name="demo-message" id="demo-message"
+							placeholder="Enter your message" rows="1"
+							style="overflow: hidden; resize: none; height: 79px;"></textarea>
+					</div>
+				</div>
+				<br />
+				<div class="12u$">
+					<ul class="actions">
+						<li><input type="submit" value="Send Message" class="special"></li>
+						<li><input type="button" value="This issue can be closed"></li>
+					</ul>
+				</div>
+
+				<p>Your answer will be relayed to the team as quickly as possible. For the best results, try to be as detailed as possible.</p>
+			</div>
+		</div>
+
+	</div>
+
+	<!-- Scripts -->
+	<script src="/js/jquery-3.2.1.min.js"></script>
+	<script>
 		$(document).ready(function() {
 
 		});
-      	</script>        	
+	</script>
 </body>
 </html>
