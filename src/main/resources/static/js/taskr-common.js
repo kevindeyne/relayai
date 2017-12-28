@@ -1,5 +1,7 @@
 var token = $("meta[name='_csrf']").attr("content");
 var header = $("meta[name='_csrf_header']").attr("content");
+var highestComment = 0;
+
 $(document).ajaxSend(function(e, xhr, options) {
     xhr.setRequestHeader(header, token);
     xhr.setRequestHeader("Content-Type", "application/json");
@@ -55,12 +57,16 @@ $(document).ready(function() {
 			
 			var newComment = $("<section class='comment'></section>");
 			newComment.append("<p><strong><span></span> at <span></span></strong></p>");
+			newComment.find("p:first").attr("comment-id", response.id);
 			newComment.find("span:first").text(response.username);
 			newComment.find("span:last").text(response.date);
 			newComment.append("<p></p>");
 			newComment.find("p:last").text(response.text);
 			$("#comments").append(newComment);
 			
+			$("#comment-box").val("");
+			
+			highestComment = response.id;						
 		}, 'json');
 		
 	});

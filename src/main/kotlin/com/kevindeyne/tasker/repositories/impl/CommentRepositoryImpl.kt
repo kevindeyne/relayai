@@ -11,9 +11,9 @@ import java.util.stream.Collectors
 @Component
 open class CommentRepositoryImpl (val dsl: DSLContext) : CommentRepository {
 	
-		val tU : TimeUtils = TimeUtils.INSTANCE
+	val tU : TimeUtils = TimeUtils.INSTANCE
 
-	override fun getCommentsForIssue(issueId: Long) : List<CommentListing> {		
+	override fun getCommentsForIssue(issueId: Long) : List<CommentListing> {
 		return dsl.selectFrom(Tables.COMMENTS.join(Tables.USER).on(Tables.USER.ID.eq(Tables.COMMENTS.USER_ID)))
 			   .where(Tables.COMMENTS.ISSUE_ID.eq(issueId))
 			   .orderBy(Tables.COMMENTS.POST_DATE.asc())
@@ -21,6 +21,24 @@ open class CommentRepositoryImpl (val dsl: DSLContext) : CommentRepository {
 			   .parallelStream()
 			   .map {
 				  n -> CommentListing(
+					    n.get(Tables.COMMENTS.ID),
+					    n.get(Tables.USER.EMAIL),
+					    tU.toString(n.get(Tables.COMMENTS.POST_DATE)),
+					    n.get(Tables.COMMENTS.MESSAGE))
+			   }
+			   .collect(Collectors.toList())
+	}
+	
+	override fun getCommentsForIssue(issueId: String, maxCommentId: String) : List<CommentListing> {
+		return dsl.selectFrom(Tables.COMMENTS.join(Tables.USER).on(Tables.USER.ID.eq(Tables.COMMENTS.USER_ID)))
+			   .where(Tables.COMMENTS.ISSUE_ID.eq(issueId.toLong()))
+			   .and(Tables.COMMENTS.ID.gt(maxCommentId.toLong()))
+			   .orderBy(Tables.COMMENTS.POST_DATE.asc())
+			   .fetch()
+			   .parallelStream()
+			   .map {
+				  n -> CommentListing(
+					    n.get(Tables.COMMENTS.ID),
 					    n.get(Tables.USER.EMAIL),
 					    tU.toString(n.get(Tables.COMMENTS.POST_DATE)),
 					    n.get(Tables.COMMENTS.MESSAGE))
@@ -34,6 +52,7 @@ open class CommentRepositoryImpl (val dsl: DSLContext) : CommentRepository {
 			   .fetchOne()
 			   .map {
 				  n -> CommentListing(
+					    n.get(Tables.COMMENTS.ID),
 					    n.get(Tables.USER.EMAIL),
 					    tU.toString(n.get(Tables.COMMENTS.POST_DATE)),
 					    n.get(Tables.COMMENTS.MESSAGE))

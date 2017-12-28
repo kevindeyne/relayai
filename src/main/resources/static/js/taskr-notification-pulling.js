@@ -12,7 +12,7 @@ $(function() {
 			  //notifications only
 			});
 		} else {
-			$.getJSON("/pull/"+issueid+"/"+maxid, function(data) {
+			$.getJSON("/pull/"+issueid+"/"+maxid+"/"+highestComment, function(data) {
 			  for (var newIssueIndex in data.newIssues) {
 				var newIssue = data.newIssues[newIssueIndex];
 				if(newIssue.id > maxid){ maxid = newIssue.id; }

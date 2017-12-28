@@ -85,16 +85,23 @@ function loadingContent(issue){
 	
 	$("#comment-box").val("");
 	$("#comments").html("");
+	highestComment = 0;
+	
 	for (commentIndex in issueLoaded.comments) {
 		var comment = issueLoaded.comments[commentIndex];
 		
 		var newComment = $("<section class='comment'></section>");
 		newComment.append("<p><strong><span></span> at <span></span></strong></p>");
+		newComment.find("p:first").attr("comment-id", comment.id);
 		newComment.find("span:first").text(comment.username);
 		newComment.find("span:last").text(comment.date);
 		newComment.append("<p></p>");
 		newComment.find("p:last").text(comment.text);
+		
+		if(highestComment <= comment.id){
+			highestComment = comment.id;
+		}
+		
 		$("#comments").append(newComment);
-	}
-	
+	}	
 }
