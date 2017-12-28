@@ -491,7 +491,7 @@ article section {
   box-sizing: border-box;
 }
 /* line 83, ../sass/_main.scss */
-article section section:first-child {
+article section > section:first-child {
   padding-top: 4.5em;
 }
 

@@ -80,6 +80,8 @@ class TaskboardController(var issueRepository : IssueRepository) {
 		model.addAttribute("currentIssueCreateDate", issue.createDate)
 		model.addAttribute("currentIssueSLAStatus", issue.slaStatus)
 		
+		model.addAttribute("comments", issue.comments)		
+		
 		model.addAttribute("showCreatePage", false)
 	}
 	

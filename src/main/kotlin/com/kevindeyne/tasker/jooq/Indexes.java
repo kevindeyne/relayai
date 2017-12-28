@@ -4,6 +4,7 @@
 package com.kevindeyne.tasker.jooq;
 
 
+import com.kevindeyne.tasker.jooq.tables.Comments;
 import com.kevindeyne.tasker.jooq.tables.Event;
 import com.kevindeyne.tasker.jooq.tables.Issue;
 import com.kevindeyne.tasker.jooq.tables.Knowledge;
@@ -42,6 +43,9 @@ public class Indexes {
     // INDEX definitions
     // -------------------------------------------------------------------------
 
+    public static final Index COMMENTS_ISSUE_ID = Indexes0.COMMENTS_ISSUE_ID;
+    public static final Index COMMENTS_PRIMARY = Indexes0.COMMENTS_PRIMARY;
+    public static final Index COMMENTS_USER_ID = Indexes0.COMMENTS_USER_ID;
     public static final Index EVENT_PRIMARY = Indexes0.EVENT_PRIMARY;
     public static final Index ISSUE_PRIMARY = Indexes0.ISSUE_PRIMARY;
     public static final Index ISSUE_PROJECT_ID = Indexes0.ISSUE_PROJECT_ID;
@@ -77,6 +81,9 @@ public class Indexes {
     // -------------------------------------------------------------------------
 
     private static class Indexes0 extends AbstractKeys {
+        public static Index COMMENTS_ISSUE_ID = createIndex("issue_id", Comments.COMMENTS, new OrderField[] { Comments.COMMENTS.ISSUE_ID }, false);
+        public static Index COMMENTS_PRIMARY = createIndex("PRIMARY", Comments.COMMENTS, new OrderField[] { Comments.COMMENTS.ID }, true);
+        public static Index COMMENTS_USER_ID = createIndex("user_id", Comments.COMMENTS, new OrderField[] { Comments.COMMENTS.USER_ID }, false);
         public static Index EVENT_PRIMARY = createIndex("PRIMARY", Event.EVENT, new OrderField[] { Event.EVENT.ID }, true);
         public static Index ISSUE_PRIMARY = createIndex("PRIMARY", Issue.ISSUE, new OrderField[] { Issue.ISSUE.ID }, true);
         public static Index ISSUE_PROJECT_ID = createIndex("project_id", Issue.ISSUE, new OrderField[] { Issue.ISSUE.PROJECT_ID }, false);

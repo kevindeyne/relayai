@@ -25,6 +25,9 @@ open class IssueRepositoryImpl (val dsl: DSLContext) : IssueRepository {
 	
 	@Autowired
 	lateinit var userRepo : UserRepository
+	
+	@Autowired
+	lateinit var commentRepo : CommentRepository
 		
 	@Transactional
 	override fun findAllActiveForUserInCurrentSprint() : List<IssueListing> {
@@ -160,8 +163,9 @@ open class IssueRepositoryImpl (val dsl: DSLContext) : IssueRepository {
 	
 	fun mapIssueResponse(n : Record?, abbreviate : Boolean) : IssueResponse {
 		if(n == null){
-			return IssueResponse(-1, "", "", "", "", "", "", "", "", "")
+			return IssueResponse()
 		} else {
+			val commentsForIssue = commentRepo.getCommentsForIssue(n.get(Tables.ISSUE.ID))
 			return IssueResponse(n.get(Tables.ISSUE.ID),
 							 n.get(Tables.ISSUE.TITLE),
 							 if (abbreviate) abbreviate(n.get(Tables.ISSUE.DESCRIPTION)) else n.get(Tables.ISSUE.DESCRIPTION),
@@ -171,10 +175,8 @@ open class IssueRepositoryImpl (val dsl: DSLContext) : IssueRepository {
 						     "3.1.14",
 						     userRepo.findUsernameById(n.get(Tables.ISSUE.CREATE_USER)),
 						     SimpleDateFormat("dd MMMMM yyyy").format(n.get(Tables.ISSUE.CREATE_DATE)),
-							 "SLA on time")
-			
-			
-
+							 "SLA on time",
+							 commentsForIssue)
 		}
 	}
 	

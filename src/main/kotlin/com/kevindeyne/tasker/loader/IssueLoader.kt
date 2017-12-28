@@ -71,6 +71,7 @@ class IssueLoader(
 		dsl.truncate(Tables.PROJECT_USERS).execute();
 		dsl.truncate(Tables.USER).execute();
 		dsl.truncate(Tables.USER_ROLE).execute();
+		dsl.truncate(Tables.COMMENTS).execute();
 	}
 	
 	fun generateUsers(faker : Faker) : Long{

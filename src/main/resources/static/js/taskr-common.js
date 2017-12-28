@@ -43,7 +43,27 @@ $(document).ready(function() {
 				return false;
 			}		
 		});
-	});	
+	});
+	
+	
+	$("#send-comment").click(function(){
+		var form = new Object();
+		form.text = $("#comment-box").val();
+		var url = '/comment/currentIssue/'.replace("currentIssue", $("aside section.active").attr("issue-id"));
+		$.post(url, JSON.stringify(form), function(response) {
+			$("#comment-box").val("");
+			
+			var newComment = $("<section class='comment'></section>");
+			newComment.append("<p><strong><span></span> at <span></span></strong></p>");
+			newComment.find("span:first").text(response.username);
+			newComment.find("span:last").text(response.date);
+			newComment.append("<p></p>");
+			newComment.find("p:last").text(response.text);
+			$("#comments").append(newComment);
+			
+		}, 'json');
+		
+	});
 });
 
 function hideScreen(screenId){

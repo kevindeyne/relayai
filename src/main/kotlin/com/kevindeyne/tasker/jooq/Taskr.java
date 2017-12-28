@@ -4,6 +4,7 @@
 package com.kevindeyne.tasker.jooq;
 
 
+import com.kevindeyne.tasker.jooq.tables.Comments;
 import com.kevindeyne.tasker.jooq.tables.Event;
 import com.kevindeyne.tasker.jooq.tables.Issue;
 import com.kevindeyne.tasker.jooq.tables.Knowledge;
@@ -42,12 +43,17 @@ import org.jooq.impl.SchemaImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Taskr extends SchemaImpl {
 
-    private static final long serialVersionUID = 1915659879;
+    private static final long serialVersionUID = 16853925;
 
     /**
      * The reference instance of <code>taskr</code>
      */
     public static final Taskr TASKR = new Taskr();
+
+    /**
+     * The table <code>taskr.comments</code>.
+     */
+    public final Comments COMMENTS = com.kevindeyne.tasker.jooq.tables.Comments.COMMENTS;
 
     /**
      * The table <code>taskr.event</code>.
@@ -139,6 +145,7 @@ public class Taskr extends SchemaImpl {
 
     private final List<Table<?>> getTables0() {
         return Arrays.<Table<?>>asList(
+            Comments.COMMENTS,
             Event.EVENT,
             Issue.ISSUE,
             Knowledge.KNOWLEDGE,

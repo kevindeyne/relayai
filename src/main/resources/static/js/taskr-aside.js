@@ -83,5 +83,18 @@ function loadingContent(issue){
 	$("#change-urgency").text(issueLoaded.urgency);
 	$("#change-impact").text(issueLoaded.impact);
 	
+	$("#comment-box").val("");
+	$("#comments").html("");
+	for (commentIndex in issueLoaded.comments) {
+		var comment = issueLoaded.comments[commentIndex];
+		
+		var newComment = $("<section class='comment'></section>");
+		newComment.append("<p><strong><span></span> at <span></span></strong></p>");
+		newComment.find("span:first").text(comment.username);
+		newComment.find("span:last").text(comment.date);
+		newComment.append("<p></p>");
+		newComment.find("p:last").text(comment.text);
+		$("#comments").append(newComment);
+	}
 	
 }

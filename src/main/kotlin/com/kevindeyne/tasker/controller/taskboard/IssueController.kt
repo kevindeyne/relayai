@@ -52,7 +52,7 @@ class IssueController(var issueRepository : IssueRepository, var jmsTemplate : J
 		
 		val reponse = issueRepository.findById(id.toLong())		
 		if (reponse == null){
-			return IssueResponse(-1, "", "", "", "", "", "", "", "", "")
+			return IssueResponse()
 		}
 		return reponse 
 	}

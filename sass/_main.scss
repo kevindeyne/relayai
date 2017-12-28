@@ -80,8 +80,8 @@ article section {
 	padding: 1em;
 	box-sizing: border-box;
 	
-	section:first-child {
-		padding-top: 4.5em;
+	> section:first-child {
+		padding-top: 4.5em; 
 	}
 }
 

@@ -72,20 +72,12 @@
 				<button type="button" class="altpath"><span><i class="fa fa-comment-o" aria-hidden="true"></i> Canned responses</span></button>
 			</div>
 			
-			<section class="comment">
-				<p><strong>Kevin Deyne at 21 November 2017, 20:05</strong></p>
-				<p>No story lives unless someone wants to listen. The stories we love best do live in us forever. So whether you come back by page or by the big screen, Hogwarts will always be there to welcome you home. Just because you have the emotional range of a teaspoon doesn’t mean we all have. It’s wingardium leviOsa, not leviosAH. You're a wizard, Harry. We could all have been killed - or worse, expelled. It takes a great deal of bravery to stand up to our enemies, but just as much to stand up to our friends.</p>
-			</section>
-			
-			<section class="comment">
-				<p><strong>Cecilia Bishton at 21 November 2017, 20:03</strong></p>
-				<p>The stories we love best do live in us forever. So whether you come back by page or by the big screen, Hogwarts will always be there to welcome you home. Just because you have the emotional range of a teaspoon doesn’t mean we all have. It’s wingardium leviOsa, not leviosAH. You're a wizard, Harry. We could all have been killed - or worse, expelled. It takes a great deal of bravery to stand up to our enemies, but just as much to stand up to our friends.</p>
-			</section>
-			
-			<section class="comment">
-				<p><strong>Koen Wijnants at 21 November 2017, 19:45</strong></p>
-				<p> So whether you come back by page or by the big screen, Hogwarts will always be there to welcome you home. No story lives unless someone wants to listen. The stories we love best do live in us forever. Just because you have the emotional range of a teaspoon doesn’t mean we all have. It’s wingardium leviOsa, not leviosAH. You're a wizard, Harry. We could all have been killed - or worse, expelled. It takes a great deal of bravery to stand up to our enemies, but just as much to stand up to our friends.</p>
-			</section>
+			<div id="comments">
+				<section th:each="comment : ${comments}" class="comment">
+					<p><strong><span th:text="${comment.username}">Kevin Deyne</span> at <span th:text="${comment.date}">21 November 2017, 20:05</span></strong></p>
+					<p th:text="${comment.text}">Comment text.</p>
+				</section>
+			</div>
 			
 		</section>
 	</article>
