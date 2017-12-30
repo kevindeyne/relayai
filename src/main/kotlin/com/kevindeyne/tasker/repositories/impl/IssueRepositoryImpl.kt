@@ -31,12 +31,21 @@ open class IssueRepositoryImpl (val dsl: DSLContext) : IssueRepository {
 	lateinit var commentRepo : CommentRepository
 	
 	@Transactional
-	override fun findAllActiveForUserInCurrentSprint() : List<IssueListing> {
+	override fun findAllActiveForUserInCurrentSprint() : List<IssueListing> {	
 		return dsl.selectFrom(Tables.ISSUE)
-			   .where(Tables.ISSUE.ASSIGNED.eq(SecurityHolder.getUserId()))
-			   .and(Tables.ISSUE.SPRINT_ID.eq(SecurityHolder.getSprintId()))
-			   .and(Tables.ISSUE.STATUS.notEqual(Progress.DONE.name))
-			   .and(Tables.ISSUE.STATUS.notEqual(Progress.BACKLOG.name).or(Tables.ISSUE.WORKLOAD.equal(-1)))
+			   .where(
+					   Tables.ISSUE.ASSIGNED.eq(SecurityHolder.getUserId())
+					   .and(Tables.ISSUE.SPRINT_ID.eq(SecurityHolder.getSprintId()))
+					   .and(
+						   (
+								   Tables.ISSUE.STATUS.notIn(Progress.DONE.name, Progress.WAITING_FOR_FEEDBACK.name, Progress.BACKLOG.name, Progress.NEW.name)
+								   .and(Tables.ISSUE.WORKLOAD.notEqual(-1))
+						    ).or(
+								   Tables.ISSUE.STATUS.eq(Progress.NEW.name)
+								   .and(Tables.ISSUE.WORKLOAD.eq(-1))
+						   )
+					   )
+			   )
 			   .orderBy(Tables.ISSUE.URGENCY.asc(), Tables.ISSUE.IMPACT.asc(), Tables.ISSUE.CREATE_DATE.desc())
 			   .fetch()
 			   .parallelStream()

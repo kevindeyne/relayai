@@ -121,9 +121,8 @@ function determineUndecided(){
 }
 
 function getActiveClass(){
-	if($("aside section.active").length !== 0){
-		return $("aside section.active i").attr("class").replace("fa fa-circle ", "");	
-	}
-	
-	return "";
+	if($("aside section.active").length === 0){		
+		$("aside section:first").addClass("active");
+	}	
+	return $("aside section.active i").attr("class").replace("fa fa-circle ", "");
 }

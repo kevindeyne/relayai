@@ -15,6 +15,7 @@ import org.springframework.stereotype.Component
 import java.sql.Timestamp
 import java.time.LocalDate
 import java.util.Random
+import com.kevindeyne.tasker.domain.Progress
 
 @Component
 class IssueLoader(
@@ -145,9 +146,9 @@ class IssueLoader(
 			sentenceList.add(faker.harryPotter().quote())
 		}
 		val sentences = mergeSentences(sentenceList)
-	
-		val issueId = dsl.insertInto(Tables.ISSUE, Tables.ISSUE.TITLE, Tables.ISSUE.DESCRIPTION,Tables.ISSUE.PROJECT_ID, Tables.ISSUE.SPRINT_ID, Tables.ISSUE.ASSIGNED, Tables.ISSUE.CREATE_DATE, Tables.ISSUE.CREATE_USER, Tables.ISSUE.UPDATE_DATE, Tables.ISSUE.UPDATE_USER)
-		   .values(title, sentences, projectId, sprintId, assignedTo, getRandomTimestamp(), "1", getRandomTimestamp(), "1")
+		val workload = randomWorkload()
+		val issueId = dsl.insertInto(Tables.ISSUE, Tables.ISSUE.TITLE, Tables.ISSUE.DESCRIPTION, Tables.ISSUE.WORKLOAD, Tables.ISSUE.STATUS, Tables.ISSUE.PROJECT_ID, Tables.ISSUE.SPRINT_ID, Tables.ISSUE.ASSIGNED, Tables.ISSUE.CREATE_DATE, Tables.ISSUE.CREATE_USER, Tables.ISSUE.UPDATE_DATE, Tables.ISSUE.UPDATE_USER)
+		   .values(title, sentences, workload, randomStatus(workload), projectId, sprintId, assignedTo, getRandomTimestamp(), "1", getRandomTimestamp(), "1")
 		   .returning(Tables.ISSUE.ID).fetchOne().get(Tables.ISSUE.ID);
 		
 		for(i in 1..Random().nextInt(10)) {
@@ -163,7 +164,11 @@ class IssueLoader(
 		.values(projectId, SearchResultType.ISSUE.name, joinedText, "$title", issueId)
 		.returning(Tables.SEARCH.ID).fetchOne().get(Tables.SEARCH.ID);
 	}
-		
+	
+	fun randomWorkload() : Int = Random().nextInt(9) - 1
+
+	fun randomStatus(workload : Int) : String = if(workload != -1) Progress.values()[Random().nextInt(Progress.values().size)].name else Progress.NEW.name
+
 	fun mergeSentences(sentences : List<String>) : String {
 		val sb : StringBuffer = StringBuffer()
 		sentences.forEach{s -> sb.append(s + " ")}
