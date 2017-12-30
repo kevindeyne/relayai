@@ -29,13 +29,14 @@ open class IssueRepositoryImpl (val dsl: DSLContext) : IssueRepository {
 	
 	@Autowired
 	lateinit var commentRepo : CommentRepository
-		
+	
 	@Transactional
 	override fun findAllActiveForUserInCurrentSprint() : List<IssueListing> {
 		return dsl.selectFrom(Tables.ISSUE)
 			   .where(Tables.ISSUE.ASSIGNED.eq(SecurityHolder.getUserId()))
 			   .and(Tables.ISSUE.SPRINT_ID.eq(SecurityHolder.getSprintId()))
 			   .and(Tables.ISSUE.STATUS.notEqual(Progress.DONE.name))
+			   .and(Tables.ISSUE.STATUS.notEqual(Progress.BACKLOG.name).or(Tables.ISSUE.WORKLOAD.equal(-1)))
 			   .orderBy(Tables.ISSUE.URGENCY.asc(), Tables.ISSUE.IMPACT.asc(), Tables.ISSUE.CREATE_DATE.desc())
 			   .fetch()
 			   .parallelStream()

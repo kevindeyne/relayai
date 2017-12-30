@@ -5,8 +5,6 @@ var issueLoaded = new Object();
 $(document).ready(function() {
 	initScrollbar('aside');
 	
-	determineUndecided();
-	
 	//task list logic on taskboard
 	$("aside section").click(function (){
 		var issueId = $(this).attr("issue-id");
@@ -40,6 +38,8 @@ $(document).ready(function() {
 		$("section[issue-id='"+localStorage.getItem("current-issue")+"']").addClass("active");
 	}
 	
+	determineUndecided();
+		
 	$('aside .ss-content').animate({ scrollTop: $("section.active").offset().top-10 }, 1); //scroll to active - convenience; for clarity we probably want to keep the active one fixed and inbox moving TODO
 });
 
@@ -121,5 +121,9 @@ function determineUndecided(){
 }
 
 function getActiveClass(){
-	return $("aside section.active i").attr("class").replace("fa fa-circle ", "");
+	if($("aside section.active").length !== 0){
+		return $("aside section.active i").attr("class").replace("fa fa-circle ", "");	
+	}
+	
+	return "";
 }
