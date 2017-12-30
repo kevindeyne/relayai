@@ -7,6 +7,7 @@ import com.kevindeyne.tasker.domain.InProgressIssue
 import com.kevindeyne.tasker.domain.IssueListing
 import com.kevindeyne.tasker.domain.Progress
 import com.kevindeyne.tasker.domain.Urgency
+import com.kevindeyne.tasker.domain.Workload
 import com.kevindeyne.tasker.jooq.Tables
 import com.kevindeyne.tasker.jooq.tables.records.IssueRecord
 import com.kevindeyne.tasker.service.SecurityHolder
@@ -35,16 +36,26 @@ open class IssueRepositoryImpl (val dsl: DSLContext) : IssueRepository {
 			   .where(Tables.ISSUE.ASSIGNED.eq(SecurityHolder.getUserId()))
 			   .and(Tables.ISSUE.SPRINT_ID.eq(SecurityHolder.getSprintId()))
 			   .and(Tables.ISSUE.STATUS.notEqual(Progress.DONE.name))
-			   .orderBy(Tables.ISSUE.CREATE_DATE.desc()) //by importance
+			   .orderBy(Tables.ISSUE.URGENCY.asc(), Tables.ISSUE.IMPACT.asc(), Tables.ISSUE.CREATE_DATE.desc())
 			   .fetch()
 			   .parallelStream()
 			   .map {
 				  n -> IssueListing(n.get(Tables.ISSUE.ID),
 									n.get(Tables.ISSUE.TITLE),
 									abbreviate(n.get(Tables.ISSUE.DESCRIPTION)),
-									n.get(Tables.ISSUE.DESCRIPTION))
+									n.get(Tables.ISSUE.DESCRIPTION),
+									determineClass(n.get(Tables.ISSUE.WORKLOAD), n.get(Tables.ISSUE.STATUS), n.get(Tables.ISSUE.URGENCY)))
 			   }
 			   .collect(Collectors.toList())
+	}
+	
+	fun determineClass(workload : Int, status : String, urgency : String) : String{
+		
+		if(Urgency.valueOf(urgency).equals(Urgency.IMMEDIATELY)){ return "critical-issue" }		
+		if(workload == -1){ return "undetermined-issue" }		
+		if(Progress.valueOf(status).equals(Progress.IN_PROGRESS)){ return "inprogress-issue" }
+		
+		return ""
 	}
 	
 	@Transactional
@@ -137,6 +148,31 @@ open class IssueRepositoryImpl (val dsl: DSLContext) : IssueRepository {
 	}
 	
 	@Transactional
+	override fun updateWorkload(issueId : Long, workload : Workload){
+		dsl.update(Tables.ISSUE)
+			.set(Tables.ISSUE.WORKLOAD, workload.hours)
+			.where(Tables.ISSUE.ID.eq(issueId))
+			.execute()
+	}
+	
+	@Transactional
+	override fun updateCritical(issueId : Long, userId : Long, sprintId : Long){
+		val timestamp = Timestamp(System.currentTimeMillis())
+		val updateUser = userId.toString()
+		
+		dsl.update(Tables.ISSUE)
+			.set(Tables.ISSUE.IMPACT, Impact.HIGH.name)
+			.set(Tables.ISSUE.URGENCY, Urgency.IMMEDIATELY.name)
+			.set(Tables.ISSUE.WORKLOAD, Workload.HIGH.hours)
+			.set(Tables.ISSUE.STATUS, Progress.IN_PROGRESS.name)
+			.set(Tables.ISSUE.SPRINT_ID, sprintId)
+			.set(Tables.ISSUE.UPDATE_USER, updateUser)
+			.set(Tables.ISSUE.UPDATE_DATE, timestamp)
+			.where(Tables.ISSUE.ID.eq(issueId))
+			.execute()
+	}
+	
+	@Transactional
 	override fun assign(issueId : Long, userId : Long){
 		val timestamp = Timestamp(System.currentTimeMillis())
 		val updateUser = userId.toString()
@@ -176,6 +212,7 @@ open class IssueRepositoryImpl (val dsl: DSLContext) : IssueRepository {
 						     userRepo.findUsernameById(n.get(Tables.ISSUE.CREATE_USER)),
 						     SimpleDateFormat("dd MMMMM yyyy").format(n.get(Tables.ISSUE.CREATE_DATE)),
 							 "SLA on time",
+							 determineClass(n.get(Tables.ISSUE.WORKLOAD), n.get(Tables.ISSUE.STATUS), n.get(Tables.ISSUE.URGENCY)),
 							 commentsForIssue)
 		}
 	}

@@ -26,4 +26,6 @@ open class SprintRepositoryImpl (val dsl: DSLContext) : SprintRepository {
 		return null;
 	}
 	
+	override fun startSprint(projectId : Long) : Long = 0L //TODO
+	
 }

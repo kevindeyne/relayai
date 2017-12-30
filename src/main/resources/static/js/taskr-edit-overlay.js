@@ -1,7 +1,10 @@
 $(document).ready(function() {
 	
 	$("span.changeable").click(function(){
-		var relativeTo = $(this).attr("id");		
+		var relativeTo = $(this).attr("id");
+				
+		if(getActiveClass() === "undetermined-issue" && relativeTo !== "change-workload"){ return; }
+		
 		$("#overlay-detail").attr("relative-to", relativeTo);
 		
 		$("#overlay-detail p:first span:first").text($(this).attr("data-status"));
@@ -11,11 +14,11 @@ $(document).ready(function() {
 		$(relativeTo.replace("change-", "#overlay-")).show();
 		
 		$("#overlay-detail ul li").removeClass("active");
-		$("#overlay-detail ul li:contains('"+$(this).text()+"')").addClass("active");	
+		$("#overlay-detail ul li:contains('"+$(this).text()+"')").addClass("active");
 		
 		var position = $(this).position();
 		var left = $("nav").width() + $("aside").width() + position.left;
-		$("#overlay").show().css({opacity: '0'}).animate({opacity: '1'}, "fast");				
+		$("#overlay").show().css({opacity: '0'}).animate({opacity: '1'}, "fast");			
 		$("#overlay-detail").show().css({ "left": left, "top": position.top }).css({opacity: '0'}).animate({opacity: '1'}, "fast");				
 	});
 	
@@ -28,7 +31,7 @@ $(document).ready(function() {
 	
 	$("#edit-changer-submit").click(function () {
 		changeRelativeToText();
-		changeSubmitFunctionality();		
+		if(getActiveClass() !== "undetermined-issue"){ changeSubmitFunctionality();	}
 		hideOverlay();
 	});
 	

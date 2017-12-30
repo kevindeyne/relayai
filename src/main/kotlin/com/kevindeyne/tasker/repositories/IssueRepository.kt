@@ -7,6 +7,7 @@ import com.kevindeyne.tasker.domain.InProgressIssue
 import com.kevindeyne.tasker.domain.IssueListing
 import com.kevindeyne.tasker.domain.Progress
 import com.kevindeyne.tasker.domain.Urgency
+import com.kevindeyne.tasker.domain.Workload
 
 interface IssueRepository {
 	
@@ -29,6 +30,10 @@ interface IssueRepository {
 	fun updateUrgency(issueId : Long, urgency : Urgency, userId : Long)
 	
 	fun updateImpact(issueId : Long, impact : Impact, userId : Long)
+	
+	fun updateWorkload(issueId : Long, workload : Workload)
+	
+	fun updateCritical(issueId : Long, userId : Long, sprintId : Long)
 	
 	fun assign(issueId : Long, userId : Long)
 	

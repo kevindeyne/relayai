@@ -2,6 +2,10 @@ $font-main: 'Roboto', Times New Roman, Helvetica, sans-serif;
 $font-header: 'Roboto', Times New Roman, Helvetica, sans-serif;
 $font-code: 'Cutive Mono', 'Courier';
 
+html {
+	overflow-x: hidden;
+}
+
 article {
 	background-color: #f3f6f8;
 	

@@ -20,7 +20,10 @@
 				<li th:each="urgencyState : ${urgencyStates}" th:text="${urgencyState.text}" th:data-value="${urgencyState}">High priority, Low urgency, ...</li>
 			</ul>
 			
-			
+			<ul id="overlay-workload" class="overlay-options">
+				<li th:each="workloadState : ${workloadStates}" th:text="${workloadState.text}" th:data-value="${workloadState}">High, Low workload, ...</li>
+			</ul>
+						
 			<div class="button-group">
 				<button id="edit-changer-submit" type="button">Change</button>
 				<button type="button" class="altpath">Cancel</button>
@@ -30,7 +33,7 @@
 	
 	<aside th:fragment="issue-list" th:classappend="${showCreatePage}?invisible">
 		<section th:each="issue : ${issueList}" th:issue-id="${issue.id}" th:classappend="${currentIssueId == issue.id}?active">
-			<h1 th:text="${issue.title}"></h1>
+			<h1><span th:text="${issue.title}"></span> <i class="fa fa-circle" th:classappend="${issue.clazz}" aria-hidden="true"></i></h1>
 			<p th:text="${issue.shortDescr}"></p>
 			<div th:id="${'progress-' + issue.id}" class="progress"></div>
 		</section>
@@ -79,8 +82,42 @@
 				</section>
 			</div>
 			
+			<div th:replace="fragments/issue :: undecided-info">Undecided options</div>
+			
 		</section>
 	</article>
+	
+	<div th:fragment="undecided-info" id="undecided-info">
+		<p class="warning"><i class="fa fa-exclamation-circle" aria-hidden="true"></i> This issue is new and not yet part of any sprint. Please take a moment to decide what should be done with it.</p>
+				
+		<section class="undecided-group">
+			<div class="undecided-option">
+				<strong>Option 1:</strong>
+				<div class="undecided-group">
+					<h2>Plan issue</h2>
+					<p>Move issue to backlog and plan it for the next sprint</p>
+					<p>Anticipated workload: <span class="changeable" data-status="Anticipated workload" id="change-workload">Normal</span></p>
+					<button id="ud-plan"><i class="fa fa-calendar-check-o" aria-hidden="true"></i> <span>plan for next sprint</span></button>
+				</div>					
+			</div>				
+			<div class="undecided-option">
+				<strong>Option 2:</strong>
+				<div class="undecided-group">
+					<h2>Not enough info</h2>
+					<p>If you do not have enough information to process this issue, mark it and we will request additional info from the sender.</p>
+					<button id="ud-feedback"><i class="fa fa-question-circle" aria-hidden="true"></i> <span>Request additional info</span></button>
+				</div>		
+			</div>				
+			<div class="undecided-option">
+				<strong>Option 3:</strong>
+				<div class="undecided-group">
+					<h2>Critical issue</h2>
+					<p>If this is a critical issue, we can elevate the urgency of the status, plan it in the current spring and start progress on it right away.</p>
+					<button id="ud-critical" class="critical"><i class="fa fa-bolt" aria-hidden="true"></i> <span>Start progress now</span></button>
+				</div>
+			</div>
+		</section>
+	</div>
 
 </body>
 </html>

@@ -5,6 +5,8 @@ var issueLoaded = new Object();
 $(document).ready(function() {
 	initScrollbar('aside');
 	
+	determineUndecided();
+	
 	//task list logic on taskboard
 	$("aside section").click(function (){
 		var issueId = $(this).attr("issue-id");
@@ -83,6 +85,8 @@ function loadingContent(issue){
 	$("#change-urgency").text(issueLoaded.urgency);
 	$("#change-impact").text(issueLoaded.impact);
 	
+	determineUndecided();
+	
 	$("#comment-box").val("");
 	$("#comments").html("");
 	highestComment = 0;
@@ -104,4 +108,18 @@ function loadingContent(issue){
 		
 		$("#comments").append(newComment);
 	}	
+}
+
+function determineUndecided(){
+	$("#content-main #comment-box, #content-main .button-group, #comments, #change-urgency, #change-impact, .userinfo-details-col:last").show();
+	$("#undecided-info").hide();
+	
+	if(getActiveClass() === "undetermined-issue"){
+		$("#content-main #comment-box, #content-main .button-group, #comments, #change-urgency, #change-impact, .userinfo-details-col:last").hide();
+		$("#undecided-info").show();
+	}
+}
+
+function getActiveClass(){
+	return $("aside section.active i").attr("class").replace("fa fa-circle ", "");
 }

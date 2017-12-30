@@ -35,6 +35,11 @@ aside section:last-child {
     margin-bottom: 0.5em;
 }
 
+aside section.active i {
+    color: #2070f7;
+	opacity:0;
+}
+
 aside section {
 	@include transition(0.15s);
 	@include border-radius(5px);
@@ -47,9 +52,25 @@ aside section {
 	
 	i {
 		float: right;
-		color: #ff6e6e;
+		color: #ffffff;
+		opacity:0;
 		font-size: 8px !important;
 		line-height: 1.5em;
+	}
+	
+	i.undetermined-issue{
+		color: #b5b5b5;
+		opacity:1;
+	}
+	
+	i.inprogress-issue{
+		color: #2070f7;
+		opacity:1;
+	}
+	
+	i.critical-issue{
+		color: #ff6e6e;
+		opacity:1;
 	}
 }
 

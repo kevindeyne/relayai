@@ -14,5 +14,6 @@ data class IssueResponse @JsonCreator constructor(
 		var creator: String = "",
 		var createDate: String = "",
 		var slaStatus: String = "",
+		var clazz : String = "",
 		var comments: List<CommentListing> = listOf()
 )

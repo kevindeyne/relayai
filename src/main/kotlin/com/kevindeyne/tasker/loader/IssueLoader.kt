@@ -14,6 +14,7 @@ import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Component
 import java.sql.Timestamp
 import java.time.LocalDate
+import java.util.Random
 
 @Component
 class IssueLoader(
@@ -26,7 +27,7 @@ class IssueLoader(
 	val maxUserIssuesInSprint : Int = 40
 	val daysPerSprint : Int = 14
 	val totalAmountOfSprints : Int = 500
-	val currentUserRole = Role.SHAREHOLDER
+	val currentUserRole = Role.DEVELOPER
 
 	override fun getOrder() : Int {
 		return 1
@@ -118,6 +119,11 @@ class IssueLoader(
 		   .values(Timestamp.valueOf(startTime.atStartOfDay()), Timestamp.valueOf(endTime.atStartOfDay()), projectId)
 		   .returning(Tables.SPRINT.ID).fetchOne().get(Tables.SPRINT.ID)
 	
+	fun insertComment(userId : Long, issueId : Long, text : String) : Long = dsl.insertInto(Tables.COMMENTS,
+			Tables.COMMENTS.USER_ID, Tables.COMMENTS.ISSUE_ID, Tables.COMMENTS.MESSAGE, Tables.COMMENTS.POST_DATE)
+		   .values(userId, issueId, text, Timestamp(System.currentTimeMillis()))
+		   .returning(Tables.COMMENTS.ID).fetchOne().get(Tables.COMMENTS.ID)
+	
 	fun insertIntoUser(fullName : String, username : String, password : String) : Long {
 		val userId = dsl.insertInto(Tables.USER,
 			 Tables.USER.EMAIL, Tables.USER.PASSWORD, Tables.USER.USERNAME, Tables.USER.CREATE_DATE, Tables.USER.CREATE_USER, Tables.USER.UPDATE_DATE, Tables.USER.UPDATE_USER)
@@ -144,6 +150,10 @@ class IssueLoader(
 		   .values(title, sentences, projectId, sprintId, assignedTo, getRandomTimestamp(), "1", getRandomTimestamp(), "1")
 		   .returning(Tables.ISSUE.ID).fetchOne().get(Tables.ISSUE.ID);
 		
+		for(i in 1..Random().nextInt(10)) {
+			insertComment(assignedTo, issueId, faker.gameOfThrones().quote())	
+		}
+		
 		var joinedText = "$title $sentences"
 		joinedText = joinedText.toLowerCase()
 		
@@ -153,7 +163,7 @@ class IssueLoader(
 		.values(projectId, SearchResultType.ISSUE.name, joinedText, "$title", issueId)
 		.returning(Tables.SEARCH.ID).fetchOne().get(Tables.SEARCH.ID);
 	}
-	
+		
 	fun mergeSentences(sentences : List<String>) : String {
 		val sb : StringBuffer = StringBuffer()
 		sentences.forEach{s -> sb.append(s + " ")}

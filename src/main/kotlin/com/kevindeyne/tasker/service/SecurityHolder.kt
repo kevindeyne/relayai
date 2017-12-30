@@ -9,12 +9,12 @@ import org.springframework.security.core.context.SecurityContextHolder
 
 object SecurityHolder {
 	
-	fun getUserId() : Long? {
+	fun getUserId() : Long {
 		val principal: UserPrincipal? = getUserPrincipal()
 		if (null != principal) {		    
 			return principal.userId;
 		}
-		return null;
+		throw RuntimeException("No userId at this point")
 	}
 	
 	fun getSprintId() : Long? {
@@ -25,12 +25,12 @@ object SecurityHolder {
 		return null;
 	}
 	
-	fun getProjectId() : Long? {
+	fun getProjectId() : Long {
 		val principal: UserPrincipal? = getUserPrincipal()
-		if (null != principal) {		    
-			return principal.projectId;
+		if (null != principal && null != principal.projectId) {		    
+			return principal.projectId
 		}
-		return null;
+		throw RuntimeException("No projectId at this point")
 	}
 	
 	fun getRoles() : List<Role> {

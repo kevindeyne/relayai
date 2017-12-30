@@ -1,8 +1,9 @@
 package com.kevindeyne.tasker.domain
 
 data class IssueListing constructor(
-		var id: Long,
-		var title: String,
-		var shortDescr: String,
-		var longDescr: String
+		val id: Long,
+		val title: String,
+		val shortDescr: String,
+		val longDescr: String,
+		val clazz: String = "" 
 )  { }

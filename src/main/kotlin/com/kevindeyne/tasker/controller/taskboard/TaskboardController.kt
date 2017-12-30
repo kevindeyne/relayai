@@ -12,6 +12,7 @@ import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import com.kevindeyne.tasker.domain.InProgressIssue
+import com.kevindeyne.tasker.domain.Workload
 
 @Controller
 class TaskboardController(var issueRepository : IssueRepository) {
@@ -58,6 +59,7 @@ class TaskboardController(var issueRepository : IssueRepository) {
 		model.addAttribute("progressStates", Progress.values());
 		model.addAttribute("impactStates", Impact.values());
 		model.addAttribute("urgencyStates", Urgency.values());
+		model.addAttribute("workloadStates", Workload.values());		
 		
 		model.addAttribute("maxid", determineMaxId(issueList));
 		

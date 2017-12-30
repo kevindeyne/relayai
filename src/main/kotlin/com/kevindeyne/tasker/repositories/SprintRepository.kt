@@ -4,4 +4,6 @@ interface SprintRepository {
 
 	fun findCurrentSprintByProjectId(projectId : Long?) : Long?
 	
+	fun startSprint(projectId : Long) : Long
+	
 }
