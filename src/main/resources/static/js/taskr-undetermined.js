@@ -28,8 +28,22 @@ $(document).ready(function() {
 });
 
 function moveToNextIssue() {
+	$("#main").hide();
+	$("#loader").show();
+	
 	var nextIssue = $("aside section.active").next();
 	$("aside section.active").remove();
 	nextIssue.click();
+	
+	new ProgressBar.Line("#savebar", { color: '#2070f7', duration: 1500, easing: 'easeInOut' }).animate(1, function() {
+		$("#loader").hide();
+		$("#main").show();
+		
+		try {
+			progressLine.destroy();
+		} catch(err) {
+		   //
+		}
+	});
 }
 

@@ -7,7 +7,7 @@ $(function() {
 		//This is a pulling event that pulls every second.
 		var issueid = $("aside section.active").attr("issue-id");
 				
-		if(typeof(maxid) === "undefined"){
+		if(typeof(maxid) === "undefined" || typeof(issueid) === "undefined"){
 			$.getJSON("/pull", function(data) {
 			  //notifications only
 			});
