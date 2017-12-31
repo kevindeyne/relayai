@@ -20,7 +20,7 @@ class UndeterminedController(var issueRepository : IssueRepository, var sprintRe
 		
 	@PostMapping(UD_PLAN)
 	fun updateUndeterminedPlan(@PathVariable issueId : String, @PathVariable workload : String) {
-		issueRepository.updateWorkload(issueId.toLong(), Workload.valueOf(workload))
+		issueRepository.updateWorkload(issueId.toLong(), SecurityHolder.getUserId().toLong(), Workload.valueOf(workload))
 	}
 	
 	@PostMapping(UD_CRITICAL)
@@ -34,6 +34,6 @@ class UndeterminedController(var issueRepository : IssueRepository, var sprintRe
 	
 	@PostMapping(UD_FEEDBACK)
 	fun updateUndeterminedFeedback(@PathVariable issueId : String) {
-		issueRepository.updateStatus(issueId.toLong(), Progress.WAITING_FOR_FEEDBACK, SecurityHolder.getUserId().toLong())
+		issueRepository.updateStatus(issueId.toLong(), SecurityHolder.getUserId().toLong(), Progress.WAITING_FOR_FEEDBACK)
 	}
 }

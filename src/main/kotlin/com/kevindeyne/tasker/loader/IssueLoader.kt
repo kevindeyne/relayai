@@ -57,7 +57,7 @@ class IssueLoader(
 					assignedTo = userId
 				}
 
-				insertIntoIssue(faker, projectId, sprintId, assignedTo)
+				insertIntoIssue(faker, userId, projectId, sprintId, assignedTo)
 			}
 
 			println("Done!")
@@ -142,7 +142,7 @@ class IssueLoader(
 		return userId
 	}
 	
-	fun insertIntoIssue(faker : Faker, projectId : Long, sprintId : Long, assignedTo : Long) {
+	fun insertIntoIssue(faker : Faker, userId : Long, projectId : Long, sprintId : Long, assignedTo : Long) {
 		val title = faker.book().title()
 		val sentenceList : MutableList<String> = ArrayList<String>()
 		for (i in 0..5) {
@@ -154,7 +154,7 @@ class IssueLoader(
 		val status = randomStatus(workload)
 		val impact = randomImpact(workload)
 		val urgency = randomUrgency(workload)
-		val importance = IssueRepositoryImpl(dsl).determineImportance(status, workload, impact, urgency)
+		val importance = IssueRepositoryImpl(dsl).determineImportance(status, userId, workload, impact, urgency)
 		
 		val issueId = dsl.insertInto(Tables.ISSUE, Tables.ISSUE.TITLE, Tables.ISSUE.DESCRIPTION, Tables.ISSUE.WORKLOAD, Tables.ISSUE.STATUS,
 				Tables.ISSUE.PROJECT_ID, Tables.ISSUE.SPRINT_ID, Tables.ISSUE.ASSIGNED, Tables.ISSUE.CREATE_DATE, Tables.ISSUE.CREATE_USER, Tables.ISSUE.UPDATE_DATE,

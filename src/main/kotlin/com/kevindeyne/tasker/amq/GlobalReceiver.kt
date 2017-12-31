@@ -21,8 +21,8 @@ class GlobalReceiver(val issueRepository: IssueRepository, val tagcloud: Tagclou
 		when (m.type) {
 			AMQMessageType.ISSUE_CREATE_OR_EDIT -> handleCreateOrEditIssue(m)
 			AMQMessageType.ISSUE_PROGRESS -> handleProgress(m)
-			AMQMessageType.ISSUE_URGENCY -> issueRepository.updateUrgency(getIdFromMessage(m), Urgency.valueOf(m.value), m.userId)
-			AMQMessageType.ISSUE_IMPACT -> issueRepository.updateImpact(getIdFromMessage(m), Impact.valueOf(m.value), m.userId)
+			AMQMessageType.ISSUE_URGENCY -> issueRepository.updateUrgency(getIdFromMessage(m), m.userId, Urgency.valueOf(m.value))
+			AMQMessageType.ISSUE_IMPACT -> issueRepository.updateImpact(getIdFromMessage(m), m.userId, Impact.valueOf(m.value))
 			AMQMessageType.ISSUE_ASSIGNEE -> handleAssignee(m)
 			AMQMessageType.ISSUE_FIXVERSION -> handleFixVersion(m)
 			//else -> throw RuntimeException("Unknown message type")
@@ -73,7 +73,7 @@ class GlobalReceiver(val issueRepository: IssueRepository, val tagcloud: Tagclou
 	
 	fun handleProgress(m: AMQMessage){
 		val status = Progress.valueOf(m.value)
-		issueRepository.updateStatus(getIdFromMessage(m), status, m.userId)
+		issueRepository.updateStatus(getIdFromMessage(m), m.userId, status)
 		
 		val issueId = getIdFromMessage(m)
 		

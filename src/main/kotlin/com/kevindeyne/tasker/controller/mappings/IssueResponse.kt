@@ -2,6 +2,7 @@ package com.kevindeyne.tasker.controller.form
 
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.kevindeyne.tasker.domain.CommentListing
+import com.kevindeyne.tasker.repositories.IssueRepositoryImpl
 
 data class IssueResponse @JsonCreator constructor(
 		var id: Long = -1,
@@ -15,5 +16,6 @@ data class IssueResponse @JsonCreator constructor(
 		var createDate: String = "",
 		var slaStatus: String = "",
 		var clazz : String = "",
-		var comments: List<CommentListing> = listOf()
+		var comments: List<CommentListing> = listOf(),
+		val importance: Int = IssueRepositoryImpl.IMPORTANCE_NORMAL
 )

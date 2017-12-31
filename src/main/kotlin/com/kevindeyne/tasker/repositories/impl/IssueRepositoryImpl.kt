@@ -47,7 +47,8 @@ open class IssueRepositoryImpl (val dsl: DSLContext) : IssueRepository {
 									n.get(Tables.ISSUE.TITLE),
 									abbreviate(n.get(Tables.ISSUE.DESCRIPTION)),
 									n.get(Tables.ISSUE.DESCRIPTION),
-									determineClass(n.get(Tables.ISSUE.WORKLOAD), n.get(Tables.ISSUE.STATUS), n.get(Tables.ISSUE.URGENCY)))
+									determineClass(n.get(Tables.ISSUE.WORKLOAD), n.get(Tables.ISSUE.STATUS), n.get(Tables.ISSUE.URGENCY)),
+									n.get(Tables.ISSUE.IMPORTANCE))
 			   }
 			   .collect(Collectors.toList())
 	}
@@ -155,7 +156,7 @@ open class IssueRepositoryImpl (val dsl: DSLContext) : IssueRepository {
 	}
 			
 	@Transactional
-	override fun updateStatus(issueId : Long, status : Progress, userId : Long) {
+	override fun updateStatus(issueId : Long, userId : Long, status : Progress) {
 		val timestamp = Timestamp(System.currentTimeMillis())
 		val updateUser = userId.toString()
 		
@@ -163,13 +164,13 @@ open class IssueRepositoryImpl (val dsl: DSLContext) : IssueRepository {
 			.set(Tables.ISSUE.STATUS, status.name)
 			.set(Tables.ISSUE.UPDATE_USER, updateUser)
 			.set(Tables.ISSUE.UPDATE_DATE, timestamp)
-			.set(Tables.ISSUE.IMPORTANCE, determineImportance(issueId, status))
+			.set(Tables.ISSUE.IMPORTANCE, determineImportance(issueId, userId, status))
 			.where(Tables.ISSUE.ID.eq(issueId))
 			.execute()
 	}
 	
 	@Transactional
-	override fun updateUrgency(issueId : Long, urgency : Urgency, userId : Long){
+	override fun updateUrgency(issueId : Long, userId : Long, urgency : Urgency) {
 		val timestamp = Timestamp(System.currentTimeMillis())
 		val updateUser = userId.toString()
 		
@@ -177,13 +178,13 @@ open class IssueRepositoryImpl (val dsl: DSLContext) : IssueRepository {
 			.set(Tables.ISSUE.URGENCY, urgency.name)
 			.set(Tables.ISSUE.UPDATE_USER, updateUser)
 			.set(Tables.ISSUE.UPDATE_DATE, timestamp)
-			.set(Tables.ISSUE.IMPORTANCE, determineImportance(issueId, null, null, null, urgency))
+			.set(Tables.ISSUE.IMPORTANCE, determineImportance(issueId, userId, null, null, null, urgency))
 			.where(Tables.ISSUE.ID.eq(issueId))
 			.execute()
 	}
 	
 	@Transactional
-	override fun updateImpact(issueId : Long, impact : Impact, userId : Long){
+	override fun updateImpact(issueId : Long, userId : Long, impact : Impact) {
 		val timestamp = Timestamp(System.currentTimeMillis())
 		val updateUser = userId.toString()
 		
@@ -191,16 +192,16 @@ open class IssueRepositoryImpl (val dsl: DSLContext) : IssueRepository {
 			.set(Tables.ISSUE.IMPACT, impact.name)
 			.set(Tables.ISSUE.UPDATE_USER, updateUser)
 			.set(Tables.ISSUE.UPDATE_DATE, timestamp)
-			.set(Tables.ISSUE.IMPORTANCE, determineImportance(issueId, null, null, impact))
+			.set(Tables.ISSUE.IMPORTANCE, determineImportance(issueId, userId, null, null, impact))
 			.where(Tables.ISSUE.ID.eq(issueId))
 			.execute()
 	}
 	
 	@Transactional
-	override fun updateWorkload(issueId : Long, workload : Workload){
+	override fun updateWorkload(issueId : Long, userId : Long, workload : Workload){
 		dsl.update(Tables.ISSUE)
 			.set(Tables.ISSUE.WORKLOAD, workload.hours)
-			.set(Tables.ISSUE.IMPORTANCE, determineImportance(issueId, null, workload.hours))
+			.set(Tables.ISSUE.IMPORTANCE, determineImportance(issueId, userId, null, workload.hours))
 			.where(Tables.ISSUE.ID.eq(issueId))
 			.execute()
 	}
@@ -251,7 +252,8 @@ open class IssueRepositoryImpl (val dsl: DSLContext) : IssueRepository {
 						     SimpleDateFormat("dd MMMMM yyyy").format(n.get(Tables.ISSUE.CREATE_DATE)),
 							 "SLA on time",
 							 determineClass(n.get(Tables.ISSUE.WORKLOAD), n.get(Tables.ISSUE.STATUS), n.get(Tables.ISSUE.URGENCY)),
-							 commentsForIssue)
+							 commentsForIssue,
+							 n.get(Tables.ISSUE.IMPORTANCE))
 		}
 	}
 	
@@ -281,23 +283,23 @@ open class IssueRepositoryImpl (val dsl: DSLContext) : IssueRepository {
 	private fun buildInProgressIssue(issueId : Long, text : String) : InProgressIssue {
 		return InProgressIssue(issueId, text)
 	}
-			
-	fun determineImportance(issueId : Long, status : Progress? = null, workload : Int? = null, impact : Impact? = null, urgency : Urgency? = null) : Int {
+	
+	fun determineImportance(issueId : Long, userId : Long, status : Progress? = null, workload : Int? = null, impact : Impact? = null, urgency : Urgency? = null) : Int {
 		val response : IssueRecord? = dsl.selectFrom(Tables.ISSUE)
-	   .where(Tables.ISSUE.ID.eq(issueId).and(Tables.ISSUE.ASSIGNED.eq(SecurityHolder.getUserId())))
+	   .where(Tables.ISSUE.ID.eq(issueId).and(Tables.ISSUE.ASSIGNED.eq(userId)))
 	   .fetchOne()
 		
-		if(response == null) {return 0}
+		if(response == null) { return 0 }
 		
 		val impStatus : Progress = status ?: Progress.valueOf(response.get(Tables.ISSUE.STATUS))
 		val impWorkload : Int = workload ?: response.get(Tables.ISSUE.WORKLOAD)
 		val impImpact : Impact = impact ?: Impact.valueOf(response.get(Tables.ISSUE.IMPACT))
 		val impUrgency : Urgency = urgency ?: Urgency.valueOf(response.get(Tables.ISSUE.URGENCY))
-		
-		return determineImportance(impStatus, impWorkload, impImpact, impUrgency)
+	
+		return determineImportance(impStatus, userId, impWorkload, impImpact, impUrgency)
 	}
 
-	override fun determineImportance(status : Progress, workload : Int, impact : Impact, urgency : Urgency) : Int {
+	override fun determineImportance(status : Progress, userId : Long, workload : Int, impact : Impact, urgency : Urgency) : Int {
 		if(Urgency.IMMEDIATELY.equals(urgency)){		
 			when (impact) {
 			    Impact.HIGH -> return IMPORTANCE_CRITICAL_H_IMP

@@ -32,7 +32,7 @@
 	</div>
 	
 	<aside th:fragment="issue-list" th:classappend="${showCreatePage}?invisible">
-		<section th:each="issue : ${issueList}" th:issue-id="${issue.id}" th:classappend="${currentIssueId == issue.id}?active">
+		<section th:each="issue : ${issueList}" th:issue-id="${issue.id}" th:importance="${issue.importance}" th:classappend="${currentIssueId == issue.id}?active">
 			<h1><span th:text="${issue.title}"></span> <i class="fa fa-circle" th:classappend="${issue.clazz}" aria-hidden="true"></i></h1>
 			<p th:text="${issue.shortDescr}"></p>
 			<div th:id="${'progress-' + issue.id}" class="progress"></div>

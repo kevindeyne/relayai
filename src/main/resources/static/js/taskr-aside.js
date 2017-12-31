@@ -41,6 +41,9 @@ $(document).ready(function() {
 	determineUndecided();
 
 	//$('aside .ss-content').animate({ scrollTop: Math.abs($("section.active").offset().top+200) }, 1); //scroll to active - convenience; for clarity we probably want to keep the active one fixed and inbox moving TODO
+	
+	
+	
 });
 
 

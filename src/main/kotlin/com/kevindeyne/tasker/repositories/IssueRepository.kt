@@ -25,13 +25,13 @@ interface IssueRepository {
 	
 	fun update(issueId : Long, title : String, description : String, userId : Long)
 	
-	fun updateStatus(issueId : Long, status : Progress, userId : Long)
+	fun updateStatus(issueId : Long, userId : Long, status : Progress)
 	
-	fun updateUrgency(issueId : Long, urgency : Urgency, userId : Long)
+	fun updateUrgency(issueId : Long, userId : Long, urgency : Urgency)
 	
-	fun updateImpact(issueId : Long, impact : Impact, userId : Long)
+	fun updateImpact(issueId : Long, userId : Long, impact : Impact)
 	
-	fun updateWorkload(issueId : Long, workload : Workload)
+	fun updateWorkload(issueId : Long, userId : Long, workload : Workload)
 	
 	fun updateCritical(issueId : Long, userId : Long, sprintId : Long)
 	
@@ -41,6 +41,6 @@ interface IssueRepository {
 	
 	fun findAllInProgress(userId : Long?, sprintId : Long?) : List<InProgressIssue>
 	
-	fun determineImportance(status : Progress, workload : Int, impact : Impact, urgency : Urgency) : Int
+	fun determineImportance(status : Progress, userId : Long, workload : Int, impact : Impact, urgency : Urgency) : Int
 	
 }
