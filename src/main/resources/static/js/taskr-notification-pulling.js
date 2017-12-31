@@ -5,7 +5,7 @@ $(function() {
 	//actual happy flow method being called x time
 	function activePull() {
 		//This is a pulling event that pulls every second.
-		var issueid = "4";
+		var issueid = $("aside section.active").attr("issue-id");
 				
 		if(typeof(maxid) === "undefined"){
 			$.getJSON("/pull", function(data) {

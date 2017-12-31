@@ -13,6 +13,11 @@ $(window).on("popstate", function () {
 });
 
 $(document).ready(function() {
+	if(localStorage.getItem("current-issue") !== undefined) {
+		var taskurl = '/tasks/' + localStorage.getItem("current-issue");
+		$("#taskurl").attr("href", taskurl);
+	}
+	
 	setTimeout(function(){
 		$("#initial-load").fadeOut(100);
 	}, 200);

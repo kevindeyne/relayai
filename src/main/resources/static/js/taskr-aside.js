@@ -39,8 +39,8 @@ $(document).ready(function() {
 	}
 	
 	determineUndecided();
-		
-	$('aside .ss-content').animate({ scrollTop: $("section.active").offset().top-10 }, 1); //scroll to active - convenience; for clarity we probably want to keep the active one fixed and inbox moving TODO
+
+	//$('aside .ss-content').animate({ scrollTop: Math.abs($("section.active").offset().top+200) }, 1); //scroll to active - convenience; for clarity we probably want to keep the active one fixed and inbox moving TODO
 });
 
 
@@ -67,7 +67,9 @@ function handleIssueLoaded(latestClickedIssue, progressLine, issueLoadingAnimati
 			
 			loadingContent(issueLoaded);
 			
-			window.history.pushState('taskr-currentpage', null, '/tasks/' + issueId);
+			var taskurl = '/tasks/' + issueId;
+			window.history.pushState('taskr-currentpage', null, taskurl);
+			$("#taskurl").attr("href", taskurl);
 		}
 		
 		try {
@@ -121,8 +123,8 @@ function determineUndecided(){
 }
 
 function getActiveClass(){
-	if($("aside section.active").length === 0){		
-		$("aside section:first").addClass("active");
-	}	
-	return $("aside section.active i").attr("class").replace("fa fa-circle ", "");
+	if($("aside section.active").length !== 0){
+		return $("aside section.active i").attr("class").replace("fa fa-circle ", "");
+	}
+	return "";
 }
