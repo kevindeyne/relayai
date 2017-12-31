@@ -69,12 +69,17 @@ open class IssueRepositoryImpl (val dsl: DSLContext) : IssueRepository {
 	
 	
 	companion object {
-		const val IMPORTANCE_CRITICAL = 10
-		const val IMPORTANCE_PROGRESS = 9
-		const val IMPORTANCE_UNDECIDED = 8
-		const val IMPORTANCE_HIGHIMPACT = 7
-		const val IMPORTANCE_NORMAL = 5
-		const val IMPORTANCE_LOWPRIO = 2
+		const val IMPORTANCE_CRITICAL_H_IMP = 10
+		const val IMPORTANCE_CRITICAL_N_IMP = 9
+		const val IMPORTANCE_CRITICAL_L_IMP = 8
+		const val IMPORTANCE_PROGRESS_H_URG = 7
+		const val IMPORTANCE_PROGRESS_H_IMP = 6
+		const val IMPORTANCE_PROGRESS_NORMAL = 5
+		const val IMPORTANCE_PROGRESS_LOW = 4
+		const val IMPORTANCE_UNDECIDED = 3
+		const val IMPORTANCE_HIGHIMPACT = 2
+		const val IMPORTANCE_NORMAL = 1
+		const val IMPORTANCE_LOWPRIO = 0
 		
 		val ACTIVE_ISSUE = (
 				  Tables.ISSUE.STATUS.notIn(Progress.DONE.name, Progress.WAITING_FOR_FEEDBACK.name, Progress.BACKLOG.name, Progress.NEW.name)
@@ -111,7 +116,11 @@ open class IssueRepositoryImpl (val dsl: DSLContext) : IssueRepository {
 	@Transactional
 	override fun findHighestPrioForUser() : IssueResponse {
 		return dsl.selectFrom(Tables.ISSUE)
-			   .where(Tables.ISSUE.ASSIGNED.eq(SecurityHolder.getUserId()))
+			   .where(
+				   Tables.ISSUE.ASSIGNED.eq(SecurityHolder.getUserId())
+				   .and(Tables.ISSUE.SPRINT_ID.eq(SecurityHolder.getSprintId()))
+				   .and(ACTIVE_ISSUE)
+			   )
 			   .orderBy(Tables.ISSUE.IMPORTANCE.desc(), Tables.ISSUE.CREATE_DATE.asc())
 			   .limit(1)
 			   .fetchAny()
@@ -209,7 +218,7 @@ open class IssueRepositoryImpl (val dsl: DSLContext) : IssueRepository {
 			.set(Tables.ISSUE.SPRINT_ID, sprintId)
 			.set(Tables.ISSUE.UPDATE_USER, updateUser)
 			.set(Tables.ISSUE.UPDATE_DATE, timestamp)
-			.set(Tables.ISSUE.IMPORTANCE, IMPORTANCE_CRITICAL)
+			.set(Tables.ISSUE.IMPORTANCE, IMPORTANCE_CRITICAL_H_IMP)
 			.where(Tables.ISSUE.ID.eq(issueId))
 			.execute()
 	}
@@ -287,10 +296,24 @@ open class IssueRepositoryImpl (val dsl: DSLContext) : IssueRepository {
 		
 		return determineImportance(impStatus, impWorkload, impImpact, impUrgency)
 	}
-	
+
 	override fun determineImportance(status : Progress, workload : Int, impact : Impact, urgency : Urgency) : Int {
-		if(Urgency.IMMEDIATELY.equals(urgency)){ return IMPORTANCE_CRITICAL }
-		if(Progress.IN_PROGRESS.equals(status)){ return IMPORTANCE_PROGRESS }
+		if(Urgency.IMMEDIATELY.equals(urgency)){		
+			when (impact) {
+			    Impact.HIGH -> return IMPORTANCE_CRITICAL_H_IMP
+			    Impact.MINIMAL -> return IMPORTANCE_CRITICAL_L_IMP
+			    else ->  return IMPORTANCE_CRITICAL_N_IMP
+			}
+		}
+		
+		if(Progress.IN_PROGRESS.equals(status)){
+			if(Urgency.IMMEDIATELY.equals(impact)){ return IMPORTANCE_PROGRESS_H_URG }
+			if(Impact.HIGH.equals(impact)){ return IMPORTANCE_PROGRESS_H_IMP }			
+			if(Urgency.MINIMAL.equals(impact) || Impact.MINIMAL.equals(impact)){ return IMPORTANCE_PROGRESS_LOW }
+			
+			return IMPORTANCE_PROGRESS_NORMAL
+		}
+		
 		if(-1 == workload){ return IMPORTANCE_UNDECIDED }
 		if(Impact.HIGH.equals(impact)){ return IMPORTANCE_HIGHIMPACT }
 		if(Impact.MINIMAL.equals(impact)){ return IMPORTANCE_LOWPRIO }

@@ -22,7 +22,7 @@ class IssueController(var issueRepository : IssueRepository, var jmsTemplate : J
 		const val ISSUE_DETAIL = "/issue/{id}"
 		const val ISSUE_PROGRESS = ISSUE_DETAIL + "/{action}/{changedValue}"
 	}
-		
+	
 	@PostMapping(ISSUE_DETAIL)
 	fun createOrEditIssue(@RequestBody form : IssueForm, @PathVariable id : String) : FormResponse {
 		var errors : Map<String, String>  = form.validate()
