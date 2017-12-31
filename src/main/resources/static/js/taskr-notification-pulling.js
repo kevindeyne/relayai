@@ -36,7 +36,7 @@ $(function() {
 		newSection.find("div").attr("id", "progress-"+newIssue.id);
 		
 		//add to section that is correct according to importance value
-		$(newSection).insertBefore($("aside section").filter(function() {
+		$(newSection).insertAfter($("aside section").filter(function() {
 		    return $(this).attr("importance") > newIssue.importance;
 		}).filter(":last"));
 	}
