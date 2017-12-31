@@ -28,15 +28,20 @@ $(function() {
 	function cloneAndPrepend(newIssue){
 		var newSection = $("aside section:first").clone(true, true);
 		newSection.removeClass("active");
-		newSection.attr("issue-id", newIssue.id)
+		newSection.attr("issue-id", newIssue.id);
+		newSection.attr("importance", newIssue.importance);
 		newSection.find("h1").text(newIssue.title);
 		newSection.find("h1").append("<i class='fa fa-circle "+ newIssue.clazz +"' aria-hidden='true'></i>");
 		newSection.find("p").text(newIssue.descr);
-		newSection.find("div").attr("id", "progress-"+newIssue.id);	
-	    $("aside.ss-container div.ss-content").prepend(newSection);		
+		newSection.find("div").attr("id", "progress-"+newIssue.id);
+		
+		//add to section that is correct according to importance value
+		$(newSection).insertBefore($("aside section").filter(function() {
+		    return $(this).attr("importance") > newIssue.importance;
+		}).filter(":last"));
 	}
 	
-	//
+	//TODO should probably change the name from my demo to an actual key/value
 	$.jStorage.listenKeyChange("pulling-demo", function(key, action){
 		if(paused && null != $.jStorage.get(key)){
 			//Change in the session storage during pause: ' + $.jStorage.get(key));
