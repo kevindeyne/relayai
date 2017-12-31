@@ -30,23 +30,16 @@ open class IssueRepositoryImpl (val dsl: DSLContext) : IssueRepository {
 	@Autowired
 	lateinit var commentRepo : CommentRepository
 	
+	/*initial load*/
 	@Transactional
-	override fun findAllActiveForUserInCurrentSprint() : List<IssueListing> {	
+	override fun findAllActiveForUserInCurrentSprint() : List<IssueListing> {
 		return dsl.selectFrom(Tables.ISSUE)
 			   .where(
-					   Tables.ISSUE.ASSIGNED.eq(SecurityHolder.getUserId())
-					   .and(Tables.ISSUE.SPRINT_ID.eq(SecurityHolder.getSprintId()))
-					   .and(
-						   (
-								   Tables.ISSUE.STATUS.notIn(Progress.DONE.name, Progress.WAITING_FOR_FEEDBACK.name, Progress.BACKLOG.name, Progress.NEW.name)
-								   .and(Tables.ISSUE.WORKLOAD.notEqual(-1))
-						    ).or(
-								   Tables.ISSUE.STATUS.eq(Progress.NEW.name)
-								   .and(Tables.ISSUE.WORKLOAD.eq(-1))
-						   )
-					   )
+				   Tables.ISSUE.ASSIGNED.eq(SecurityHolder.getUserId())
+				   .and(Tables.ISSUE.SPRINT_ID.eq(SecurityHolder.getSprintId()))
+				   .and(ACTIVE_ISSUE)
 			   )
-			   .orderBy(Tables.ISSUE.URGENCY.asc(), Tables.ISSUE.IMPACT.asc(), Tables.ISSUE.CREATE_DATE.desc())
+			   .orderBy(Tables.ISSUE.IMPORTANCE.desc(), Tables.ISSUE.CREATE_DATE.asc())
 			   .fetch()
 			   .parallelStream()
 			   .map {
@@ -57,6 +50,40 @@ open class IssueRepositoryImpl (val dsl: DSLContext) : IssueRepository {
 									determineClass(n.get(Tables.ISSUE.WORKLOAD), n.get(Tables.ISSUE.STATUS), n.get(Tables.ISSUE.URGENCY)))
 			   }
 			   .collect(Collectors.toList())
+	}
+	
+	/*pulling*/
+	@Transactional
+	override fun findUpdateOnIssues(sprintId : Long, maxid : String) : List<IssueResponse> {
+		return dsl.selectFrom(Tables.ISSUE)
+			   .where(Tables.ISSUE.ASSIGNED.eq(SecurityHolder.getUserId()))
+			   .and(Tables.ISSUE.ID.gt(maxid.toLong()))
+			   .and(Tables.ISSUE.SPRINT_ID.eq(sprintId))
+			   .and(ACTIVE_ISSUE)
+			   .orderBy(Tables.ISSUE.IMPORTANCE.desc(), Tables.ISSUE.CREATE_DATE.asc())
+			   .fetch()
+			   .parallelStream()
+			   .map { n -> mapIssueResponse(n, true) }
+			   .collect(Collectors.toList())		
+	}
+	
+	
+	companion object {
+		const val IMPORTANCE_CRITICAL = 10
+		const val IMPORTANCE_PROGRESS = 9
+		const val IMPORTANCE_UNDECIDED = 8
+		const val IMPORTANCE_HIGHIMPACT = 7
+		const val IMPORTANCE_NORMAL = 5
+		const val IMPORTANCE_LOWPRIO = 2
+		
+		val ACTIVE_ISSUE = (
+				  Tables.ISSUE.STATUS.notIn(Progress.DONE.name, Progress.WAITING_FOR_FEEDBACK.name, Progress.BACKLOG.name, Progress.NEW.name)
+				  .and(Tables.ISSUE.WORKLOAD.notEqual(-1))
+			  ).or(
+				   Tables.ISSUE.STATUS.eq(Progress.NEW.name)
+				   .and(Tables.ISSUE.WORKLOAD.eq(-1))
+			  )
+
 	}
 	
 	fun determineClass(workload : Int, status : String, urgency : String) : String{
@@ -85,7 +112,7 @@ open class IssueRepositoryImpl (val dsl: DSLContext) : IssueRepository {
 	override fun findHighestPrioForUser() : IssueResponse {
 		return dsl.selectFrom(Tables.ISSUE)
 			   .where(Tables.ISSUE.ASSIGNED.eq(SecurityHolder.getUserId()))
-			   .orderBy(Tables.ISSUE.CREATE_DATE.desc()) //by importance
+			   .orderBy(Tables.ISSUE.IMPORTANCE.desc(), Tables.ISSUE.CREATE_DATE.asc())
 			   .limit(1)
 			   .fetchAny()
 		   	   .map { n -> mapIssueResponse(n, false) }
@@ -127,6 +154,7 @@ open class IssueRepositoryImpl (val dsl: DSLContext) : IssueRepository {
 			.set(Tables.ISSUE.STATUS, status.name)
 			.set(Tables.ISSUE.UPDATE_USER, updateUser)
 			.set(Tables.ISSUE.UPDATE_DATE, timestamp)
+			.set(Tables.ISSUE.IMPORTANCE, determineImportance(issueId, status))
 			.where(Tables.ISSUE.ID.eq(issueId))
 			.execute()
 	}
@@ -140,6 +168,7 @@ open class IssueRepositoryImpl (val dsl: DSLContext) : IssueRepository {
 			.set(Tables.ISSUE.URGENCY, urgency.name)
 			.set(Tables.ISSUE.UPDATE_USER, updateUser)
 			.set(Tables.ISSUE.UPDATE_DATE, timestamp)
+			.set(Tables.ISSUE.IMPORTANCE, determineImportance(issueId, null, null, null, urgency))
 			.where(Tables.ISSUE.ID.eq(issueId))
 			.execute()
 	}
@@ -153,6 +182,7 @@ open class IssueRepositoryImpl (val dsl: DSLContext) : IssueRepository {
 			.set(Tables.ISSUE.IMPACT, impact.name)
 			.set(Tables.ISSUE.UPDATE_USER, updateUser)
 			.set(Tables.ISSUE.UPDATE_DATE, timestamp)
+			.set(Tables.ISSUE.IMPORTANCE, determineImportance(issueId, null, null, impact))
 			.where(Tables.ISSUE.ID.eq(issueId))
 			.execute()
 	}
@@ -161,6 +191,7 @@ open class IssueRepositoryImpl (val dsl: DSLContext) : IssueRepository {
 	override fun updateWorkload(issueId : Long, workload : Workload){
 		dsl.update(Tables.ISSUE)
 			.set(Tables.ISSUE.WORKLOAD, workload.hours)
+			.set(Tables.ISSUE.IMPORTANCE, determineImportance(issueId, null, workload.hours))
 			.where(Tables.ISSUE.ID.eq(issueId))
 			.execute()
 	}
@@ -178,6 +209,7 @@ open class IssueRepositoryImpl (val dsl: DSLContext) : IssueRepository {
 			.set(Tables.ISSUE.SPRINT_ID, sprintId)
 			.set(Tables.ISSUE.UPDATE_USER, updateUser)
 			.set(Tables.ISSUE.UPDATE_DATE, timestamp)
+			.set(Tables.ISSUE.IMPORTANCE, IMPORTANCE_CRITICAL)
 			.where(Tables.ISSUE.ID.eq(issueId))
 			.execute()
 	}
@@ -192,19 +224,6 @@ open class IssueRepositoryImpl (val dsl: DSLContext) : IssueRepository {
 			.set(Tables.ISSUE.UPDATE_USER, updateUser)
 			.set(Tables.ISSUE.UPDATE_DATE, timestamp)
 			.execute()
-	}
-	
-	@Transactional
-	override fun findUpdateOnIssues(sprintId : Long, maxid : String) : List<IssueResponse> {
-		return dsl.selectFrom(Tables.ISSUE)
-			   .where(Tables.ISSUE.ASSIGNED.eq(SecurityHolder.getUserId()))
-			   .and(Tables.ISSUE.ID.gt(maxid.toLong()))
-			   .and(Tables.ISSUE.SPRINT_ID.eq(sprintId))
-			   .orderBy(Tables.ISSUE.CREATE_DATE.desc()) //by importance
-			   .fetch()
-			   .parallelStream()
-			   .map { n -> mapIssueResponse(n, true) }
-			   .collect(Collectors.toList())		
 	}
 	
 	fun mapIssueResponse(n : Record?, abbreviate : Boolean) : IssueResponse {
@@ -232,9 +251,7 @@ open class IssueRepositoryImpl (val dsl: DSLContext) : IssueRepository {
 		return ArrayList<StandupResponse>();
 	}
 	
-	private fun abbreviate(field : String) : String {
-		return (StringUtils.abbreviate(field, 120)).replace(Regex("<[^>]*>"), "")
-	}
+	private fun abbreviate(field : String) : String = (StringUtils.abbreviate(field, 120)).replace(Regex("<[^>]*>"), "")
 	
 	override fun findAllInProgress() : List<InProgressIssue> {
 		return findAllInProgress(SecurityHolder.getUserId(), SecurityHolder.getSprintId())
@@ -245,7 +262,7 @@ open class IssueRepositoryImpl (val dsl: DSLContext) : IssueRepository {
 			   .where(Tables.ISSUE.ASSIGNED.eq(userId))
 			   .and(Tables.ISSUE.SPRINT_ID.eq(sprintId))
 			   .and(Tables.ISSUE.STATUS.eq(Progress.IN_PROGRESS.name))
-			   .orderBy(Tables.ISSUE.CREATE_DATE.desc()) //by importance
+			   .orderBy(Tables.ISSUE.IMPORTANCE.desc(), Tables.ISSUE.CREATE_DATE.asc())
 			   .fetch()
 			   .parallelStream()
 			   .map { n -> buildInProgressIssue(n.get(Tables.ISSUE.ID), n.get(Tables.ISSUE.TITLE)) }
@@ -254,5 +271,30 @@ open class IssueRepositoryImpl (val dsl: DSLContext) : IssueRepository {
 	
 	private fun buildInProgressIssue(issueId : Long, text : String) : InProgressIssue {
 		return InProgressIssue(issueId, text)
+	}
+			
+	fun determineImportance(issueId : Long, status : Progress? = null, workload : Int? = null, impact : Impact? = null, urgency : Urgency? = null) : Int {
+		val response : IssueRecord? = dsl.selectFrom(Tables.ISSUE)
+	   .where(Tables.ISSUE.ID.eq(issueId).and(Tables.ISSUE.ASSIGNED.eq(SecurityHolder.getUserId())))
+	   .fetchOne()
+		
+		if(response == null) {return 0}
+		
+		val impStatus : Progress = status ?: Progress.valueOf(response.get(Tables.ISSUE.STATUS))
+		val impWorkload : Int = workload ?: response.get(Tables.ISSUE.WORKLOAD)
+		val impImpact : Impact = impact ?: Impact.valueOf(response.get(Tables.ISSUE.IMPACT))
+		val impUrgency : Urgency = urgency ?: Urgency.valueOf(response.get(Tables.ISSUE.URGENCY))
+		
+		return determineImportance(impStatus, impWorkload, impImpact, impUrgency)
+	}
+	
+	override fun determineImportance(status : Progress, workload : Int, impact : Impact, urgency : Urgency) : Int {
+		if(Urgency.IMMEDIATELY.equals(urgency)){ return IMPORTANCE_CRITICAL }
+		if(Progress.IN_PROGRESS.equals(status)){ return IMPORTANCE_PROGRESS }
+		if(-1 == workload){ return IMPORTANCE_UNDECIDED }
+		if(Impact.HIGH.equals(impact)){ return IMPORTANCE_HIGHIMPACT }
+		if(Impact.MINIMAL.equals(impact)){ return IMPORTANCE_LOWPRIO }
+		
+		return IMPORTANCE_NORMAL
 	}
 }

@@ -40,7 +40,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Issue extends TableImpl<IssueRecord> {
 
-    private static final long serialVersionUID = 59435158;
+    private static final long serialVersionUID = 1329653410;
 
     /**
      * The reference instance of <code>taskr.issue</code>
@@ -124,6 +124,11 @@ public class Issue extends TableImpl<IssueRecord> {
      * The column <code>taskr.issue.workload</code>.
      */
     public final TableField<IssueRecord, Integer> WORKLOAD = createField("workload", org.jooq.impl.SQLDataType.INTEGER.nullable(false).defaultValue(org.jooq.impl.DSL.inline("-1", org.jooq.impl.SQLDataType.INTEGER)), this, "");
+
+    /**
+     * The column <code>taskr.issue.importance</code>.
+     */
+    public final TableField<IssueRecord, Integer> IMPORTANCE = createField("importance", org.jooq.impl.SQLDataType.INTEGER.nullable(false).defaultValue(org.jooq.impl.DSL.inline("-1", org.jooq.impl.SQLDataType.INTEGER)), this, "");
 
     /**
      * Create a <code>taskr.issue</code> table reference

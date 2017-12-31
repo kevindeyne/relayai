@@ -1,9 +1,13 @@
 package com.kevindeyne.tasker.loader
 
 import com.github.javafaker.Faker
+import com.kevindeyne.tasker.domain.Impact
+import com.kevindeyne.tasker.domain.Progress
 import com.kevindeyne.tasker.domain.Role
 import com.kevindeyne.tasker.domain.SearchResultType
+import com.kevindeyne.tasker.domain.Urgency
 import com.kevindeyne.tasker.jooq.Tables
+import com.kevindeyne.tasker.repositories.IssueRepositoryImpl
 import com.kevindeyne.tasker.repositories.TagcloudRepository
 import com.kevindeyne.tasker.service.KeywordGeneration
 import org.jooq.DSLContext
@@ -15,7 +19,6 @@ import org.springframework.stereotype.Component
 import java.sql.Timestamp
 import java.time.LocalDate
 import java.util.Random
-import com.kevindeyne.tasker.domain.Progress
 
 @Component
 class IssueLoader(
@@ -146,9 +149,18 @@ class IssueLoader(
 			sentenceList.add(faker.harryPotter().quote())
 		}
 		val sentences = mergeSentences(sentenceList)
+		
 		val workload = randomWorkload()
-		val issueId = dsl.insertInto(Tables.ISSUE, Tables.ISSUE.TITLE, Tables.ISSUE.DESCRIPTION, Tables.ISSUE.WORKLOAD, Tables.ISSUE.STATUS, Tables.ISSUE.PROJECT_ID, Tables.ISSUE.SPRINT_ID, Tables.ISSUE.ASSIGNED, Tables.ISSUE.CREATE_DATE, Tables.ISSUE.CREATE_USER, Tables.ISSUE.UPDATE_DATE, Tables.ISSUE.UPDATE_USER)
-		   .values(title, sentences, workload, randomStatus(workload), projectId, sprintId, assignedTo, getRandomTimestamp(), "1", getRandomTimestamp(), "1")
+		val status = randomStatus(workload)
+		val impact = randomImpact(workload)
+		val urgency = randomUrgency(workload)
+		val importance = IssueRepositoryImpl(dsl).determineImportance(status, workload, impact, urgency)
+		
+		val issueId = dsl.insertInto(Tables.ISSUE, Tables.ISSUE.TITLE, Tables.ISSUE.DESCRIPTION, Tables.ISSUE.WORKLOAD, Tables.ISSUE.STATUS,
+				Tables.ISSUE.PROJECT_ID, Tables.ISSUE.SPRINT_ID, Tables.ISSUE.ASSIGNED, Tables.ISSUE.CREATE_DATE, Tables.ISSUE.CREATE_USER, Tables.ISSUE.UPDATE_DATE,
+				Tables.ISSUE.UPDATE_USER, Tables.ISSUE.URGENCY, Tables.ISSUE.IMPACT, Tables.ISSUE.IMPORTANCE)
+		   .values(title, sentences, workload, status.name, projectId, sprintId, assignedTo, getRandomTimestamp(), "1", getRandomTimestamp(), "1",
+				   urgency.name, impact.name, importance)
 		   .returning(Tables.ISSUE.ID).fetchOne().get(Tables.ISSUE.ID);
 		
 		for(i in 1..Random().nextInt(10)) {
@@ -166,8 +178,9 @@ class IssueLoader(
 	}
 	
 	fun randomWorkload() : Int = Random().nextInt(9) - 1
-
-	fun randomStatus(workload : Int) : String = if(workload != -1) Progress.values()[Random().nextInt(Progress.values().size)].name else Progress.NEW.name
+	fun randomUrgency(workload : Int) : Urgency = if(workload != -1) Urgency.values()[Random().nextInt(Urgency.values().size)] else Urgency.NORMAL
+	fun randomImpact(workload : Int) : Impact = if(workload != -1) Impact.values()[Random().nextInt(Impact.values().size)] else Impact.NORMAL
+	fun randomStatus(workload : Int) : Progress = if(workload != -1) Progress.values()[Random().nextInt(Progress.values().size)] else Progress.NEW
 
 	fun mergeSentences(sentences : List<String>) : String {
 		val sb : StringBuffer = StringBuffer()

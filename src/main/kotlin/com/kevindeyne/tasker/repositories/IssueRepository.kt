@@ -41,4 +41,6 @@ interface IssueRepository {
 	
 	fun findAllInProgress(userId : Long?, sprintId : Long?) : List<InProgressIssue>
 	
+	fun determineImportance(status : Progress, workload : Int, impact : Impact, urgency : Urgency) : Int
+	
 }
