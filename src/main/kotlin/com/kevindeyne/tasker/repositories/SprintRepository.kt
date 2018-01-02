@@ -6,4 +6,6 @@ interface SprintRepository {
 	
 	fun startSprint(projectId : Long) : Long
 	
+	fun findEndedSprints() : List<Long>	
+	
 }

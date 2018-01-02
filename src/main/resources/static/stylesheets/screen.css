@@ -382,27 +382,32 @@ aside section i.critical-issue {
   color: #ff6e6e;
   opacity: 1;
 }
+/* line 76, ../sass/_aside.scss */
+aside section i.overload-issue {
+  color: #ffb26e;
+  opacity: 1;
+}
 
-/* line 77, ../sass/_aside.scss */
+/* line 82, ../sass/_aside.scss */
 aside section.active {
   background-color: #2070f7 !important;
   color: #ffffff !important;
   cursor: default;
 }
 
-/* line 83, ../sass/_aside.scss */
+/* line 88, ../sass/_aside.scss */
 aside section.hover {
   border: 2px solid #2070f7;
 }
 
-/* line 87, ../sass/_aside.scss */
+/* line 92, ../sass/_aside.scss */
 aside section > h1 {
   font-weight: 500;
   padding: 1em 1em 0.1em 1em;
   box-sizing: border-box;
 }
 
-/* line 93, ../sass/_aside.scss */
+/* line 98, ../sass/_aside.scss */
 aside section > p {
   padding: 1em;
   box-sizing: border-box;

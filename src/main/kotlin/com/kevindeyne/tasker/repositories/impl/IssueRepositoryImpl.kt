@@ -47,7 +47,7 @@ open class IssueRepositoryImpl (val dsl: DSLContext) : IssueRepository {
 									n.get(Tables.ISSUE.TITLE),
 									abbreviate(n.get(Tables.ISSUE.DESCRIPTION)),
 									n.get(Tables.ISSUE.DESCRIPTION),
-									determineClass(n.get(Tables.ISSUE.WORKLOAD), n.get(Tables.ISSUE.STATUS), n.get(Tables.ISSUE.URGENCY)),
+									determineClass(n.get(Tables.ISSUE.WORKLOAD), n.get(Tables.ISSUE.STATUS), n.get(Tables.ISSUE.URGENCY), n.get(Tables.ISSUE.OVERLOAD).compareTo(1) == 0),
 									n.get(Tables.ISSUE.IMPORTANCE))
 			   }
 			   .collect(Collectors.toList())
@@ -89,15 +89,15 @@ open class IssueRepositoryImpl (val dsl: DSLContext) : IssueRepository {
 				   Tables.ISSUE.STATUS.eq(Progress.NEW.name)
 				   .and(Tables.ISSUE.WORKLOAD.eq(-1))
 			  )
-
 	}
 	
-	fun determineClass(workload : Int, status : String, urgency : String) : String{
+	fun determineClass(workload : Int, status : String, urgency : String, overload : Boolean) : String{
 		
 		if(Urgency.valueOf(urgency).equals(Urgency.IMMEDIATELY)){ return "critical-issue" }		
 		if(workload == -1){ return "undetermined-issue" }		
 		if(Progress.valueOf(status).equals(Progress.IN_PROGRESS)){ return "inprogress-issue" }
-		
+		if(overload) { return "overload-issue" }
+				
 		return ""
 	}
 	
@@ -135,8 +135,8 @@ open class IssueRepositoryImpl (val dsl: DSLContext) : IssueRepository {
 		
 		return dsl.insertInto(Tables.ISSUE,
 				Tables.ISSUE.TITLE, Tables.ISSUE.DESCRIPTION, Tables.ISSUE.ASSIGNED, Tables.ISSUE.SPRINT_ID, Tables.ISSUE.PROJECT_ID,
-				Tables.ISSUE.CREATE_USER, Tables.ISSUE.UPDATE_USER, Tables.ISSUE.CREATE_DATE, Tables.ISSUE.UPDATE_DATE)
-		   .values(title, description, assignedTo, sprintId, projectId, createAndUpdateUser, createAndUpdateUser, timestamp, timestamp)
+				Tables.ISSUE.CREATE_USER, Tables.ISSUE.UPDATE_USER, Tables.ISSUE.CREATE_DATE, Tables.ISSUE.UPDATE_DATE, Tables.ISSUE.IMPORTANCE)
+		   .values(title, description, assignedTo, sprintId, projectId, createAndUpdateUser, createAndUpdateUser, timestamp, timestamp, IMPORTANCE_UNDECIDED)
 		   .returning(Tables.ISSUE.ID).fetchOne().get(Tables.ISSUE.ID);
 	}
 	
@@ -251,12 +251,12 @@ open class IssueRepositoryImpl (val dsl: DSLContext) : IssueRepository {
 						     userRepo.findUsernameById(n.get(Tables.ISSUE.CREATE_USER)),
 						     SimpleDateFormat("dd MMMMM yyyy").format(n.get(Tables.ISSUE.CREATE_DATE)),
 							 "SLA on time",
-							 determineClass(n.get(Tables.ISSUE.WORKLOAD), n.get(Tables.ISSUE.STATUS), n.get(Tables.ISSUE.URGENCY)),
+							 determineClass(n.get(Tables.ISSUE.WORKLOAD), n.get(Tables.ISSUE.STATUS), n.get(Tables.ISSUE.URGENCY), n.get(Tables.ISSUE.OVERLOAD).compareTo(1) == 0),
 							 commentsForIssue,
 							 n.get(Tables.ISSUE.IMPORTANCE))
 		}
 	}
-	
+		
 	@Transactional
 	override fun findStandupIssuesForSprint(sprintId : Long) : List<StandupResponse> {
 		return ArrayList<StandupResponse>();

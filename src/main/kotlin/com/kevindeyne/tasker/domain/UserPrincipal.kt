@@ -12,7 +12,8 @@ data class UserPrincipal constructor(
 		val projectId: Long?,
 		val sprintId: Long?,
 		val roles: List<Role>,
-		val trackingIssues: MutableList<InProgressIssue>
+		val trackingIssues: MutableList<InProgressIssue>,
+		val sprintReport: Boolean = false
 ) : UserDetails {
 
 	override fun getAuthorities(): MutableList<GrantedAuthority> {

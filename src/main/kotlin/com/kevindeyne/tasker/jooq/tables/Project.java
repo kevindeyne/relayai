@@ -39,7 +39,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Project extends TableImpl<ProjectRecord> {
 
-    private static final long serialVersionUID = 578397732;
+    private static final long serialVersionUID = -358654389;
 
     /**
      * The reference instance of <code>taskr.project</code>
@@ -68,6 +68,11 @@ public class Project extends TableImpl<ProjectRecord> {
      * The column <code>taskr.project.key</code>.
      */
     public final TableField<ProjectRecord, String> KEY = createField("key", org.jooq.impl.SQLDataType.VARCHAR(255).nullable(false), this, "");
+
+    /**
+     * The column <code>taskr.project.active_sprint_id</code>.
+     */
+    public final TableField<ProjectRecord, Long> ACTIVE_SPRINT_ID = createField("active_sprint_id", org.jooq.impl.SQLDataType.BIGINT.nullable(false).defaultValue(org.jooq.impl.DSL.inline("-1", org.jooq.impl.SQLDataType.BIGINT)), this, "");
 
     /**
      * Create a <code>taskr.project</code> table reference

@@ -1,5 +1,6 @@
 package com.kevindeyne.tasker.controller.timesheet
 
+import java.sql.Timestamp
 import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -34,6 +35,11 @@ enum class TimeUtils() {
 	fun addHours(date : Date, hours : Int) : Date {
 		val ldt : LocalDateTime = LocalDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault())
 		return Date.from(ldt.atZone(ZoneId.systemDefault()).plusHours(hours.toLong()).toInstant())
+	}
+	
+	fun inXdays(date : Date, days : Int) : Timestamp {
+		val ldt : LocalDateTime = LocalDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault())
+		return Timestamp(Date.from(ldt.atZone(ZoneId.systemDefault()).plusDays(days.toLong()).toInstant()).getTime())
 	}
 	
 	fun nextDay(date : Date) : Date  = addHours(date, 24)

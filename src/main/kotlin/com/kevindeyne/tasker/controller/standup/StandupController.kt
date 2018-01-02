@@ -11,8 +11,27 @@ import org.springframework.web.bind.annotation.GetMapping
 class StandupController(val issueRepository : IssueRepository, val sprintRepository : SprintRepository) {
 	
 	companion object {
+		const val STANDUP_REPORT = "/report"
 		const val STANDUP_GET = "/daily"
 		const val STANDUP_GET_SPECIFIC = "/daily/{sprintid}/{day}"
+	}
+	
+	@GetMapping(STANDUP_REPORT)
+	fun getReportOffinishedSprint(model : Model) : String {
+		val sprintId = SecurityHolder.getSprintId();
+		if(sprintId == null || !SecurityHolder.isReport()){ return "redirect:/" }
+		
+		model.addAttribute("report", true);
+		getDailyOverviewOfSpecificSprint(model, sprintId)
+
+		//TODO test data
+		val issueList = issueRepository.findAllActiveForUserInCurrentSprint()				
+		model.addAttribute("issueList1", issueList.subList(0, 2));
+		model.addAttribute("issueList2", issueList.subList(2, 4));
+		model.addAttribute("issueList3", issueList.subList(4, 5));
+		//end testData
+		
+		return "standup"
 	}
 	
 	@GetMapping(STANDUP_GET)
@@ -20,13 +39,14 @@ class StandupController(val issueRepository : IssueRepository, val sprintReposit
 		val sprintId = SecurityHolder.getSprintId();		
 		if(sprintId == null){ return "redirect:/" }
 	
+		model.addAttribute("report", false);
 		getDailyOverviewOfSpecificSprint(model, sprintId)
 				
 		//TODO test data
 		val issueList = issueRepository.findAllActiveForUserInCurrentSprint()				
-		model.addAttribute("issueList1", issueList.subList(0, 5));
-		model.addAttribute("issueList2", issueList.subList(6, 16));
-		model.addAttribute("issueList3", issueList.subList(17, 38));
+		model.addAttribute("issueList1", issueList.subList(0, 2));
+		model.addAttribute("issueList2", issueList.subList(2, 4));
+		model.addAttribute("issueList3", issueList.subList(4, 5));
 		//end testData
 		
 		return "standup"

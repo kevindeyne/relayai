@@ -48,6 +48,7 @@ class IssueLoader(
         	val projectId = generateProjects(faker)
         	attachProjectAndUser(projectId, userId)
         	val sprintId = generateSprints(projectId)
+			setActiveProject(projectId, sprintId)
 
         	var currentUserIssuesInSprint = 0
 			
@@ -62,7 +63,7 @@ class IssueLoader(
 
 			println("Done!")
     	}
-	}	
+	}
 	
 	fun truncateAll() {
 		dsl.truncate(Tables.ISSUE).execute();
@@ -77,6 +78,13 @@ class IssueLoader(
 		dsl.truncate(Tables.USER).execute();
 		dsl.truncate(Tables.USER_ROLE).execute();
 		dsl.truncate(Tables.COMMENTS).execute();
+	}
+	
+	fun setActiveProject(projectId : Long, sprintId : Long) {
+		dsl.update(Tables.PROJECT)
+			.set(Tables.PROJECT.ACTIVE_SPRINT_ID, sprintId)
+			.where(Tables.PROJECT.ID.eq(projectId))
+			.execute()
 	}
 	
 	fun generateUsers(faker : Faker) : Long{
@@ -158,9 +166,9 @@ class IssueLoader(
 		
 		val issueId = dsl.insertInto(Tables.ISSUE, Tables.ISSUE.TITLE, Tables.ISSUE.DESCRIPTION, Tables.ISSUE.WORKLOAD, Tables.ISSUE.STATUS,
 				Tables.ISSUE.PROJECT_ID, Tables.ISSUE.SPRINT_ID, Tables.ISSUE.ASSIGNED, Tables.ISSUE.CREATE_DATE, Tables.ISSUE.CREATE_USER, Tables.ISSUE.UPDATE_DATE,
-				Tables.ISSUE.UPDATE_USER, Tables.ISSUE.URGENCY, Tables.ISSUE.IMPACT, Tables.ISSUE.IMPORTANCE)
+				Tables.ISSUE.UPDATE_USER, Tables.ISSUE.URGENCY, Tables.ISSUE.IMPACT, Tables.ISSUE.IMPORTANCE, Tables.ISSUE.OVERLOAD)
 		   .values(title, sentences, workload, status.name, projectId, sprintId, assignedTo, getRandomTimestamp(), "1", getRandomTimestamp(), "1",
-				   urgency.name, impact.name, importance)
+				   urgency.name, impact.name, importance, randomBoolean())
 		   .returning(Tables.ISSUE.ID).fetchOne().get(Tables.ISSUE.ID);
 		
 		for(i in 1..Random().nextInt(10)) {
@@ -177,6 +185,7 @@ class IssueLoader(
 		.returning(Tables.SEARCH.ID).fetchOne().get(Tables.SEARCH.ID);
 	}
 	
+	fun randomBoolean() : Byte = if (Random().nextInt(10) > 7) { 0.toByte() } else { 1.toByte() }
 	fun randomWorkload() : Int = Random().nextInt(9) - 1
 	fun randomUrgency(workload : Int) : Urgency = if(workload != -1) Urgency.values()[Random().nextInt(Urgency.values().size)] else Urgency.NORMAL
 	fun randomImpact(workload : Int) : Impact = if(workload != -1) Impact.values()[Random().nextInt(Impact.values().size)] else Impact.NORMAL

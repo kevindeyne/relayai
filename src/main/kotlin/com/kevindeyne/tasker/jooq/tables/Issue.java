@@ -40,7 +40,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Issue extends TableImpl<IssueRecord> {
 
-    private static final long serialVersionUID = 1329653410;
+    private static final long serialVersionUID = -2126438874;
 
     /**
      * The reference instance of <code>taskr.issue</code>
@@ -108,7 +108,7 @@ public class Issue extends TableImpl<IssueRecord> {
     /**
      * The column <code>taskr.issue.status</code>.
      */
-    public final TableField<IssueRecord, String> STATUS = createField("status", org.jooq.impl.SQLDataType.VARCHAR(35).nullable(false).defaultValue(org.jooq.impl.DSL.inline("BACKLOG", org.jooq.impl.SQLDataType.VARCHAR)), this, "");
+    public final TableField<IssueRecord, String> STATUS = createField("status", org.jooq.impl.SQLDataType.VARCHAR(35).nullable(false).defaultValue(org.jooq.impl.DSL.inline("NEW", org.jooq.impl.SQLDataType.VARCHAR)), this, "");
 
     /**
      * The column <code>taskr.issue.impact</code>.
@@ -128,7 +128,12 @@ public class Issue extends TableImpl<IssueRecord> {
     /**
      * The column <code>taskr.issue.importance</code>.
      */
-    public final TableField<IssueRecord, Integer> IMPORTANCE = createField("importance", org.jooq.impl.SQLDataType.INTEGER.nullable(false).defaultValue(org.jooq.impl.DSL.inline("-1", org.jooq.impl.SQLDataType.INTEGER)), this, "");
+    public final TableField<IssueRecord, Integer> IMPORTANCE = createField("importance", org.jooq.impl.SQLDataType.INTEGER.nullable(false).defaultValue(org.jooq.impl.DSL.inline("1", org.jooq.impl.SQLDataType.INTEGER)), this, "");
+
+    /**
+     * The column <code>taskr.issue.overload</code>.
+     */
+    public final TableField<IssueRecord, Byte> OVERLOAD = createField("overload", org.jooq.impl.SQLDataType.TINYINT.nullable(false).defaultValue(org.jooq.impl.DSL.inline("0", org.jooq.impl.SQLDataType.TINYINT)), this, "");
 
     /**
      * Create a <code>taskr.issue</code> table reference

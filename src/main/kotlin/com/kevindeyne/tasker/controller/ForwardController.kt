@@ -16,7 +16,11 @@ class ForwardController {
 	@GetMapping("/")
 	fun forwardLogic() : String {
 		if (SecurityHolder.hasRole(Role.DEVELOPER) || SecurityHolder.hasRole(Role.TESTER)) {
-			return redir(TaskboardController.TASKBOARD_GET);
+			if(SecurityHolder.isReport()) {
+				return redir(StandupController.STANDUP_REPORT);
+			} else {
+				return redir(TaskboardController.TASKBOARD_GET);	
+			}
 		} else if (SecurityHolder.hasRole(Role.TEAM_LEADER)) {
 			return redir(TaskboardController.TASKBOARD_GET);
 		} else if (SecurityHolder.hasRole(Role.SHAREHOLDER)) {

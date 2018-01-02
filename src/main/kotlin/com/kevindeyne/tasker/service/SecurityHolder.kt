@@ -11,8 +11,8 @@ object SecurityHolder {
 	
 	fun getUserId() : Long {
 		val principal: UserPrincipal? = getUserPrincipal()
-		if (null != principal) {		    
-			return principal.userId;
+		if (null != principal) {
+			return principal.userId
 		}
 		throw RuntimeException("No userId at this point")
 	}
@@ -20,7 +20,7 @@ object SecurityHolder {
 	fun getSprintId() : Long? {
 		val principal: UserPrincipal? = getUserPrincipal()
 		if (null != principal) {
-			return principal.sprintId;
+			return principal.sprintId
 		}
 		return null;
 	}
@@ -36,7 +36,7 @@ object SecurityHolder {
 	fun getRoles() : List<Role> {
 		val principal: UserPrincipal? = getUserPrincipal()
 		if (null != principal) {		    
-			return principal.roles;
+			return principal.roles
 		}
 		return listOf();
 	}
@@ -60,5 +60,13 @@ object SecurityHolder {
 			val issueListing = InProgressIssue(issueId, title)
 			principal.trackingIssues.add(issueListing)
 		}
-	}	
+	}
+	
+	fun isReport() : Boolean {
+		val principal: UserPrincipal? = getUserPrincipal()
+		if (null != principal && principal.sprintReport) {			
+			return true
+		}
+		return false
+	}
 }

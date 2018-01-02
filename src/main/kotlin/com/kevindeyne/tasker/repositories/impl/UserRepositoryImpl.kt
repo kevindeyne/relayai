@@ -26,7 +26,7 @@ open class UserRepositoryImpl (val dsl: DSLContext, val sprintRepository : Sprin
 			
 			val roles = getUserRoles(userId)
 			val issues = issueRepository.findAllInProgress(userId, sprintId)
-
+			
 			val up : UserPrincipal = record.get().map {
 			      n -> UserPrincipal(userId,
 									 n.get(Tables.USER.EMAIL),
@@ -34,7 +34,8 @@ open class UserRepositoryImpl (val dsl: DSLContext, val sprintRepository : Sprin
 									 projectId,
 									 sprintId,
 									 roles,
-									 issues.toMutableList())
+									 issues.toMutableList(),
+									 n.get(Tables.USER.REPORT).compareTo(1) == 0)
 			   }
 			
 			return up;
