@@ -9,8 +9,8 @@ data class UserPrincipal constructor(
 		val userId: Long,
 		val userName: String,
 		private val password: String,
-		val projectId: Long?,
-		val sprintId: Long?,
+		var projectId: Long,
+		var sprintId: Long,
 		val roles: List<Role>,
 		val trackingIssues: MutableList<InProgressIssue>,
 		val sprintReport: Boolean = false

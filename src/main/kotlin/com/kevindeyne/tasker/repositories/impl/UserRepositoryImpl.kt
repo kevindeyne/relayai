@@ -11,7 +11,8 @@ import org.springframework.transaction.annotation.Transactional
 import java.util.Optional
 
 @Repository
-open class UserRepositoryImpl (val dsl: DSLContext, val sprintRepository : SprintRepository, val issueRepository : IssueRepository) : UserRepository {
+open class UserRepositoryImpl (val dsl: DSLContext,
+	val sprintRepository : SprintRepository, val issueRepository : IssueRepository, val projectRepository : ProjectRepository) : UserRepository {
 	
 	@Transactional
 	override fun findByUsername(username : String) : UserPrincipal? {
@@ -20,9 +21,9 @@ open class UserRepositoryImpl (val dsl: DSLContext, val sprintRepository : Sprin
 			   .fetchOptional()
 
 		if(record.isPresent) {
-			val userId : Long = getUserIdFromRecord(record.get())		
-			val projectId : Long? = getProjectId(dsl, userId)
-			val sprintId : Long? = sprintRepository.findCurrentSprintByProjectId(projectId)
+			val userId : Long = getUserIdFromRecord(record.get())
+			val projectId : Long = projectRepository.findActiveProject(userId).id
+			val sprintId : Long = sprintRepository.findCurrentSprintByProjectId(projectId)
 			
 			val roles = getUserRoles(userId)
 			val issues = issueRepository.findAllInProgress(userId, sprintId)
@@ -65,17 +66,4 @@ open class UserRepositoryImpl (val dsl: DSLContext, val sprintRepository : Sprin
 	}
 	
 	fun getUserIdFromRecord(record : UserRecord) : Long = record.get(Tables.USER.ID)
-	
-	fun getProjectId(dsl: DSLContext, userId : Long) : Long? {
-		val projectRecord = dsl.selectFrom(Tables.PROJECT_USERS)
-			   .where(Tables.PROJECT_USERS.USER_ID.eq(userId))
-			   .and(Tables.PROJECT_USERS.ACTIVE.eq(true))
-			   .fetchOptional()
-		
-		if(projectRecord.isPresent) {
-			return projectRecord.get().get(Tables.PROJECT_USERS.PROJECT_ID)
-		} else {
-			return null
-		}
-	}
 }

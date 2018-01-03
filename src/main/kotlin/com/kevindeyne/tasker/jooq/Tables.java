@@ -6,6 +6,7 @@ package com.kevindeyne.tasker.jooq;
 
 import com.kevindeyne.tasker.jooq.tables.Comments;
 import com.kevindeyne.tasker.jooq.tables.Event;
+import com.kevindeyne.tasker.jooq.tables.Invitation;
 import com.kevindeyne.tasker.jooq.tables.Issue;
 import com.kevindeyne.tasker.jooq.tables.Knowledge;
 import com.kevindeyne.tasker.jooq.tables.Project;
@@ -44,6 +45,11 @@ public class Tables {
      * The table <code>taskr.event</code>.
      */
     public static final Event EVENT = com.kevindeyne.tasker.jooq.tables.Event.EVENT;
+
+    /**
+     * The table <code>taskr.invitation</code>.
+     */
+    public static final Invitation INVITATION = com.kevindeyne.tasker.jooq.tables.Invitation.INVITATION;
 
     /**
      * The table <code>taskr.issue</code>.

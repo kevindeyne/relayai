@@ -9,7 +9,7 @@
 		</section>
 		
 		<section>
-			<h2>Currently active project: <span class="changeable">Kruispuntbank Inburgering (KBI)</span></h2>
+			<h2>Currently active project: <span id="change-project" data-status="Current project" class="changeable" th:text="${currentProject.title}" th:data-value="${currentProject.id}"></span></h2>
 			<p>This determines which issues you will be actively following up. Only one project can be active at a time; but switching is instant.</p>
 		</section>
 		

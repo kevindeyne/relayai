@@ -18,8 +18,12 @@ $(document).ready(function() {
 		
 		var position = $(this).position();
 		var left = $("nav").width() + $("aside").width() + position.left;
-		$("#overlay").show().css({opacity: '0'}).animate({opacity: '1'}, "fast");			
-		$("#overlay-detail").show().css({ "left": left, "top": position.top }).css({opacity: '0'}).animate({opacity: '1'}, "fast");				
+		var top = position.top;
+		if(isNaN(left)) { left = $("nav").width() + position.left }
+		if("change-workload" == relativeTo) { top += $(this).parent().parent().position().top; }
+		
+		$("#overlay").show().css({opacity: '0'}).animate({opacity: '1'}, "fast");
+		$("#overlay-detail").show().css({ "left": left, "top": top }).css({opacity: '0'}).animate({opacity: '1'}, "fast");				
 	});
 	
 	$("#overlay-detail button.altpath").click(function(){hideOverlay();});
@@ -46,8 +50,14 @@ $(document).ready(function() {
 function changeSubmitFunctionality(){
 	var issueId = $("aside section.active").attr("issue-id");
 	var action = $("#overlay-detail ul:visible li.active").attr("data-value");
-	var relativeTo = $("#overlay-detail").attr("relative-to").replace("change-", "");
-	$.post("/issue/"+issueId+"/"+relativeTo+"/"+action, {}, function(response) {}, 'json');	
+	
+	if(typeof issueId === "undefined"){
+		$.post("/project/changeto/"+action, {}, function(response) {}, 'json');
+	} else {	
+		var relativeTo = $("#overlay-detail").attr("relative-to").replace("change-", "");
+		$.post("/issue/"+issueId+"/"+relativeTo+"/"+action, {}, function(response) {}, 'json');	
+	}
+		
 	afterChange(action);
 };
 

@@ -14,19 +14,16 @@ open class SprintRepositoryImpl (val dsl: DSLContext) : SprintRepository {
 	
 	val tU = TimeUtils.INSTANCE
 		
-	override fun findCurrentSprintByProjectId(projectId : Long?) : Long? {
-		if(projectId != null) {
-			val sprintRecord = dsl.selectFrom(Tables.PROJECT)
-					.where(Tables.PROJECT.ID.eq(projectId))					
-					.fetchOptional()
-			
-			if(sprintRecord.isPresent) {
-				return sprintRecord.get().get(Tables.PROJECT.ACTIVE_SPRINT_ID)
-			} else {
-				return null
-			}
+	override fun findCurrentSprintByProjectId(projectId : Long) : Long {
+		val sprintRecord = dsl.selectFrom(Tables.PROJECT)
+				.where(Tables.PROJECT.ID.eq(projectId))					
+				.fetchOptional()
+		
+		if(sprintRecord.isPresent) {
+			return sprintRecord.get().get(Tables.PROJECT.ACTIVE_SPRINT_ID)
 		}
-		return null;
+				
+		throw RuntimeException("Cannot retrieve sprint when no project is active")
 	}
 	
 	override fun findEndedSprints() : List<Long> {		

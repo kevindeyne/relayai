@@ -6,6 +6,7 @@ package com.kevindeyne.tasker.jooq;
 
 import com.kevindeyne.tasker.jooq.tables.Comments;
 import com.kevindeyne.tasker.jooq.tables.Event;
+import com.kevindeyne.tasker.jooq.tables.Invitation;
 import com.kevindeyne.tasker.jooq.tables.Issue;
 import com.kevindeyne.tasker.jooq.tables.Knowledge;
 import com.kevindeyne.tasker.jooq.tables.Project;
@@ -47,6 +48,7 @@ public class Indexes {
     public static final Index COMMENTS_PRIMARY = Indexes0.COMMENTS_PRIMARY;
     public static final Index COMMENTS_USER_ID = Indexes0.COMMENTS_USER_ID;
     public static final Index EVENT_PRIMARY = Indexes0.EVENT_PRIMARY;
+    public static final Index INVITATION_PRIMARY = Indexes0.INVITATION_PRIMARY;
     public static final Index ISSUE_PRIMARY = Indexes0.ISSUE_PRIMARY;
     public static final Index ISSUE_PROJECT_ID = Indexes0.ISSUE_PROJECT_ID;
     public static final Index ISSUE_SPRINT_ID = Indexes0.ISSUE_SPRINT_ID;
@@ -85,6 +87,7 @@ public class Indexes {
         public static Index COMMENTS_PRIMARY = createIndex("PRIMARY", Comments.COMMENTS, new OrderField[] { Comments.COMMENTS.ID }, true);
         public static Index COMMENTS_USER_ID = createIndex("user_id", Comments.COMMENTS, new OrderField[] { Comments.COMMENTS.USER_ID }, false);
         public static Index EVENT_PRIMARY = createIndex("PRIMARY", Event.EVENT, new OrderField[] { Event.EVENT.ID }, true);
+        public static Index INVITATION_PRIMARY = createIndex("PRIMARY", Invitation.INVITATION, new OrderField[] { Invitation.INVITATION.ID }, true);
         public static Index ISSUE_PRIMARY = createIndex("PRIMARY", Issue.ISSUE, new OrderField[] { Issue.ISSUE.ID }, true);
         public static Index ISSUE_PROJECT_ID = createIndex("project_id", Issue.ISSUE, new OrderField[] { Issue.ISSUE.PROJECT_ID }, false);
         public static Index ISSUE_SPRINT_ID = createIndex("sprint_id", Issue.ISSUE, new OrderField[] { Issue.ISSUE.SPRINT_ID }, false);

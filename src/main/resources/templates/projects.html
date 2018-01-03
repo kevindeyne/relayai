@@ -6,6 +6,22 @@
 </head>
 <body>
 	<nav th:replace="fragments/template :: navigation">Side menu</nav>
+	
+	<div id="overlay" th:fragment="overlay-edits">
+		<div id="overlay-detail">
+			<p><span></span>: <span class="changing"></span></p>
+			<hr/>
+
+			<ul id="overlay-project" class="overlay-options">
+				<li th:each="project : ${projects}" th:text="${project.title}" th:data-value="${project.id}">KBI, ETC, ...</li>
+			</ul>
+						
+			<div class="button-group">
+				<button id="edit-changer-submit" type="button">Change</button>
+				<button type="button" class="altpath">Cancel</button>
+			</div>
+		</div>
+	</div>
 			
 	<article th:replace="fragments/projects :: main-article">Main content</article>
 	
@@ -19,11 +35,16 @@
 	<script src="/js/taskr-navigation.js"></script>
 	<script src="/js/taskr-notification-pulling.js"></script>
 	<script src="/js/taskr-new-issue.js"></script>
+	<script src="/js/taskr-edit-overlay.js"></script>
 	
 	<script>
 		$(document).ready(function() {
-				
+			
 		});
+		
+		function getActiveClass() {
+			return "";
+		} 
 	</script>	
 </body>
 </html>

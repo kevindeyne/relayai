@@ -27,7 +27,7 @@ object SecurityHolder {
 	
 	fun getProjectId() : Long {
 		val principal: UserPrincipal? = getUserPrincipal()
-		if (null != principal && null != principal.projectId) {		    
+		if (null != principal) {  
 			return principal.projectId
 		}
 		throw RuntimeException("No projectId at this point")
@@ -68,5 +68,14 @@ object SecurityHolder {
 			return true
 		}
 		return false
+	}
+	
+	fun changeProject(projectId : Long, sprintId : Long) {
+		val authentication : Authentication = SecurityContextHolder.getContext().getAuthentication()
+		if (!(authentication is AnonymousAuthenticationToken)) {		    
+			val principal = authentication.principal as UserPrincipal
+			principal.sprintId = sprintId
+			principal.projectId = projectId
+		}
 	}
 }
