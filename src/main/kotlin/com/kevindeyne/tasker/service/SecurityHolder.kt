@@ -20,6 +20,7 @@ object SecurityHolder {
 	fun getSprintId() : Long? {
 		val principal: UserPrincipal? = getUserPrincipal()
 		if (null != principal) {
+			println("Returning sprintid: ${principal.sprintId}")
 			return principal.sprintId
 		}
 		return null;
@@ -27,7 +28,8 @@ object SecurityHolder {
 	
 	fun getProjectId() : Long {
 		val principal: UserPrincipal? = getUserPrincipal()
-		if (null != principal) {  
+		if (null != principal) {
+			println("Returning projectid: ${principal.projectId}")
 			return principal.projectId
 		}
 		throw RuntimeException("No projectId at this point")
@@ -74,6 +76,7 @@ object SecurityHolder {
 		val authentication : Authentication = SecurityContextHolder.getContext().getAuthentication()
 		if (!(authentication is AnonymousAuthenticationToken)) {		    
 			val principal = authentication.principal as UserPrincipal
+			println("Switching projectid: ${principal.projectId}, sprintid: ${principal.sprintId} to $projectId, $sprintId")
 			principal.sprintId = sprintId
 			principal.projectId = projectId
 		}

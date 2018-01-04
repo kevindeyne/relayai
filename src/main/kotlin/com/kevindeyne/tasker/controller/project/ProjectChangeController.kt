@@ -1,4 +1,4 @@
-package com.kevindeyne.tasker.controller
+package com.kevindeyne.tasker.controller.project
 
 import com.kevindeyne.tasker.controller.form.FormResponse
 import com.kevindeyne.tasker.repositories.ProjectRepository
@@ -13,16 +13,7 @@ class ProjectChangeController(val projectRepository : ProjectRepository) {
 	@PostMapping(ProjectController.PROJECT_CHANGE)
 	fun changeProject(@PathVariable projectId : String) : FormResponse {
 		val userId = SecurityHolder.getUserId()
-		
 		projectRepository.changeActiveProject(userId, projectId.toLong())
-		
-		val sprintId = SecurityHolder.getSprintId()
-		val projectId = SecurityHolder.getProjectId()
-		
-		if(userId == null || sprintId == null || projectId == null){
-			return FormResponse(status = "INVALID")
-		}
-
 		return FormResponse(status = "OK")
 	}
 }

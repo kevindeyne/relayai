@@ -68,7 +68,7 @@ class TaskboardController(var issueRepository : IssueRepository) {
 		model.addAttribute("inProgressIssueList", issueRepository.findAllInProgress());		
 	}
 	
-	fun determineMaxId(list : List<IssueListing>) : Long =  list.stream().mapToLong{ i -> i.id }.max().asLong
+	fun determineMaxId(list : List<IssueListing>) : Long = if(list.isEmpty()) 0L else list.stream().mapToLong{ i -> i.id }.max().asLong
 	
 	fun specificsTaskboardBuildup(model : Model, issue : IssueResponse) {
 		model.addAttribute("currentIssueId", issue.id)

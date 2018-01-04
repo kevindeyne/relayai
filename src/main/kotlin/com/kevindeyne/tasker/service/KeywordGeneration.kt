@@ -25,6 +25,6 @@ object KeywordGeneration {
 		return resultSet
 	}
 	
-	fun isActiveWord(value : String) = !arrayOf("http").contains(value)
+	fun isActiveWord(value : String) = !("http").equals(value)
 	
 }

@@ -8,8 +8,7 @@ $(document).ready(function() {
 	//task list logic on taskboard
 	$("aside section").click(function (){
 		var issueId = $(this).attr("issue-id");
-		localStorage.setItem("current-issue", issueId);
-		
+		localStorage.setItem("current-issue", issueId);		
 		var sectionId = '#' + $(this).find(".progress").attr("id");
 		if(latestClickedIssue !== sectionId){
 			$("section svg").remove();

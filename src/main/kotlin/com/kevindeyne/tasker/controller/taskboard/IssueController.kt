@@ -32,7 +32,7 @@ class IssueController(var issueRepository : IssueRepository, var jmsTemplate : J
 			val sprintId = SecurityHolder.getSprintId()
 			val projectId = SecurityHolder.getProjectId()
 			
-			if(userId == null || sprintId == null || projectId == null){
+			if(sprintId == null){
 				return FormResponse(status = "INVALID")
 			}
 			
@@ -61,9 +61,9 @@ class IssueController(var issueRepository : IssueRepository, var jmsTemplate : J
 	fun progressIssue(@PathVariable id : String, @PathVariable action : String, @PathVariable changedValue : String) : FormResponse {
 		val userId = SecurityHolder.getUserId()
 		val sprintId = SecurityHolder.getSprintId()
-		val projectId = SecurityHolder.getProjectId()
+		val projectId = SecurityHolder.getProjectId() 
 		
-		if(userId == null || sprintId == null || projectId == null){
+		if(sprintId == null){
 			return FormResponse(status = "INVALID")
 		}
 				

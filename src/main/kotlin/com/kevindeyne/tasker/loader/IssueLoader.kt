@@ -45,20 +45,41 @@ class IssueLoader(
         	println("Generating issues ...")
 
         	val userId = generateUsers(faker)
+			
         	val projectId = generateProjects(faker)
-        	attachProjectAndUser(projectId, userId)
-        	val sprintId = generateSprints(projectId)
+			val projectId2 = generateProjects(faker)
+			assert(projectId != projectId2)
+			
+        	attachProjectAndUser(projectId, userId, true)
+			attachProjectAndUser(projectId2, userId, false)
+        	
+			val sprintId = generateSprints(projectId)
+			val sprintId2 = generateSprints(projectId2)
+			
+			assert(sprintId != sprintId2)
+			
 			setActiveProject(projectId, sprintId)
+			setActiveProject(projectId2, sprintId2)
 
         	var currentUserIssuesInSprint = 0
 			
-			for(i in 0..500 + maxUserIssuesInSprint){
+			for(i in 0..250 + maxUserIssuesInSprint){
 				var assignedTo = 400L
 				if(maxUserIssuesInSprint > currentUserIssuesInSprint++) {
 					assignedTo = userId
 				}
 
 				insertIntoIssue(faker, userId, projectId, sprintId, assignedTo)
+			}
+			
+			currentUserIssuesInSprint = 0
+			for(i in 0..250 + maxUserIssuesInSprint){
+				var assignedTo = 400L
+				if(maxUserIssuesInSprint > currentUserIssuesInSprint++) {
+					assignedTo = userId
+				}
+
+				insertIntoIssue(faker, userId, projectId2, sprintId2, assignedTo)
 			}
 
 			println("Done!")
@@ -89,21 +110,25 @@ class IssueLoader(
 	
 	fun generateUsers(faker : Faker) : Long{
 		val userId = insertIntoUser(faker.name().fullName(), "admin", passwordEncoder.encode("admin"))
-		insertIntoUser(faker.name().fullName(), "admin2", passwordEncoder.encode("admin2"))
+		
 		for(i in 0..500){
-			insertIntoUser(faker.name().fullName(), faker.internet().emailAddress(),  faker.internet().password())
+			val email = faker.internet().emailAddress()
+			if(!"admin".equals(email)){
+				insertIntoUser(faker.name().fullName(), email,  faker.internet().password())	
+			}			
 		}
 		return userId;
 	}
 	
 	fun generateProjects(faker : Faker) : Long{
+		var projectId = -1L;
 		for(i in 0..500){
-			dsl.insertInto(Tables.PROJECT, Tables.PROJECT.TITLE, Tables.PROJECT.KEY)
-			   .values(faker.space().nasaSpaceCraft(), faker.space().agencyAbbreviation())
-			   .execute()
+			projectId = dsl.insertInto(Tables.PROJECT, Tables.PROJECT.TITLE, Tables.PROJECT.KEY)
+			   .values("${faker.space().nasaSpaceCraft()}#${Random().nextInt(10)}", faker.space().agencyAbbreviation())
+			   .returning(Tables.PROJECT.ID).fetchOne().get(Tables.PROJECT.ID);
 		}
 
-		return dsl.selectFrom(Tables.PROJECT).fetchAny().get(Tables.PROJECT.ID)
+		return projectId
 	}
 	
 	fun generateSprints(projectId : Long) : Long{
@@ -119,10 +144,10 @@ class IssueLoader(
 		return currentSprintId;
 	}
 	
-	fun attachProjectAndUser(projectId : Long, userId : Long) =
+	fun attachProjectAndUser(projectId : Long, userId : Long, active : Boolean) =
 			dsl.insertInto(Tables.PROJECT_USERS,
 			  Tables.PROJECT_USERS.PROJECT_ID, Tables.PROJECT_USERS.USER_ID, Tables.PROJECT_USERS.ACTIVE)
-		   .values(projectId, userId, true)
+		   .values(projectId, userId, active)
 		   .execute()
 	
 	

@@ -53,6 +53,8 @@ function changeSubmitFunctionality(){
 	
 	if(typeof issueId === "undefined"){
 		$.post("/project/changeto/"+action, {}, function(response) {}, 'json');
+		localStorage.removeItem("current-issue");
+		$("#taskurl").attr("href", "/tasks/");
 	} else {	
 		var relativeTo = $("#overlay-detail").attr("relative-to").replace("change-", "");
 		$.post("/issue/"+issueId+"/"+relativeTo+"/"+action, {}, function(response) {}, 'json');	

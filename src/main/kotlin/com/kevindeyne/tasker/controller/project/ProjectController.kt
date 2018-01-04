@@ -1,4 +1,4 @@
-package com.kevindeyne.tasker.controller
+package com.kevindeyne.tasker.controller.project
 
 import com.kevindeyne.tasker.controller.form.FormResponse
 import com.kevindeyne.tasker.repositories.ProjectRepository
