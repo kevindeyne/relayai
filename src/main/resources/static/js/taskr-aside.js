@@ -70,8 +70,10 @@ function handleIssueLoaded(latestClickedIssue, progressLine, issueLoadingAnimati
 			loadingContent(issueLoaded);
 			
 			var taskurl = '/tasks/' + issueId;
-			window.history.pushState('taskr-currentpage', null, taskurl);
-			$("#taskurl").attr("href", taskurl);
+			if(issueId != null) {
+				window.history.pushState('taskr-currentpage', null, taskurl);
+				$("#taskurl").attr("href", taskurl);	
+			}			
 		}
 		
 		try {
