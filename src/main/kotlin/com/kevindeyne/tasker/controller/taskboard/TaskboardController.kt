@@ -70,6 +70,7 @@ class TaskboardController(var issueRepository : IssueRepository) {
 	
 	fun specificsTaskboardBuildup(model : Model, issue : IssueResponse) {
 		model.addAttribute("currentIssueId", issue.id)
+		model.addAttribute("currentProjectTitle", issue.project)
 		model.addAttribute("currentIssueTitle", issue.title)
 		model.addAttribute("currentIssueDescription", issue.descr)
 		model.addAttribute("currentIssueProgress", issue.status)

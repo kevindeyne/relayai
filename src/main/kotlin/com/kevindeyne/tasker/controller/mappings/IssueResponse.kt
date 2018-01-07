@@ -16,6 +16,7 @@ data class IssueResponse @JsonCreator constructor(
 		var createDate: String = "",
 		var slaStatus: String = "",
 		var clazz : String = "",
+		var project : String = "",
 		var comments: List<CommentListing> = listOf(),
 		val importance: Int = IssueRepositoryImpl.IMPORTANCE_NORMAL
 )

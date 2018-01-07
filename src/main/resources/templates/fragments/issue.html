@@ -41,6 +41,7 @@
 	
 	<article id="main" th:fragment="main-article" th:classappend="${showCreatePage}?invisible">
 		<section id="content-userinfo">
+			<h3 th:text="${currentProjectTitle}" class="project-title"></h3>
 			<h1 th:text="${currentIssueTitle}"></h1>
 			<h2><span class="changeable" data-status="Current status" id="change-progress" th:text="${currentIssueProgress}"></span> - assigned to <span class="changeable" data-status="Current assignee" id="change-assignee">you</span></h2>
 			

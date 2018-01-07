@@ -30,6 +30,9 @@ open class IssueRepositoryImpl (val dsl: DSLContext) : IssueRepository {
 	@Autowired
 	lateinit var commentRepo : CommentRepository
 	
+	@Autowired
+	lateinit var projectRepo : ProjectRepository
+	
 	/*initial load*/
 	@Transactional
 	override fun findAllActiveForUserInCurrentSprint() : List<IssueListing> {
@@ -252,6 +255,7 @@ open class IssueRepositoryImpl (val dsl: DSLContext) : IssueRepository {
 						     SimpleDateFormat("dd MMMMM yyyy").format(n.get(Tables.ISSUE.CREATE_DATE)),
 							 "SLA on time",
 							 determineClass(n.get(Tables.ISSUE.WORKLOAD), n.get(Tables.ISSUE.STATUS), n.get(Tables.ISSUE.URGENCY), n.get(Tables.ISSUE.OVERLOAD).compareTo(1) == 0),
+							 projectRepo.findProject(SecurityHolder.getProjectId()).fullTitle(),
 							 commentsForIssue,
 							 n.get(Tables.ISSUE.IMPORTANCE))
 		}

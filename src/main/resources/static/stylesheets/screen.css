@@ -559,6 +559,17 @@ div#initial-load {
   z-index: 88;
 }
 
+/* line 120, ../sass/_main.scss */
+h3.project-title {
+  font-family: "Roboto", Times New Roman, Helvetica, sans-serif;
+  font-size: 1em;
+  letter-spacing: 1.5px;
+  font-weight: 100;
+  padding-bottom: 0.2em;
+  padding-left: 0.2em;
+  color: #696a6d;
+}
+
 /* line 5, ../sass/_undecided.scss */
 section#content-main p.warning {
   border: 1px solid #c3daff;
