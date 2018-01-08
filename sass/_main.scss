@@ -90,7 +90,7 @@ article section {
 }
 
 article#main section#content-main p.content{
-	padding-top: 13em;
+	padding-top: 14.5em;
 }
 
 article section p{
@@ -125,4 +125,47 @@ h3.project-title {
     padding-bottom: 0.2em;
     padding-left: 0.2em;
 	color: #696a6d;
+}
+
+table.team-member tr {
+    height: 2.5em;
+	
+	td {
+		padding-left: 1em;
+		padding-right: 1.5em;
+		
+		strong {
+			font-weight: 500;
+		}
+		
+		span {
+		}
+		
+		a {
+			font-weight: 100;
+			text-decoration: none;
+			color:#2070f7;
+		}
+	}
+}
+
+#invitations form {
+
+	padding-top: 0.5em;
+	padding-bottom: 0.5em;
+
+	input{
+		width: 16em;
+	}
+	
+	span {
+		padding: 1em;
+		font-size: 1.2em;
+		position: relative;
+		top: -2px;
+	}
+	
+	button {
+		width: 15em;
+	}
 }

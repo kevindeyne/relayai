@@ -3,12 +3,12 @@ $font-header: 'Roboto', Times New Roman, Helvetica, sans-serif;
 $font-code: 'Cutive Mono', 'Courier';
 
 section#content-main p.warning{
-    border: 1px solid #c3daff;
-    border-radius: 5px;
-    padding: 0.5em;
-    background: #f4f7ff;
-    color: #0058ff;
-	margin-top:1em;
+	padding: 1.2em;
+    background: linear-gradient(95deg, #2070f7, #5d99ff);
+    color: #f3f6f8;
+    margin-top: 1em;
+    font-weight: 100 !important;
+    margin-bottom: 1em;
 }
 
 div.undecided-option {

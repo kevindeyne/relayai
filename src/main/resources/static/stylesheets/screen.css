@@ -529,7 +529,7 @@ article section > section:first-child {
 
 /* line 92, ../sass/_main.scss */
 article#main section#content-main p.content {
-  padding-top: 13em;
+  padding-top: 14.5em;
 }
 
 /* line 96, ../sass/_main.scss */
@@ -570,14 +570,55 @@ h3.project-title {
   color: #696a6d;
 }
 
+/* line 130, ../sass/_main.scss */
+table.team-member tr {
+  height: 2.5em;
+}
+/* line 133, ../sass/_main.scss */
+table.team-member tr td {
+  padding-left: 1em;
+  padding-right: 1.5em;
+}
+/* line 137, ../sass/_main.scss */
+table.team-member tr td strong {
+  font-weight: 500;
+}
+/* line 144, ../sass/_main.scss */
+table.team-member tr td a {
+  font-weight: 100;
+  text-decoration: none;
+  color: #2070f7;
+}
+
+/* line 152, ../sass/_main.scss */
+#invitations form {
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+}
+/* line 157, ../sass/_main.scss */
+#invitations form input {
+  width: 16em;
+}
+/* line 161, ../sass/_main.scss */
+#invitations form span {
+  padding: 1em;
+  font-size: 1.2em;
+  position: relative;
+  top: -2px;
+}
+/* line 168, ../sass/_main.scss */
+#invitations form button {
+  width: 15em;
+}
+
 /* line 5, ../sass/_undecided.scss */
 section#content-main p.warning {
-  border: 1px solid #c3daff;
-  border-radius: 5px;
-  padding: 0.5em;
-  background: #f4f7ff;
-  color: #0058ff;
+  padding: 1.2em;
+  background: linear-gradient(95deg, #2070f7, #5d99ff);
+  color: #f3f6f8;
   margin-top: 1em;
+  font-weight: 100 !important;
+  margin-bottom: 1em;
 }
 
 /* line 14, ../sass/_undecided.scss */
