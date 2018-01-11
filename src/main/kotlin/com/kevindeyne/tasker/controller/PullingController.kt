@@ -23,7 +23,12 @@ class PullingController(val issueRepository : IssueRepository, val commentReposi
 		if(sprintId == null){ return getPullUpdateButOnlyNotifications(); }
 		val newIssues = issueRepository.findUpdateOnIssues(sprintId, maxid)
 		val comments = commentRepository.getCommentsForIssue(issueid, maxcommentid)
-		return PullUpdate(newIssues, comments);
+		
+		val myIssueCounter : Int = issueRepository.counterMyIssue(SecurityHolder.getUserId(), sprintId)
+		val sprintCounter : Int = issueRepository.counterSprint(sprintId)
+		val backlogCounter : Int = issueRepository.counterBacklog(SecurityHolder.getProjectId())
+		
+		return PullUpdate(newIssues, comments, myIssueCounter, sprintCounter, backlogCounter);
 	}
 	
 	@GetMapping(PULLING_OTHER)

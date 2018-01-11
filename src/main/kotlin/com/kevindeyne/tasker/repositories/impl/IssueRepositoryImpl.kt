@@ -13,6 +13,7 @@ import com.kevindeyne.tasker.jooq.tables.records.IssueRecord
 import com.kevindeyne.tasker.service.SecurityHolder
 import org.jooq.DSLContext
 import org.jooq.Record
+import org.jooq.impl.DSL
 import org.jooq.tools.StringUtils
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
@@ -325,5 +326,33 @@ open class IssueRepositoryImpl (val dsl: DSLContext) : IssueRepository {
 		if(Impact.MINIMAL.equals(impact)){ return IMPORTANCE_LOWPRIO }
 		
 		return IMPORTANCE_NORMAL
+	}
+	
+	override fun counterMyIssue(userId : Long, sprintId : Long) : Int {
+		return dsl.fetchCount(
+				dsl.selectFrom(Tables.ISSUE)
+			    .where(
+				   Tables.ISSUE.ASSIGNED.eq(userId)
+				   .and(Tables.ISSUE.SPRINT_ID.eq(sprintId))
+				   .and(ACTIVE_ISSUE)
+			   ))				
+	}
+	
+	override fun counterSprint(sprintId : Long) : Int {
+		return dsl.fetchCount(
+				dsl.selectFrom(Tables.ISSUE)
+			    .where(
+				   Tables.ISSUE.SPRINT_ID.eq(sprintId)
+				   .and(ACTIVE_ISSUE)
+			   ))	
+	}
+	
+	override fun counterBacklog(projectId : Long) : Int {
+		return dsl.fetchCount(
+				dsl.selectFrom(Tables.ISSUE)
+			    .where(
+				   Tables.ISSUE.PROJECT_ID.eq(projectId)
+				   .and(Tables.ISSUE.STATUS.eq(Progress.BACKLOG.name))
+			   ))	
 	}
 }

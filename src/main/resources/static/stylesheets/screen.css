@@ -326,24 +326,86 @@ aside div.progress {
   height: 0.3em;
   border-radius: 10px;
 }
+/* line 29, ../sass/_aside.scss */
+aside #aside-options {
+  padding-top: 1.25em;
+  padding-bottom: 0.5em;
+}
+/* line 33, ../sass/_aside.scss */
+aside #aside-options a {
+  color: #2070f7;
+  text-decoration: none;
+  padding: 0.53em 0.75em;
+  background: #f3f6f8;
+  border-radius: 14px;
+  font-weight: 500;
+  font-family: "Roboto", Times New Roman, Helvetica, sans-serif;
+  line-height: 1em;
+  font-size: 1em;
+  text-transform: uppercase;
+}
+/* line 45, ../sass/_aside.scss */
+aside #aside-options a span {
+  color: #154596;
+  border-radius: 3px;
+  background: #e3e8ea;
+  padding: 0 3px;
+  margin-left: 3px;
+  padding-right: 4px;
+}
+/* line 55, ../sass/_aside.scss */
+aside #aside-options a.t-active {
+  color: white;
+  background: #2070f7;
+  padding-left: 10px;
+}
+/* line 60, ../sass/_aside.scss */
+aside #aside-options a.t-active span {
+  background: #5796ff;
+  border-radius: 3px;
+  padding: 0 3px;
+  margin-left: 3px;
+  padding-right: 5px;
+  position: relative;
+  top: 0px;
+  color: #ffffff;
+}
+/* line 72, ../sass/_aside.scss */
+aside #aside-options a.t-active:hover {
+  background: #2070f7;
+}
+/* line 75, ../sass/_aside.scss */
+aside #aside-options a.t-active:hover span {
+  background: #5796ff;
+  color: #ffffff;
+}
+/* line 81, ../sass/_aside.scss */
+aside #aside-options a:hover {
+  background: #e3e8ea;
+}
+/* line 84, ../sass/_aside.scss */
+aside #aside-options a:hover span {
+  background: #ccd2d6;
+  color: black;
+}
 
-/* line 30, ../sass/_aside.scss */
+/* line 92, ../sass/_aside.scss */
 aside section:first-child {
   margin-top: 1em;
 }
 
-/* line 34, ../sass/_aside.scss */
+/* line 96, ../sass/_aside.scss */
 aside section:last-child {
   margin-bottom: 0.5em;
 }
 
-/* line 38, ../sass/_aside.scss */
+/* line 100, ../sass/_aside.scss */
 aside section.active i {
   color: #2070f7;
   opacity: 0;
 }
 
-/* line 43, ../sass/_aside.scss */
+/* line 105, ../sass/_aside.scss */
 aside section {
   -webkit-transition: all 0.15s ease-out;
   -moz-transition: all 0.15s ease-out;
@@ -359,7 +421,7 @@ aside section {
   margin: 0.7em 0em;
   border: 2px solid #f3f6f8;
 }
-/* line 53, ../sass/_aside.scss */
+/* line 115, ../sass/_aside.scss */
 aside section i {
   float: right;
   color: #ffffff;
@@ -367,47 +429,47 @@ aside section i {
   font-size: 8px !important;
   line-height: 1.5em;
 }
-/* line 61, ../sass/_aside.scss */
+/* line 123, ../sass/_aside.scss */
 aside section i.undetermined-issue {
   color: #b5b5b5;
   opacity: 1;
 }
-/* line 66, ../sass/_aside.scss */
+/* line 128, ../sass/_aside.scss */
 aside section i.inprogress-issue {
   color: #2070f7;
   opacity: 1;
 }
-/* line 71, ../sass/_aside.scss */
+/* line 133, ../sass/_aside.scss */
 aside section i.critical-issue {
   color: #ff6e6e;
   opacity: 1;
 }
-/* line 76, ../sass/_aside.scss */
+/* line 138, ../sass/_aside.scss */
 aside section i.overload-issue {
   color: #ffb26e;
   opacity: 1;
 }
 
-/* line 82, ../sass/_aside.scss */
+/* line 144, ../sass/_aside.scss */
 aside section.active {
   background-color: #2070f7 !important;
   color: #ffffff !important;
   cursor: default;
 }
 
-/* line 88, ../sass/_aside.scss */
+/* line 150, ../sass/_aside.scss */
 aside section.hover {
   border: 2px solid #2070f7;
 }
 
-/* line 92, ../sass/_aside.scss */
+/* line 154, ../sass/_aside.scss */
 aside section > h1 {
   font-weight: 500;
   padding: 1em 1em 0.1em 1em;
   box-sizing: border-box;
 }
 
-/* line 98, ../sass/_aside.scss */
+/* line 160, ../sass/_aside.scss */
 aside section > p {
   padding: 1em;
   box-sizing: border-box;

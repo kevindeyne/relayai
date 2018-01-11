@@ -43,4 +43,10 @@ interface IssueRepository {
 	
 	fun determineImportance(status : Progress, userId : Long, workload : Int, impact : Impact, urgency : Urgency) : Int
 	
+	fun counterMyIssue(userId : Long, sprintId : Long) : Int
+	
+	fun counterSprint(sprintId : Long) : Int
+	
+	fun counterBacklog(projectId : Long) : Int
+	
 }

@@ -6,4 +6,8 @@ import com.kevindeyne.tasker.domain.CommentListing
 
 data class PullUpdate @JsonCreator constructor(
 		var newIssues : List<IssueResponse> = listOf(),
-		var comments : List<CommentListing> = listOf())
+		var comments : List<CommentListing> = listOf(),
+		val myIssueCounter : Int = 0,
+		val sprintCounter : Int = 0,
+		val backlogCounter : Int = 0
+)

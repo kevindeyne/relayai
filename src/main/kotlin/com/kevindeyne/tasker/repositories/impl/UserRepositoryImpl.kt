@@ -2,6 +2,7 @@ package com.kevindeyne.tasker.repositories
 
 
 import com.kevindeyne.tasker.domain.Role
+import com.kevindeyne.tasker.domain.TeammemberListing
 import com.kevindeyne.tasker.domain.UserPrincipal
 import com.kevindeyne.tasker.jooq.Tables
 import com.kevindeyne.tasker.jooq.tables.records.UserRecord
@@ -9,6 +10,7 @@ import org.jooq.DSLContext
 import org.springframework.stereotype.Repository
 import org.springframework.transaction.annotation.Transactional
 import java.util.Optional
+import java.util.stream.Collectors
 
 @Repository
 open class UserRepositoryImpl (val dsl: DSLContext,
@@ -66,4 +68,44 @@ open class UserRepositoryImpl (val dsl: DSLContext,
 	}
 	
 	fun getUserIdFromRecord(record : UserRecord) : Long = record.get(Tables.USER.ID)
+		
+	override fun findTeammembersByProject(projectId : Long) : List<TeammemberListing> {
+		return dsl.select()
+				  .from(Tables.USER
+							.join(Tables.PROJECT_USERS)
+							.on(Tables.PROJECT_USERS.USER_ID.eq(Tables.USER.ID))
+							.join(Tables.USER_ROLE)
+							.on(Tables.USER_ROLE.USER_ID.eq(Tables.USER.ID))
+						)
+			   .where(Tables.PROJECT_USERS.PROJECT_ID.eq(projectId))
+			   .orderBy(Tables.USER_ROLE.ROLE)
+			   .fetch()
+			   .parallelStream()
+			   .map {
+				  n -> TeammemberListing(n.get(Tables.USER.ID),
+									n.get(Tables.USER.USERNAME),
+									Role.valueOf(n.get(Tables.USER_ROLE.ROLE)).text)
+			   }
+			   .collect(Collectors.toList())
+	}
+	
+	override fun findInvitesByProject(projectId : Long) : List<TeammemberListing> {
+		return dsl.select()
+				  .from(Tables.USER
+							.join(Tables.INVITATION)
+							.on(Tables.INVITATION.USER_ID.eq(Tables.USER.ID))
+							.join(Tables.USER_ROLE)
+							.on(Tables.USER_ROLE.USER_ID.eq(Tables.USER.ID))
+						)
+			   .where(Tables.INVITATION.PROJECT_ID.eq(projectId))
+			   .orderBy(Tables.USER_ROLE.ROLE)
+			   .fetch()
+			   .parallelStream()
+			   .map {
+				  n -> TeammemberListing(n.get(Tables.USER.ID),
+									n.get(Tables.USER.USERNAME),
+									Role.valueOf(n.get(Tables.USER_ROLE.ROLE)).text)
+			   }
+			   .collect(Collectors.toList())
+	}
 }

@@ -13,6 +13,10 @@ $(function() {
 			});
 		} else {
 			$.getJSON("/pull/"+issueid+"/"+maxid+"/"+highestComment, function(data) {
+			  $("#my-issues-counter").text(data.myIssueCounter);
+			  $("#sprint-counter").text(data.sprintCounter);
+			  $("#backlog-counter").text(data.backlogCounter);
+				
 			  for (var newIssueIndex in data.newIssues) {
 				var newIssue = data.newIssues[newIssueIndex];
 				if(newIssue.id > maxid){ maxid = newIssue.id; }

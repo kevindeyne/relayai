@@ -124,7 +124,7 @@ class IssueLoader(
 		var projectId = -1L;
 		for(i in 0..500){
 			projectId = dsl.insertInto(Tables.PROJECT, Tables.PROJECT.TITLE, Tables.PROJECT.KEY)
-			   .values("${faker.space().nasaSpaceCraft()}#${Random().nextInt(10)}", faker.space().agencyAbbreviation())
+			   .values("${faker.space().nasaSpaceCraft()} ${faker.space().nebula()}", faker.space().agencyAbbreviation())
 			   .returning(Tables.PROJECT.ID).fetchOne().get(Tables.PROJECT.ID);
 		}
 

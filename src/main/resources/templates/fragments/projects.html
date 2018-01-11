@@ -17,61 +17,33 @@
 			<h2>Invitations</h2>
 			
 			<form>
-				<input type="text"></input> 
+				<input type="text"></input>
 				<span class="changeable">Tester</span> 
 				<button>Send invite</button> 
 			</form>
 			
-			<table class="team-member">	
-				<tbody><tr>
-					<td><strong>Joseph Kennedey</strong></td>
-					<td><span class="changeable">Team leader</span></td>
-					<td><a href="#">Remove from project</a></td>
-				</tr>
-				
-				<tr>
-					<td><strong>Jeanette Schneider</strong></td>
-					<td><span class="changeable">Tester</span></td>
-					<td><a href="#">Remove from project</a></td>
-				</tr>
-			
-			</tbody></table>
+			<table id="invite-members" class="team-member">
+				<tbody>
+					<tr th:each="invite : ${invites}">
+						<td><strong th:text="${invite.name}">Joseph Kennedey</strong></td>
+						<td><span class="changeable" th:text="${invite.role}">Team leader</span></td>
+						<td><a th:href="${'#' + invite.id}">Remove from project</a></td>
+					</tr>
+				</tbody>
+			</table>
 			
 		</section>
 		
 		<section id="team-members">
 			<h2>Team members</h2>
 			<table class="team-member">	
-				<tr>
-					<td><strong>Joseph Kennedey</strong></td>
-					<td><span class="changeable">Team leader</span></td>
-					<td><a href="#">Remove from project</a></td>
-				</tr>
-				
-				<tr>
-					<td><strong>Jeanette Schneider</strong></td>
-					<td><span class="changeable">Tester</span></td>
-					<td><a href="#">Remove from project</a></td>
-				</tr>
-				
-				<tr>
-					<td><strong>Brandon Mack</strong></td>
-					<td><span class="changeable">Developer</span></td>
-					<td><a href="#">Remove from project</a></td>
-				</tr>
-				
-				<tr>
-					<td><strong>Frank Malone</strong></td>
-					<td><span class="changeable">Developer</span></td>
-					<td><a href="#">Remove from project</a></td>
-				</tr>
-				
-				<tr>
-					<td><strong>Titus Vangaerd</strong></td>
-					<td><span class="changeable">Shareholder</span></td>
-					<td><a href="#">Remove from project</a></td>
-				</tr>
-				
+				<tbody>
+					<tr th:each="teammember : ${teammembers}">
+						<td><strong th:text="${teammember.name}">Joseph Kennedey</strong></td>
+						<td><span class="changeable" th:text="${teammember.role}">Team leader</span></td>
+						<td><a th:href="${'#' + teammember.id}">Remove from project</a></td>
+					</tr>
+				</tbody>
 			</table>
 		</section>
 	</article>
