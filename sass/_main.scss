@@ -169,3 +169,11 @@ table.team-member tr {
 		width: 15em;
 	}
 }
+
+span.high-prio {
+    background: linear-gradient(90deg, #ffb5b5, #ff9c9c);
+}
+
+span.in-progress {
+	background: linear-gradient(90deg, #b7d2ff, #a3c5ff);
+}  

@@ -64,6 +64,8 @@ function changeSubmitFunctionality(){
 };
 
 function afterChange(action){
+	colorCodeChangeables();
+	
 	var issueId = $("aside section.active").attr("issue-id");
 	
 	if(action !== "IN_PROGRESS") {

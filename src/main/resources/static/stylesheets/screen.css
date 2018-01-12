@@ -686,6 +686,16 @@ table.team-member tr td a {
   width: 15em;
 }
 
+/* line 173, ../sass/_main.scss */
+span.high-prio {
+  background: linear-gradient(90deg, #ffb5b5, #ff9c9c);
+}
+
+/* line 177, ../sass/_main.scss */
+span.in-progress {
+  background: linear-gradient(90deg, #b7d2ff, #a3c5ff);
+}
+
 /* line 5, ../sass/_undecided.scss */
 section#content-main p.warning {
   padding: 1.2em;

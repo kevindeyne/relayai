@@ -38,6 +38,7 @@ $(document).ready(function() {
 	}
 	
 	determineUndecided();
+	colorCodeChangeables();
 	
 	$("#aside-issue, #aside-team, #aside-backlog").click(function(event){
 		event.preventDefault();
@@ -62,6 +63,19 @@ $(document).ready(function() {
 	
 });
 
+function colorCodeChangeables(){
+	if($("#change-progress").text() === "In progress"){
+		$("#change-progress").addClass("in-progress");
+	} else {
+		$("#change-progress").removeClass("in-progress");
+	}
+	
+	if($("#change-urgency").text() === "High priority"){
+		$("#change-urgency").addClass("high-prio");
+	} else {
+		$("#change-urgency").removeClass("high-prio");
+	}
+}
 
 function initScrollbar(element){
 	var aside = document.querySelector(element);
@@ -109,6 +123,7 @@ function loadingContent(issue){
 	$("#change-impact").text(issueLoaded.impact);
 	
 	determineUndecided();
+	colorCodeChangeables();
 	
 	$("#comment-box").val("");
 	$("#comments").html("");
