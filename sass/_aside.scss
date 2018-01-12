@@ -26,6 +26,19 @@ aside {
 		border-radius: 10px;
 	}
 	
+	#aside-loader {
+		display: none;
+		
+	    img {
+			display: block;
+			margin-left: auto;
+			margin-right: auto;		
+			padding-top: 1.5em;
+			width: 200px;
+			height: 200px; 
+		}
+	}
+	
 	#aside-options {
 		padding-top: 1.25em;
 		padding-bottom: 0.5em;

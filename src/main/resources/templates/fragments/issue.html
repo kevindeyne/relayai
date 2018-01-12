@@ -34,14 +34,19 @@
 	<aside th:fragment="issue-list" th:classappend="${showCreatePage}?invisible">
 		
 		<div id="aside-options">
-			<a href="#" class="t-active">My issues <span id="my-issues-counter">13</span></a> <a href="#">In sprint <span id="sprint-counter">23</span></a> <a href="#">Backlog <span id="backlog-counter">123</span></a>
+			<a href="#" id="aside-issue" class="t-active">My issues <span id="my-issues-counter"></span></a> <a href="#" id="aside-team">In team <span id="sprint-counter"></span></a> <a href="#" id="aside-backlog">Backlog <span id="backlog-counter"></span></a>
 		</div>
-	
-		<section th:each="issue : ${issueList}" th:issue-id="${issue.id}" th:importance="${issue.importance}" th:classappend="${currentIssueId == issue.id}?active">
-			<h1><span th:text="${issue.title}"></span> <i class="fa fa-circle" th:classappend="${issue.clazz}" aria-hidden="true"></i></h1>
-			<p th:text="${issue.shortDescr}"></p>
-			<div th:id="${'progress-' + issue.id}" class="progress"></div>
-		</section>
+		<div id="aside-loader"><img src="/icons/spinner_color.gif" /></div>
+		<div id="aside-issue-list">
+			<section th:each="issue : ${issueList}" th:issue-id="${issue.id}" th:importance="${issue.importance}" th:classappend="${currentIssueId == issue.id}?active">
+				<h1><span th:text="${issue.title}"></span> <i class="fa fa-circle" th:classappend="${issue.clazz}" aria-hidden="true"></i></h1>
+				<p th:text="${issue.shortDescr}"></p>
+				<div th:id="${'progress-' + issue.id}" class="progress"></div>
+			</section>
+		</div>
+		
+		<div id="aside-team-list"></div>
+		<div id="aside-backlog-list"></div>
 	</aside>
 	
 	<article id="main" th:fragment="main-article" th:classappend="${showCreatePage}?invisible">

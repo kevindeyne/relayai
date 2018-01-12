@@ -1,5 +1,5 @@
 var latestClickedIssue = null;
-
+var asideLoaded = "#aside-issue-list";
 var issueLoaded = new Object();
 		
 $(document).ready(function() {
@@ -38,10 +38,27 @@ $(document).ready(function() {
 	}
 	
 	determineUndecided();
+	
+	$("#aside-issue, #aside-team, #aside-backlog").click(function(event){
+		event.preventDefault();
+		$("#aside-issue, #aside-team, #aside-backlog").removeClass("t-active");
+		$("#aside-issue-list, #aside-team-list, #aside-backlog-list").hide();
+		$("#aside-loader").show();
+		$(this).addClass("t-active");
+		asideLoaded = "#" + $(this).attr("id") + "-list";
+		
+		$.getJSON("../issue/1", function(data) { //todo
+			setTimeout(function(){
+				$("#aside-loader").hide();
+				asideLoaded = "#aside-issue-list"; //todo
+				$(asideLoaded).fadeIn(500);		
+			}, 500);	
+		});
+		
+		return false;
+	});
 
 	//$('aside .ss-content').animate({ scrollTop: Math.abs($("section.active").offset().top+200) }, 1); //scroll to active - convenience; for clarity we probably want to keep the active one fixed and inbox moving TODO
-	
-	
 	
 });
 

@@ -18,7 +18,7 @@ class CommonInterceptor(val issueRepository : IssueRepository) : HandlerIntercep
 			val authentication : Authentication = SecurityContextHolder.getContext().getAuthentication()
 			if (!(authentication is AnonymousAuthenticationToken)) {
 				val reqUrl = request.getRequestURL().toString()
-				if(reqUrl.contains("login") || reqUrl.contains("pull")) {
+				if(reqUrl.contains("pull") || reqUrl.contains("login") || reqUrl.contains("logout")) {
 					return;
 				}
 			
