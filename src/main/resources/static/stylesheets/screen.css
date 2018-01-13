@@ -382,43 +382,44 @@ aside #aside-options a.t-active span {
   position: relative;
   top: 0px;
   color: #ffffff;
+  display: inline-block;
 }
-/* line 85, ../sass/_aside.scss */
+/* line 86, ../sass/_aside.scss */
 aside #aside-options a.t-active:hover {
   background: #2070f7;
 }
-/* line 88, ../sass/_aside.scss */
+/* line 89, ../sass/_aside.scss */
 aside #aside-options a.t-active:hover span {
   background: #5796ff;
   color: #ffffff;
 }
-/* line 94, ../sass/_aside.scss */
+/* line 95, ../sass/_aside.scss */
 aside #aside-options a:hover {
   background: #e3e8ea;
 }
-/* line 97, ../sass/_aside.scss */
+/* line 98, ../sass/_aside.scss */
 aside #aside-options a:hover span {
   background: #ccd2d6;
   color: black;
 }
 
-/* line 105, ../sass/_aside.scss */
+/* line 106, ../sass/_aside.scss */
 aside section:first-child {
   margin-top: 1em;
 }
 
-/* line 109, ../sass/_aside.scss */
+/* line 110, ../sass/_aside.scss */
 aside section:last-child {
   margin-bottom: 0.5em;
 }
 
-/* line 113, ../sass/_aside.scss */
+/* line 114, ../sass/_aside.scss */
 aside section.active i {
   color: #2070f7;
   opacity: 0;
 }
 
-/* line 118, ../sass/_aside.scss */
+/* line 119, ../sass/_aside.scss */
 aside section {
   -webkit-transition: all 0.15s ease-out;
   -moz-transition: all 0.15s ease-out;
@@ -434,7 +435,7 @@ aside section {
   margin: 0.7em 0em;
   border: 2px solid #f3f6f8;
 }
-/* line 128, ../sass/_aside.scss */
+/* line 129, ../sass/_aside.scss */
 aside section i {
   float: right;
   color: #ffffff;
@@ -442,47 +443,47 @@ aside section i {
   font-size: 8px !important;
   line-height: 1.5em;
 }
-/* line 136, ../sass/_aside.scss */
+/* line 137, ../sass/_aside.scss */
 aside section i.undetermined-issue {
   color: #b5b5b5;
   opacity: 1;
 }
-/* line 141, ../sass/_aside.scss */
+/* line 142, ../sass/_aside.scss */
 aside section i.inprogress-issue {
   color: #2070f7;
   opacity: 1;
 }
-/* line 146, ../sass/_aside.scss */
+/* line 147, ../sass/_aside.scss */
 aside section i.critical-issue {
   color: #ff6e6e;
   opacity: 1;
 }
-/* line 151, ../sass/_aside.scss */
+/* line 152, ../sass/_aside.scss */
 aside section i.overload-issue {
   color: #ffb26e;
   opacity: 1;
 }
 
-/* line 157, ../sass/_aside.scss */
+/* line 158, ../sass/_aside.scss */
 aside section.active {
   background-color: #2070f7 !important;
   color: #ffffff !important;
   cursor: default;
 }
 
-/* line 163, ../sass/_aside.scss */
+/* line 164, ../sass/_aside.scss */
 aside section.hover {
   border: 2px solid #2070f7;
 }
 
-/* line 167, ../sass/_aside.scss */
+/* line 168, ../sass/_aside.scss */
 aside section > h1 {
   font-weight: 500;
   padding: 1em 1em 0.1em 1em;
   box-sizing: border-box;
 }
 
-/* line 173, ../sass/_aside.scss */
+/* line 174, ../sass/_aside.scss */
 aside section > p {
   padding: 1em;
   box-sizing: border-box;
@@ -490,25 +491,30 @@ aside section > p {
 }
 
 @media (max-width: 1870px) {
-  /* line 180, ../sass/_aside.scss */
-  aside #aside-options a {
-    display: block;
-    text-align: center;
+  /* line 181, ../sass/_aside.scss */
+  aside #aside-options a span {
+    display: none;
   }
 }
 @media (max-width: 1201px) {
   /* line 187, ../sass/_aside.scss */
+  aside #aside-options a {
+    display: block;
+    text-align: center;
+  }
+
+  /* line 192, ../sass/_aside.scss */
   article#main section#content-main p.content {
     padding-top: 18em !important;
   }
 
-  /* line 191, ../sass/_aside.scss */
+  /* line 196, ../sass/_aside.scss */
   div.milestone-details-col {
     display: block;
     width: 100%;
   }
 
-  /* line 196, ../sass/_aside.scss */
+  /* line 201, ../sass/_aside.scss */
   .userinfo-details-col {
     width: 45%;
   }

@@ -79,6 +79,7 @@ aside {
 				position: relative;
 				top: 0px;
 				color: #ffffff;
+				display: inline-block;
 			}
 		}
 		
@@ -177,13 +178,17 @@ aside section > p {
 }
 
 @media (max-width: 1870px) {
-	aside #aside-options a {
-		display: block;
-		text-align: center;
+	aside #aside-options a span {
+		display: none;
 	}
 }
 
 @media (max-width: 1201px) {
+	aside #aside-options a {
+		display: block;
+		text-align: center;
+	}
+	
 	article#main section#content-main p.content {
 		padding-top: 18em !important;
 	}
