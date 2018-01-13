@@ -121,6 +121,8 @@ function loadingContent(issue){
 	$("#change-progress").text(issueLoaded.status);
 	$("#change-urgency").text(issueLoaded.urgency);
 	$("#change-impact").text(issueLoaded.impact);
+	$("#issue-creator").text(issueLoaded.creator);
+	$("#issue-create-date").text(issueLoaded.createDate);
 	
 	determineUndecided();
 	colorCodeChangeables();
@@ -149,11 +151,11 @@ function loadingContent(issue){
 }
 
 function determineUndecided(){
-	$("#content-main #comment-box, #content-main .button-group, #comments, #change-urgency, #change-impact, .userinfo-details-col:last").show();
+	$("#content-main #comment-box, #content-main .button-group, #comments, #change-urgency, #change-impact, .userinfo-details-col:last, .milestone-details-col").show();
 	$("#undecided-info").hide();
 	
 	if(getActiveClass() === "undetermined-issue"){
-		$("#content-main #comment-box, #content-main .button-group, #comments, #change-urgency, #change-impact, .userinfo-details-col:last").hide();
+		$("#content-main #comment-box, #content-main .button-group, #comments, #change-urgency, #change-impact, .userinfo-details-col:last, .milestone-details-col").hide();
 		$("#undecided-info").show();
 	}
 }

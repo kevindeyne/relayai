@@ -61,10 +61,10 @@ open class UserRepositoryImpl (val dsl: DSLContext,
 			   .fetchOptional()
 		
 		if(record.isPresent) {
-			return record.get().map { n -> n.get(Tables.USER.EMAIL) }
+			return record.get().map { n -> n.get(Tables.USER.USERNAME) }
 		}
 		
-		return "System"
+		return "[System]"
 	}
 	
 	fun getUserIdFromRecord(record : UserRecord) : Long = record.get(Tables.USER.ID)

@@ -47,16 +47,20 @@ article {
 			padding-top: 0.7em;
 			height: 3.6em;
 			
-			.userinfo-details-col {
+			.userinfo-details-col, .milestone-details-col {
 				float: left;
-				width: 30%;
+				width: 15emem;
 				
 				p {
 					padding-left: 0;
 					padding-bottom: 8px;
 					padding-top: 0;
-					padding-right: 0;				
+					padding-right: 1.5em;		
 				}
+			}
+			
+			.milestone-details-col {
+				width: 25em;
 			}
 		}
 		

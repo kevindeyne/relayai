@@ -108,7 +108,7 @@ class IssueLoader(
 			.execute()
 	}
 	
-	fun generateUsers(faker : Faker) : Long{
+	fun generateUsers(faker : Faker) : Long {
 		val userId = insertIntoUser(faker.name().fullName(), "admin", passwordEncoder.encode("admin"))
 		
 		for(i in 0..500){
@@ -120,7 +120,7 @@ class IssueLoader(
 		return userId;
 	}
 	
-	fun generateProjects(faker : Faker) : Long{
+	fun generateProjects(faker : Faker) : Long {
 		var projectId = -1L;
 		for(i in 0..500){
 			projectId = dsl.insertInto(Tables.PROJECT, Tables.PROJECT.TITLE, Tables.PROJECT.KEY)
@@ -164,7 +164,7 @@ class IssueLoader(
 	fun insertIntoUser(fullName : String, username : String, password : String) : Long {
 		val userId = dsl.insertInto(Tables.USER,
 			 Tables.USER.EMAIL, Tables.USER.PASSWORD, Tables.USER.USERNAME, Tables.USER.CREATE_DATE, Tables.USER.CREATE_USER, Tables.USER.UPDATE_DATE, Tables.USER.UPDATE_USER)
-		   .values(username, password, fullName, getRandomTimestamp(), "1", getRandomTimestamp(), "1")
+		   .values(username, password, fullName, getRandomTimestamp(), randomUser(), getRandomTimestamp(), randomUser())
 		   .returning(Tables.USER.ID).fetchOne().get(Tables.USER.ID)
 		
 		dsl.insertInto(Tables.USER_ROLE,
@@ -192,7 +192,7 @@ class IssueLoader(
 		val issueId = dsl.insertInto(Tables.ISSUE, Tables.ISSUE.TITLE, Tables.ISSUE.DESCRIPTION, Tables.ISSUE.WORKLOAD, Tables.ISSUE.STATUS,
 				Tables.ISSUE.PROJECT_ID, Tables.ISSUE.SPRINT_ID, Tables.ISSUE.ASSIGNED, Tables.ISSUE.CREATE_DATE, Tables.ISSUE.CREATE_USER, Tables.ISSUE.UPDATE_DATE,
 				Tables.ISSUE.UPDATE_USER, Tables.ISSUE.URGENCY, Tables.ISSUE.IMPACT, Tables.ISSUE.IMPORTANCE, Tables.ISSUE.OVERLOAD)
-		   .values(title, sentences, workload, status.name, projectId, sprintId, assignedTo, getRandomTimestamp(), "1", getRandomTimestamp(), "1",
+		   .values(title, sentences, workload, status.name, projectId, sprintId, assignedTo, getRandomTimestamp(), randomUser(), getRandomTimestamp(), randomUser(),
 				   urgency.name, impact.name, importance, randomBoolean())
 		   .returning(Tables.ISSUE.ID).fetchOne().get(Tables.ISSUE.ID);
 		
@@ -216,6 +216,8 @@ class IssueLoader(
 	fun randomImpact(workload : Int) : Impact = if(workload != -1) Impact.values()[Random().nextInt(Impact.values().size)] else Impact.NORMAL
 	fun randomStatus(workload : Int) : Progress = if(workload != -1) Progress.values()[Random().nextInt(Progress.values().size)] else Progress.NEW
 
+	fun randomUser() : String = Random().nextInt(450).toString()
+	
 	fun mergeSentences(sentences : List<String>) : String {
 		val sb : StringBuffer = StringBuffer()
 		sentences.forEach{s -> sb.append(s + " ")}

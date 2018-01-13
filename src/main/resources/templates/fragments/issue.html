@@ -57,15 +57,19 @@
 			
 			<div id="content-userinfo-details">
 				<div class="userinfo-details-col">
-					<p>Created by <span th:text="${currentIssueCreator}"></span></p>
-					<p>on <span th:text="${currentIssueCreateDate}"></span></p>
+					<p>Created by <span id="issue-creator" th:text="${currentIssueCreator}"></span></p>
+					<p>on <span id="issue-create-date" th:text="${currentIssueCreateDate}"></span></p>
 				</div>			
 				<div class="userinfo-details-col">
 					<p><span class="changeable" data-status="Current impact" id="change-impact" th:text="${currentIssueImpact}"></span></p>
 					<p><span class="changeable" data-status="Current urgency" id="change-urgency" th:text="${currentIssueUrgency}"></span></p>
 				</div>
-				<div class="userinfo-details-col">
-					<p><span class="changeable" data-status="Current fix version" id="change-fix" th:text="${currentIssueFixVersion}"></span></p>
+				<div class="milestone-details-col">
+					<p>
+						<span class="changeable" data-status="Current fix version" id="change-fix-1" th:text="${currentIssueFixVersion1}"></span> 
+						<span class="changeable" data-status="Current fix version" id="change-fix-2" th:text="${currentIssueFixVersion2}"></span>
+						<span class="changeable" id="change-fix-plus">[+]</span>
+					</p>
 					<p th:text="${currentIssueSLAStatus}"></p>
 				</div>
 			</div>
