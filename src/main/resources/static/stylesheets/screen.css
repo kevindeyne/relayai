@@ -489,31 +489,67 @@ aside section > p {
   font-weight: 300;
 }
 
+@media (max-width: 1870px) {
+  /* line 180, ../sass/_aside.scss */
+  aside #aside-options a {
+    display: block;
+    text-align: center;
+  }
+}
+@media (max-width: 1201px) {
+  /* line 187, ../sass/_aside.scss */
+  article#main section#content-main p.content {
+    padding-top: 18em !important;
+  }
+
+  /* line 191, ../sass/_aside.scss */
+  div.milestone-details-col {
+    display: block;
+    width: 100%;
+  }
+
+  /* line 196, ../sass/_aside.scss */
+  .userinfo-details-col {
+    width: 45%;
+  }
+}
 /* line 1, ../sass/_tracker.scss */
 #nav-bottom {
   position: absolute;
-  bottom: 2em;
-  left: 1em;
+  bottom: 0em;
+  left: 0em;
+  background: white;
+  min-width: 250px;
+  max-width: 5%;
+  padding-top: 0.5em;
+  padding-bottom: 1em;
 }
-/* line 6, ../sass/_tracker.scss */
+/* line 11, ../sass/_tracker.scss */
 #nav-bottom p {
   padding-bottom: 0.5em;
   font-size: 1.05em;
   color: #202225;
   max-width: 232px;
   line-height: 1.05em;
+  padding-left: 1em;
 }
-/* line 15, ../sass/_tracker.scss */
+/* line 21, ../sass/_tracker.scss */
 #nav-bottom #tracker a, #nav-bottom #tracker a:active, #nav-bottom #tracker a:visited, #nav-bottom #tracker a:link {
   color: #2070f7;
   text-decoration: none;
 }
-/* line 19, ../sass/_tracker.scss */
+/* line 25, ../sass/_tracker.scss */
 #nav-bottom #tracker a:hover {
   color: #2070f7;
   text-decoration: underline;
 }
 
+@media (max-height: 690px) {
+  /* line 33, ../sass/_tracker.scss */
+  #nav-bottom {
+    display: none;
+  }
+}
 /* line 5, ../sass/_main.scss */
 html {
   overflow-x: hidden;

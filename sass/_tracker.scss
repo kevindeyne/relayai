@@ -1,7 +1,12 @@
 #nav-bottom {	
 	position: absolute;
-	bottom:2em;
-	left:1em;
+    bottom: 0em;
+    left: 0em;
+    background: white;
+    min-width: 250px;
+    max-width: 5%;
+    padding-top: 0.5em;
+    padding-bottom: 1em;
 	
 	p {
 		padding-bottom:0.5em;
@@ -9,6 +14,7 @@
 		color: #202225;
 		max-width: 232px;
 		line-height:1.05em;
+		padding-left:1em;
 	}
 
 	#tracker {	
@@ -20,6 +26,12 @@
 			color: #2070f7;
 			text-decoration:underline;
 		}
+	}
+}
+
+@media (max-height: 690px) { 
+	#nav-bottom {	
+		display: none;
 	}
 }
 

@@ -176,3 +176,24 @@ aside section > p {
 	font-weight: 300;
 }
 
+@media (max-width: 1870px) {
+	aside #aside-options a {
+		display: block;
+		text-align: center;
+	}
+}
+
+@media (max-width: 1201px) {
+	article#main section#content-main p.content {
+		padding-top: 18em !important;
+	}
+	
+	div.milestone-details-col {
+		display: block;
+		width: 100%;
+	}
+	
+	.userinfo-details-col {
+		width:45%;
+	}
+}
