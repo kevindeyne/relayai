@@ -108,7 +108,7 @@ open class IssueRepositoryImpl (val dsl: DSLContext) : IssueRepository {
 	@Transactional
 	override fun findById(issueId : Long) : IssueResponse? {
 		val response : IssueRecord? = dsl.selectFrom(Tables.ISSUE)
-			   .where(Tables.ISSUE.ID.eq(issueId).and(Tables.ISSUE.ASSIGNED.eq(SecurityHolder.getUserId())))
+			   .where(Tables.ISSUE.ID.eq(issueId).and(Tables.ISSUE.PROJECT_ID.eq(SecurityHolder.getProjectId())))
 			   .fetchOne()
 		
 		if(response != null){
