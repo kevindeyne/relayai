@@ -34,7 +34,7 @@
 	<aside th:fragment="issue-list" th:classappend="${showCreatePage}?invisible">
 		
 		<div id="aside-options">
-			<a href="#" id="aside-issue" class="t-active">My issues <span id="my-issues-counter"></span></a> <a href="#" id="aside-team">In team <span id="sprint-counter"></span></a> <a href="#" id="aside-backlog">Backlog <span id="backlog-counter"></span></a>
+			<a href="#" id="aside-issue" class="t-active">My issues <span id="my-issues-counter" th:text="${myissuecounter}"></span></a> <a href="#" id="aside-team">In team <span id="sprint-counter" th:text="${sprintcounter}"></span></a> <a href="#" id="aside-backlog">Backlog <span id="backlog-counter"  th:text="${backlogcounter}"></span></a>
 		</div>
 		<div id="aside-loader"><img src="/icons/spinner_color.gif" /></div>
 		<div id="aside-issue-list">

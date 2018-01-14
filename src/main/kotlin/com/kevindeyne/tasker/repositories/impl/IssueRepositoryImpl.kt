@@ -258,7 +258,17 @@ open class IssueRepositoryImpl (val dsl: DSLContext) : IssueRepository {
 							 determineClass(n.get(Tables.ISSUE.WORKLOAD), n.get(Tables.ISSUE.STATUS), n.get(Tables.ISSUE.URGENCY), n.get(Tables.ISSUE.OVERLOAD).compareTo(1) == 0),
 							 projectRepo.findProject(SecurityHolder.getProjectId()).fullTitle(),
 							 commentsForIssue,
-							 n.get(Tables.ISSUE.IMPORTANCE))
+							 n.get(Tables.ISSUE.IMPORTANCE),
+							 getAssignedName(n.get(Tables.ISSUE.ASSIGNED))
+			)
+		}
+	}
+	
+	fun getAssignedName(assigned : Long) : String {
+		if(SecurityHolder.getUserId().equals(assigned)){
+			return "you"	
+		} else {
+			return userRepo.findUsernameById(assigned.toString())	
 		}
 	}
 		
@@ -338,12 +348,13 @@ open class IssueRepositoryImpl (val dsl: DSLContext) : IssueRepository {
 			   ))				
 	}
 	
-	override fun counterSprint(sprintId : Long) : Int {
+	override fun counterSprint(userId : Long, sprintId : Long) : Int {
 		return dsl.fetchCount(
 				dsl.selectFrom(Tables.ISSUE)
 			    .where(
 				   Tables.ISSUE.SPRINT_ID.eq(sprintId)
 				   .and(ACTIVE_ISSUE)
+				   .and(Tables.ISSUE.ASSIGNED.notEqual(userId))
 			   ))	
 	}
 	
@@ -357,7 +368,7 @@ open class IssueRepositoryImpl (val dsl: DSLContext) : IssueRepository {
 	}
 	
 			
-	override fun findAllActiveForTeamInCurrentSprint(sprintId : Long)  : List<IssueListing> {
+	override fun findAllActiveForTeamInCurrentSprint(sprintId : Long) : List<IssueListing> {
 		return dsl.selectFrom(Tables.ISSUE)
 			    .where(
 				   Tables.ISSUE.SPRINT_ID.eq(sprintId)
@@ -377,7 +388,7 @@ open class IssueRepositoryImpl (val dsl: DSLContext) : IssueRepository {
 			   .collect(Collectors.toList())
 	}
 	
-	override fun findAllBacklogForProject(projectId : Long)  : List<IssueListing> {
+	override fun findAllBacklogForProject(projectId : Long) : List<IssueListing> {
 		return dsl.selectFrom(Tables.ISSUE)
 			    .where(
 				   Tables.ISSUE.PROJECT_ID.eq(projectId)

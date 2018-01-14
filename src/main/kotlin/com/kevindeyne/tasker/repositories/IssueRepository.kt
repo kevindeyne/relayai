@@ -45,7 +45,7 @@ interface IssueRepository {
 	
 	fun counterMyIssue(userId : Long, sprintId : Long) : Int
 	
-	fun counterSprint(sprintId : Long) : Int
+	fun counterSprint(userId : Long, sprintId : Long) : Int
 	
 	fun counterBacklog(projectId : Long) : Int
 		

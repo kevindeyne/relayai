@@ -8,7 +8,7 @@ $(document).ready(function() {
 	//task list logic on taskboard
 	$("aside section").click(function (){
 		var issueId = $(this).attr("issue-id");
-		localStorage.setItem("current-issue", issueId);		
+		localStorage.setItem("current-issue", issueId);
 		var sectionId = '#' + $(this).find(".progress").attr("id");
 		if(latestClickedIssue !== sectionId){
 			$("section svg").remove();
@@ -86,7 +86,7 @@ function cloneAndPrepend(newIssue){
 	newSection.find("h1").text(newIssue.title);
 	newSection.find("h1").append("<i class='fa fa-circle "+ newIssue.clazz +"' aria-hidden='true'></i>");
 	newSection.find("p").text(newIssue.descr);
-	newSection.find("div").attr("id", "progress-"+newIssue.id);
+	newSection.find("div").attr("id", "progress-"+newIssue.id+Math.random().toString(36).substring(7));
 	
 	//add to section that is correct according to importance value
 	$(newSection).insertAfter($("aside section").filter(function() {
@@ -154,6 +154,7 @@ function loadingContent(issue){
 	$("#change-impact").text(issueLoaded.impact);
 	$("#issue-creator").text(issueLoaded.creator);
 	$("#issue-create-date").text(issueLoaded.createDate);
+	$("#change-assignee").text(issueLoaded.assigned);
 	
 	determineUndecided();
 	colorCodeChangeables();

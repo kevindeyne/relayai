@@ -25,7 +25,7 @@ class PullingController(val issueRepository : IssueRepository, val commentReposi
 		val comments = commentRepository.getCommentsForIssue(issueid, maxcommentid)
 		
 		val myIssueCounter : Int = issueRepository.counterMyIssue(SecurityHolder.getUserId(), sprintId)
-		val sprintCounter : Int = issueRepository.counterSprint(sprintId)
+		val sprintCounter : Int = issueRepository.counterSprint(SecurityHolder.getUserId(), sprintId)
 		val backlogCounter : Int = issueRepository.counterBacklog(SecurityHolder.getProjectId())
 		
 		return PullUpdate(newIssues, comments, myIssueCounter, sprintCounter, backlogCounter);
