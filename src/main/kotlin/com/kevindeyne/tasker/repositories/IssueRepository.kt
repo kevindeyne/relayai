@@ -48,5 +48,8 @@ interface IssueRepository {
 	fun counterSprint(sprintId : Long) : Int
 	
 	fun counterBacklog(projectId : Long) : Int
+		
+	fun findAllActiveForTeamInCurrentSprint(sprintId : Long)  : List<IssueListing>
 	
+	fun findAllBacklogForProject(projectId : Long)  : List<IssueListing>
 }

@@ -355,4 +355,45 @@ open class IssueRepositoryImpl (val dsl: DSLContext) : IssueRepository {
 				   .and(Tables.ISSUE.STATUS.eq(Progress.BACKLOG.name))
 			   ))	
 	}
+	
+			
+	override fun findAllActiveForTeamInCurrentSprint(sprintId : Long)  : List<IssueListing> {
+		return dsl.selectFrom(Tables.ISSUE)
+			    .where(
+				   Tables.ISSUE.SPRINT_ID.eq(sprintId)
+				   .and(ACTIVE_ISSUE)
+			   )
+			   .orderBy(Tables.ISSUE.IMPORTANCE.desc(), Tables.ISSUE.CREATE_DATE.asc())
+			   .fetch()
+			   .parallelStream()
+			   .map {
+				  n -> IssueListing(n.get(Tables.ISSUE.ID),
+									n.get(Tables.ISSUE.TITLE),
+									abbreviate(n.get(Tables.ISSUE.DESCRIPTION)),
+									n.get(Tables.ISSUE.DESCRIPTION),
+									determineClass(n.get(Tables.ISSUE.WORKLOAD), n.get(Tables.ISSUE.STATUS), n.get(Tables.ISSUE.URGENCY), n.get(Tables.ISSUE.OVERLOAD).compareTo(1) == 0),
+									n.get(Tables.ISSUE.IMPORTANCE))
+			   }
+			   .collect(Collectors.toList())
+	}
+	
+	override fun findAllBacklogForProject(projectId : Long)  : List<IssueListing> {
+		return dsl.selectFrom(Tables.ISSUE)
+			    .where(
+				   Tables.ISSUE.PROJECT_ID.eq(projectId)
+				   .and(Tables.ISSUE.STATUS.eq(Progress.BACKLOG.name))
+			   )
+			   .orderBy(Tables.ISSUE.IMPORTANCE.desc(), Tables.ISSUE.CREATE_DATE.asc())
+			   .fetch()
+			   .parallelStream()
+			   .map {
+				  n -> IssueListing(n.get(Tables.ISSUE.ID),
+									n.get(Tables.ISSUE.TITLE),
+									abbreviate(n.get(Tables.ISSUE.DESCRIPTION)),
+									n.get(Tables.ISSUE.DESCRIPTION),
+									determineClass(n.get(Tables.ISSUE.WORKLOAD), n.get(Tables.ISSUE.STATUS), n.get(Tables.ISSUE.URGENCY), false),
+									n.get(Tables.ISSUE.IMPORTANCE))
+			   }
+			   .collect(Collectors.toList())
+	}
 }

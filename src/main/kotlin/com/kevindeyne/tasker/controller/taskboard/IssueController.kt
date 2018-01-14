@@ -5,6 +5,7 @@ import com.kevindeyne.tasker.amq.AMQMessageType
 import com.kevindeyne.tasker.controller.form.FormResponse
 import com.kevindeyne.tasker.controller.form.IssueForm
 import com.kevindeyne.tasker.controller.form.IssueResponse
+import com.kevindeyne.tasker.domain.IssueListing
 import com.kevindeyne.tasker.repositories.IssueRepository
 import com.kevindeyne.tasker.service.SecurityHolder
 import org.springframework.jms.core.JmsTemplate
@@ -13,7 +14,6 @@ import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RestController
-import org.apache.commons.lang3.StringUtils
 
 @RestController
 class IssueController(var issueRepository : IssueRepository, var jmsTemplate : JmsTemplate) {
@@ -21,6 +21,9 @@ class IssueController(var issueRepository : IssueRepository, var jmsTemplate : J
 	companion object {
 		const val ISSUE_DETAIL = "/issue/{id}"
 		const val ISSUE_PROGRESS = ISSUE_DETAIL + "/{action}/{changedValue}"
+		const val ISSUE_LIST_MYISSUES = "/issue/list/issue"
+		const val ISSUE_LIST_TEAM = "/issue/list/team"
+		const val ISSUE_LIST_BACKLOG = "/issue/list/backlog"
 	}
 	
 	@PostMapping(ISSUE_DETAIL)
@@ -83,5 +86,24 @@ class IssueController(var issueRepository : IssueRepository, var jmsTemplate : J
 		}
 		
 		throw RuntimeException("Could not determine message type in IssueController")
+	}
+	
+	@GetMapping(ISSUE_LIST_MYISSUES)
+	fun getIssueListMine() : List<IssueListing>  {
+		return issueRepository.findAllActiveForUserInCurrentSprint()
+	}
+	
+	@GetMapping(ISSUE_LIST_TEAM)
+	fun getIssueListTeam() : List<IssueListing>  {
+		val sprintId = SecurityHolder.getSprintId()
+		if(sprintId != null){
+			return issueRepository.findAllActiveForTeamInCurrentSprint(sprintId)
+		}
+		return issueRepository.findAllActiveForUserInCurrentSprint()
+	}
+	
+	@GetMapping(ISSUE_LIST_BACKLOG)
+	fun getIssueListBacklog() : List<IssueListing>  {
+		return issueRepository.findAllBacklogForProject(SecurityHolder.getProjectId())
 	}
 }

@@ -48,13 +48,24 @@ $(document).ready(function() {
 		$(this).addClass("t-active");
 		asideLoaded = "#" + $(this).attr("id") + "-list";
 		
-		$.getJSON("../issue/1", function(data) { //todo
-			setTimeout(function(){
-				$("#aside-loader").hide();
-				asideLoaded = "#aside-issue-list"; //todo
-				$(asideLoaded).fadeIn(500);		
-			}, 500);	
-		});
+		if($(asideLoaded + " section").length === 0){
+			var switchUrl = "/issue/list/" + $(this).attr("id").replace("aside-", "");
+			$.getJSON(switchUrl, function(data) {
+				setTimeout(function(){				
+					for (var newIssueIndex in data) {
+						var newIssue = data[newIssueIndex];
+						if(newIssue.id > maxid){ maxid = newIssue.id; }
+						cloneAndPrepend(newIssue);
+					 }
+					
+					$("#aside-loader").hide();
+					$(asideLoaded).fadeIn(500);
+				}, 500);
+			});
+		} else {
+			$("#aside-loader").hide();
+			$(asideLoaded).fadeIn(500);
+		}
 		
 		return false;
 	});
@@ -62,6 +73,26 @@ $(document).ready(function() {
 	//$('aside .ss-content').animate({ scrollTop: Math.abs($("section.active").offset().top+200) }, 1); //scroll to active - convenience; for clarity we probably want to keep the active one fixed and inbox moving TODO
 	
 });
+
+function cloneAndPrepend(newIssue){
+	var newSection = $("aside section:first").clone(true, true);
+	
+	var element = $(newSection).detach();
+	$(asideLoaded).append(element);
+	
+	newSection.removeClass("active");
+	newSection.attr("issue-id", newIssue.id);
+	newSection.attr("importance", newIssue.importance);
+	newSection.find("h1").text(newIssue.title);
+	newSection.find("h1").append("<i class='fa fa-circle "+ newIssue.clazz +"' aria-hidden='true'></i>");
+	newSection.find("p").text(newIssue.descr);
+	newSection.find("div").attr("id", "progress-"+newIssue.id);
+	
+	//add to section that is correct according to importance value
+	$(newSection).insertAfter($("aside section").filter(function() {
+	    return $(this).attr("importance") > newIssue.importance;
+	}).filter(":last"));
+}
 
 function colorCodeChangeables(){
 	if($("#change-progress").text() === "In progress"){

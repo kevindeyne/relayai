@@ -32,14 +32,14 @@ section.month-view {
 		
 		section.inactive {
 			opacity: 0.5;
+			border: none !important;
 		}
 		
 		section.day-view {
 			width: 13em;
 			padding: 0.75em;
 			display: inline-block;
-			margin-right: 0.25em;
-			margin-bottom: 0.25em;
+			border: 1px solid #dbe8fe;
 			
 			h2 {
 				margin-bottom: 0.55em;
