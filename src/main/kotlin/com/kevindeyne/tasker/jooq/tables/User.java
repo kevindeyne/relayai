@@ -40,7 +40,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class User extends TableImpl<UserRecord> {
 
-    private static final long serialVersionUID = -2116305731;
+    private static final long serialVersionUID = -1056739581;
 
     /**
      * The reference instance of <code>taskr.user</code>
@@ -99,6 +99,11 @@ public class User extends TableImpl<UserRecord> {
      * The column <code>taskr.user.report</code>.
      */
     public final TableField<UserRecord, Byte> REPORT = createField("report", org.jooq.impl.SQLDataType.TINYINT.nullable(false).defaultValue(org.jooq.impl.DSL.inline("0", org.jooq.impl.SQLDataType.TINYINT)), this, "");
+
+    /**
+     * The column <code>taskr.user.weekly_workload</code>.
+     */
+    public final TableField<UserRecord, Integer> WEEKLY_WORKLOAD = createField("weekly_workload", org.jooq.impl.SQLDataType.INTEGER.nullable(false).defaultValue(org.jooq.impl.DSL.inline("38", org.jooq.impl.SQLDataType.INTEGER)), this, "");
 
     /**
      * Create a <code>taskr.user</code> table reference

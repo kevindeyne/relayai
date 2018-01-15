@@ -206,6 +206,7 @@ open class IssueRepositoryImpl (val dsl: DSLContext) : IssueRepository {
 		dsl.update(Tables.ISSUE)
 			.set(Tables.ISSUE.WORKLOAD, workload.hours)
 			.set(Tables.ISSUE.IMPORTANCE, determineImportance(issueId, userId, null, workload.hours))
+			.set(Tables.ISSUE.STATUS, Progress.BACKLOG.name)
 			.where(Tables.ISSUE.ID.eq(issueId))
 			.execute()
 	}

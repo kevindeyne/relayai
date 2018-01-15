@@ -1,6 +1,8 @@
 package com.kevindeyne.tasker.repositories
 
 import com.kevindeyne.tasker.controller.timesheet.TimeUtils
+import com.kevindeyne.tasker.domain.IssueListing
+import com.kevindeyne.tasker.domain.Progress
 import com.kevindeyne.tasker.jooq.Tables
 import org.jooq.DSLContext
 import org.springframework.stereotype.Component
@@ -10,7 +12,7 @@ import java.util.Date
 import java.util.stream.Collectors
 
 @Component
-open class SprintRepositoryImpl (val dsl: DSLContext) : SprintRepository {
+open class SprintRepositoryImpl (val dsl: DSLContext, val issueRepository : IssueRepository) : SprintRepository {
 	
 	val tU = TimeUtils.INSTANCE
 		
@@ -41,13 +43,72 @@ open class SprintRepositoryImpl (val dsl: DSLContext) : SprintRepository {
 	}
 	
 	@Transactional
-	override fun startSprint(projectId : Long) : Long {		
-		val currentSprint = findCurrentSprintByProjectId(projectId)
-		val newSprintId = createSprint(projectId, 14)
-		endSprint(currentSprint)
-		setActiveProject(projectId, newSprintId)
-		overloadIssue(newSprintId, currentSprint)		
+	override fun startSprint(projectId : Long) : Long {
+
+		val sprintRecord = dsl.selectFrom(Tables.PROJECT)
+		.where(Tables.PROJECT.ID.eq(projectId))			
+		.fetchOptional()
+		
+		if(sprintRecord.isPresent) {
+			val currentSprint = sprintRecord.get().get(Tables.PROJECT.ACTIVE_SPRINT_ID)
+			val sprintLength = sprintRecord.get().get(Tables.PROJECT.SPRINT_LENGTH)
+				
+			val newSprintId = createSprint(projectId, 14)
+			endSprint(currentSprint)
+			setActiveProject(projectId, newSprintId)
+			overloadIssue(newSprintId, currentSprint)
+			
+			val listOfUsers : MutableList<HashMap<String, Any>> = arrayListOf()
+			
+			dsl.select()
+	         .from(Tables.PROJECT_USERS)
+			 .join(Tables.USER)
+			 .on(Tables.USER.ID.eq(Tables.PROJECT_USERS.USER_ID))
+			 .where(Tables.PROJECT_USERS.PROJECT_ID.equals(projectId))
+			 .fetch()
+			 .parallelStream()
+			 .forEach{
+				 p ->
+				 val hm = HashMap<String, Any>()
+				 hm.put("userId", p.get(Tables.USER.ID))
+				 hm.put("weeklyWorkload", p.get(Tables.USER.WEEKLY_WORKLOAD))
+				 listOfUsers.add(hm)
+			 }
+			
+			for(user in listOfUsers){
+				val workloadPerUser = sprintLength*(user.get("weeklyWorkload") as Int)
+				
+				var maxWorkload = 0
+				
+				val issueList = dsl.selectFrom(Tables.ISSUE)
+				   .where(
+					   Tables.ISSUE.ASSIGNED.eq(user.get("userId") as Long)
+					   .and(Tables.ISSUE.STATUS.eq(Progress.BACKLOG.name))
+				   )
+				   .orderBy(Tables.ISSUE.IMPORTANCE.desc(), Tables.ISSUE.CREATE_DATE.asc())
+				   .fetch()
+				   .parallelStream()
+				   .collect(Collectors.toList())
+						
+					for(p in issueList) {
+					 	maxWorkload += p.get(Tables.ISSUE.WORKLOAD)
+				   	 	if(maxWorkload < workloadPerUser){		
+		   	 				dsl.update(Tables.ISSUE)
+								.set(Tables.ISSUE.SPRINT_ID, newSprintId)
+								.set(Tables.ISSUE.STATUS, Progress.IN_SPRINT.name)
+								.where(Tables.ISSUE.ID.eq(p.get(Tables.ISSUE.ID)))
+								.execute()
+						} else {
+							break
+						}
+					}
+			}
+		
 		return newSprintId
+			
+		} else {
+			throw RuntimeException("Cannot retrieve sprint when no project is active")
+		}
 	}
 	
 	fun createSprint(projectId : Long, sprintDays : Int) : Long {

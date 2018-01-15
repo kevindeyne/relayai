@@ -15,16 +15,19 @@ class CommonInterceptor(val issueRepository : IssueRepository) : HandlerIntercep
 
 	override fun postHandle(request: HttpServletRequest, response: HttpServletResponse, handler: Any?, model: ModelAndView?) {
 		if(model != null){
-			val authentication : Authentication = SecurityContextHolder.getContext().getAuthentication()
-			if (!(authentication is AnonymousAuthenticationToken)) {
-				val reqUrl = request.getRequestURL().toString()
-				if(reqUrl.contains("pull") || reqUrl.contains("login") || reqUrl.contains("logout")) {
-					return;
-				}
-			
-				if (SecurityHolder.hasRole(Role.DEVELOPER) || SecurityHolder.hasRole(Role.TESTER)) {
-					model.addObject("inProgressIssueList", issueRepository.findAllInProgress())
-				}  
+			val context = SecurityContextHolder.getContext()
+			if(context != null && context.authentication != null){
+				val authentication : Authentication = context.getAuthentication()
+				if (authentication != null && !(authentication is AnonymousAuthenticationToken)) {
+					val reqUrl = request.getRequestURL().toString()
+					if(reqUrl.contains("pull") || reqUrl.contains("login") || reqUrl.contains("logout")) {
+						return;
+					}
+				
+					if (SecurityHolder.hasRole(Role.DEVELOPER) || SecurityHolder.hasRole(Role.TESTER)) {
+						model.addObject("inProgressIssueList", issueRepository.findAllInProgress())
+					}  
+				}	
 			}
 		}				
 	}
