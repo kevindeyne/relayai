@@ -929,14 +929,14 @@ section.month-view table p {
 /* line 33, ../sass/_timesheet.scss */
 section.month-view table section.inactive {
   opacity: 0.5;
+  border: none !important;
 }
-/* line 37, ../sass/_timesheet.scss */
+/* line 38, ../sass/_timesheet.scss */
 section.month-view table section.day-view {
   width: 13em;
   padding: 0.75em;
   display: inline-block;
-  margin-right: 0.25em;
-  margin-bottom: 0.25em;
+  border: 1px solid #dbe8fe;
 }
 /* line 44, ../sass/_timesheet.scss */
 section.month-view table section.day-view h2 {
@@ -1108,6 +1108,11 @@ section.comment p strong {
   position: relative;
   top: 1px !important;
   left: -2px !important;
+}
+
+/* line 136, ../sass/_forms.scss */
+#content-new-project {
+  display: none;
 }
 
 /* line 3, ../sass/_overlay.scss */

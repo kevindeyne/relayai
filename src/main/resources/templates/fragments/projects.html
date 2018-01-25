@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head></head>
 <body>
-	<article id="main" th:fragment="main-article">
+	<article id="main" th:fragment="main-article" th:classappend="${showCreatePage}?invisible">
 		<section>
 			<h1>Projects</h1>
 			<h2>Manage your different projects here</h2>

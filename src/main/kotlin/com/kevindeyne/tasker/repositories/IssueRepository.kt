@@ -23,6 +23,8 @@ interface IssueRepository {
 	
 	fun create(title : String, description : String, userId : Long, sprintId : Long, projectId : Long, assignedTo : Long) : Long
 	
+	fun createInProgress(title : String, description : String, userId : Long, sprintId : Long, projectId : Long, assignedTo : Long) : Long
+	
 	fun update(issueId : Long, title : String, description : String, userId : Long)
 	
 	fun updateStatus(issueId : Long, userId : Long, status : Progress)

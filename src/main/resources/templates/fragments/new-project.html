@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head></head>
+<body>
+
+	<article id="content-new-project" th:fragment="content-article" th:classappend="${showCreatePage}?visible">
+		<section id="content-new-project-title">
+			<h1>Creating a new project</h1>
+		</section>
+
+		<section id="content-new-project-main">
+			<p>This is an example explaining all the options here</p>
+
+			<form>
+				<label for="title">Title <span class="error"></span></label> 
+				<input type="text" id="title" name="title" placeholder="Provide a brief title describing your project" maxlength="65" autocomplete="off">
+				<span class="length-limiter" linked-with="title" max-length="65">65</span>
+
+				<label for="description">Description <span class="error"></span></label>
+				<textarea id="description" name="description" placeholder="Describe your problem and provide info on how to reproduce it"></textarea>
+				
+				<div class="button-group">
+					<button id="create-project-submit" type="button"><span>Submit</span></button>
+					<button type="button" class="altpath"><span>Cancel</span></button>
+				</div>
+			</form>
+		</section>
+	</article>
+
+</body>
+</html>

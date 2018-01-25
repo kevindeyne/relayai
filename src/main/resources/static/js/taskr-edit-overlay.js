@@ -52,9 +52,15 @@ function changeSubmitFunctionality(){
 	var action = $("#overlay-detail ul:visible li.active").attr("data-value");
 	
 	if(typeof issueId === "undefined"){
-		$.post("/project/changeto/"+action, {}, function(response) {}, 'json');
-		localStorage.removeItem("current-issue");
-		$("#taskurl").attr("href", "/tasks/");
+		if(action === "-1"){
+			$("#content-new-project").show().css({opacity: '0'}).animate({opacity: '1'}, "fast");
+			$("#main").hide();
+			$("#content-new-project-main form input:first").focus();
+		} else {
+			$.post("/project/changeto/"+action, {}, function(response) {}, 'json');
+			localStorage.removeItem("current-issue");
+			$("#taskurl").attr("href", "/tasks/");
+		}		
 	} else {	
 		var relativeTo = $("#overlay-detail").attr("relative-to").replace("change-", "");
 		$.post("/issue/"+issueId+"/"+relativeTo+"/"+action, {}, function(response) {}, 'json');	

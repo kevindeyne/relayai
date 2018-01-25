@@ -144,6 +144,19 @@ open class IssueRepositoryImpl (val dsl: DSLContext) : IssueRepository {
 		   .returning(Tables.ISSUE.ID).fetchOne().get(Tables.ISSUE.ID);
 	}
 	
+	@Transactional
+	override fun createInProgress(title : String, description : String, userId : Long, sprintId : Long, projectId : Long, assignedTo : Long) : Long {
+		val timestamp = Timestamp(System.currentTimeMillis())
+		val createAndUpdateUser = userId.toString()
+		
+		return dsl.insertInto(Tables.ISSUE,
+				Tables.ISSUE.TITLE, Tables.ISSUE.DESCRIPTION, Tables.ISSUE.ASSIGNED, Tables.ISSUE.SPRINT_ID, Tables.ISSUE.PROJECT_ID,
+				Tables.ISSUE.STATUS, Tables.ISSUE.WORKLOAD,
+				Tables.ISSUE.CREATE_USER, Tables.ISSUE.UPDATE_USER, Tables.ISSUE.CREATE_DATE, Tables.ISSUE.UPDATE_DATE, Tables.ISSUE.IMPORTANCE)
+		   .values(title, description, assignedTo, sprintId, projectId, Progress.IN_PROGRESS.name, 1, createAndUpdateUser, createAndUpdateUser, timestamp, timestamp, IMPORTANCE_HIGHIMPACT)
+		   .returning(Tables.ISSUE.ID).fetchOne().get(Tables.ISSUE.ID);
+	}
+	
 		
 	@Transactional
 	override fun update(issueId : Long, title : String, description : String, userId : Long) {
