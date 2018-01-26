@@ -87,6 +87,7 @@ class IssueLoader(
 	}
 	
 	fun truncateAll() {
+		dsl.execute("set foreign_key_checks=0");
 		dsl.truncate(Tables.ISSUE).execute();
 		dsl.truncate(Tables.KNOWLEDGE).execute();
 		dsl.truncate(Tables.SEARCH).execute();
@@ -99,6 +100,7 @@ class IssueLoader(
 		dsl.truncate(Tables.USER).execute();
 		dsl.truncate(Tables.USER_ROLE).execute();
 		dsl.truncate(Tables.COMMENTS).execute();
+		dsl.execute("set foreign_key_checks=1");
 	}
 	
 	fun setActiveProject(projectId : Long, sprintId : Long) {
