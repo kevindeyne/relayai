@@ -4,7 +4,7 @@ CREATE TABLE `user` (
   `email` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-);
+) engine=InnoDB;
 
 CREATE TABLE `issue` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
@@ -12,5 +12,5 @@ CREATE TABLE `issue` (
   `description` TEXT NOT NULL,
   `assigned` bigint(20) NOT NULL,
   PRIMARY KEY (`id`)
-);
+) engine=InnoDB;
 COMMIT;

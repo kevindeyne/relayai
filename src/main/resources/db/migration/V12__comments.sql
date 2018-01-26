@@ -6,7 +6,7 @@ CREATE TABLE `comments` (
   `post_date` DATETIME NOT NULL,
   `message` TEXT NOT NULL,
   PRIMARY KEY (`id`)
-);
+) engine=InnoDB;
 
 ALTER TABLE comments
 ADD FOREIGN KEY (user_id) REFERENCES `user`(id);

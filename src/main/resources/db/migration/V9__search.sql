@@ -7,6 +7,6 @@ CREATE TABLE `search` (
   `name` varchar(255) NOT NULL,
   `linked_id` bigint(20) NOT NULL,
   PRIMARY KEY (`id`)
-);
+) engine=InnoDB;
 ALTER TABLE `search` ADD FULLTEXT INDEX `search_index` (`srcval` ASC);
 COMMIT;

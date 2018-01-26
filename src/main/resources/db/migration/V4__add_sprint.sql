@@ -4,14 +4,14 @@ CREATE TABLE `project` (
   `title` varchar(255) NOT NULL,
   `key` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-);
+) engine=InnoDB;
 
 CREATE TABLE `project_users` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `project_id` bigint(20) NOT NULL,
   `user_id` bigint(20) NOT NULL,
   PRIMARY KEY (`id`)
-);
+) engine=InnoDB;
 
 CREATE TABLE `sprint` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
@@ -19,7 +19,7 @@ CREATE TABLE `sprint` (
   `end_date` DATETIME,
   `project_id` bigint(20) NOT NULL,
   PRIMARY KEY (`id`)
-);
+) engine=InnoDB;
 
 /* ---- */
 

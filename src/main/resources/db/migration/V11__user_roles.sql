@@ -4,7 +4,7 @@ CREATE TABLE `user_role` (
   `user_id` bigint(20) NOT NULL,
   `role` VARCHAR(15) NOT NULL DEFAULT 'DEVELOPER',
   PRIMARY KEY (`id`)
-);
+) engine=InnoDB;
 
 ALTER TABLE user_role
 ADD FOREIGN KEY (user_id) REFERENCES `user`(id);

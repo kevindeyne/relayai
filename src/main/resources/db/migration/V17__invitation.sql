@@ -5,6 +5,6 @@ CREATE TABLE `invitation` (
   `user_id` bigint(20) NOT NULL,
   `project_id` bigint(20) NOT NULL,
   PRIMARY KEY (`id`)
-);
+) engine=InnoDB;
 
 COMMIT;

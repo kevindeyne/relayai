@@ -6,5 +6,5 @@ CREATE TABLE `event` (
   `user_id` bigint(20) NOT NULL,
   `timestamp` BIGINT NOT NULL,
   PRIMARY KEY (`id`)
-);
+) engine=InnoDB;
 COMMIT;

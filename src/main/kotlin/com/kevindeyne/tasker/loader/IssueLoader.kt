@@ -16,9 +16,11 @@ import org.springframework.context.event.ContextRefreshedEvent
 import org.springframework.core.Ordered
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Component
+import org.springframework.transaction.annotation.Transactional
 import java.sql.Timestamp
 import java.time.LocalDate
 import java.util.Random
+import java.util.stream.Collectors
 
 @Component
 class IssueLoader(
@@ -37,6 +39,7 @@ class IssueLoader(
 		return 1
 	}
 	
+	@Transactional
 	override fun onApplicationEvent(event: ContextRefreshedEvent?) {
 		if(generateNew) {
     		truncateAll()
@@ -64,7 +67,7 @@ class IssueLoader(
         	var currentUserIssuesInSprint = 0
 			
 			for(i in 0..250 + maxUserIssuesInSprint){
-				var assignedTo = 400L
+				var assignedTo = getRandomUser()
 				if(maxUserIssuesInSprint > currentUserIssuesInSprint++) {
 					assignedTo = userId
 				}
@@ -74,7 +77,7 @@ class IssueLoader(
 			
 			currentUserIssuesInSprint = 0
 			for(i in 0..250 + maxUserIssuesInSprint){
-				var assignedTo = 400L
+				var assignedTo = getRandomUser()
 				if(maxUserIssuesInSprint > currentUserIssuesInSprint++) {
 					assignedTo = userId
 				}
@@ -86,29 +89,34 @@ class IssueLoader(
     	}
 	}
 	
+	@Transactional
 	fun truncateAll() {
-		dsl.execute("set foreign_key_checks=0");
-		dsl.truncate(Tables.ISSUE).execute();
-		dsl.truncate(Tables.KNOWLEDGE).execute();
-		dsl.truncate(Tables.SEARCH).execute();
-		dsl.truncate(Tables.SPRINT).execute();
-		dsl.truncate(Tables.TAG).execute();
-		dsl.truncate(Tables.TAGCLOUD).execute();
-		dsl.truncate(Tables.TIMESHEET).execute();
-		dsl.truncate(Tables.PROJECT).execute();				
-		dsl.truncate(Tables.PROJECT_USERS).execute();
-		dsl.truncate(Tables.USER).execute();
-		dsl.truncate(Tables.USER_ROLE).execute();
-		dsl.truncate(Tables.COMMENTS).execute();
-		dsl.execute("set foreign_key_checks=1");
+		dsl.delete(Tables.COMMENTS).execute()
+		dsl.delete(Tables.PROJECT_USERS).execute()
+		dsl.delete(Tables.TAGCLOUD).execute()
+		dsl.delete(Tables.KNOWLEDGE).execute()
+		dsl.delete(Tables.SEARCH).execute()
+		dsl.delete(Tables.TAG).execute()
+		dsl.delete(Tables.TIMESHEET).execute()
+		dsl.delete(Tables.USER_ROLE).execute()
+		dsl.delete(Tables.USER).execute()
+		dsl.delete(Tables.ISSUE).execute()
+		dsl.delete(Tables.SPRINT).execute()
+		dsl.delete(Tables.PROJECT).execute()
 	}
 	
+	fun getRandomUser() : Long {
+		val r = Random()
+		return dsl.selectFrom(Tables.USER).fetch().parallelStream().map{u -> u.get(Tables.USER.ID) }.collect(Collectors.toList()).get(r.nextInt(100))
+	}	
+							
 	fun setActiveProject(projectId : Long, sprintId : Long) {
 		dsl.update(Tables.PROJECT)
 			.set(Tables.PROJECT.ACTIVE_SPRINT_ID, sprintId)
 			.where(Tables.PROJECT.ID.eq(projectId))
 			.execute()
 	}
+	
 	
 	fun generateUsers(faker : Faker) : Long {
 		val userId = insertIntoUser(faker.name().fullName(), "admin", passwordEncoder.encode("admin"))
@@ -122,6 +130,7 @@ class IssueLoader(
 		return userId;
 	}
 	
+	
 	fun generateProjects(faker : Faker) : Long {
 		var projectId = -1L;
 		for(i in 0..500){
@@ -132,6 +141,7 @@ class IssueLoader(
 
 		return projectId
 	}
+	
 	
 	fun generateSprints(projectId : Long) : Long{
 		val currentSprintId = insertSprint(LocalDate.now().minusDays(1), LocalDate.now().plusDays(14), projectId);
@@ -145,6 +155,7 @@ class IssueLoader(
 
 		return currentSprintId;
 	}
+	
 	
 	fun attachProjectAndUser(projectId : Long, userId : Long, active : Boolean) =
 			dsl.insertInto(Tables.PROJECT_USERS,

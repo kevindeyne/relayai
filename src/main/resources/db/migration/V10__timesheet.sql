@@ -7,7 +7,7 @@ CREATE TABLE `timesheet` (
   `issue_id` bigint(20) NOT NULL,
   `user_id` bigint(20) NOT NULL,
   PRIMARY KEY (`id`)
-);
+) engine=InnoDB;
 ALTER TABLE timesheet
 ADD FOREIGN KEY (issue_id) REFERENCES issue(id);
 
