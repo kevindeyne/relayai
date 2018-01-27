@@ -1,6 +1,7 @@
 package com.kevindeyne.tasker.repositories
 
 
+import com.kevindeyne.tasker.domain.ProjectListing
 import com.kevindeyne.tasker.domain.Role
 import com.kevindeyne.tasker.domain.TeammemberListing
 import com.kevindeyne.tasker.domain.UserPrincipal
@@ -24,9 +25,15 @@ open class UserRepositoryImpl (val dsl: DSLContext,
 
 		if(record.isPresent) {
 			val userId : Long = getUserIdFromRecord(record.get())
-			val projectId : Long = projectRepository.findActiveProject(userId).id
-			val sprintId : Long = sprintRepository.findCurrentSprintByProjectId(projectId)
+			val project : ProjectListing? = projectRepository.findActiveProject(userId)
+			var projectId = -1L
+			var sprintId : Long = -1L
 			
+			if(project != null){
+				projectId = project.id				
+				sprintId = sprintRepository.findCurrentSprintByProjectId(projectId)				
+			}
+
 			val roles = getUserRoles(userId)
 			val issues = issueRepository.findAllInProgress(userId, sprintId)
 			

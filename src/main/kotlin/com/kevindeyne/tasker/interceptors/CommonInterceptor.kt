@@ -24,7 +24,12 @@ class CommonInterceptor(val issueRepository : IssueRepository) : HandlerIntercep
 						return;
 					}
 				
-					if (SecurityHolder.hasRole(Role.DEVELOPER) || SecurityHolder.hasRole(Role.TESTER)) {
+					if (SecurityHolder.hasRole(Role.DEVELOPER) || SecurityHolder.hasRole(Role.TESTER)) {					
+						if(SecurityHolder.getProjectId() == -1L && !reqUrl.contains("/project/new")){
+							response.sendRedirect("/project/new");
+							return
+						}
+						
 						model.addObject("inProgressIssueList", issueRepository.findAllInProgress())
 					}  
 				}	

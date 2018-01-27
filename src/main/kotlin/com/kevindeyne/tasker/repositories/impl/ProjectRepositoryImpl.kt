@@ -4,12 +4,14 @@ import com.kevindeyne.tasker.controller.form.ProjectForm
 import com.kevindeyne.tasker.controller.timesheet.TimeUtils
 import com.kevindeyne.tasker.domain.ProjectListing
 import com.kevindeyne.tasker.jooq.Tables
+import com.kevindeyne.tasker.jooq.tables.records.ProjectRecord
 import com.kevindeyne.tasker.service.SecurityHolder
 import org.jooq.DSLContext
 import org.springframework.stereotype.Component
 import org.springframework.transaction.annotation.Transactional
-import java.util.Date
 import java.sql.Timestamp
+import java.util.Date
+import java.util.Optional
 import java.util.stream.Collectors
 
 @Component
@@ -29,18 +31,23 @@ open class ProjectRepositoryImpl (val dsl: DSLContext, val sprintRepository : Sp
 			   }
 	}
 	
-	override fun findActiveProject(userId : Long) : ProjectListing {
-		return dsl.select()
+	override fun findActiveProject(userId : Long) : ProjectListing? {
+		val record = dsl.select()
 				.from(Tables.PROJECT)
 				.join(Tables.PROJECT_USERS).on(Tables.PROJECT_USERS.PROJECT_ID.eq(Tables.PROJECT.ID))
 			    .where(Tables.PROJECT_USERS.USER_ID.eq(userId))
 			    .and(Tables.PROJECT_USERS.ACTIVE.eq(true))
-			    .fetchOne()
-			    .map {
-				  n -> ProjectListing(n.get(Tables.PROJECT.ID),
-									n.get(Tables.PROJECT.TITLE),
-									n.get(Tables.PROJECT.KEY))
-			   }
+			    .fetchOptional()
+
+		if(record.isPresent){
+			return record.get().map {
+			  n -> ProjectListing(n.get(Tables.PROJECT.ID),
+								n.get(Tables.PROJECT.TITLE),
+								n.get(Tables.PROJECT.KEY))
+		   }
+		} else {
+			return null
+		}    
 	}
 	
 	override fun findProjects(userId : Long) : List<ProjectListing>	 {
@@ -76,12 +83,12 @@ open class ProjectRepositoryImpl (val dsl: DSLContext, val sprintRepository : Sp
 	
 	@Transactional
 	override fun createNewProject(userId : Long, form : ProjectForm) {
-		val title : String = form.title.capitalize()	
+		val title : String = form.title.capitalize()
 		val sprintLength : Int = 2 //TODO get that stuff from the domain
-		val projectId = buildProject(userId, title, sprintLength)		
+		val projectId = buildProject(userId, title, sprintLength)
 		
 		setProjectAsActive(projectId, buildOriginSprint(userId, projectId, 2))
-		changeActiveProject(userId, projectId)		
+		changeActiveProject(userId, projectId)	
 	}
 	
 	fun buildProject(userId : Long, title : String, sprintLength : Int) : Long {

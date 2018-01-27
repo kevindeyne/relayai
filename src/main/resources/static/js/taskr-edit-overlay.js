@@ -11,8 +11,8 @@ $(document).ready(function() {
 		$("#overlay-detail p:first span.changing").text($(this).text());
 		
 		$("#overlay-detail .overlay-options").hide();
-		$(relativeTo.replace("change-", "#overlay-")).show();
-		
+		if(typeof(relativeTo) !== "undefined") {$(relativeTo.replace("change-", "#overlay-")).show();}
+				
 		$("#overlay-detail ul li").removeClass("active");
 		$("#overlay-detail ul li:contains('"+$(this).text()+"')").addClass("active");
 		

@@ -26,14 +26,18 @@ class ProjectController(val projectRepository : ProjectRepository, val userRepos
 	fun genericProjectLayout(model : Model) : String {
 		model.addAttribute("activePage", "project");
 		
-		val projectId : Long = SecurityHolder.getProjectId()
-		
-		model.addAttribute("currentProject", projectRepository.findProject(projectId))
 		model.addAttribute("projects", projectsList())
 		
-		model.addAttribute("teammembers", userRepository.findTeammembersByProject(projectId))
-		model.addAttribute("invites", userRepository.findInvitesByProject(projectId))
-		
+		val projectId : Long = SecurityHolder.getProjectId()
+		if(SecurityHolder.getProjectId() != -1L){
+			model.addAttribute("currentProject", projectRepository.findProject(projectId))
+					
+			model.addAttribute("teammembers", userRepository.findTeammembersByProject(projectId))
+			model.addAttribute("invites", userRepository.findInvitesByProject(projectId))
+		} else {
+			model.addAttribute("currentProject", ProjectListing(1, "", ""))
+		}
+				
 		return "projects"
 	}
 	
@@ -48,7 +52,8 @@ class ProjectController(val projectRepository : ProjectRepository, val userRepos
 	
 	@GetMapping(PROJECT_NEW) 
 	fun newProject(model : Model) : String {
-		model.addAttribute("showCreatePage", true)		
+		model.addAttribute("showCreatePage", true)
+		model.addAttribute("noOtherProject", SecurityHolder.getProjectId() == -1L)	
 		return genericProjectLayout(model)
 	}
 }

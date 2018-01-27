@@ -20,8 +20,8 @@
 				<textarea id="description" name="description" placeholder="Describe your problem and provide info on how to reproduce it"></textarea>
 				
 				<div class="button-group">
-					<button id="create-project-submit" type="button"><span>Submit</span></button>
-					<button type="button" class="altpath"><span>Cancel</span></button>
+					<button id="create-project-submit" type="button"><span>Submit</span></button>					
+					<button type="button" class="altpath" th:class="${noOtherProject}? 'invisible' : ''"><span>Cancel</span></button>
 				</div>
 			</form>
 		</section>

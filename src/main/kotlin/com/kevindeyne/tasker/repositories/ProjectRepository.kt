@@ -7,7 +7,7 @@ interface ProjectRepository {
 
 	fun findProject(projectId : Long) : ProjectListing
 	
-	fun findActiveProject(userId : Long) : ProjectListing 
+	fun findActiveProject(userId : Long) : ProjectListing?
 	
 	fun findProjects(userId : Long) : List<ProjectListing>
 	

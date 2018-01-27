@@ -1,10 +1,9 @@
 $(document).ready(function() { 				
 	//create new issue - submit button
 	$("#create-project-submit").click(function() {
-		var issueForm = new Object();
-		issueForm.title = "title";
-		issueForm.description = "description";
-		issueForm.project = "project";
+		var projectForm = new Object();
+		projectForm.title = $("#title").val();
+		projectForm.description = "description";
 		
 		hideScreen("#content-new-project");
 		$("#loader").show().css({opacity: '0'}).animate({opacity: '1'}, "fast");
@@ -30,7 +29,7 @@ $(document).ready(function() {
 			}
 		});
 		
-		$.post('/issue/new', JSON.stringify(issueForm), function(response) {			
+		$.post('/project/new', JSON.stringify(projectForm), function(response) {			
 		    if(response.status === "OK"){
 		    	isPOSTDone = true;
 		    	

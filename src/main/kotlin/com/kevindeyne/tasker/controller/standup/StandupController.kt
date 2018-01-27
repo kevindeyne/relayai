@@ -42,13 +42,14 @@ class StandupController(val issueRepository : IssueRepository, val sprintReposit
 		model.addAttribute("report", false);
 		getDailyOverviewOfSpecificSprint(model, sprintId)
 				
-		//TODO test data
-		val issueList = issueRepository.findAllActiveForUserInCurrentSprint()				
-		model.addAttribute("issueList1", issueList.subList(0, 2));
-		model.addAttribute("issueList2", issueList.subList(2, 4));
-		model.addAttribute("issueList3", issueList.subList(4, 5));
-		//end testData
-		
+		//test data
+		val issueList = issueRepository.findAllActiveForUserInCurrentSprint()
+		if(!issueList.isEmpty()){
+			model.addAttribute("issueList1", issueList.subList(0, 2));
+			model.addAttribute("issueList2", issueList.subList(2, 4));
+			model.addAttribute("issueList3", issueList.subList(4, 5));	
+		}		
+		//end testData		
 		return "standup"
 	}
 
