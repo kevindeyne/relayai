@@ -10,6 +10,15 @@ Take note: This project is an alpha-stage (feature incomplete) work in progress.
   <img src="./README/taskr.png" alt="Taskr example"
        width="800" height="407">
 </p>
+
+## Key Features
+
+* Learns the expertise of team members and assigns relevant tasks to the right people
+* Takes into account workload to plan tasks
+* Has easy tracking of time spent on an issue
+* Simplifies sprint planning, daily standup meetings, guides smaller teams into working more agile
+* Provides priority help with SLAs, replies, problems
+* Opens up the issue tracker for clients and project leaders, while keeping its workflows focussed on the developers and testers
  
 ## Implemented features 
  

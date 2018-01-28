@@ -83,6 +83,8 @@
 		<section id="content-main">
 			<p class="content" th:text="${currentIssueDescription}"></p>
 			
+			<p id="not-in-progress-warning" class="warning"><i class="fa fa-hourglass-start" aria-hidden="true"></i> You are currently viewing this issue without tracking it. Would you like to <a href="#" id="start-tracking-button">start tracking</a> your progress now?</p>
+						
 			<textarea id="comment-box"></textarea>
 			
 			<div class="button-group">

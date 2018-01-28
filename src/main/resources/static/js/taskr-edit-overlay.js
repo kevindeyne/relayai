@@ -63,7 +63,7 @@ function changeSubmitFunctionality(){
 		}		
 	} else {	
 		var relativeTo = $("#overlay-detail").attr("relative-to").replace("change-", "");
-		$.post("/issue/"+issueId+"/"+relativeTo+"/"+action, {}, function(response) {}, 'json');	
+		$.post("/issue/"+issueId+"/"+relativeTo+"/"+action, {}, function(response) {}, 'json');
 	}
 		
 	afterChange(action);

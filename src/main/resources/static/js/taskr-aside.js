@@ -70,9 +70,28 @@ $(document).ready(function() {
 		return false;
 	});
 
-	//$('aside .ss-content').animate({ scrollTop: Math.abs($("section.active").offset().top+200) }, 1); //scroll to active - convenience; for clarity we probably want to keep the active one fixed and inbox moving TODO
+	$("#start-tracking-button").click(function(event){
+		event.preventDefault();
+		
+		//set to in progress, assign to you
+		var issueId = $("aside section.active").attr("issue-id");
+		$.post("/issue/"+issueId+"/progress/IN_PROGRESS", {}, function(response) {colorCodeChangeables();}, 'json'); //implicit assign to you
+		$("#change-progress").attr("class", "changeable in-progress").text("In progress");
+		$("#change-assignee").text("you");
+		reorderIssueInAside(issueId);
+		
+		//hide 
+		$("#not-in-progress-warning").hide();
+		
+		return false;
+	});
 	
 });
+
+
+function reorderIssueInAsideInAside(issueId){
+	//TODO	
+}
 
 function cloneAndPrepend(newIssue){
 	var newSection = $("aside section:first").clone(true, true);
@@ -97,8 +116,15 @@ function cloneAndPrepend(newIssue){
 function colorCodeChangeables(){
 	if($("#change-progress").text() === "In progress"){
 		$("#change-progress").addClass("in-progress");
+		$("#not-in-progress-warning").hide();
 	} else {
 		$("#change-progress").removeClass("in-progress");
+		
+		if($("#change-assignee").text() === "you" && $("#change-progress").text() !== "New"){
+			$("#not-in-progress-warning").show();
+		} else {
+			$("#not-in-progress-warning").hide();
+		}
 	}
 	
 	if($("#change-urgency").text() === "High priority"){
@@ -106,6 +132,8 @@ function colorCodeChangeables(){
 	} else {
 		$("#change-urgency").removeClass("high-prio");
 	}
+	
+	reorderIssueInAside(issueId);
 }
 
 function initScrollbar(element){

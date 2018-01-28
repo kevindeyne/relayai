@@ -9,6 +9,14 @@ section#content-main p.warning{
     margin-top: 1em;
     font-weight: 100 !important;
     margin-bottom: 1em;
+	
+	a, a:link, a:active, a:visited {
+		color: #f5fcff;
+	}
+	
+	a:hover {
+		color: #dedede;
+	}
 }
 
 div.undecided-option {
