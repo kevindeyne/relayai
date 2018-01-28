@@ -1,5 +1,6 @@
 package com.kevindeyne.tasker.controller
 
+import com.kevindeyne.tasker.domain.IssueListing
 import com.kevindeyne.tasker.repositories.IssueRepository
 import com.kevindeyne.tasker.repositories.SprintRepository
 import com.kevindeyne.tasker.service.SecurityHolder
@@ -45,12 +46,20 @@ class StandupController(val issueRepository : IssueRepository, val sprintReposit
 		//test data
 		val issueList = issueRepository.findAllActiveForUserInCurrentSprint()
 		if(!issueList.isEmpty()){
-			model.addAttribute("issueList1", issueList.subList(0, 2));
-			model.addAttribute("issueList2", issueList.subList(2, 4));
-			model.addAttribute("issueList3", issueList.subList(4, 5));	
+			model.addAttribute("issueList1", exampleList(issueList, 0, 2));
+			model.addAttribute("issueList2", exampleList(issueList, 2, 4));
+			model.addAttribute("issueList3", exampleList(issueList, 4, 5));	
 		}		
 		//end testData		
 		return "standup"
+	}
+	
+	fun exampleList(list : List<IssueListing>, start : Int, end : Int) : List<IssueListing> {
+		try{
+			return list.subList(start, end)
+		}catch(e : IndexOutOfBoundsException){
+			return listOf()
+		}
 	}
 
 	fun getDailyOverviewOfSpecificSprint(model : Model, sprintId : Long) { //TODO day??

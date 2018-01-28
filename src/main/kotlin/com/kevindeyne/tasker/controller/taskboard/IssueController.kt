@@ -97,7 +97,7 @@ class IssueController(var issueRepository : IssueRepository, var jmsTemplate : J
 	fun getIssueListTeam() : List<IssueListing>  {
 		val sprintId = SecurityHolder.getSprintId()
 		if(sprintId != null){
-			return issueRepository.findAllActiveForTeamInCurrentSprint(sprintId)
+			return issueRepository.findAllActiveForTeamInCurrentSprint(sprintId, SecurityHolder.getUserId())
 		}
 		return issueRepository.findAllActiveForUserInCurrentSprint()
 	}

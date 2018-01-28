@@ -382,11 +382,12 @@ open class IssueRepositoryImpl (val dsl: DSLContext) : IssueRepository {
 	}
 	
 			
-	override fun findAllActiveForTeamInCurrentSprint(sprintId : Long) : List<IssueListing> {
+	override fun findAllActiveForTeamInCurrentSprint(sprintId : Long, userId : Long) : List<IssueListing> {
 		return dsl.selectFrom(Tables.ISSUE)
 			    .where(
 				   Tables.ISSUE.SPRINT_ID.eq(sprintId)
 				   .and(ACTIVE_ISSUE)
+				   .and(Tables.ISSUE.ASSIGNED.notEqual(userId))
 			   )
 			   .orderBy(Tables.ISSUE.IMPORTANCE.desc(), Tables.ISSUE.CREATE_DATE.asc())
 			   .fetch()

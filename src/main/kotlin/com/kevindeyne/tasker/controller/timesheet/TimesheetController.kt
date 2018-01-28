@@ -25,7 +25,7 @@ class TimesheetController(val timesheetRepository : TimesheetRepository) {
 	}
 	
 	fun getTimesheetInfo(model : Model){
-		val timesheets = timesheetRepository.getTimesheetForSprint(SecurityHolder.getUserId(), SecurityHolder.getSprintId())
+		val timesheets = timesheetRepository.getTimesheetForSprint(SecurityHolder.getSprintId(), SecurityHolder.getUserId())
 		model.addAttribute("timesheets", TimesheetParser.INSTANCE.getTimesheetDays(timesheets))
 		
 		model.addAttribute("currentMonth", LocalDate.now().getMonth().getDisplayName(TextStyle.FULL, Locale.UK))
