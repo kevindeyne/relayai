@@ -61,12 +61,12 @@ Take note: This project is an alpha-stage (feature incomplete) work in progress.
 ## Built With
 
 * [Spring Boot](https://projects.spring.io/spring-boot/) - Application framework used
-* [JOOQ] (https://www.jooq.org/) - Type-safe, database first DSL for SQL queries (highly recommended alternative to ORMs)
+* [JOOQ](https://www.jooq.org/) - Type-safe, database first DSL for SQL queries (highly recommended alternative to ORMs)
 * [BoneCP](http://jolbox.com) - Fast, open-source, Java database connection pool
-* [Stanford Language Processing Libraries] (https://nlp.stanford.edu/software/) - Greatly increases the accuracy of the internal keyword generation
-* [Apache ActiveMQ] (http://activemq.apache.org/) - Open source messaging server, integrated into Spring Boot
-* [Kotlin] (https://kotlinlang.org/) - Statically typed, concise and safe programming language
-* [JavaFaker] (https://github.com/DiUS/java-faker) - Fake data generator for realistic testing
+* [Stanford Language Processing Libraries](https://nlp.stanford.edu/software/) - Greatly increases the accuracy of the internal keyword generation
+* [Apache ActiveMQ](http://activemq.apache.org/) - Open source messaging server, integrated into Spring Boot
+* [Kotlin](https://kotlinlang.org/) - Statically typed, concise and safe programming language
+* [JavaFaker](https://github.com/DiUS/java-faker) - Fake data generator for realistic testing
 * [Maven](https://maven.apache.org/) - Dependency Management
 
 ## Contributing
