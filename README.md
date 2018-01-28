@@ -5,6 +5,11 @@ A project management tool that incorporates everything I've learned about workin
 Primary technologies used are Kotlin, Java 8, SASS, JOOQ and jQuery. It runs as a self-contained JAR with Spring Boot on AWS. You can see a running demo of the latest minor release at: http://taskr.us-west-2.elasticbeanstalk.com:8080 
  
 Take note: This project is an alpha-stage (feature incomplete) work in progress. It is not ready for use in a production environment. Flyway database scripts may change drastically as the project moves into further stages of development. Expect frequent commits. 
+
+<p align="center">
+  <img src="./README/taskr.png" alt="Taskr example"
+       width="800" height="407">
+</p>
  
 ## Implemented features 
  
@@ -79,4 +84,4 @@ Until version 1.0.0, there are no concrete plans to open up development to non-c
  
 ## License 
  
-This project is licensed under the Mozilla Public License 2.0 - see the [LICENSE.md](LICENSE.md) file for details 
+This project is licensed under the Mozilla Public License 2.0 - see the [LICENSE.md](https://github.com/kevindeyne/tasker/blob/master/LICENSE) file for details 
