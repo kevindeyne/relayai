@@ -96,6 +96,14 @@ i.fa {
     text-align: center;
 }
 
+aside {
+	i.fa {
+		position: relative;
+		left: 8px;
+		top: -8px;
+	}
+}
+
 .visible{
 	display: block !important;
 }

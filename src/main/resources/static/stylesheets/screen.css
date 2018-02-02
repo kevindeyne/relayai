@@ -162,12 +162,19 @@ i.fa {
   text-align: center;
 }
 
-/* line 99, ../sass/_common.scss */
+/* line 100, ../sass/_common.scss */
+aside i.fa {
+  position: relative;
+  left: 8px;
+  top: -8px;
+}
+
+/* line 107, ../sass/_common.scss */
 .visible {
   display: block !important;
 }
 
-/* line 103, ../sass/_common.scss */
+/* line 111, ../sass/_common.scss */
 .invisible {
   display: none !important;
 }
