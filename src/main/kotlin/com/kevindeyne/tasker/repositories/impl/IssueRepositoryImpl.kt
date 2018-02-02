@@ -2,6 +2,7 @@ package com.kevindeyne.tasker.repositories
 
 import com.kevindeyne.tasker.controller.form.IssueResponse
 import com.kevindeyne.tasker.controller.form.StandupResponse
+import com.kevindeyne.tasker.domain.CommentListing
 import com.kevindeyne.tasker.domain.Impact
 import com.kevindeyne.tasker.domain.InProgressIssue
 import com.kevindeyne.tasker.domain.IssueListing
@@ -13,7 +14,6 @@ import com.kevindeyne.tasker.jooq.tables.records.IssueRecord
 import com.kevindeyne.tasker.service.SecurityHolder
 import org.jooq.DSLContext
 import org.jooq.Record
-import org.jooq.impl.DSL
 import org.jooq.tools.StringUtils
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
@@ -58,21 +58,63 @@ open class IssueRepositoryImpl (val dsl: DSLContext) : IssueRepository {
 	}
 	
 	/*pulling*/
-	@Transactional
-	override fun findUpdateOnIssues(sprintId : Long, maxid : String) : List<IssueResponse> {
+	override fun findUpdateOnMyIssues(sprintId: Long, userId: Long, lastUpdateAt: Timestamp): List<IssueResponse> {
 		return dsl.selectFrom(Tables.ISSUE)
-			   .where(Tables.ISSUE.ASSIGNED.eq(SecurityHolder.getUserId()))
-			   .and(Tables.ISSUE.ID.gt(maxid.toLong()))
-			   .and(Tables.ISSUE.SPRINT_ID.eq(sprintId))
-			   .and(ACTIVE_ISSUE)
+			    .where(
+				   Tables.ISSUE.ASSIGNED.eq(userId)
+				   .and(Tables.ISSUE.SPRINT_ID.eq(sprintId))
+				   .and(ACTIVE_ISSUE)
+				   .and(Tables.ISSUE.UPDATE_DATE.gt(lastUpdateAt))
+			   ).orderBy(Tables.ISSUE.IMPORTANCE.desc(), Tables.ISSUE.CREATE_DATE.asc())
+			   .fetch()
+			   .parallelStream()
+			   .map { n -> mapPullIssueResponse(n) }
+			   .collect(Collectors.toList())
+	}
+	
+	override fun findUpdateOnMyIssuesRemoved(sprintId: Long, userId: Long, lastUpdateAt: Timestamp): List<String> {
+		return dsl.selectFrom(Tables.ISSUE)
+			    .where(
+				   Tables.ISSUE.SPRINT_ID.eq(sprintId)
+				   .and(Tables.ISSUE.UPDATE_DATE.gt(lastUpdateAt))
+				   .and((Tables.ISSUE.ASSIGNED.notEqual(userId))
+				   .or(Tables.ISSUE.STATUS.notIn(Progress.IN_PROGRESS.name, Progress.IN_SPRINT.name)))
+			   )
+			   .fetch()
+			   .parallelStream()
+			   .map { n -> n.get(Tables.ISSUE.ID).toString() }
+			   .collect(Collectors.toList())
+	}
+
+	override fun findUpdateOnTeamIssues(sprintId: Long, userId: Long, lastUpdateAt: Timestamp): List<IssueResponse> {		
+		return dsl.selectFrom(Tables.ISSUE)
+			    .where(
+				   Tables.ISSUE.SPRINT_ID.eq(sprintId)
+				   .and(ACTIVE_ISSUE)
+				   .and(Tables.ISSUE.ASSIGNED.notEqual(userId))
+				   .and(Tables.ISSUE.UPDATE_DATE.gt(lastUpdateAt))
+			   )
 			   .orderBy(Tables.ISSUE.IMPORTANCE.desc(), Tables.ISSUE.CREATE_DATE.asc())
 			   .fetch()
 			   .parallelStream()
-			   .map { n -> mapIssueResponse(n, true) }
-			   .collect(Collectors.toList())		
+			   .map { n -> mapPullIssueResponse(n) }
+			   .collect(Collectors.toList())
 	}
-	
-	
+
+	override fun findUpdateOnBacklog(projectId: Long, lastUpdateAt: Timestamp): List<IssueResponse> {		
+		return dsl.selectFrom(Tables.ISSUE)
+			    .where(
+				   Tables.ISSUE.PROJECT_ID.eq(projectId)
+				   .and(Tables.ISSUE.STATUS.eq(Progress.BACKLOG.name))
+				   .and(Tables.ISSUE.UPDATE_DATE.gt(lastUpdateAt))
+			   )
+			   .orderBy(Tables.ISSUE.IMPORTANCE.desc(), Tables.ISSUE.CREATE_DATE.asc())
+			   .fetch()
+			   .parallelStream()
+			   .map { n -> mapPullIssueResponse(n) }
+			   .collect(Collectors.toList())			   	
+	}
+		
 	companion object {
 		const val IMPORTANCE_CRITICAL_H_IMP = 10
 		const val IMPORTANCE_CRITICAL_N_IMP = 9
@@ -252,6 +294,23 @@ open class IssueRepositoryImpl (val dsl: DSLContext) : IssueRepository {
 			.set(Tables.ISSUE.UPDATE_USER, updateUser)
 			.set(Tables.ISSUE.UPDATE_DATE, timestamp)
 			.execute()
+	}
+	
+	fun mapPullIssueResponse(n : Record?) : IssueResponse {
+		if(n == null){
+			return IssueResponse()
+		} else { 
+			return IssueResponse(n.get(Tables.ISSUE.ID),
+							 n.get(Tables.ISSUE.TITLE),
+							 abbreviate(n.get(Tables.ISSUE.DESCRIPTION)),
+						     "", "", "", "", "", "", "",
+							 determineClass(n.get(Tables.ISSUE.WORKLOAD), n.get(Tables.ISSUE.STATUS), n.get(Tables.ISSUE.URGENCY), n.get(Tables.ISSUE.OVERLOAD).compareTo(1) == 0),
+							 "", listOf(),
+							 n.get(Tables.ISSUE.IMPORTANCE),
+							 "",
+							 false
+			)
+		}
 	}
 	
 	fun mapIssueResponse(n : Record?, abbreviate : Boolean) : IssueResponse {

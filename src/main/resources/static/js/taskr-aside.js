@@ -78,7 +78,7 @@ $(document).ready(function() {
 		$.post("/issue/"+issueId+"/progress/IN_PROGRESS", {}, function(response) {colorCodeChangeables();}, 'json'); //implicit assign to you
 		$("#change-progress").attr("class", "changeable in-progress").text("In progress");
 		$("#change-assignee").text("you");
-		reorderIssueInAside(issueId);
+		reorderIssueInAside();
 		
 		//hide 
 		$("#not-in-progress-warning").hide();
@@ -89,7 +89,7 @@ $(document).ready(function() {
 });
 
 
-function reorderIssueInAsideInAside(issueId){
+function reorderIssueInAside(){
 	//TODO	
 }
 
@@ -133,7 +133,7 @@ function colorCodeChangeables(){
 		$("#change-urgency").removeClass("high-prio");
 	}
 	
-	reorderIssueInAside(issueId);
+	reorderIssueInAside();
 }
 
 function initScrollbar(element){

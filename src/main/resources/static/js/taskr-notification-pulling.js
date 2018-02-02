@@ -1,3 +1,5 @@
+var latestupdate = new Date().getTime();
+
 $(function() {	
 	var paused = document.hidden; //current state call
 	var timeBetweenPullsInMs = 5*1000;
@@ -9,20 +11,38 @@ $(function() {
 				
 		if(typeof(maxid) === "undefined" || typeof(issueid) === "undefined"){
 			$.getJSON("/pull", function(data) {
+			  latestupdate = new Date().getTime();
 			  //notifications only
 			});
 		} else {
-			$.getJSON("/pull/"+issueid+"/"+maxid+"/"+highestComment, function(data) {			
+			var listtype = $("a.t-active").attr("id").replace("aside-", "");
+			$.getJSON("/pull/"+issueid+"/"+latestupdate+"/"+highestComment+"/"+listtype, function(data) {
+			  latestupdate = new Date().getTime();
 			  if (Number.isInteger(data.myIssueCounter)) {
 				  $("#my-issues-counter").text(data.myIssueCounter);
 				  $("#sprint-counter").text(data.sprintCounter);
 				  $("#backlog-counter").text(data.backlogCounter);
 			  }	
 
-			  for (var newIssueIndex in data.newIssues) {
-				var newIssue = data.newIssues[newIssueIndex];
+			  for (var updateIssueIndex in data.updateIssues) {
+				var newIssue = data.updateIssues[updateIssueIndex];
 				if(newIssue.id > maxid){ maxid = newIssue.id; }
-				cloneAndPrepend(newIssue);
+				
+				if($("aside section[issue-id='"+newIssue.id+"']").length == 0){
+					cloneAndPrepend(newIssue);	
+				} else {
+					var issueToEdit = $("aside section[issue-id='"+newIssue.id+"']");
+					$(issueToEdit).find("h1 span").text(newIssue.title);
+					$(issueToEdit).find("p").text(newIssue.descr);
+				}
+			  }
+			  
+			  for (var removeIssueIndex in data.removeIssues) {
+				  var removeThisIssue = data.removeIssues[removeIssueIndex];
+				  var issueToRemove = $("aside section[issue-id='"+removeThisIssue+"']");
+				  var isActive = issueToRemove.hasClass("active");
+				  if(isActive) { issueToRemove.next().click(); }
+				  issueToRemove.remove();
 			  }
 			});
 		}

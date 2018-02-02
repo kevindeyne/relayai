@@ -19,5 +19,6 @@ data class IssueResponse @JsonCreator constructor(
 		var project : String = "",
 		var comments: List<CommentListing> = listOf(),
 		val importance: Int = IssueRepositoryImpl.IMPORTANCE_NORMAL,
-		var assigned: String = ""
+		var assigned: String = "",
+		val removed: Boolean = false
 )
