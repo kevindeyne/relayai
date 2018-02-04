@@ -40,7 +40,7 @@
 		<div id="aside-issue-list">
 			<section th:each="issue : ${issueList}" th:issue-id="${issue.id}" th:importance="${issue.importance}" th:classappend="${currentIssueId == issue.id}?active">
 				<h1><span th:text="${issue.title}"></span> <i class="fa fa-circle" th:classappend="${issue.clazz}" aria-hidden="true"></i></h1>
-				<p th:text="${issue.shortDescr}"></p>
+				<p th:utext="${issue.shortDescr}"></p>
 				<div th:id="${'progress-' + issue.id}" class="progress"></div>
 			</section>
 		</div>
@@ -81,7 +81,7 @@
 		</section>
 
 		<section id="content-main">
-			<p class="content" th:text="${currentIssueDescription}"></p>
+			<p class="content" th:utext="${currentIssueDescription}"></p>
 			
 			<p id="not-in-progress-warning" class="warning"><i class="fa fa-hourglass-start" aria-hidden="true"></i> You are currently viewing this issue without tracking it. Would you like to <a href="#" id="start-tracking-button">start tracking</a> your progress now?</p>
 						

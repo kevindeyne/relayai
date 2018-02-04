@@ -33,7 +33,7 @@ $(function() {
 				} else {
 					var issueToEdit = $("#aside-issue-list section[issue-id='"+newIssue.id+"']");
 					$(issueToEdit).find("h1 span").text(newIssue.title);
-					$(issueToEdit).find("p").text(newIssue.descr);
+					$(issueToEdit).find("p").text(newIssue.descr.replace(/<br\/>/g , " "));
 				}
 			  }
 			  
@@ -58,7 +58,7 @@ $(function() {
 		newSection.attr("importance", newIssue.importance);
 		newSection.find("h1").text(newIssue.title);
 		newSection.find("h1").append("<i class='fa fa-circle "+ newIssue.clazz +"' aria-hidden='true'></i>");
-		newSection.find("p").text(newIssue.descr);
+		newSection.find("p").text(newIssue.descr.replace(/<br\/>/g , " "));
 		newSection.find("div").attr("id", "progress-"+newIssue.id);
 		
 		var lastImportance = $(listId + " section").filter(function() {
