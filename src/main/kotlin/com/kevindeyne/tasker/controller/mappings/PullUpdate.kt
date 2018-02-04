@@ -10,5 +10,6 @@ data class PullUpdate @JsonCreator constructor(
 		var comments : List<CommentListing> = listOf(),
 		val myIssueCounter : Int = 0,
 		val sprintCounter : Int = 0,
-		val backlogCounter : Int = 0
+		val backlogCounter : Int = 0,
+		val listId : String = "#aside-issue-list"
 )

@@ -28,10 +28,10 @@ $(function() {
 				var newIssue = data.updateIssues[updateIssueIndex];
 				if(newIssue.id > maxid){ maxid = newIssue.id; }
 				
-				if($("aside section[issue-id='"+newIssue.id+"']").length == 0){
-					cloneAndPrepend(newIssue);	
+				if($("#aside-issue-list section[issue-id='"+newIssue.id+"']").length == 0){
+					cloneAndPrepend(newIssue, data.listId);
 				} else {
-					var issueToEdit = $("aside section[issue-id='"+newIssue.id+"']");
+					var issueToEdit = $("#aside-issue-list section[issue-id='"+newIssue.id+"']");
 					$(issueToEdit).find("h1 span").text(newIssue.title);
 					$(issueToEdit).find("p").text(newIssue.descr);
 				}
@@ -51,7 +51,7 @@ $(function() {
 		$.jStorage.set("pulling-demo", $.jStorage.get("pulling-demo", 0) +1, {TTL: 60000})
 	}
 		
-	function cloneAndPrepend(newIssue){
+	function cloneAndPrepend(newIssue, listId){
 		var newSection = $("aside section:first").clone(true, true);
 		newSection.removeClass("active");
 		newSection.attr("issue-id", newIssue.id);
@@ -61,10 +61,15 @@ $(function() {
 		newSection.find("p").text(newIssue.descr);
 		newSection.find("div").attr("id", "progress-"+newIssue.id);
 		
-		//add to section that is correct according to importance value
-		$(newSection).insertAfter($("aside section").filter(function() {
+		var lastImportance = $(listId + " section").filter(function() {
 		    return $(this).attr("importance") > newIssue.importance;
-		}).filter(":last"));
+		}).filter(":last");
+		
+		if(lastImportance.length == 0){
+			$(newSection).insertAfter($(listId + " section:first"));
+		} else {
+			$(newSection).insertAfter(lastImportance);
+		}
 	}
 	
 	//TODO should probably change the name from my demo to an actual key/value

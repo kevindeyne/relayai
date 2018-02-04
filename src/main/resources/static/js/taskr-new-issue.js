@@ -45,7 +45,7 @@ $(document).ready(function() {
 		    	
 		    	if(isPOSTDone && isAnimationDone){
 		    		$("#loader").hide();
-		    		$("#content-new-issue-main button.altpath").click(); //cancel button functionality	
+		    		$("#content-new-issue-main button.altpath").click(); //cancel button functionality
 		    	}				    	
 		    } else {
 		    	//did not validate - so show the form again
@@ -58,8 +58,9 @@ $(document).ready(function() {
 	});
 	
 	//create new issue - cancel button
-	$("#content-new-issue-main button.altpath").click(function(e) {				
-		hideScreen("#content-new-issue");
+	$("#content-new-issue-main button.altpath").click(function(e) {		
+		hideScreen("#content-new-issue");		
+		$("#title, #description").val("");		
 		$("#main, aside, #content-new-issue").removeClass("visible").removeClass("invisible");
 		$("#main, aside").show().css({opacity: '0'}).animate({opacity: '1'}, "fast");
 		window.history.pushState('taskr-currentpage', null, '/tasks/' + localStorage.getItem("current-issue"));

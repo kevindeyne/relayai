@@ -25,7 +25,7 @@ class PullingController(val issueRepository : IssueRepository, val commentReposi
 		
 		var newIssues : List<IssueResponse>
 		var removeIssues : List<String> = listOf()
-		
+				
 		val lastUpdateAt = Timestamp(latestupdate.toLong())
 		if("issue".equals(listtype)){
 			newIssues = issueRepository.findUpdateOnMyIssues(sprintId, SecurityHolder.getUserId(), lastUpdateAt)
@@ -43,8 +43,8 @@ class PullingController(val issueRepository : IssueRepository, val commentReposi
 		val myIssueCounter : Int = issueRepository.counterMyIssue(SecurityHolder.getUserId(), sprintId)
 		val sprintCounter : Int = issueRepository.counterSprint(SecurityHolder.getUserId(), sprintId)
 		val backlogCounter : Int = issueRepository.counterBacklog(SecurityHolder.getProjectId())
-
-		return PullUpdate(newIssues, removeIssues, comments, myIssueCounter, sprintCounter, backlogCounter);
+		
+		return PullUpdate(newIssues, removeIssues, comments, myIssueCounter, sprintCounter, backlogCounter, "#aside-$listtype-list");
 	}
 	
 	@GetMapping(PULLING_OTHER)
