@@ -78,7 +78,7 @@ open class IssueRepositoryImpl (val dsl: DSLContext) : IssueRepository {
 				   Tables.ISSUE.SPRINT_ID.eq(sprintId)
 				   .and(Tables.ISSUE.UPDATE_DATE.gt(lastUpdateAt))
 				   .and((Tables.ISSUE.ASSIGNED.notEqual(userId))
-				   .or(Tables.ISSUE.STATUS.notIn(Progress.IN_PROGRESS.name, Progress.IN_SPRINT.name)))
+				   .or(Tables.ISSUE.STATUS.notIn(Progress.IN_PROGRESS.name, Progress.IN_SPRINT.name, Progress.NEW.name)))
 			   )
 			   .fetch()
 			   .parallelStream()

@@ -35,7 +35,7 @@ class GlobalReceiver(val issueRepository: IssueRepository, val tagcloud: Tagclou
 		var issueId : Long
 		
 		val title = message.value
-		val description = "This is a new issue and this is the description of it."
+		val description = message.description
 		
 		if(create){
 			issueId = issueRepository.create(title, description, message.userId, message.sprintId, message.projectId, message.userId)

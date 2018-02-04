@@ -11,9 +11,8 @@ $(document).ready(function() {
 	//create new issue - submit button
 	$("#create-issue-submit").click(function() {
 		var issueForm = new Object();
-		issueForm.title = "title";
-		issueForm.description = "description";
-		issueForm.project = "project";
+		issueForm.title = $("#title").val();
+		issueForm.description = $("#description").val().replace(/(?:\r\n|\r|\n)/g, '<br />');
 		
 		hideScreen("#content-new-issue");
 		$("#loader").show().css({opacity: '0'}).animate({opacity: '1'}, "fast");
@@ -40,7 +39,7 @@ $(document).ready(function() {
 			}
 		});
 		
-		$.post('/issue/new', JSON.stringify(issueForm), function(response) {			
+		$.post('/issue/new', JSON.stringify(issueForm), function(response) {		
 		    if(response.status === "OK"){
 		    	isPOSTDone = true;
 		    	

@@ -39,7 +39,7 @@ class IssueController(var issueRepository : IssueRepository, var jmsTemplate : J
 				return FormResponse(status = "INVALID")
 			}
 			
-			val message = AMQMessage(id, AMQMessageType.ISSUE_CREATE_OR_EDIT, "Hello world", userId, sprintId, projectId)			
+			val message = AMQMessage(id, AMQMessageType.ISSUE_CREATE_OR_EDIT, form.title, form.description, userId, sprintId, projectId)			
 			jmsTemplate.convertAndSend("issues", message)
 			//add to pulling notification table
 			return FormResponse(status = "OK")
@@ -70,7 +70,7 @@ class IssueController(var issueRepository : IssueRepository, var jmsTemplate : J
 			return FormResponse(status = "INVALID")
 		}
 				
-		val message = AMQMessage(id, determineMessageType(action), changedValue, userId, sprintId, projectId)
+		val message = AMQMessage(id, determineMessageType(action), changedValue, "", userId, sprintId, projectId)
 		jmsTemplate.convertAndSend("issues", message)
 		//add to pulling notification table
 		return FormResponse(status = "OK")

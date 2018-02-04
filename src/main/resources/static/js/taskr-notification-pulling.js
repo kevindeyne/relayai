@@ -50,7 +50,7 @@ $(function() {
 		//load this data into jStorage for other tabs to read
 		$.jStorage.set("pulling-demo", $.jStorage.get("pulling-demo", 0) +1, {TTL: 60000})
 	}
-	
+		
 	function cloneAndPrepend(newIssue){
 		var newSection = $("aside section:first").clone(true, true);
 		newSection.removeClass("active");
