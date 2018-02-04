@@ -34,6 +34,7 @@ $(function() {
 					var issueToEdit = $("#aside-issue-list section[issue-id='"+newIssue.id+"']");
 					$(issueToEdit).find("h1 span").text(newIssue.title);
 					$(issueToEdit).find("p").text(newIssue.descr.replace(/<br\/>/g , " "));
+					$(issueToEdit).find("h1 i").attr("class", "fa fa-circle " + newIssue.clazz);
 				}
 			  }
 			  
