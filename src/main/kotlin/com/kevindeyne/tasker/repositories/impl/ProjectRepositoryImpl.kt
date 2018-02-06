@@ -85,7 +85,7 @@ open class ProjectRepositoryImpl (val dsl: DSLContext, val sprintRepository : Sp
 	@Transactional
 	override fun createNewProject(userId : Long, form : ProjectForm) {
 		val title : String = form.title.capitalize()
-		val sprintLength : Int = SprintFrequency.valueOf(form.sprintFrequency).weeks
+		val sprintLength : Int = SprintFrequency.valueOf(form.sprintFrequency.toUpperCase()).weeks
 		val projectId = buildProject(userId, title, sprintLength)
 		
 		setProjectAsActive(projectId, buildOriginSprint(userId, projectId, 2))
@@ -93,7 +93,7 @@ open class ProjectRepositoryImpl (val dsl: DSLContext, val sprintRepository : Sp
 	}
 	
 	fun buildProject(userId : Long, title : String, sprintLength : Int) : Long {
-		val key : String = title.substring(3).toUpperCase()
+		val key : String = keyGeneration(title)
 		
 		val projectId = dsl.insertInto(Tables.PROJECT,
 				Tables.PROJECT.TITLE, Tables.PROJECT.KEY, Tables.PROJECT.SPRINT_LENGTH)
@@ -106,6 +106,14 @@ open class ProjectRepositoryImpl (val dsl: DSLContext, val sprintRepository : Sp
 		   .execute()
 		
 		return projectId
+	}
+	
+	fun keyGeneration(title : String) : String {
+		val sb = StringBuilder()
+		title.replace("(\\p{Ll})(\\p{Lu})","$1 $2").split(" ").forEach {
+			t -> sb.append(t.substring(0,1).toUpperCase())
+		}
+		return sb.toString();
 	}
 			
 	fun setProjectAsActive(projectId : Long, sprintId : Long) {

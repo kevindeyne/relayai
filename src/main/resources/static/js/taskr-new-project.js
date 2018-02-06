@@ -68,12 +68,12 @@ $(document).ready(function() {
 	
 	$("#r-rs-weekly, #r-rs-biweekly, #r-rs-monthly").change(function () {
 		if($("#r-rs-weekly").is(":checked")){
-			$("#r-sf-weekly").prop("checked", true);
+			$("#r-sf-weekly").prop("checked", true).change();
 			$("#r-sf-biweekly").prop("disabled", true).prop("checked", false);
 			$("label[for='r-sf-biweekly']").attr("class", "r-option disabled")
 		} else {
-			$("#r-sf-biweekly").prop("disabled", false);
-			$("label[for='r-sf-biweekly']").attr("class", "r-option")
+			$("#r-sf-biweekly").prop("disabled", false).change();
+			$("label[for='r-sf-biweekly']").attr("class", "r-option");
 		}
 	});
 	
