@@ -96,8 +96,8 @@ function reorderIssueInAside(){
 function cloneAndPrepend(newIssue){
 	var newSection = $("aside section:first").clone(true, true);
 	
-	var element = $(newSection).detach();
-	$(asideLoaded).append(element);
+	/*var element = $(newSection).detach();
+	$(asideLoaded).append(element);*/
 	
 	newSection.removeClass("active");
 	newSection.attr("issue-id", newIssue.id);
@@ -108,9 +108,11 @@ function cloneAndPrepend(newIssue){
 	newSection.find("div").attr("id", "progress-"+newIssue.id+Math.random().toString(36).substring(7));
 	
 	//add to section that is correct according to importance value
-	$(newSection).insertAfter($("aside section").filter(function() {
+	/*$(newSection).insertAfter($("aside section").filter(function() {
 	    return $(this).attr("importance") > newIssue.importance;
-	}).filter(":last"));
+	}).filter(":last"));*/
+	
+	$(asideLoaded).append(newSection);
 }
 
 function colorCodeChangeables(){
