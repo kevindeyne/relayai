@@ -616,74 +616,78 @@ article #content-new-issue-title {
   width: 100%;
 }
 /* line 41, ../sass/_main.scss */
+article div.ss-wrapper {
+  background: linear-gradient(to right, #f3f6f8, white);
+}
+/* line 45, ../sass/_main.scss */
 article #content-userinfo, article #content-new-issue-title {
   position: fixed;
-  background-color: #f7f9fa;
+  background: linear-gradient(to right, #f3f6f8, white);
   z-index: 35;
 }
-/* line 46, ../sass/_main.scss */
+/* line 50, ../sass/_main.scss */
 article #content-userinfo #content-userinfo-details, article #content-new-issue-title #content-userinfo-details {
   padding-top: 0.7em;
   height: 3.6em;
 }
-/* line 50, ../sass/_main.scss */
+/* line 54, ../sass/_main.scss */
 article #content-userinfo #content-userinfo-details .userinfo-details-col, article #content-userinfo #content-userinfo-details .milestone-details-col, article #content-new-issue-title #content-userinfo-details .userinfo-details-col, article #content-new-issue-title #content-userinfo-details .milestone-details-col {
   float: left;
   width: 15emem;
 }
-/* line 54, ../sass/_main.scss */
+/* line 58, ../sass/_main.scss */
 article #content-userinfo #content-userinfo-details .userinfo-details-col p, article #content-userinfo #content-userinfo-details .milestone-details-col p, article #content-new-issue-title #content-userinfo-details .userinfo-details-col p, article #content-new-issue-title #content-userinfo-details .milestone-details-col p {
   padding-left: 0;
   padding-bottom: 8px;
   padding-top: 0;
   padding-right: 1.5em;
 }
-/* line 62, ../sass/_main.scss */
+/* line 66, ../sass/_main.scss */
 article #content-userinfo #content-userinfo-details .milestone-details-col, article #content-new-issue-title #content-userinfo-details .milestone-details-col {
   width: 25em;
 }
-/* line 67, ../sass/_main.scss */
+/* line 71, ../sass/_main.scss */
 article #content-userinfo #content-userinfo-attachments, article #content-new-issue-title #content-userinfo-attachments {
   clear: both;
 }
-/* line 70, ../sass/_main.scss */
+/* line 74, ../sass/_main.scss */
 article #content-userinfo #content-userinfo-attachments p, article #content-new-issue-title #content-userinfo-attachments p {
   padding-left: 0;
 }
 
 @media (max-width: 1201px) {
-  /* line 79, ../sass/_main.scss */
+  /* line 83, ../sass/_main.scss */
   aside {
     min-width: 200px;
   }
 
-  /* line 82, ../sass/_main.scss */
+  /* line 86, ../sass/_main.scss */
   #content-main {
     padding-left: 2px !important;
   }
 }
-/* line 87, ../sass/_main.scss */
+/* line 91, ../sass/_main.scss */
 article section {
   padding: 1em;
   box-sizing: border-box;
 }
-/* line 91, ../sass/_main.scss */
+/* line 95, ../sass/_main.scss */
 article section > section:first-child {
   padding-top: 4.5em;
 }
 
-/* line 96, ../sass/_main.scss */
+/* line 100, ../sass/_main.scss */
 article#main section#content-main p.content {
   padding-top: 14.5em;
 }
 
-/* line 100, ../sass/_main.scss */
+/* line 104, ../sass/_main.scss */
 article section p {
   padding: 0.5em;
   box-sizing: border-box;
 }
 
-/* line 105, ../sass/_main.scss */
+/* line 109, ../sass/_main.scss */
 article section p.code {
   font-family: "Cutive Mono", "Courier";
   font-size: 1em;
@@ -693,7 +697,7 @@ article section p.code {
   margin: 0.5em;
 }
 
-/* line 114, ../sass/_main.scss */
+/* line 118, ../sass/_main.scss */
 div#initial-load {
   background: #f3f6f8;
   position: fixed;
@@ -704,7 +708,7 @@ div#initial-load {
   z-index: 88;
 }
 
-/* line 124, ../sass/_main.scss */
+/* line 128, ../sass/_main.scss */
 h3.project-title {
   font-family: "Roboto", Times New Roman, Helvetica, sans-serif;
   font-size: 1em;
@@ -715,58 +719,58 @@ h3.project-title {
   color: #696a6d;
 }
 
-/* line 134, ../sass/_main.scss */
+/* line 138, ../sass/_main.scss */
 table.team-member tr {
   height: 2.5em;
 }
-/* line 137, ../sass/_main.scss */
+/* line 141, ../sass/_main.scss */
 table.team-member tr td {
   padding-left: 1em;
   padding-right: 1.5em;
 }
-/* line 141, ../sass/_main.scss */
+/* line 145, ../sass/_main.scss */
 table.team-member tr td strong {
   font-weight: 500;
 }
-/* line 148, ../sass/_main.scss */
+/* line 152, ../sass/_main.scss */
 table.team-member tr td a {
   font-weight: 100;
   text-decoration: none;
   color: #2070f7;
 }
 
-/* line 156, ../sass/_main.scss */
+/* line 160, ../sass/_main.scss */
 #invitations form {
   padding-top: 0.5em;
   padding-bottom: 0.5em;
 }
-/* line 161, ../sass/_main.scss */
+/* line 165, ../sass/_main.scss */
 #invitations form input {
   width: 16em;
 }
-/* line 165, ../sass/_main.scss */
+/* line 169, ../sass/_main.scss */
 #invitations form span {
   padding: 1em;
   font-size: 1.2em;
   position: relative;
   top: -2px;
 }
-/* line 172, ../sass/_main.scss */
+/* line 176, ../sass/_main.scss */
 #invitations form button {
   width: 15em;
 }
 
-/* line 177, ../sass/_main.scss */
+/* line 181, ../sass/_main.scss */
 span.high-prio {
   background: linear-gradient(90deg, #ffb5b5, #ff9c9c);
 }
 
-/* line 181, ../sass/_main.scss */
+/* line 185, ../sass/_main.scss */
 span.in-progress {
   background: linear-gradient(90deg, #b7d2ff, #a3c5ff);
 }
 
-/* line 185, ../sass/_main.scss */
+/* line 189, ../sass/_main.scss */
 #not-in-progress-warning {
   display: none;
 }

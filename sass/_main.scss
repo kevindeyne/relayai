@@ -38,9 +38,13 @@ article {
 		width:100%;
 	}
 	
+	div.ss-wrapper {
+		background: linear-gradient(to right, #f3f6f8 , white);
+	}
+	
 	#content-userinfo, #content-new-issue-title {
 		position: fixed;
-		background-color: #f7f9fa;
+		background: linear-gradient(to right, #f3f6f8 , white);
 		z-index: 35;
 
 		#content-userinfo-details {
