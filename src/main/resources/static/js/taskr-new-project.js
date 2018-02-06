@@ -2,8 +2,11 @@ $(document).ready(function() {
 	//create new issue - submit button
 	$("#create-project-submit").click(function() {
 		var projectForm = new Object();
-		projectForm.title = $("#title").val();
-		projectForm.description = "description";
+		projectForm.title = $("#title").val();		
+		projectForm.newOrExisting = $("input[name='r-new-or-existing']").val();
+		projectForm.releaseSchedule = $("input[name='r-release-schedule']").val();
+		projectForm.sprintFrequency = $("input[name='r-sprint-frequency']").val();
+		projectForm.existingVersion = $("#existing-version").val();
 		
 		hideScreen("#content-new-project");
 		$("#loader").show().css({opacity: '0'}).animate({opacity: '1'}, "fast");
@@ -53,4 +56,33 @@ $(document).ready(function() {
 		$("#main, aside, #content-new-project").removeClass("visible").removeClass("invisible");
 		$("#main, aside").show().css({opacity: '0'}).animate({opacity: '1'}, "fast");
 	});
+	
+	$("#existing-version, label[for='existing-version']").hide();
+	$("#r-existing, #r-new-project").change(function () {
+		if($("#r-existing").is(":checked")){
+			$("#existing-version, label[for='existing-version']").show();
+		} else {
+			$("#existing-version, label[for='existing-version']").hide();
+		}
+	});
+	
+	$("#r-rs-weekly, #r-rs-biweekly, #r-rs-monthly").change(function () {
+		if($("#r-rs-weekly").is(":checked")){
+			$("#r-sf-weekly").prop("checked", true);
+			$("#r-sf-biweekly").prop("disabled", true).prop("checked", false);
+			$("label[for='r-sf-biweekly']").attr("class", "r-option disabled")
+		} else {
+			$("#r-sf-biweekly").prop("disabled", false);
+			$("label[for='r-sf-biweekly']").attr("class", "r-option")
+		}
+	});
+	
+	
+	$("input[name='r-sprint-frequency']").change(function (){
+		if($("input[name='r-sprint-frequency']").filter(":checked").length == 1) {
+			$("#create-project-submit").prop("disabled", false);
+		}
+	});
+		
+	$("#existing-version").mask('09.09.09');
 });

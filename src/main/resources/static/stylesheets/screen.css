@@ -179,6 +179,23 @@ aside i.fa {
   display: none !important;
 }
 
+/* line 115, ../sass/_common.scss */
+label.r-option {
+  display: inline-block;
+  position: relative;
+  top: 1px;
+  font-weight: 300;
+  left: 2px;
+  font-size: 1.5em;
+  cursor: pointer;
+}
+
+/* line 125, ../sass/_common.scss */
+label.disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
 /* line 3, ../sass/_loader.scss */
 article#loader {
   display: none;
@@ -570,7 +587,7 @@ html {
 
 /* line 9, ../sass/_main.scss */
 article {
-  background-color: #f3f6f8;
+  background-color: #f7f9fa;
   height: 100vh;
   flex: 3 1 60%;
   order: 3;
@@ -601,7 +618,7 @@ article #content-new-issue-title {
 /* line 41, ../sass/_main.scss */
 article #content-userinfo, article #content-new-issue-title {
   position: fixed;
-  background-color: #f3f6f8;
+  background-color: #f7f9fa;
   z-index: 35;
 }
 /* line 46, ../sass/_main.scss */

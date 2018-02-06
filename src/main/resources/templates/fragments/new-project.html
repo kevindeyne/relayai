@@ -9,18 +9,31 @@
 		</section>
 
 		<section id="content-new-project-main">
-			<p>This is an example explaining all the options here</p>
+			<p>Provide us with enough information on your project, and we will setup some automatic services to help your project management out.</p>
 
 			<form>
+				<label for="new-or-existing">Is this a new project, or an existing one? <span class="error"></span></label>
+				<input type="radio" id="r-new-project" name="r-new-or-existing" value="new" /> <label class="r-option" for="r-new-project"><span></span>New project</label> <br />
+			    <input type="radio" id="r-existing" name="r-new-or-existing" value="existing" /> <label class="r-option" for="r-existing"><span></span>Existing project</label> <br />
+								
 				<label for="title">Title <span class="error"></span></label> 
 				<input type="text" id="title" name="title" placeholder="Provide a brief title describing your project" maxlength="65" autocomplete="off">
 				<span class="length-limiter" linked-with="title" max-length="65">65</span>
 
-				<label for="description">Description <span class="error"></span></label>
-				<textarea id="description" name="description" placeholder="Describe your problem and provide info on how to reproduce it"></textarea>
+				<label for="release-schedule">Release schedule <span class="error"></span></label>
+				<input type="radio" id="r-rs-weekly" name="r-release-schedule" value="weekly" /> <label class="r-option" for="r-rs-weekly"><span></span>Weekly</label> <br />
+			    <input type="radio" id="r-rs-biweekly" name="r-release-schedule" value="biweekly" /> <label class="r-option" for="r-rs-biweekly"><span></span>Bi-weekly</label> <br />
+				<input type="radio" id="r-rs-monthly" name="r-release-schedule" value="monthly" /> <label class="r-option" for="r-rs-monthly"><span></span>Monthly</label> <br />
 				
+				<label for="existing-version">Existing version <span class="error"></span></label>
+				<input type="text" id="existing-version" name="existing-version" placeholder="1.0.0" maxlength="5" autocomplete="off">
+				
+				<label for="sprint-frequency">Sprint frequency <span class="error"></span></label>
+				<input type="radio" id="r-sf-weekly" name="r-sprint-frequency" value="weekly" /> <label class="r-option" for="r-sf-weekly"><span></span>Weekly</label> <br />
+			    <input type="radio" id="r-sf-biweekly" name="r-sprint-frequency" value="biweekly" /> <label class="r-option" for="r-sf-biweekly"><span></span>Bi-weekly</label> <br />
+			    
 				<div class="button-group">
-					<button id="create-project-submit" type="button"><span>Submit</span></button>					
+					<button id="create-project-submit" type="button" disabled="disabled"><span>Submit</span></button>					
 					<button type="button" class="altpath" th:class="${noOtherProject}? 'invisible' : ''"><span>Cancel</span></button>
 				</div>
 			</form>

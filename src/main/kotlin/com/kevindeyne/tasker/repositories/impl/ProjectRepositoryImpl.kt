@@ -13,6 +13,7 @@ import java.sql.Timestamp
 import java.util.Date
 import java.util.Optional
 import java.util.stream.Collectors
+import com.kevindeyne.tasker.domain.SprintFrequency
 
 @Component
 open class ProjectRepositoryImpl (val dsl: DSLContext, val sprintRepository : SprintRepository, val issueRepository : IssueRepository) : ProjectRepository {
@@ -84,7 +85,7 @@ open class ProjectRepositoryImpl (val dsl: DSLContext, val sprintRepository : Sp
 	@Transactional
 	override fun createNewProject(userId : Long, form : ProjectForm) {
 		val title : String = form.title.capitalize()
-		val sprintLength : Int = 2 //TODO get that stuff from the domain
+		val sprintLength : Int = SprintFrequency.valueOf(form.sprintFrequency).weeks
 		val projectId = buildProject(userId, title, sprintLength)
 		
 		setProjectAsActive(projectId, buildOriginSprint(userId, projectId, 2))
