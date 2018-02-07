@@ -84,3 +84,25 @@ function hideScreen(screenId){
 function showScreen(screenId){
 	$(screenId).removeClass("invisible").show();
 }
+
+function reorderIssueInAside(){
+	var amountOfMoves = 0;
+	
+	if($(".t-active").length > 0){
+		$("#"+$(".t-active").attr("id")+"-list section").each(function () {
+			if($(this).next().length > 0){
+				var thisImportance = parseInt($(this).attr("importance"));
+				var nextImportance = parseInt($(this).next().attr("importance"));
+				
+				if(thisImportance < nextImportance){
+					$($(this).next()).insertBefore($(this));
+					amountOfMoves++;
+				}
+			}		
+		});
+	}
+	
+	if(amountOfMoves != 0){
+		reorderIssueInAside();
+	}
+}

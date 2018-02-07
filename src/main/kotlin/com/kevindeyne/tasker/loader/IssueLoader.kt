@@ -29,10 +29,11 @@ class IssueLoader(
 		val tagcloudRepository : TagcloudRepository
 ) : ApplicationListener<ContextRefreshedEvent>, Ordered {
 	
-	val generateNew : Boolean = true
+	val truncateAll : Boolean = true
+	val generateNew : Boolean = false
 	val maxUserIssuesInSprint : Int = 40
 	val daysPerSprint : Int = 14
-	val totalAmountOfSprints : Int = 500
+	val totalAmountOfSprints : Int = 10
 	val currentUserRole = Role.DEVELOPER
 
 	override fun getOrder() : Int {
@@ -41,10 +42,16 @@ class IssueLoader(
 	
 	@Transactional
 	override fun onApplicationEvent(event: ContextRefreshedEvent?) {
-		if(generateNew) {
-    		truncateAll()
-
-    		val faker : Faker = Faker()
+		val faker : Faker = Faker()
+		
+		if(truncateAll) {	
+			truncateAll()
+			if(!generateNew) {
+				generateUsers(faker)
+			}
+		}
+		
+		if(generateNew) {    
         	println("Generating issues ...")
 
         	val userId = generateUsers(faker)

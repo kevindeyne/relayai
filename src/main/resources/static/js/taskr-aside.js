@@ -88,11 +88,6 @@ $(document).ready(function() {
 	
 });
 
-
-function reorderIssueInAside(){
-	//TODO	
-}
-
 function cloneAndPrepend(newIssue){
 	var newSection = $("aside section:first").clone(true, true);
 	

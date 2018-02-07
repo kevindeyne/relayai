@@ -35,6 +35,7 @@ $(function() {
 					$(issueToEdit).find("h1 span").text(newIssue.title);
 					$(issueToEdit).find("p").text(newIssue.descr.replace(/<br\/>/g , " "));
 					$(issueToEdit).find("h1 i").attr("class", "fa fa-circle " + newIssue.clazz);
+					$(issueToEdit).attr("importance", newIssue.importance);
 				}
 			  }
 			  
@@ -45,6 +46,8 @@ $(function() {
 				  if(isActive) { issueToRemove.next().click(); }
 				  issueToRemove.remove();
 			  }
+			  
+			  reorderIssueInAside();
 			});
 		}
 		
