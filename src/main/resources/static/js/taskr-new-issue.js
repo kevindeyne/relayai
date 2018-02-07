@@ -1,11 +1,15 @@
 $(document).ready(function() { 
 	//create new issue button on taskboard
-	$("#new-issue").click(function() {
-		$("#main, aside").hide();
-		$("#content-new-issue").show().css({opacity: '0'}).animate({opacity: '1'}, "fast");
-		$("#main, aside, #content-new-issue").removeClass("visible").removeClass("invisible");
-		$("form input:first").focus();
-		window.history.pushState('taskr-currentpage', null, '/tasks/create');
+	$("#new-issue").click(function() {		
+		if(window.location.href.indexOf("/tasks") == -1){
+			window.location.href = '/tasks/create';
+		} else {
+			$("#main, aside").hide();
+			$("#content-new-issue").show().css({opacity: '0'}).animate({opacity: '1'}, "fast");
+			$("#main, aside, #content-new-issue").removeClass("visible").removeClass("invisible");
+			$("form input:first").focus();
+			window.history.pushState('taskr-currentpage', null, '/tasks/create');
+		}
 	});
 				
 	//create new issue - submit button

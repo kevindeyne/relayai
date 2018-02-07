@@ -86,6 +86,9 @@ $(document).ready(function() {
 		return false;
 	});
 	
+	if($("aside section.active").length==0){
+		$("aside section:first").click();
+	}
 });
 
 function cloneAndPrepend(newIssue){

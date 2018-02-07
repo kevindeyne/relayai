@@ -3,9 +3,8 @@
   <head></head>
   <body>
 		<nav th:fragment="navigation">
-			<button id="new-issue">
+			<button id="new-issue"><i class="fa fa-plus-square" aria-hidden="true"></i> <span>New issue</span></button>
 			
-			<i class="fa fa-plus-square" aria-hidden="true"></i> <span>New issue</span></button>
 			<a href="/search" th:classappend="${activePage == 'search'}?active"><i class="fa fa-search" aria-hidden="true"></i> <span>Search</span></a>
 			<a href="/daily" th:classappend="${activePage == 'sprint'}?active"><i class="fa fa-bolt" aria-hidden="true"></i> <span>Sprint</span></a>
 			<a href="/timesheet" th:classappend="${activePage == 'timesheet'}?active"><i class="fa fa-bar-chart" aria-hidden="true"></i> <span>Timesheet</span></a>			

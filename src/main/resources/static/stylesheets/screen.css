@@ -490,7 +490,7 @@ aside section i.overload-issue {
 
 /* line 158, ../sass/_aside.scss */
 aside section.active {
-  background-color: #2070f7 !important;
+  background: linear-gradient(to right, #2070f7, #1a5fd4) !important;
   color: #ffffff !important;
   cursor: default;
 }

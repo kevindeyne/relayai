@@ -33,8 +33,8 @@
 			    <input type="radio" id="r-sf-biweekly" name="r-sprint-frequency" value="biweekly" /> <label class="r-option" for="r-sf-biweekly"><span></span>Bi-weekly</label> <br />
 			    
 				<div class="button-group">
-					<button id="create-project-submit" type="button" disabled="disabled"><span>Submit</span></button>					
-					<button type="button" class="altpath" th:class="${noOtherProject}? 'invisible' : ''"><span>Cancel</span></button>
+					<button id="create-project-submit" type="button" disabled="disabled"><span>Submit</span></button>		
+					<button type="button" th:class="${noOtherProject}? 'altpath invisible' : 'altpath'"><span>Cancel</span></button>
 				</div>
 			</form>
 		</section>

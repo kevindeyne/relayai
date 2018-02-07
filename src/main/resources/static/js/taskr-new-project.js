@@ -50,7 +50,7 @@ $(document).ready(function() {
 		}, 'json');
 	});
 	
-	//create new issue - cancel button
+	//create new project - cancel button
 	$("#content-new-project-main button.altpath").click(function(e) {				
 		hideScreen("#content-new-project");
 		$("#main, aside, #content-new-project").removeClass("visible").removeClass("invisible");

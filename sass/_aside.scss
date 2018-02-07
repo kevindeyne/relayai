@@ -156,7 +156,7 @@ aside section {
 }
 
 aside section.active {
-	background-color: #2070f7 !important;
+	background: linear-gradient(to right, #2070f7, #1a5fd4) !important;
 	color: #ffffff !important;
 	cursor: default;
 }
