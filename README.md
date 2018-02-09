@@ -22,26 +22,25 @@ Take note: This project is an alpha-stage (feature incomplete) work in progress.
  
 ## Implemented features 
  
-* Task list with overload, in-progress, importance tagging 
-* Basic sprint screen 
-* Save sprint domain and build repository 
+* Task list with overload, in-progress, importance tagging, dynamic re-ordering 
+* Sprint screen with statistics
 * User details/security input 
-* New issue tagcloud interpretation 
-* User knowledge tagcloud 
+* New issue tagcloud interpretation
+* User knowledge tagcloud
 * Auto-assignment of new issues and at sprint startup 
-* In progress tracker, on all pages 
-* Search issues 
+* In progress tracker, on all pages
+* Search issues
 * Pulling mechanism for counters and dynamic live issue/comment loading 
 * Basic chat/comment functionality 
-* Responsive layout 
+* Responsive layout
 * Dynamic importance sorting 
-* Categorizing new issues in to "backlog, needs more info or critical" 
-* Sprint info/backlog 
-* Sprint closing/starting 
-* Project switching 
-* Visualize current project 
+* Categorizing new issues in to "backlog, needs more info or critical"
+* Sprint info/backlog
+* Sprint closing/starting
 * Separation of task list into "My issues, backlog, team issues" 
-* Basic project page 
+* Visualize current project 
+* Project switching
+* Project page with settings
 * Workload interpretation 
 * *  Setting average work day: which days, how long (on user), sprint length (on project) 
 * *  Reconfiguration sprint (based on importance) 
@@ -49,29 +48,27 @@ Take note: This project is an alpha-stage (feature incomplete) work in progress.
 * Separate page for shareholders 
  
 ### Upcoming milestone plan 
-* Project settings for new and existing projects, such as sprint length and project time zone 
 * Setup issues 
 * Milestones/Branching 
 * Intro page (html with check if online) 
 * Project, invite people through unique, timed, link 
 * Activate user 
 * Login honeypot for bots 
-* Fix versions/progress in different milestones 
+* Fix versions/progress in different branches 
 * Follow-up (auto-reminder after inaction) 
-* Standup meeting daily or weekly (if any) 
+* Standup meeting daily or weekly
 * Security rules via interceptors 
-* AJAX call 404 error follow-up (refresh) 
-* jStorage updates via tabs in pulling (50%) 
-* New issue button everywhere 
-* Similar issues 
-* Issue change log 
-* Time zone setting for issues 
-* History tab 
+* AJAX call 404 error follow-up (refresh)
+* localstorage updates via tabs in pulling (implemented, to test)
+* Similar issues
+* Issue change log
+* Time zone setting for issues
+* Project time zone 
+* History tab
 * Option to redistribute work when working on development/on holiday 
-* Canned responses (automatically?) 
-* Comments: Role, see discuss.kotlinlang.org, avatars? 
-* Rework sprint page 
- 
+* Canned responses
+* Comments should contained user role
+
 ## Built With 
  
 * [Spring Boot](https://projects.spring.io/spring-boot/) - Application framework used 
