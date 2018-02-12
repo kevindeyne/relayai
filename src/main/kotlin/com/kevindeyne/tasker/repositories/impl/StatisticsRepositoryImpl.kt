@@ -11,7 +11,7 @@ import java.sql.Timestamp
 @Component
 open class StatisticsRepositoryImpl (val dsl: DSLContext, val sprintRepo: SprintRepository, val projectRepo: ProjectRepository) : StatisticsRepository {
 	
-	override fun getStats(sprintId : Long) : StatisticsListing {
+	override fun getStats(sprintId : Long, projectId : Long) : StatisticsListing {
 		val stats = StatisticsListing()
 		
 		val statusCounts = getStatusCounts(sprintId)
@@ -42,7 +42,11 @@ open class StatisticsRepositoryImpl (val dsl: DSLContext, val sprintRepo: Sprint
 		stats.daysUntilRelease = daysUntil.toInt()	
 		stats.sprintCompletionRate = (progressDays.div(totalDays) * 100).toInt()
 
+		val backlogIssues = backlogSinceSprintStart(sprintDates.startDate, sprintId)
+		val backlogPercentage = (backlogIssues.toDouble().div(totalDays) * 100).toInt()
 		
+		stats.issuesAddedSinceSprintCreation = backlogIssues
+		stats.backlogEvolutionRate = if(backlogIssues > 0) { "+$backlogPercentage" } else { "$backlogPercentage" }
 		
 		return stats
 	}
@@ -58,7 +62,14 @@ open class StatisticsRepositoryImpl (val dsl: DSLContext, val sprintRepo: Sprint
 	}
 	
 	//TODO kan ook negatief zijn
-	fun backlogSinceSprintStart(startDate : Timestamp) : Int {
-		return 0
+	fun backlogSinceSprintStart(startDate : Timestamp, projectId : Long) : Int {
+		return dsl.fetchCount(
+		dsl.selectFrom(Tables.ISSUE)
+	    .where(Tables.ISSUE.PROJECT_ID.eq(projectId)
+	       .and(Tables.ISSUE.CREATE_DATE.gt(startDate))
+	       .and(
+			(Tables.ISSUE.STATUS.eq(Progress.NEW.name))
+			.or(Tables.ISSUE.STATUS.eq(Progress.BACKLOG.name))
+		   )))
 	}
 }

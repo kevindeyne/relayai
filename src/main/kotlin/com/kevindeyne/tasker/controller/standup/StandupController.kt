@@ -65,9 +65,9 @@ class StandupController(val issueRepository : IssueRepository, val sprintReposit
 	}
 
 	fun getDailyOverviewOfSpecificSprint(model : Model, sprintId : Long) { //TODO day??
-		model.addAttribute("yesterdayIssues", issueRepository.findStandupIssuesForSprint(sprintId))		
+		model.addAttribute("yesterdayIssues", issueRepository.findStandupIssuesForSprint(sprintId))
 		model.addAttribute("activePage", "sprint")
-		model.addAttribute("stats", statisticsRepository.getStats(sprintId))
+		model.addAttribute("stats", statisticsRepository.getStats(sprintId, SecurityHolder.getProjectId()))
 	}
 	
 }

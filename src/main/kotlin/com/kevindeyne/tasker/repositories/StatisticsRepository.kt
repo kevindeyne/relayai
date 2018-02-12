@@ -5,7 +5,7 @@ import com.kevindeyne.tasker.domain.StatisticsListing
 
 interface StatisticsRepository {
 	
-	fun getStats(sprintId : Long) : StatisticsListing
+	fun getStats(sprintId : Long, projectId : Long) : StatisticsListing
 
 	fun getStatusCounts(sprintId : Long) : Map<String, Int> 
 	
