@@ -42,11 +42,20 @@ enum class TimeUtils() {
 		return Timestamp(Date.from(ldt.atZone(ZoneId.systemDefault()).plusDays(days.toLong()).toInstant()).getTime())
 	}
 	
+	fun today() : Timestamp {
+		 return inXdays(Date(), 0)
+	}
+	
 	fun nextDay(date : Date) : Date  = addHours(date, 24)
 		
 	fun countMinutesBetween(date1 : Date, date2 : Date) : Int {
 		val minutes : Long = ((date2.getTime() - date1.getTime()) / 1000) / 60
 		return minutes.toInt()
+	}
+	
+	fun countDaysBetween(date1 : Timestamp, date2 : Timestamp) : Int {
+		val days : Long = ((date2.getTime() - date1.getTime()) / 1000) / 60 / 60 / 24
+		return days.toInt()
 	}
 	
 	fun toString(date : Date) : String  = SimpleDateFormat("yyyy-MM-dd").format(date)

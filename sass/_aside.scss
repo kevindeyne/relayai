@@ -38,69 +38,6 @@ aside {
 			height: 200px; 
 		}
 	}
-	
-	#aside-options {
-		padding-top: 1.25em;
-		padding-bottom: 0.5em;
-		
-		a {
-			color: #2070f7;
-			text-decoration: none;
-			padding: 0.53em 0.75em;
-			background: #f3f6f8;
-			border-radius: 14px;
-			font-weight: 500;
-			font-family: "Roboto", Times New Roman, Helvetica, sans-serif;
-			line-height: 1em;
-			font-size: 1em;
-			text-transform: uppercase;
-			
-			span {
-				color: #154596;
-				border-radius: 3px;
-				background: #e3e8ea;
-				padding: 0 3px;
-				margin-left: 3px;
-				padding-right: 4px;
-			}
-		}
-		
-		a.t-active {
-			color: white;
-			background: #2070f7;
-			padding-left: 10px;
-			
-			span {
-				background: #5796ff;
-				border-radius: 3px;
-				padding: 0 3px;
-				margin-left: 3px;
-				padding-right: 5px;
-				position: relative;
-				top: 0px;
-				color: #ffffff;
-				display: inline-block;
-			}
-		}
-		
-		a.t-active:hover {
-			background: #2070f7;
-			
-			span {
-				background: #5796ff;
-				color: #ffffff;
-			}
-		}
-		
-		a:hover {
-			background: #e3e8ea;
-			
-			span {
-				background: #ccd2d6;
-				color: black;
-			}
-		}
-	}
 }
 
 aside section:first-child { 

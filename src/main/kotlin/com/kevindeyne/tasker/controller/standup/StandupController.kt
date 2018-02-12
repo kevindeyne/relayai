@@ -1,15 +1,17 @@
 package com.kevindeyne.tasker.controller
 
 import com.kevindeyne.tasker.domain.IssueListing
+import com.kevindeyne.tasker.domain.StatisticsListing
 import com.kevindeyne.tasker.repositories.IssueRepository
 import com.kevindeyne.tasker.repositories.SprintRepository
+import com.kevindeyne.tasker.repositories.StatisticsRepository
 import com.kevindeyne.tasker.service.SecurityHolder
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.GetMapping
 
 @Controller
-class StandupController(val issueRepository : IssueRepository, val sprintRepository : SprintRepository) {
+class StandupController(val issueRepository : IssueRepository, val sprintRepository : SprintRepository, val statisticsRepository : StatisticsRepository) {
 	
 	companion object {
 		const val STANDUP_REPORT = "/report"
@@ -63,9 +65,9 @@ class StandupController(val issueRepository : IssueRepository, val sprintReposit
 	}
 
 	fun getDailyOverviewOfSpecificSprint(model : Model, sprintId : Long) { //TODO day??
-		model.addAttribute("yesterdayIssues", issueRepository.findStandupIssuesForSprint(sprintId))
-		
-		model.addAttribute("activePage", "sprint");
+		model.addAttribute("yesterdayIssues", issueRepository.findStandupIssuesForSprint(sprintId))		
+		model.addAttribute("activePage", "sprint")
+		model.addAttribute("stats", statisticsRepository.getStats(sprintId))
 	}
 	
 }

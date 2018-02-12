@@ -182,7 +182,7 @@ open class IssueRepositoryImpl (val dsl: DSLContext) : IssueRepository {
 		return dsl.insertInto(Tables.ISSUE,
 				Tables.ISSUE.TITLE, Tables.ISSUE.DESCRIPTION, Tables.ISSUE.ASSIGNED, Tables.ISSUE.SPRINT_ID, Tables.ISSUE.PROJECT_ID,
 				Tables.ISSUE.CREATE_USER, Tables.ISSUE.UPDATE_USER, Tables.ISSUE.CREATE_DATE, Tables.ISSUE.UPDATE_DATE, Tables.ISSUE.IMPORTANCE)
-		   .values(title, description, assignedTo, sprintId, projectId, createAndUpdateUser, createAndUpdateUser, timestamp, timestamp, IMPORTANCE_UNDECIDED)
+		   .values(title.capitalize(), description.capitalize(), assignedTo, sprintId, projectId, createAndUpdateUser, createAndUpdateUser, timestamp, timestamp, IMPORTANCE_UNDECIDED)
 		   .returning(Tables.ISSUE.ID).fetchOne().get(Tables.ISSUE.ID);
 	}
 	

@@ -7,15 +7,82 @@
 		<section>
 			<h1>Sprint info</h1>
 			<h2>Good work, everyone! This shows the progress you and your
-				team made every day.</h2>
+				team made during the sprint</h2>
 		</section>
 		
-		<section>
-			Instead of a graph, put a bunch of statistics here. See mixpanel_mobile
+		<section id="statistics">	
+			<div class="standup-options">
+				<a href="#" id="standup-today" class="t-active">Today</a> <a href="#" id="standup-sprint" >Sprint</a>
+			</div>
+							
+			<div class="stat">
+				<div class="stat-top">
+					<span class="stat-number" th:text="${stats.sprintCompletionRate}">22</span><span class="stat-percentage">%</span><br/>
+					<span class="stat-title">Completion rate</span>
+				</div>
+				<div class="stat-bottom">
+					<span class="stat-detail" th:text="${stats.daysUntilRelease}">6</span> days<br/>
+					<span class="stat-descr">until v<span th:text="${stats.nextReleaseVersion}">4.1.38</span></span><br/>
+					<span>releases</span>
+				</div>
+			</div>
+			
+			<div class="stat">
+				<div class="stat-top">
+					<span class="stat-number" th:text="${stats.issueCompletionRate}">76</span><span class="stat-percentage">%</span><br/>
+					<span class="stat-title">Issues completed</span>
+				</div>
+				<div class="stat-bottom">
+					<span class="stat-detail"><span th:text="${stats.issuePlannedDone}">10.2K</span> / <span th:text="${stats.issuePlannedTotal}">23.7K</span></span><br/>
+					<span class="stat-descr">planned issues</span><br/>
+					<span>completed this sprint</span>
+				</div>
+			</div>
+			
+			<div class="stat">
+				<div class="stat-top">
+					<span class="stat-number" th:text="${stats.waitingForFeedbackRate}">6</span><span class="stat-percentage">%</span><br/>
+					<span class="stat-title">waiting for feedback</span>
+				</div>
+				<div class="stat-bottom">
+					<span class="stat-detail"><span th:text="${stats.issuesWaitingForFeedback}">23.7K</span> / <span th:text="${stats.issuePlannedActive}">23.7K</span></span><br/>
+					<span class="stat-descr">active issues</span><br/>
+					<span>still require feedback</span>
+				</div>
+			</div>
+						
+			<div class="stat">
+				<div class="stat-top">
+					<span class="stat-number" th:text="${stats.backlogEvolutionRate}">+5</span><span class="stat-percentage">%</span><br/>
+					<span class="stat-title">Backlog evolution</span>
+				</div>
+				<div class="stat-bottom">
+					<span class="stat-detail" th:text="${stats.issuesAddedSinceSprintCreation}">23</span><br/>
+					<span class="stat-descr">issues added</span><br/>
+					<span>since sprint start</span>
+				</div>
+			</div>
+			
+			<div class="stat">
+				<div class="stat-top">
+					<span class="stat-number" th:text="${stats.sprintNr}">5</span><span class="stat-percentage">#</span><br/>
+					<span class="stat-title">Sprint</span>
+				</div>
+				<div class="stat-bottom">
+					<span class="stat-detail" th:text="${stats.sprintReleaseRate}">Bi-weekly</span><br/>
+					<span class="stat-descr"><span th:text="${stats.noReleasesSinceStartProject}">10.2K</span> releases</span><br/>
+					<span>since start project</span>
+				</div>
+			</div>
+						
 		</section>
 		
 		<section id="team-progress">
 			<h2>Team progress</h2>
+			
+			<div class="standup-options">
+				<a href="#" id="standup-team" class="t-active">In team</a> <a href="#" id="standup-issue" >My issues</a>
+			</div>
 			
 			<h3><i class="fa fa-question-circle" aria-hidden="true"></i> Help requested</h3>
 			<div>

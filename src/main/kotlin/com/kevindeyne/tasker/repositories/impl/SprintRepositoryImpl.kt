@@ -1,8 +1,8 @@
 package com.kevindeyne.tasker.repositories
 
 import com.kevindeyne.tasker.controller.timesheet.TimeUtils
-import com.kevindeyne.tasker.domain.IssueListing
 import com.kevindeyne.tasker.domain.Progress
+import com.kevindeyne.tasker.domain.SprintDates
 import com.kevindeyne.tasker.jooq.Tables
 import org.jooq.DSLContext
 import org.springframework.stereotype.Component
@@ -64,7 +64,7 @@ open class SprintRepositoryImpl (val dsl: DSLContext, val issueRepository : Issu
 	         .from(Tables.PROJECT_USERS)
 			 .join(Tables.USER)
 			 .on(Tables.USER.ID.eq(Tables.PROJECT_USERS.USER_ID))
-			 .where(Tables.PROJECT_USERS.PROJECT_ID.equals(projectId))
+			 .where(Tables.PROJECT_USERS.PROJECT_ID.eq(projectId))
 			 .fetch()
 			 .parallelStream()
 			 .forEach{
@@ -137,5 +137,14 @@ open class SprintRepositoryImpl (val dsl: DSLContext, val issueRepository : Issu
 			.set(Tables.ISSUE.OVERLOAD, 1)
 			.where(Tables.ISSUE.SPRINT_ID.eq(currentSprintId))
 			.execute()
+	}
+	
+	override fun findSprintEndDate(sprintId : Long) : SprintDates {
+		return dsl.select(Tables.SPRINT.START_DATE, Tables.SPRINT.END_DATE)
+	         .from(Tables.SPRINT)
+			 .where(Tables.SPRINT.ID.eq(sprintId))
+			 .fetchOne().map {
+				s -> SprintDates(s.get(Tables.SPRINT.START_DATE), s.get(Tables.SPRINT.END_DATE))
+			 }
 	}
 }

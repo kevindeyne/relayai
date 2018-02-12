@@ -196,6 +196,81 @@ label.disabled {
   cursor: default;
 }
 
+/* line 130, ../sass/_common.scss */
+#aside-options, .standup-options {
+  padding-top: 1.25em;
+  padding-bottom: 0.5em;
+}
+/* line 134, ../sass/_common.scss */
+#aside-options a, .standup-options a {
+  color: #2070f7;
+  text-decoration: none;
+  padding: 0.53em 0.75em;
+  background: #f3f6f8;
+  border-radius: 14px;
+  font-weight: 500;
+  font-family: "Roboto", Times New Roman, Helvetica, sans-serif;
+  line-height: 1em;
+  font-size: 1em;
+  text-transform: uppercase;
+}
+/* line 146, ../sass/_common.scss */
+#aside-options a span, .standup-options a span {
+  color: #154596;
+  border-radius: 3px;
+  background: #e3e8ea;
+  padding: 0 3px;
+  margin-left: 3px;
+  padding-right: 4px;
+}
+/* line 156, ../sass/_common.scss */
+#aside-options a.t-active, .standup-options a.t-active {
+  color: white;
+  background: #2070f7;
+  padding-left: 10px;
+}
+/* line 161, ../sass/_common.scss */
+#aside-options a.t-active span, .standup-options a.t-active span {
+  background: #5796ff;
+  border-radius: 3px;
+  padding: 0 3px;
+  margin-left: 3px;
+  padding-right: 5px;
+  position: relative;
+  top: 0px;
+  color: #ffffff;
+  display: inline-block;
+}
+/* line 174, ../sass/_common.scss */
+#aside-options a.t-active:hover, .standup-options a.t-active:hover {
+  background: #2070f7;
+}
+/* line 177, ../sass/_common.scss */
+#aside-options a.t-active:hover span, .standup-options a.t-active:hover span {
+  background: #5796ff;
+  color: #ffffff;
+}
+/* line 183, ../sass/_common.scss */
+#aside-options a:hover, .standup-options a:hover {
+  background: #e3e8ea;
+}
+/* line 186, ../sass/_common.scss */
+#aside-options a:hover span, .standup-options a:hover span {
+  background: #ccd2d6;
+  color: black;
+}
+
+/* line 193, ../sass/_common.scss */
+.standup-options {
+  padding-top: 0.8em;
+  padding-bottom: 0.8em;
+  font-size: 0.8em;
+}
+/* line 198, ../sass/_common.scss */
+.standup-options a.t-active {
+  padding-left: 0.75em;
+}
+
 /* line 3, ../sass/_loader.scss */
 article#loader {
   display: none;
@@ -363,87 +438,24 @@ aside #aside-loader img {
   width: 200px;
   height: 200px;
 }
-/* line 42, ../sass/_aside.scss */
-aside #aside-options {
-  padding-top: 1.25em;
-  padding-bottom: 0.5em;
-}
-/* line 46, ../sass/_aside.scss */
-aside #aside-options a {
-  color: #2070f7;
-  text-decoration: none;
-  padding: 0.53em 0.75em;
-  background: #f3f6f8;
-  border-radius: 14px;
-  font-weight: 500;
-  font-family: "Roboto", Times New Roman, Helvetica, sans-serif;
-  line-height: 1em;
-  font-size: 1em;
-  text-transform: uppercase;
-}
-/* line 58, ../sass/_aside.scss */
-aside #aside-options a span {
-  color: #154596;
-  border-radius: 3px;
-  background: #e3e8ea;
-  padding: 0 3px;
-  margin-left: 3px;
-  padding-right: 4px;
-}
-/* line 68, ../sass/_aside.scss */
-aside #aside-options a.t-active {
-  color: white;
-  background: #2070f7;
-  padding-left: 10px;
-}
-/* line 73, ../sass/_aside.scss */
-aside #aside-options a.t-active span {
-  background: #5796ff;
-  border-radius: 3px;
-  padding: 0 3px;
-  margin-left: 3px;
-  padding-right: 5px;
-  position: relative;
-  top: 0px;
-  color: #ffffff;
-  display: inline-block;
-}
-/* line 86, ../sass/_aside.scss */
-aside #aside-options a.t-active:hover {
-  background: #2070f7;
-}
-/* line 89, ../sass/_aside.scss */
-aside #aside-options a.t-active:hover span {
-  background: #5796ff;
-  color: #ffffff;
-}
-/* line 95, ../sass/_aside.scss */
-aside #aside-options a:hover {
-  background: #e3e8ea;
-}
-/* line 98, ../sass/_aside.scss */
-aside #aside-options a:hover span {
-  background: #ccd2d6;
-  color: black;
-}
 
-/* line 106, ../sass/_aside.scss */
+/* line 43, ../sass/_aside.scss */
 aside section:first-child {
   margin-top: 1em;
 }
 
-/* line 110, ../sass/_aside.scss */
+/* line 47, ../sass/_aside.scss */
 aside section:last-child {
   margin-bottom: 0.5em;
 }
 
-/* line 114, ../sass/_aside.scss */
+/* line 51, ../sass/_aside.scss */
 aside section.active i {
   color: #2070f7;
   opacity: 0;
 }
 
-/* line 119, ../sass/_aside.scss */
+/* line 56, ../sass/_aside.scss */
 aside section {
   -webkit-transition: all 0.15s ease-out;
   -moz-transition: all 0.15s ease-out;
@@ -459,7 +471,7 @@ aside section {
   margin: 0.7em 0em;
   border: 2px solid #f3f6f8;
 }
-/* line 129, ../sass/_aside.scss */
+/* line 66, ../sass/_aside.scss */
 aside section i {
   float: right;
   color: #ffffff;
@@ -467,47 +479,47 @@ aside section i {
   font-size: 8px !important;
   line-height: 1.5em;
 }
-/* line 137, ../sass/_aside.scss */
+/* line 74, ../sass/_aside.scss */
 aside section i.undetermined-issue {
   color: #b5b5b5;
   opacity: 1;
 }
-/* line 142, ../sass/_aside.scss */
+/* line 79, ../sass/_aside.scss */
 aside section i.inprogress-issue {
   color: #2070f7;
   opacity: 1;
 }
-/* line 147, ../sass/_aside.scss */
+/* line 84, ../sass/_aside.scss */
 aside section i.critical-issue {
   color: #ff6e6e;
   opacity: 1;
 }
-/* line 152, ../sass/_aside.scss */
+/* line 89, ../sass/_aside.scss */
 aside section i.overload-issue {
   color: #ffb26e;
   opacity: 1;
 }
 
-/* line 158, ../sass/_aside.scss */
+/* line 95, ../sass/_aside.scss */
 aside section.active {
   background: linear-gradient(to right, #2070f7, #1a5fd4) !important;
   color: #ffffff !important;
   cursor: default;
 }
 
-/* line 164, ../sass/_aside.scss */
+/* line 101, ../sass/_aside.scss */
 aside section.hover {
   border: 2px solid #2070f7;
 }
 
-/* line 168, ../sass/_aside.scss */
+/* line 105, ../sass/_aside.scss */
 aside section > h1 {
   font-weight: 500;
   padding: 1em 1em 0.1em 1em;
   box-sizing: border-box;
 }
 
-/* line 174, ../sass/_aside.scss */
+/* line 111, ../sass/_aside.scss */
 aside section > p {
   padding: 1em;
   box-sizing: border-box;
@@ -515,30 +527,30 @@ aside section > p {
 }
 
 @media (max-width: 1870px) {
-  /* line 181, ../sass/_aside.scss */
+  /* line 118, ../sass/_aside.scss */
   aside #aside-options a span {
     display: none;
   }
 }
 @media (max-width: 1201px) {
-  /* line 187, ../sass/_aside.scss */
+  /* line 124, ../sass/_aside.scss */
   aside #aside-options a {
     display: block;
     text-align: center;
   }
 
-  /* line 192, ../sass/_aside.scss */
+  /* line 129, ../sass/_aside.scss */
   article#main section#content-main p.content {
     padding-top: 18em !important;
   }
 
-  /* line 196, ../sass/_aside.scss */
+  /* line 133, ../sass/_aside.scss */
   div.milestone-details-col {
     display: block;
     width: 100%;
   }
 
-  /* line 201, ../sass/_aside.scss */
+  /* line 138, ../sass/_aside.scss */
   .userinfo-details-col {
     width: 45%;
   }
@@ -864,11 +876,60 @@ div.undecided-option div.undecided-group button.critical:hover {
     padding-bottom: 0em;
   }
 }
-/* line 3, ../sass/_standup.scss */
+/* line 1, ../sass/_standup.scss */
+.stat {
+  display: block;
+  float: left;
+  margin-bottom: 2em;
+  width: 200px;
+  margin-right: 1em;
+  background: #fefefe;
+  padding: 0.75em 0em 0.75em 0.75em;
+  border-radius: 4px;
+}
+/* line 11, ../sass/_standup.scss */
+.stat .stat-top {
+  padding-bottom: 1em;
+}
+/* line 14, ../sass/_standup.scss */
+.stat .stat-top span.stat-number {
+  font-size: 2.35em;
+  color: #4e5369;
+  line-height: 1em;
+}
+/* line 19, ../sass/_standup.scss */
+.stat .stat-top span.stat-percentage {
+  font-size: 1.80em;
+  vertical-align: top;
+  line-height: 1em;
+  color: #4e5369;
+}
+/* line 25, ../sass/_standup.scss */
+.stat .stat-top span.stat-title {
+  font-weight: 500;
+  font-family: "Roboto", Times New Roman, Helvetica, sans-serif;
+  text-transform: uppercase;
+  font-size: 0.9em;
+  color: #2070f7;
+}
+/* line 35, ../sass/_standup.scss */
+.stat .stat-bottom span.stat-detail {
+  font-weight: 500;
+  font-family: "Roboto", Times New Roman, Helvetica, sans-serif;
+  text-transform: uppercase;
+  color: #4e5369;
+}
+
+/* line 44, ../sass/_standup.scss */
+#statistics {
+  padding-top: 0;
+}
+
+/* line 50, ../sass/_standup.scss */
 #team-progress h2, #team-progress h3 {
   clear: both;
 }
-/* line 7, ../sass/_standup.scss */
+/* line 54, ../sass/_standup.scss */
 #team-progress h3 {
   -webkit-border-radius: 10px;
   -moz-border-radius: 10px;
@@ -882,15 +943,15 @@ div.undecided-option div.undecided-group button.critical:hover {
   font-size: 1.1em;
   font-weight: 500;
 }
-/* line 17, ../sass/_standup.scss */
+/* line 64, ../sass/_standup.scss */
 #team-progress h3 i {
   text-align: left;
 }
-/* line 23, ../sass/_standup.scss */
+/* line 70, ../sass/_standup.scss */
 #team-progress div section.daily-issue:last-child {
   margin-bottom: 1em;
 }
-/* line 27, ../sass/_standup.scss */
+/* line 74, ../sass/_standup.scss */
 #team-progress div section.daily-issue {
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
@@ -906,21 +967,21 @@ div.undecided-option div.undecided-group button.critical:hover {
   font-size: 0.9em;
   border: 2px solid #ffffff;
 }
-/* line 40, ../sass/_standup.scss */
+/* line 87, ../sass/_standup.scss */
 #team-progress div section.daily-issue h4 {
   font-weight: 500;
 }
-/* line 43, ../sass/_standup.scss */
+/* line 90, ../sass/_standup.scss */
 #team-progress div section.daily-issue h4 a, #team-progress div section.daily-issue h4 a:link, #team-progress div section.daily-issue h4 a:active, #team-progress div section.daily-issue h4 a:visited {
   color: #1b1e2b;
   text-decoration: none;
 }
-/* line 48, ../sass/_standup.scss */
+/* line 95, ../sass/_standup.scss */
 #team-progress div section.daily-issue h4 a:hover {
   color: #35394b;
   text-decoration: none;
 }
-/* line 53, ../sass/_standup.scss */
+/* line 100, ../sass/_standup.scss */
 #team-progress div section.daily-issue h4 span.mine {
   color: #fb0764;
 }
