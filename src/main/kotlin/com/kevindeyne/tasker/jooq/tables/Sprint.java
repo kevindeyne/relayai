@@ -16,6 +16,7 @@ import java.util.List;
 import javax.annotation.Generated;
 
 import org.jooq.Field;
+import org.jooq.ForeignKey;
 import org.jooq.Identity;
 import org.jooq.Index;
 import org.jooq.Name;
@@ -40,7 +41,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Sprint extends TableImpl<SprintRecord> {
 
-    private static final long serialVersionUID = 33848084;
+    private static final long serialVersionUID = 1006631098;
 
     /**
      * The reference instance of <code>taskr.sprint</code>
@@ -142,6 +143,14 @@ public class Sprint extends TableImpl<SprintRecord> {
     @Override
     public List<UniqueKey<SprintRecord>> getKeys() {
         return Arrays.<UniqueKey<SprintRecord>>asList(Keys.KEY_SPRINT_PRIMARY);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public List<ForeignKey<SprintRecord, ?>> getReferences() {
+        return Arrays.<ForeignKey<SprintRecord, ?>>asList(Keys.SPRINT_IBFK_1);
     }
 
     /**

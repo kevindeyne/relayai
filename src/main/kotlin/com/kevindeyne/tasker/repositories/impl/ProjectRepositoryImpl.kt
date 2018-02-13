@@ -3,17 +3,16 @@ package com.kevindeyne.tasker.repositories
 import com.kevindeyne.tasker.controller.form.ProjectForm
 import com.kevindeyne.tasker.controller.timesheet.TimeUtils
 import com.kevindeyne.tasker.domain.ProjectListing
+import com.kevindeyne.tasker.domain.ProjectVersion
+import com.kevindeyne.tasker.domain.SprintFrequency
 import com.kevindeyne.tasker.jooq.Tables
-import com.kevindeyne.tasker.jooq.tables.records.ProjectRecord
 import com.kevindeyne.tasker.service.SecurityHolder
 import org.jooq.DSLContext
 import org.springframework.stereotype.Component
 import org.springframework.transaction.annotation.Transactional
 import java.sql.Timestamp
 import java.util.Date
-import java.util.Optional
 import java.util.stream.Collectors
-import com.kevindeyne.tasker.domain.SprintFrequency
 
 @Component
 open class ProjectRepositoryImpl (val dsl: DSLContext, val sprintRepository : SprintRepository, val issueRepository : IssueRepository) : ProjectRepository {
@@ -133,5 +132,17 @@ open class ProjectRepositoryImpl (val dsl: DSLContext, val sprintRepository : Sp
 		issueRepository.createInProgress("Invite shareholders", "Please take the time to invite any shareholders to your projects. This can be done via the project screen.", userId, sprintId, projectId, userId)
 				
 		return sprintId		
+	}
+	
+	override fun getCurrentVersion(projectId : Long) : ProjectVersion {
+		return dsl.select(Tables.PROJECT.MAJOR_VERSION, Tables.PROJECT.MINOR_VERSION, Tables.PROJECT.PATCH_VERSION)
+				.from(Tables.PROJECT)
+			    .where(Tables.PROJECT.ID.eq(projectId))
+			    .fetchOne()
+			    .map {
+				  n -> ProjectVersion(n.get(Tables.PROJECT.MAJOR_VERSION),
+									n.get(Tables.PROJECT.MINOR_VERSION),
+									n.get(Tables.PROJECT.PATCH_VERSION))
+			   }
 	}
 }

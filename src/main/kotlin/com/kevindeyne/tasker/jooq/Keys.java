@@ -37,6 +37,7 @@ import com.kevindeyne.tasker.jooq.tables.records.UserRoleRecord;
 
 import javax.annotation.Generated;
 
+import org.jooq.ForeignKey;
 import org.jooq.Identity;
 import org.jooq.UniqueKey;
 import org.jooq.impl.AbstractKeys;
@@ -99,6 +100,20 @@ public class Keys {
     // FOREIGN KEY definitions
     // -------------------------------------------------------------------------
 
+    public static final ForeignKey<CommentsRecord, UserRecord> COMMENTS_IBFK_1 = ForeignKeys0.COMMENTS_IBFK_1;
+    public static final ForeignKey<CommentsRecord, IssueRecord> COMMENTS_IBFK_2 = ForeignKeys0.COMMENTS_IBFK_2;
+    public static final ForeignKey<IssueRecord, SprintRecord> ISSUE_IBFK_1 = ForeignKeys0.ISSUE_IBFK_1;
+    public static final ForeignKey<IssueRecord, ProjectRecord> ISSUE_IBFK_2 = ForeignKeys0.ISSUE_IBFK_2;
+    public static final ForeignKey<KnowledgeRecord, UserRecord> KNOWLEDGE_IBFK_1 = ForeignKeys0.KNOWLEDGE_IBFK_1;
+    public static final ForeignKey<KnowledgeRecord, TagRecord> KNOWLEDGE_IBFK_2 = ForeignKeys0.KNOWLEDGE_IBFK_2;
+    public static final ForeignKey<ProjectUsersRecord, ProjectRecord> PROJECT_USERS_IBFK_1 = ForeignKeys0.PROJECT_USERS_IBFK_1;
+    public static final ForeignKey<ProjectUsersRecord, UserRecord> PROJECT_USERS_IBFK_2 = ForeignKeys0.PROJECT_USERS_IBFK_2;
+    public static final ForeignKey<SprintRecord, ProjectRecord> SPRINT_IBFK_1 = ForeignKeys0.SPRINT_IBFK_1;
+    public static final ForeignKey<TagcloudRecord, IssueRecord> TAGCLOUD_IBFK_1 = ForeignKeys0.TAGCLOUD_IBFK_1;
+    public static final ForeignKey<TagcloudRecord, TagRecord> TAGCLOUD_IBFK_2 = ForeignKeys0.TAGCLOUD_IBFK_2;
+    public static final ForeignKey<TimesheetRecord, IssueRecord> TIMESHEET_IBFK_1 = ForeignKeys0.TIMESHEET_IBFK_1;
+    public static final ForeignKey<TimesheetRecord, UserRecord> TIMESHEET_IBFK_2 = ForeignKeys0.TIMESHEET_IBFK_2;
+    public static final ForeignKey<UserRoleRecord, UserRecord> USER_ROLE_IBFK_1 = ForeignKeys0.USER_ROLE_IBFK_1;
 
     // -------------------------------------------------------------------------
     // [#1459] distribute members to avoid static initialisers > 64kb
@@ -137,5 +152,22 @@ public class Keys {
         public static final UniqueKey<TimesheetRecord> KEY_TIMESHEET_PRIMARY = createUniqueKey(Timesheet.TIMESHEET, "KEY_timesheet_PRIMARY", Timesheet.TIMESHEET.ID);
         public static final UniqueKey<UserRecord> KEY_USER_PRIMARY = createUniqueKey(User.USER, "KEY_user_PRIMARY", User.USER.ID);
         public static final UniqueKey<UserRoleRecord> KEY_USER_ROLE_PRIMARY = createUniqueKey(UserRole.USER_ROLE, "KEY_user_role_PRIMARY", UserRole.USER_ROLE.ID);
+    }
+
+    private static class ForeignKeys0 extends AbstractKeys {
+        public static final ForeignKey<CommentsRecord, UserRecord> COMMENTS_IBFK_1 = createForeignKey(com.kevindeyne.tasker.jooq.Keys.KEY_USER_PRIMARY, Comments.COMMENTS, "comments_ibfk_1", Comments.COMMENTS.USER_ID);
+        public static final ForeignKey<CommentsRecord, IssueRecord> COMMENTS_IBFK_2 = createForeignKey(com.kevindeyne.tasker.jooq.Keys.KEY_ISSUE_PRIMARY, Comments.COMMENTS, "comments_ibfk_2", Comments.COMMENTS.ISSUE_ID);
+        public static final ForeignKey<IssueRecord, SprintRecord> ISSUE_IBFK_1 = createForeignKey(com.kevindeyne.tasker.jooq.Keys.KEY_SPRINT_PRIMARY, Issue.ISSUE, "issue_ibfk_1", Issue.ISSUE.SPRINT_ID);
+        public static final ForeignKey<IssueRecord, ProjectRecord> ISSUE_IBFK_2 = createForeignKey(com.kevindeyne.tasker.jooq.Keys.KEY_PROJECT_PRIMARY, Issue.ISSUE, "issue_ibfk_2", Issue.ISSUE.PROJECT_ID);
+        public static final ForeignKey<KnowledgeRecord, UserRecord> KNOWLEDGE_IBFK_1 = createForeignKey(com.kevindeyne.tasker.jooq.Keys.KEY_USER_PRIMARY, Knowledge.KNOWLEDGE, "knowledge_ibfk_1", Knowledge.KNOWLEDGE.USER_ID);
+        public static final ForeignKey<KnowledgeRecord, TagRecord> KNOWLEDGE_IBFK_2 = createForeignKey(com.kevindeyne.tasker.jooq.Keys.KEY_TAG_PRIMARY, Knowledge.KNOWLEDGE, "knowledge_ibfk_2", Knowledge.KNOWLEDGE.TAG_ID);
+        public static final ForeignKey<ProjectUsersRecord, ProjectRecord> PROJECT_USERS_IBFK_1 = createForeignKey(com.kevindeyne.tasker.jooq.Keys.KEY_PROJECT_PRIMARY, ProjectUsers.PROJECT_USERS, "project_users_ibfk_1", ProjectUsers.PROJECT_USERS.PROJECT_ID);
+        public static final ForeignKey<ProjectUsersRecord, UserRecord> PROJECT_USERS_IBFK_2 = createForeignKey(com.kevindeyne.tasker.jooq.Keys.KEY_USER_PRIMARY, ProjectUsers.PROJECT_USERS, "project_users_ibfk_2", ProjectUsers.PROJECT_USERS.USER_ID);
+        public static final ForeignKey<SprintRecord, ProjectRecord> SPRINT_IBFK_1 = createForeignKey(com.kevindeyne.tasker.jooq.Keys.KEY_PROJECT_PRIMARY, Sprint.SPRINT, "sprint_ibfk_1", Sprint.SPRINT.PROJECT_ID);
+        public static final ForeignKey<TagcloudRecord, IssueRecord> TAGCLOUD_IBFK_1 = createForeignKey(com.kevindeyne.tasker.jooq.Keys.KEY_ISSUE_PRIMARY, Tagcloud.TAGCLOUD, "tagcloud_ibfk_1", Tagcloud.TAGCLOUD.ISSUE_ID);
+        public static final ForeignKey<TagcloudRecord, TagRecord> TAGCLOUD_IBFK_2 = createForeignKey(com.kevindeyne.tasker.jooq.Keys.KEY_TAG_PRIMARY, Tagcloud.TAGCLOUD, "tagcloud_ibfk_2", Tagcloud.TAGCLOUD.TAG_ID);
+        public static final ForeignKey<TimesheetRecord, IssueRecord> TIMESHEET_IBFK_1 = createForeignKey(com.kevindeyne.tasker.jooq.Keys.KEY_ISSUE_PRIMARY, Timesheet.TIMESHEET, "timesheet_ibfk_1", Timesheet.TIMESHEET.ISSUE_ID);
+        public static final ForeignKey<TimesheetRecord, UserRecord> TIMESHEET_IBFK_2 = createForeignKey(com.kevindeyne.tasker.jooq.Keys.KEY_USER_PRIMARY, Timesheet.TIMESHEET, "timesheet_ibfk_2", Timesheet.TIMESHEET.USER_ID);
+        public static final ForeignKey<UserRoleRecord, UserRecord> USER_ROLE_IBFK_1 = createForeignKey(com.kevindeyne.tasker.jooq.Keys.KEY_USER_PRIMARY, UserRole.USER_ROLE, "user_role_ibfk_1", UserRole.USER_ROLE.USER_ID);
     }
 }

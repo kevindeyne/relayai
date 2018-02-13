@@ -2,6 +2,7 @@ package com.kevindeyne.tasker.repositories
 
 import com.kevindeyne.tasker.controller.form.ProjectForm
 import com.kevindeyne.tasker.domain.ProjectListing
+import com.kevindeyne.tasker.domain.ProjectVersion
 
 interface ProjectRepository {
 
@@ -14,5 +15,7 @@ interface ProjectRepository {
 	fun changeActiveProject(userId : Long, projectId : Long)
 	
 	fun createNewProject(userId : Long, form : ProjectForm)
+	
+	fun getCurrentVersion(projectId : Long) : ProjectVersion
 	
 }

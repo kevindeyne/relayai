@@ -15,6 +15,7 @@ import java.util.List;
 import javax.annotation.Generated;
 
 import org.jooq.Field;
+import org.jooq.ForeignKey;
 import org.jooq.Identity;
 import org.jooq.Index;
 import org.jooq.Name;
@@ -39,7 +40,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Tagcloud extends TableImpl<TagcloudRecord> {
 
-    private static final long serialVersionUID = -1587305743;
+    private static final long serialVersionUID = -1610291481;
 
     /**
      * The reference instance of <code>taskr.tagcloud</code>
@@ -136,6 +137,14 @@ public class Tagcloud extends TableImpl<TagcloudRecord> {
     @Override
     public List<UniqueKey<TagcloudRecord>> getKeys() {
         return Arrays.<UniqueKey<TagcloudRecord>>asList(Keys.KEY_TAGCLOUD_PRIMARY);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public List<ForeignKey<TagcloudRecord, ?>> getReferences() {
+        return Arrays.<ForeignKey<TagcloudRecord, ?>>asList(Keys.TAGCLOUD_IBFK_1, Keys.TAGCLOUD_IBFK_2);
     }
 
     /**

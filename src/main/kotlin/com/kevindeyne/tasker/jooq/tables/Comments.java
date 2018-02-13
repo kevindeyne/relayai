@@ -16,6 +16,7 @@ import java.util.List;
 import javax.annotation.Generated;
 
 import org.jooq.Field;
+import org.jooq.ForeignKey;
 import org.jooq.Identity;
 import org.jooq.Index;
 import org.jooq.Name;
@@ -40,7 +41,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Comments extends TableImpl<CommentsRecord> {
 
-    private static final long serialVersionUID = 221576886;
+    private static final long serialVersionUID = 1572133164;
 
     /**
      * The reference instance of <code>taskr.comments</code>
@@ -147,6 +148,14 @@ public class Comments extends TableImpl<CommentsRecord> {
     @Override
     public List<UniqueKey<CommentsRecord>> getKeys() {
         return Arrays.<UniqueKey<CommentsRecord>>asList(Keys.KEY_COMMENTS_PRIMARY);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public List<ForeignKey<CommentsRecord, ?>> getReferences() {
+        return Arrays.<ForeignKey<CommentsRecord, ?>>asList(Keys.COMMENTS_IBFK_1, Keys.COMMENTS_IBFK_2);
     }
 
     /**

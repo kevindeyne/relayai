@@ -16,6 +16,7 @@ import java.util.List;
 import javax.annotation.Generated;
 
 import org.jooq.Field;
+import org.jooq.ForeignKey;
 import org.jooq.Identity;
 import org.jooq.Index;
 import org.jooq.Name;
@@ -40,7 +41,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Timesheet extends TableImpl<TimesheetRecord> {
 
-    private static final long serialVersionUID = -222278517;
+    private static final long serialVersionUID = -1113314895;
 
     /**
      * The reference instance of <code>taskr.timesheet</code>
@@ -152,6 +153,14 @@ public class Timesheet extends TableImpl<TimesheetRecord> {
     @Override
     public List<UniqueKey<TimesheetRecord>> getKeys() {
         return Arrays.<UniqueKey<TimesheetRecord>>asList(Keys.KEY_TIMESHEET_PRIMARY);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public List<ForeignKey<TimesheetRecord, ?>> getReferences() {
+        return Arrays.<ForeignKey<TimesheetRecord, ?>>asList(Keys.TIMESHEET_IBFK_1, Keys.TIMESHEET_IBFK_2);
     }
 
     /**

@@ -15,6 +15,7 @@ import java.util.List;
 import javax.annotation.Generated;
 
 import org.jooq.Field;
+import org.jooq.ForeignKey;
 import org.jooq.Identity;
 import org.jooq.Index;
 import org.jooq.Name;
@@ -39,7 +40,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class UserRole extends TableImpl<UserRoleRecord> {
 
-    private static final long serialVersionUID = 939221084;
+    private static final long serialVersionUID = 865930270;
 
     /**
      * The reference instance of <code>taskr.user_role</code>
@@ -136,6 +137,14 @@ public class UserRole extends TableImpl<UserRoleRecord> {
     @Override
     public List<UniqueKey<UserRoleRecord>> getKeys() {
         return Arrays.<UniqueKey<UserRoleRecord>>asList(Keys.KEY_USER_ROLE_PRIMARY);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public List<ForeignKey<UserRoleRecord, ?>> getReferences() {
+        return Arrays.<ForeignKey<UserRoleRecord, ?>>asList(Keys.USER_ROLE_IBFK_1);
     }
 
     /**

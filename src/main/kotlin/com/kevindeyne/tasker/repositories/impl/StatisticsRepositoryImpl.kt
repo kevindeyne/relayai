@@ -14,6 +14,9 @@ open class StatisticsRepositoryImpl (val dsl: DSLContext, val sprintRepo: Sprint
 	override fun getStats(sprintId : Long, projectId : Long) : StatisticsListing {
 		val stats = StatisticsListing()
 		
+		val projectVersion = projectRepo.getCurrentVersion(projectId)
+		stats.nextReleaseVersion = "${projectVersion.majorVersion}.${projectVersion.minorVersion}.${projectVersion.patchVersion + 1}"
+		
 		val statusCounts = getStatusCounts(sprintId)
 		
 		statusCounts.keys.forEach{
@@ -64,12 +67,14 @@ open class StatisticsRepositoryImpl (val dsl: DSLContext, val sprintRepo: Sprint
 	//TODO kan ook negatief zijn
 	fun backlogSinceSprintStart(startDate : Timestamp, projectId : Long) : Int {
 		return dsl.fetchCount(
-		dsl.selectFrom(Tables.ISSUE)
-	    .where(Tables.ISSUE.PROJECT_ID.eq(projectId)
-	       .and(Tables.ISSUE.CREATE_DATE.gt(startDate))
-	       .and(
-			(Tables.ISSUE.STATUS.eq(Progress.NEW.name))
-			.or(Tables.ISSUE.STATUS.eq(Progress.BACKLOG.name))
-		   )))
+			dsl.selectFrom(Tables.ISSUE)
+		       .where(Tables.ISSUE.PROJECT_ID.eq(projectId)
+		         .and(Tables.ISSUE.CREATE_DATE.gt(startDate))
+		         .and(
+				  /*(Tables.ISSUE.STATUS.eq(Progress.NEW.name))
+				  .or(*/Tables.ISSUE.STATUS.eq(Progress.BACKLOG.name)//)
+			     )
+			   )
+		)
 	}
 }

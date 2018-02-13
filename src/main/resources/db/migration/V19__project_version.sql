@@ -1,0 +1,12 @@
+START TRANSACTION;
+
+ALTER TABLE `project`
+ADD `major_version` INT NOT NULL DEFAULT 0;
+
+ALTER TABLE `project`
+ADD `minor_version` INT NOT NULL DEFAULT 0;
+
+ALTER TABLE `project`
+ADD `patch_version` INT NOT NULL DEFAULT 0;
+
+COMMIT;
