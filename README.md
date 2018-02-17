@@ -1,5 +1,7 @@
-# Taskr 
- 
+# Taskr
+
+[![Travis CI Build Status Badge](https://travis-ci.org/kevindeyne/tasker.svg?branch=master)](https://travis-ci.org/kevindeyne/tasker)
+
 A project management tool that incorporates everything I've learned about working on software in various teams. Along with learning the expertise of team members and assigning relevant tasks to the right people, Taskr takes into account everyone's workload to plan tasks, easily tracks time spent on projects, and simplifies things like: sprint planning, daily standup meetings, meeting SLA standards, and following up on replies. 
  
 Primary technologies used are Kotlin, Java 8, SASS, JOOQ and jQuery. It runs as a self-contained JAR with Spring Boot on AWS. You can see a running demo of the latest minor release at: http://taskr.us-west-2.elasticbeanstalk.com:8080 
