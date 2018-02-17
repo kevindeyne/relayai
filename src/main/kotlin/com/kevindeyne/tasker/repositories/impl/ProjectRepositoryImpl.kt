@@ -20,7 +20,7 @@ open class ProjectRepositoryImpl (val dsl: DSLContext, val sprintRepository : Sp
 	val tU = TimeUtils.INSTANCE
 	
 	override fun findProject(projectId : Long) : ProjectListing {
-		return dsl.select()
+		return dsl.select(Tables.PROJECT.ID, Tables.PROJECT.TITLE, Tables.PROJECT.KEY)
 				.from(Tables.PROJECT)
 			    .where(Tables.PROJECT.ID.eq(projectId))
 			    .fetchOne()
