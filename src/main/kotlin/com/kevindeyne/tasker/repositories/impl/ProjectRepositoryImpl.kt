@@ -32,7 +32,7 @@ open class ProjectRepositoryImpl (val dsl: DSLContext, val sprintRepository : Sp
 	}
 	
 	override fun findActiveProject(userId : Long) : ProjectListing? {
-		val record = dsl.select()
+		val record = dsl.select(Tables.PROJECT.ID, Tables.PROJECT.TITLE, Tables.PROJECT.KEY)
 				.from(Tables.PROJECT)
 				.join(Tables.PROJECT_USERS).on(Tables.PROJECT_USERS.PROJECT_ID.eq(Tables.PROJECT.ID))
 			    .where(Tables.PROJECT_USERS.USER_ID.eq(userId))
@@ -51,7 +51,7 @@ open class ProjectRepositoryImpl (val dsl: DSLContext, val sprintRepository : Sp
 	}
 	
 	override fun findProjects(userId : Long) : List<ProjectListing>	 {
-		return dsl.select()
+		return dsl.select(Tables.PROJECT.ID, Tables.PROJECT.TITLE, Tables.PROJECT.KEY)
 				.from(Tables.PROJECT)
 				.join(Tables.PROJECT_USERS).on(Tables.PROJECT_USERS.PROJECT_ID.eq(Tables.PROJECT.ID))
 			    .where(Tables.PROJECT_USERS.USER_ID.eq(userId))
