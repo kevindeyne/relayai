@@ -11,9 +11,13 @@ public abstract class JOOQProvider implements MockDataProvider {
 		return getSQLFromContext(ctx).toUpperCase().startsWith("SELECT");
 	}
 
-	private String getSQLFromContext(MockExecuteContext ctx) {
-		String sql = ctx.sql();
-        System.out.println(sql.replaceAll("`", "").replaceAll("taskr.", ""));
+	protected boolean isSelectStatement(String sql) {
+		return sql.startsWith("SELECT");
+	}
+
+	protected String getSQLFromContext(MockExecuteContext ctx) {
+		String sql = ctx.sql().toUpperCase();
+        System.out.println(sql.replaceAll("`", "").replaceAll("TASKR.", ""));
 		return sql;
 	}
 

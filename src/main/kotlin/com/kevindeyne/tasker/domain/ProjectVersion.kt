@@ -1,8 +1,8 @@
 package com.kevindeyne.tasker.domain
 
 data class ProjectVersion constructor(
-		var majorVersion: Int = 0,
-		var minorVersion: Int = 0,
-		var patchVersion: Int = 0
+		val majorVersion: Int = 0,
+		val minorVersion: Int = 0,
+		val patchVersion: Int = 0
 ) {
 }

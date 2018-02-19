@@ -16,7 +16,7 @@ class CommonInterceptor(val issueRepository : IssueRepository) : HandlerIntercep
 	val blacklist = listOf("pull", "login", "logout", "error",
 			"/stylesheets/", "/js/", "/icons/", "/fonts/")
 	
-	override fun preHandle(request: HttpServletRequest, response: HttpServletResponse, handler: Any?) : Boolean {		
+	override fun preHandle(request: HttpServletRequest, response: HttpServletResponse, handler: Any) : Boolean {		
 		if(isValidHandle(request)){
 			val reqUrl = request.getRequestURL().toString()
 			if(SecurityHolder.getProjectId() == -1L && !reqUrl.contains("/project/new")){
@@ -28,7 +28,7 @@ class CommonInterceptor(val issueRepository : IssueRepository) : HandlerIntercep
 		return true
 	}
 
-	override fun postHandle(request: HttpServletRequest, response: HttpServletResponse, handler: Any?, model: ModelAndView?) {
+	override fun postHandle(request: HttpServletRequest, response: HttpServletResponse, handler: Any, model: ModelAndView?) {
 		if(model != null && isValidHandle(request)){		
 			if (SecurityHolder.hasRole(Role.DEVELOPER) || SecurityHolder.hasRole(Role.TESTER)) {					
 				model.addObject("inProgressIssueList", issueRepository.findAllInProgress())

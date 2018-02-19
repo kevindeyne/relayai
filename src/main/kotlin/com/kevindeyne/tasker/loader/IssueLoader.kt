@@ -29,7 +29,7 @@ class IssueLoader(
 		val tagcloudRepository : TagcloudRepository
 ) : ApplicationListener<ContextRefreshedEvent>, Ordered {
 	
-	val truncateAll : Boolean = true
+	val truncateAll : Boolean = false
 	val generateNew : Boolean = false
 	val maxUserIssuesInSprint : Int = 40
 	val daysPerSprint : Int = 14
@@ -41,7 +41,7 @@ class IssueLoader(
 	}
 	
 	@Transactional
-	override fun onApplicationEvent(event: ContextRefreshedEvent?) {
+	override fun onApplicationEvent(event: ContextRefreshedEvent) {
 		val faker : Faker = Faker()
 		
 		if(truncateAll) {	

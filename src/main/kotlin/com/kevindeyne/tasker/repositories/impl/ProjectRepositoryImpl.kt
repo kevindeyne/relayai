@@ -5,7 +5,9 @@ import com.kevindeyne.tasker.controller.timesheet.TimeUtils
 import com.kevindeyne.tasker.domain.ProjectListing
 import com.kevindeyne.tasker.domain.ProjectVersion
 import com.kevindeyne.tasker.domain.SprintFrequency
-import com.kevindeyne.tasker.jooq.Tables
+import com.kevindeyne.tasker.jooq.Tables.PROJECT
+import com.kevindeyne.tasker.jooq.Tables.PROJECT_USERS
+import com.kevindeyne.tasker.jooq.Tables.SPRINT
 import com.kevindeyne.tasker.service.SecurityHolder
 import org.jooq.DSLContext
 import org.springframework.stereotype.Component
@@ -18,49 +20,51 @@ import java.util.stream.Collectors
 open class ProjectRepositoryImpl (val dsl: DSLContext, val sprintRepository : SprintRepository, val issueRepository : IssueRepository) : ProjectRepository {
 	
 	val tU = TimeUtils.INSTANCE
+	val maxExpectedProjects = 10
 	
 	override fun findProject(projectId : Long) : ProjectListing {
-		return dsl.select(Tables.PROJECT.ID, Tables.PROJECT.TITLE, Tables.PROJECT.KEY)
-				.from(Tables.PROJECT)
-			    .where(Tables.PROJECT.ID.eq(projectId))
+		return dsl.select(PROJECT.ID, PROJECT.TITLE, PROJECT.KEY)
+				.from(PROJECT)
+			    .where(PROJECT.ID.eq(projectId))
 			    .fetchOne()
 			    .map {
-				  n -> ProjectListing(n.get(Tables.PROJECT.ID),
-									n.get(Tables.PROJECT.TITLE),
-									n.get(Tables.PROJECT.KEY))
+				  n -> ProjectListing(n.get(PROJECT.ID),
+									n.get(PROJECT.TITLE),
+									n.get(PROJECT.KEY))
 			   }
 	}
 	
 	override fun findActiveProject(userId : Long) : ProjectListing? {
-		val record = dsl.select(Tables.PROJECT.ID, Tables.PROJECT.TITLE, Tables.PROJECT.KEY)
-				.from(Tables.PROJECT)
-				.join(Tables.PROJECT_USERS).on(Tables.PROJECT_USERS.PROJECT_ID.eq(Tables.PROJECT.ID))
-			    .where(Tables.PROJECT_USERS.USER_ID.eq(userId))
-			    .and(Tables.PROJECT_USERS.ACTIVE.eq(true))
+		val record = dsl.select(PROJECT.ID, PROJECT.TITLE, PROJECT.KEY)
+				.from(PROJECT)
+				.join(PROJECT_USERS).on(PROJECT_USERS.PROJECT_ID.eq(PROJECT.ID))
+			    .where(PROJECT_USERS.USER_ID.eq(userId))
+			    .and(PROJECT_USERS.ACTIVE.eq(true))
 			    .fetchOptional()
 
 		if(record.isPresent){
 			return record.get().map {
-			  n -> ProjectListing(n.get(Tables.PROJECT.ID),
-								n.get(Tables.PROJECT.TITLE),
-								n.get(Tables.PROJECT.KEY))
+			  n -> ProjectListing(n.get(PROJECT.ID),
+								n.get(PROJECT.TITLE),
+								n.get(PROJECT.KEY))
 		   }
 		} else {
 			return null
-		}    
+		}
 	}
 	
 	override fun findProjects(userId : Long) : List<ProjectListing>	 {
-		return dsl.select(Tables.PROJECT.ID, Tables.PROJECT.TITLE, Tables.PROJECT.KEY)
-				.from(Tables.PROJECT)
-				.join(Tables.PROJECT_USERS).on(Tables.PROJECT_USERS.PROJECT_ID.eq(Tables.PROJECT.ID))
-			    .where(Tables.PROJECT_USERS.USER_ID.eq(userId))
+		return dsl.select(PROJECT.ID, PROJECT.TITLE, PROJECT.KEY)
+				.from(PROJECT)
+				.join(PROJECT_USERS).on(PROJECT_USERS.PROJECT_ID.eq(PROJECT.ID))
+			    .where(PROJECT_USERS.USER_ID.eq(userId))
+				.limit(maxExpectedProjects)
 			    .fetch()
 			    .parallelStream()
 			    .map {
-				  n -> ProjectListing(n.get(Tables.PROJECT.ID),
-									n.get(Tables.PROJECT.TITLE),
-									n.get(Tables.PROJECT.KEY))
+				  p -> ProjectListing(p.get(PROJECT.ID),
+									p.get(PROJECT.TITLE),
+									p.get(PROJECT.KEY))
 			   }
 			   .collect(Collectors.toList())
 	}
@@ -75,9 +79,9 @@ open class ProjectRepositoryImpl (val dsl: DSLContext, val sprintRepository : Sp
 	}
 	
 	fun updateActiveProjectUser(userId : Long, projectId : Long, active : Boolean) {
-		dsl.update(Tables.PROJECT_USERS)
-			.set(Tables.PROJECT_USERS.ACTIVE, active)
-			.where(Tables.PROJECT_USERS.USER_ID.eq(userId)).and(Tables.PROJECT_USERS.PROJECT_ID.eq(projectId))
+		dsl.update(PROJECT_USERS)
+			.set(PROJECT_USERS.ACTIVE, active)
+			.where(PROJECT_USERS.USER_ID.eq(userId)).and(PROJECT_USERS.PROJECT_ID.eq(projectId))
 			.execute()
 	}
 	
@@ -94,13 +98,13 @@ open class ProjectRepositoryImpl (val dsl: DSLContext, val sprintRepository : Sp
 	fun buildProject(userId : Long, title : String, sprintLength : Int) : Long {
 		val key : String = keyGeneration(title)
 		
-		val projectId = dsl.insertInto(Tables.PROJECT,
-				Tables.PROJECT.TITLE, Tables.PROJECT.KEY, Tables.PROJECT.SPRINT_LENGTH)
+		val projectId = dsl.insertInto(PROJECT,
+				PROJECT.TITLE, PROJECT.KEY, PROJECT.SPRINT_LENGTH)
 		   .values(title, key, sprintLength)
-		   .returning(Tables.PROJECT.ID).fetchOne().get(Tables.PROJECT.ID)
+		   .returning(PROJECT.ID).fetchOne().get(PROJECT.ID)
 		
-		dsl.insertInto(Tables.PROJECT_USERS,
-			  Tables.PROJECT_USERS.PROJECT_ID, Tables.PROJECT_USERS.USER_ID, Tables.PROJECT_USERS.ACTIVE)
+		dsl.insertInto(PROJECT_USERS,
+			  PROJECT_USERS.PROJECT_ID, PROJECT_USERS.USER_ID, PROJECT_USERS.ACTIVE)
 		   .values(projectId, userId, true)
 		   .execute()
 		
@@ -116,17 +120,17 @@ open class ProjectRepositoryImpl (val dsl: DSLContext, val sprintRepository : Sp
 	}
 			
 	fun setProjectAsActive(projectId : Long, sprintId : Long) {
-		dsl.update(Tables.PROJECT)
-			.set(Tables.PROJECT.ACTIVE_SPRINT_ID, sprintId)
-			.where(Tables.PROJECT.ID.eq(projectId))		
+		dsl.update(PROJECT)
+			.set(PROJECT.ACTIVE_SPRINT_ID, sprintId)
+			.where(PROJECT.ID.eq(projectId))		
 			.execute()
 	}
 	
 	fun buildOriginSprint(userId : Long, projectId : Long, sprintLength : Int) : Long {
 		
-		val sprintId : Long = dsl.insertInto(Tables.SPRINT, Tables.SPRINT.START_DATE, Tables.SPRINT.END_DATE, Tables.SPRINT.PROJECT_ID)
+		val sprintId : Long = dsl.insertInto(SPRINT, SPRINT.START_DATE, SPRINT.END_DATE, SPRINT.PROJECT_ID)
 		   .values(Timestamp(System.currentTimeMillis()), tU.inXdays(Date(), sprintLength*7), projectId)
-		   .returning(Tables.SPRINT.ID).fetchOne().get(Tables.SPRINT.ID)
+		   .returning(SPRINT.ID).fetchOne().get(SPRINT.ID)
 		
 		issueRepository.createInProgress("Invite teammembers", "Please take the time to invite any other teammembers to your projects. This can be done via the project screen.", userId, sprintId, projectId, userId)
 		issueRepository.createInProgress("Invite shareholders", "Please take the time to invite any shareholders to your projects. This can be done via the project screen.", userId, sprintId, projectId, userId)
@@ -135,14 +139,14 @@ open class ProjectRepositoryImpl (val dsl: DSLContext, val sprintRepository : Sp
 	}
 	
 	override fun getCurrentVersion(projectId : Long) : ProjectVersion {
-		return dsl.select(Tables.PROJECT.MAJOR_VERSION, Tables.PROJECT.MINOR_VERSION, Tables.PROJECT.PATCH_VERSION)
-				.from(Tables.PROJECT)
-			    .where(Tables.PROJECT.ID.eq(projectId))
+		return dsl.select(PROJECT.MAJOR_VERSION, PROJECT.MINOR_VERSION, PROJECT.PATCH_VERSION)
+				.from(PROJECT)
+			    .where(PROJECT.ID.eq(projectId))
 			    .fetchOne()
 			    .map {
-				  n -> ProjectVersion(n.get(Tables.PROJECT.MAJOR_VERSION),
-									n.get(Tables.PROJECT.MINOR_VERSION),
-									n.get(Tables.PROJECT.PATCH_VERSION))
+				  n -> ProjectVersion(n.get(PROJECT.MAJOR_VERSION),
+									n.get(PROJECT.MINOR_VERSION),
+									n.get(PROJECT.PATCH_VERSION))
 			   }
 	}
 }

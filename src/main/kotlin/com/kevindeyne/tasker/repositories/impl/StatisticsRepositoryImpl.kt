@@ -1,5 +1,6 @@
 package com.kevindeyne.tasker.repositories
 
+import kotlin.reflect.jvm.internal.impl.load.java.structure.JavaClass
 import com.kevindeyne.tasker.domain.Progress
 import com.kevindeyne.tasker.domain.StatisticsListing
 import com.kevindeyne.tasker.jooq.Tables
@@ -57,8 +58,7 @@ open class StatisticsRepositoryImpl (val dsl: DSLContext, val sprintRepo: Sprint
 	override fun getStatusCounts(sprintId : Long) : Map<String, Int> {
 		return dsl.select(Tables.ISSUE.STATUS, DSL.count())
 			   .from(Tables.SPRINT.join(Tables.ISSUE).on(Tables.ISSUE.SPRINT_ID.eq(Tables.SPRINT.ID)))			   
-			   .where(Tables.SPRINT.ID.eq(sprintId)
-					   .and(Tables.ISSUE.STATUS.notIn(Progress.NEW.name)))
+			   .where(Tables.SPRINT.ID.eq(sprintId))
 				.groupBy(Tables.ISSUE.STATUS)
 			   .fetch()
 			   .intoMap(Tables.ISSUE.STATUS, DSL.count())
@@ -66,15 +66,14 @@ open class StatisticsRepositoryImpl (val dsl: DSLContext, val sprintRepo: Sprint
 	
 	//TODO kan ook negatief zijn
 	fun backlogSinceSprintStart(startDate : Timestamp, projectId : Long) : Int {
-		return dsl.fetchCount(
-			dsl.selectFrom(Tables.ISSUE)
-		       .where(Tables.ISSUE.PROJECT_ID.eq(projectId)
-		         .and(Tables.ISSUE.CREATE_DATE.gt(startDate))
-		         .and(
-				  /*(Tables.ISSUE.STATUS.eq(Progress.NEW.name))
-				  .or(*/Tables.ISSUE.STATUS.eq(Progress.BACKLOG.name)//)
-			     )
-			   )
-		)
+		return dsl.selectCount()
+				.from(Tables.ISSUE)
+		        .where(Tables.ISSUE.PROJECT_ID.eq(projectId)
+		           .and(Tables.ISSUE.CREATE_DATE.gt(startDate))
+		           .and(
+				     (Tables.ISSUE.STATUS.eq(Progress.NEW.name))
+				     .or(Tables.ISSUE.STATUS.eq(Progress.BACKLOG.name))
+			       )
+				).fetchOne(0, Integer::class.java) as Int
 	}
 }
