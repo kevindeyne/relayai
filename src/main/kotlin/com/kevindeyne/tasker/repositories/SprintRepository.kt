@@ -8,6 +8,8 @@ interface SprintRepository {
 	
 	fun startSprint(projectId : Long) : Long
 	
+	fun getBacklogIssuesFromSprintStart(sprintId : Long) : Int
+	
 	fun findEndedSprints() : List<Long>
 	
 	fun findSprintEndDate(sprintId : Long) : SprintDates 	

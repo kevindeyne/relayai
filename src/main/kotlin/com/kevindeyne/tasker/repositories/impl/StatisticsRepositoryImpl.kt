@@ -43,13 +43,20 @@ open class StatisticsRepositoryImpl (val dsl: DSLContext, val sprintRepo: Sprint
 		val daysUntil = sprintDates.daysUntil()
 		val progressDays : Double = totalDays - daysUntil
 		
-		stats.daysUntilRelease = daysUntil.toInt()	
+		stats.daysUntilRelease = daysUntil.toInt()
+		stats.backlogIssuesAtSprintStart = sprintRepo.getBacklogIssuesFromSprintStart(sprintId)
 		stats.sprintCompletionRate = (progressDays.div(totalDays) * 100).toInt()
 
-		val backlogIssues = backlogSinceSprintStart(sprintDates.startDate, sprintId)
-		val backlogPercentage = (backlogIssues.toDouble().div(totalDays) * 100).toInt()
-		
+		val backlogIssues = backlogSinceSprintStart(sprintDates.startDate, projectId)
 		stats.issuesAddedSinceSprintCreation = backlogIssues
+		
+		var minus = 100
+		if(stats.backlogIssuesAtSprintStart == 0){
+			stats.backlogIssuesAtSprintStart = 1
+			minus = 0
+		}
+		
+		val backlogPercentage = (backlogIssues.toDouble().div(stats.backlogIssuesAtSprintStart)*100).toInt()-minus
 		stats.backlogEvolutionRate = if(backlogIssues > 0) { "+$backlogPercentage" } else { "$backlogPercentage" }
 		
 		return stats

@@ -14,5 +14,6 @@ data class StatisticsListing constructor(
 		var issuesAddedSinceSprintCreation: Int = 0,
 		var sprintNr: Int = 0,
 		var sprintReleaseRate: String = "bi-weekly",
-		var noReleasesSinceStartProject: Int = 0
+		var noReleasesSinceStartProject: Int = 0,
+		var backlogIssuesAtSprintStart: Int = 0
 ) { }

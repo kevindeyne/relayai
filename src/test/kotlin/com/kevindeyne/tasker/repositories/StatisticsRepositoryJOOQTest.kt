@@ -15,7 +15,7 @@ class StatisticsRepositoryJOOQTest : JOOQTest() {
 	
 	@Test
 	fun testStats() {
-		val dsl: DSLContext = newDSL(ProjectProvider())
+		val dsl: DSLContext = newDSL(StatisticsProvider())
 
 		val issueRepo = IssueRepositoryImpl(dsl)
 		val sprintRepo = SprintRepositoryImpl(dsl, issueRepo)
@@ -28,7 +28,7 @@ class StatisticsRepositoryJOOQTest : JOOQTest() {
 		Assert.assertNotNull(stats.backlogEvolutionRate)
 	}
 
-	inner class ProjectProvider : JOOQProvider() {
+	inner class StatisticsProvider : JOOQProvider() {
 
 		override fun execute(ctx: MockExecuteContext): Array<MockResult> {
 			val dsl: DSLContext = newDSL()
