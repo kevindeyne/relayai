@@ -43,8 +43,8 @@ class StatisticsRepositoryJOOQTest : JOOQTest() {
 		            result.add(dsl.newRecord(ISSUE.STATUS, DSL.count()).values("NEW", 5))
 					return arrayOf<MockResult>(MockResult(1, result))
 	        	} else if(sql.contains("END_DATE")) {
-	        		val result = dsl.newResult(SPRINT.START_DATE, SPRINT.END_DATE)
-		            result.add(dsl.newRecord(SPRINT.START_DATE, SPRINT.END_DATE).values(TimeUtils.INSTANCE.today(), TimeUtils.INSTANCE.inXdays(TimeUtils.INSTANCE.today(), 14)))
+	        		val result = dsl.newResult(SPRINT.SPRINT_NR, SPRINT.START_DATE, SPRINT.END_DATE)
+		            result.add(dsl.newRecord(SPRINT.SPRINT_NR, SPRINT.START_DATE, SPRINT.END_DATE).values(1, TimeUtils.INSTANCE.today(), TimeUtils.INSTANCE.inXdays(TimeUtils.INSTANCE.today(), 14)))
 					return arrayOf<MockResult>(MockResult(1, result))
 	        	} else if(sql.startsWith("SELECT COUNT(*)")) {
 	        		val result = dsl.newResult(DSL.count())
