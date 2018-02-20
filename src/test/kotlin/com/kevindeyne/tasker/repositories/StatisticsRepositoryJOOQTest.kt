@@ -25,7 +25,6 @@ class StatisticsRepositoryJOOQTest : JOOQTest() {
 		val stats = repo.getStats(0L, 0L)
 
 		Assert.assertNotNull(stats)
-		Assert.assertNotNull(stats.backlogEvolutionRate)
 	}
 
 	inner class StatisticsProvider : JOOQProvider() {

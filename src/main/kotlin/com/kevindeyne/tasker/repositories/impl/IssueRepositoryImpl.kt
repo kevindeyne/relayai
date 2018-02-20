@@ -481,4 +481,23 @@ open class IssueRepositoryImpl (val dsl: DSLContext) : IssueRepository {
 			   }
 			   .collect(Collectors.toList())
 	}
+	
+	override fun createDeployIssue(sprintId : Long?, projectId : Long, userId : Long){
+		val timestamp = Timestamp(System.currentTimeMillis())
+		val createAndUpdateUser = userId.toString()
+		
+		val deployer = userId
+		
+		val projectVersion = projectRepo.getCurrentVersion(projectId)
+		val stringVersion = "v${projectVersion.majorVersion}.${projectVersion.minorVersion}.${projectVersion.patchVersion}"
+		val description = "Deploy the latest version of your application to the test servers today. This will end the current sprint."
+		
+		dsl.insertInto(Tables.ISSUE,
+				Tables.ISSUE.TITLE, Tables.ISSUE.DESCRIPTION, Tables.ISSUE.ASSIGNED, Tables.ISSUE.SPRINT_ID, Tables.ISSUE.PROJECT_ID,
+				Tables.ISSUE.CREATE_USER, Tables.ISSUE.UPDATE_USER, Tables.ISSUE.CREATE_DATE, Tables.ISSUE.UPDATE_DATE, Tables.ISSUE.IMPORTANCE,
+				Tables.ISSUE.STATUS, Tables.ISSUE.WORKLOAD, Tables.ISSUE.IMPACT, Tables.ISSUE.URGENCY )
+		   .values("Deploy of ${stringVersion}", description, deployer, sprintId, projectId, createAndUpdateUser, createAndUpdateUser,
+				   timestamp, timestamp, IMPORTANCE_CRITICAL_H_IMP + 1, Progress.IN_SPRINT.name, 4, Impact.HIGH.name, Urgency.IMMEDIATELY.name)
+		   .returning(Tables.ISSUE.ID).fetchOne().get(Tables.ISSUE.ID)
+	}
 }

@@ -53,11 +53,11 @@
 						
 			<div class="stat">
 				<div class="stat-top">
-					<span class="stat-number" th:text="${stats.backlogEvolutionRate}">+5</span><span class="stat-percentage">%</span><br/>
+					<span class="stat-number" th:text="${stats.issuesAddedSinceSprintCreation}">+6</span><br/>	
 					<span class="stat-title">Backlog evolution</span>
 				</div>
 				<div class="stat-bottom">
-					<span class="stat-detail" th:text="${stats.issuesAddedSinceSprintCreation}">23</span><br/>
+					<span class="stat-detail"><span th:text="${stats.backlogIssuesAtSprintStart}">23.7K</span> <i class="fa fa-arrow-right"></i> <span th:text="${stats.backlogIssuesTotal}">23.7K</span></span><br/>
 					<span class="stat-descr">issues added</span><br/>
 					<span>since sprint start</span>
 				</div>

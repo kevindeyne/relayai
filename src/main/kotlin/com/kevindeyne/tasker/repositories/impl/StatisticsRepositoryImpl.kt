@@ -15,11 +15,36 @@ open class StatisticsRepositoryImpl (val dsl: DSLContext, val sprintRepo: Sprint
 	override fun getStats(sprintId : Long, projectId : Long) : StatisticsListing {
 		val stats = StatisticsListing()
 		
+		getStatVersion(projectId, stats)
+		getStatCounts(sprintId, stats)		
+		getStatDates(sprintId, projectId, stats)
+
+		return stats
+	}
+	
+	fun getStatDates(sprintId : Long, projectId : Long, stats : StatisticsListing){
+		val sprintDates = sprintRepo.findSprintEndDate(sprintId)
+		val totalDays = sprintDates.getTotalDays()
+		val daysUntil = sprintDates.daysUntil()
+		val progressDays : Double = totalDays - daysUntil
+		
+		stats.daysUntilRelease = daysUntil.toInt()
+		stats.backlogIssuesAtSprintStart = sprintRepo.getBacklogIssuesFromSprintStart(sprintId)
+		stats.sprintCompletionRate = (progressDays.div(totalDays) * 100).toInt()
+
+		val sprintCreation = backlogSinceSprintStart(sprintDates.startDate, projectId)
+		stats.issuesAddedSinceSprintCreation = if (sprintCreation >= 0) { "+${sprintCreation}" } else { "${sprintCreation}" }
+		
+		stats.sprintNr = sprintDates.sprintNr
+	}
+	
+	fun getStatVersion(projectId : Long, stats : StatisticsListing){
 		val projectVersion = projectRepo.getCurrentVersion(projectId)
 		stats.nextReleaseVersion = "${projectVersion.majorVersion}.${projectVersion.minorVersion}.${projectVersion.patchVersion + 1}"
-		
-		val statusCounts = getStatusCounts(sprintId)
-		
+	}
+	
+	fun getStatCounts(sprintId : Long, stats : StatisticsListing) {
+		val statusCounts = getStatusCounts(sprintId)		
 		statusCounts.keys.forEach{
 			k ->
 				val count = statusCounts.get(k)
@@ -30,6 +55,9 @@ open class StatisticsRepositoryImpl (val dsl: DSLContext, val sprintRepo: Sprint
 				} else if(Progress.WAITING_FOR_FEEDBACK.equals(Progress.valueOf(k))){
 					stats.issuesWaitingForFeedback = count ?: 0
 					stats.issuePlannedActive += count ?: 0
+				} else if(Progress.BACKLOG.equals(Progress.valueOf(k)) || Progress.NEW.equals(Progress.valueOf(k))){
+					stats.backlogIssuesTotal += count ?: 0
+					stats.issuePlannedActive += count ?: 0
 				} else {
 					stats.issuePlannedActive += count ?: 0
 				}
@@ -37,29 +65,6 @@ open class StatisticsRepositoryImpl (val dsl: DSLContext, val sprintRepo: Sprint
 		
 		stats.issueCompletionRate = (stats.issuePlannedDone.toDouble().div(stats.issuePlannedTotal.toDouble()) * 100).toInt()
 		stats.waitingForFeedbackRate = (stats.issuesWaitingForFeedback.toDouble().div(stats.issuePlannedActive.toDouble()) * 100).toInt()
-		
-		val sprintDates = sprintRepo.findSprintEndDate(sprintId)
-		val totalDays = sprintDates.getTotalDays()
-		val daysUntil = sprintDates.daysUntil()
-		val progressDays : Double = totalDays - daysUntil
-		
-		stats.daysUntilRelease = daysUntil.toInt()
-		stats.backlogIssuesAtSprintStart = sprintRepo.getBacklogIssuesFromSprintStart(sprintId)
-		stats.sprintCompletionRate = (progressDays.div(totalDays) * 100).toInt()
-
-		val backlogIssues = backlogSinceSprintStart(sprintDates.startDate, projectId)
-		stats.issuesAddedSinceSprintCreation = backlogIssues
-		
-		var minus = 100
-		if(stats.backlogIssuesAtSprintStart == 0){
-			stats.backlogIssuesAtSprintStart = 1
-			minus = 0
-		}
-		
-		val backlogPercentage = (backlogIssues.toDouble().div(stats.backlogIssuesAtSprintStart)*100).toInt()-minus
-		stats.backlogEvolutionRate = if(backlogIssues > 0) { "+$backlogPercentage" } else { "$backlogPercentage" }
-		
-		return stats
 	}
 	
 	override fun getStatusCounts(sprintId : Long) : Map<String, Int> {
@@ -71,7 +76,6 @@ open class StatisticsRepositoryImpl (val dsl: DSLContext, val sprintRepo: Sprint
 			   .intoMap(Tables.ISSUE.STATUS, DSL.count())
 	}
 	
-	//TODO kan ook negatief zijn
 	fun backlogSinceSprintStart(startDate : Timestamp, projectId : Long) : Int {
 		return dsl.selectCount()
 				.from(Tables.ISSUE)

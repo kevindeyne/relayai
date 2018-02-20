@@ -1,0 +1,40 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+	<th:block th:replace="fragments/template :: meta">Meta tags</th:block>
+    <title>Tasker - Debug</title>
+</head>
+<body>
+	<nav th:replace="fragments/template :: navigation">Side menu</nav>
+			
+	<article id="main">
+		<section>
+			<h1>Debug</h1>
+		</section>
+		
+		<section>
+			<p><a href="/debug/dayofdeploy">Jump to final day of deploy</a></p>
+		</section>
+		
+	</article>
+	
+	<script src="/js/jquery-3.2.1.min.js"></script>
+	<script src="/js/simple-scrollbar.min.js"></script>
+	<script src="/js/progressbar.min.js"></script>
+	<script src="/js/jquery-visibility.min.js"></script>
+	<script src="/js/jstorage.min.js"></script>
+	
+	<script src="/js/taskr-common.js"></script>
+	<script src="/js/taskr-navigation.js"></script>
+	<script src="/js/taskr-notification-pulling.js"></script>
+	<script src="/js/taskr-new-issue.js"></script>
+	
+	<script>
+		$(document).ready(function() {
+				
+		});
+		
+		function colorCodeChangeables() {return false;}
+	</script>	
+</body>
+</html>

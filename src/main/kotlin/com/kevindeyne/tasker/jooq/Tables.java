@@ -6,12 +6,14 @@ package com.kevindeyne.tasker.jooq;
 
 import com.kevindeyne.tasker.jooq.tables.Comments;
 import com.kevindeyne.tasker.jooq.tables.Event;
+import com.kevindeyne.tasker.jooq.tables.FlywaySchemaHistory;
 import com.kevindeyne.tasker.jooq.tables.Invitation;
 import com.kevindeyne.tasker.jooq.tables.Issue;
 import com.kevindeyne.tasker.jooq.tables.Knowledge;
 import com.kevindeyne.tasker.jooq.tables.Project;
 import com.kevindeyne.tasker.jooq.tables.ProjectUsers;
-import com.kevindeyne.tasker.jooq.tables.SchemaVersion;
+import com.kevindeyne.tasker.jooq.tables.Releases;
+import com.kevindeyne.tasker.jooq.tables.ReleasesChangelog;
 import com.kevindeyne.tasker.jooq.tables.Search;
 import com.kevindeyne.tasker.jooq.tables.Sprint;
 import com.kevindeyne.tasker.jooq.tables.Tag;
@@ -47,6 +49,11 @@ public class Tables {
     public static final Event EVENT = com.kevindeyne.tasker.jooq.tables.Event.EVENT;
 
     /**
+     * The table <code>taskr.flyway_schema_history</code>.
+     */
+    public static final FlywaySchemaHistory FLYWAY_SCHEMA_HISTORY = com.kevindeyne.tasker.jooq.tables.FlywaySchemaHistory.FLYWAY_SCHEMA_HISTORY;
+
+    /**
      * The table <code>taskr.invitation</code>.
      */
     public static final Invitation INVITATION = com.kevindeyne.tasker.jooq.tables.Invitation.INVITATION;
@@ -72,9 +79,14 @@ public class Tables {
     public static final ProjectUsers PROJECT_USERS = com.kevindeyne.tasker.jooq.tables.ProjectUsers.PROJECT_USERS;
 
     /**
-     * The table <code>taskr.schema_version</code>.
+     * The table <code>taskr.releases</code>.
      */
-    public static final SchemaVersion SCHEMA_VERSION = com.kevindeyne.tasker.jooq.tables.SchemaVersion.SCHEMA_VERSION;
+    public static final Releases RELEASES = com.kevindeyne.tasker.jooq.tables.Releases.RELEASES;
+
+    /**
+     * The table <code>taskr.releases_changelog</code>.
+     */
+    public static final ReleasesChangelog RELEASES_CHANGELOG = com.kevindeyne.tasker.jooq.tables.ReleasesChangelog.RELEASES_CHANGELOG;
 
     /**
      * The table <code>taskr.search</code>.

@@ -144,11 +144,11 @@ open class SprintRepositoryImpl (val dsl: DSLContext, val issueRepository : Issu
 	}
 	
 	override fun findSprintEndDate(sprintId : Long) : SprintDates {
-		return dsl.select(SPRINT.START_DATE, SPRINT.END_DATE)
+		return dsl.select(SPRINT.START_DATE, SPRINT.END_DATE, SPRINT.SPRINT_NR)
 	         .from(SPRINT)
 			 .where(SPRINT.ID.eq(sprintId))
 			 .fetchOne().map {
-				s -> SprintDates(s.get(SPRINT.START_DATE), s.get(SPRINT.END_DATE))
+				s -> SprintDates(s.get(SPRINT.SPRINT_NR), s.get(SPRINT.START_DATE), s.get(SPRINT.END_DATE))
 			 }
 	}
 	

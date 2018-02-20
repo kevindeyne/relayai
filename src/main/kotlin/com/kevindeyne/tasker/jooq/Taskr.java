@@ -6,12 +6,14 @@ package com.kevindeyne.tasker.jooq;
 
 import com.kevindeyne.tasker.jooq.tables.Comments;
 import com.kevindeyne.tasker.jooq.tables.Event;
+import com.kevindeyne.tasker.jooq.tables.FlywaySchemaHistory;
 import com.kevindeyne.tasker.jooq.tables.Invitation;
 import com.kevindeyne.tasker.jooq.tables.Issue;
 import com.kevindeyne.tasker.jooq.tables.Knowledge;
 import com.kevindeyne.tasker.jooq.tables.Project;
 import com.kevindeyne.tasker.jooq.tables.ProjectUsers;
-import com.kevindeyne.tasker.jooq.tables.SchemaVersion;
+import com.kevindeyne.tasker.jooq.tables.Releases;
+import com.kevindeyne.tasker.jooq.tables.ReleasesChangelog;
 import com.kevindeyne.tasker.jooq.tables.Search;
 import com.kevindeyne.tasker.jooq.tables.Sprint;
 import com.kevindeyne.tasker.jooq.tables.Tag;
@@ -44,7 +46,7 @@ import org.jooq.impl.SchemaImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Taskr extends SchemaImpl {
 
-    private static final long serialVersionUID = -538682906;
+    private static final long serialVersionUID = 2107269948;
 
     /**
      * The reference instance of <code>taskr</code>
@@ -60,6 +62,11 @@ public class Taskr extends SchemaImpl {
      * The table <code>taskr.event</code>.
      */
     public final Event EVENT = com.kevindeyne.tasker.jooq.tables.Event.EVENT;
+
+    /**
+     * The table <code>taskr.flyway_schema_history</code>.
+     */
+    public final FlywaySchemaHistory FLYWAY_SCHEMA_HISTORY = com.kevindeyne.tasker.jooq.tables.FlywaySchemaHistory.FLYWAY_SCHEMA_HISTORY;
 
     /**
      * The table <code>taskr.invitation</code>.
@@ -87,9 +94,14 @@ public class Taskr extends SchemaImpl {
     public final ProjectUsers PROJECT_USERS = com.kevindeyne.tasker.jooq.tables.ProjectUsers.PROJECT_USERS;
 
     /**
-     * The table <code>taskr.schema_version</code>.
+     * The table <code>taskr.releases</code>.
      */
-    public final SchemaVersion SCHEMA_VERSION = com.kevindeyne.tasker.jooq.tables.SchemaVersion.SCHEMA_VERSION;
+    public final Releases RELEASES = com.kevindeyne.tasker.jooq.tables.Releases.RELEASES;
+
+    /**
+     * The table <code>taskr.releases_changelog</code>.
+     */
+    public final ReleasesChangelog RELEASES_CHANGELOG = com.kevindeyne.tasker.jooq.tables.ReleasesChangelog.RELEASES_CHANGELOG;
 
     /**
      * The table <code>taskr.search</code>.
@@ -153,12 +165,14 @@ public class Taskr extends SchemaImpl {
         return Arrays.<Table<?>>asList(
             Comments.COMMENTS,
             Event.EVENT,
+            FlywaySchemaHistory.FLYWAY_SCHEMA_HISTORY,
             Invitation.INVITATION,
             Issue.ISSUE,
             Knowledge.KNOWLEDGE,
             Project.PROJECT,
             ProjectUsers.PROJECT_USERS,
-            SchemaVersion.SCHEMA_VERSION,
+            Releases.RELEASES,
+            ReleasesChangelog.RELEASES_CHANGELOG,
             Search.SEARCH,
             Sprint.SPRINT,
             Tag.TAG,

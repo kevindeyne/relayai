@@ -41,7 +41,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Sprint extends TableImpl<SprintRecord> {
 
-    private static final long serialVersionUID = -991683813;
+    private static final long serialVersionUID = 1594235069;
 
     /**
      * The reference instance of <code>taskr.sprint</code>
@@ -80,6 +80,11 @@ public class Sprint extends TableImpl<SprintRecord> {
      * The column <code>taskr.sprint.backlog_at_start</code>.
      */
     public final TableField<SprintRecord, Integer> BACKLOG_AT_START = createField("backlog_at_start", org.jooq.impl.SQLDataType.INTEGER.nullable(false).defaultValue(org.jooq.impl.DSL.inline("0", org.jooq.impl.SQLDataType.INTEGER)), this, "");
+
+    /**
+     * The column <code>taskr.sprint.sprint_nr</code>.
+     */
+    public final TableField<SprintRecord, Integer> SPRINT_NR = createField("sprint_nr", org.jooq.impl.SQLDataType.INTEGER.nullable(false).defaultValue(org.jooq.impl.DSL.inline("1", org.jooq.impl.SQLDataType.INTEGER)), this, "");
 
     /**
      * Create a <code>taskr.sprint</code> table reference

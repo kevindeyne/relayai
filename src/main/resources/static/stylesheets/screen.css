@@ -526,31 +526,37 @@ aside section > p {
   font-weight: 300;
 }
 
+/* line 117, ../sass/_aside.scss */
+aside section[importance="11"] {
+  color: white;
+  background: linear-gradient(to right, #15b972, #0e844d) !important;
+}
+
 @media (max-width: 1870px) {
-  /* line 118, ../sass/_aside.scss */
+  /* line 123, ../sass/_aside.scss */
   aside #aside-options a span {
     display: none;
   }
 }
 @media (max-width: 1201px) {
-  /* line 124, ../sass/_aside.scss */
+  /* line 129, ../sass/_aside.scss */
   aside #aside-options a {
     display: block;
     text-align: center;
   }
 
-  /* line 129, ../sass/_aside.scss */
+  /* line 134, ../sass/_aside.scss */
   article#main section#content-main p.content {
     padding-top: 18em !important;
   }
 
-  /* line 133, ../sass/_aside.scss */
+  /* line 138, ../sass/_aside.scss */
   div.milestone-details-col {
     display: block;
     width: 100%;
   }
 
-  /* line 138, ../sass/_aside.scss */
+  /* line 143, ../sass/_aside.scss */
   .userinfo-details-col {
     width: 45%;
   }

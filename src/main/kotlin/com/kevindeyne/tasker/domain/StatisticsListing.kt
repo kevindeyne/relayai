@@ -10,10 +10,10 @@ data class StatisticsListing constructor(
 		var issuePlannedActive: Int = 0,
 		var waitingForFeedbackRate: Int = 0,
 		var issuesWaitingForFeedback: Int = 0,
-		var backlogEvolutionRate: String = "+1",
-		var issuesAddedSinceSprintCreation: Int = 0,
+		var issuesAddedSinceSprintCreation: String = "0",
 		var sprintNr: Int = 0,
 		var sprintReleaseRate: String = "bi-weekly",
 		var noReleasesSinceStartProject: Int = 0,
-		var backlogIssuesAtSprintStart: Int = 0
+		var backlogIssuesAtSprintStart: Int = 0,
+		var backlogIssuesTotal: Int = 0
 ) { }

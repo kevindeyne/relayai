@@ -114,6 +114,11 @@ aside section > p {
 	font-weight: 300;
 }
 
+aside section[importance="11"] {
+    color: white;
+    background: linear-gradient(to right, #15b972, #0e844d) !important;
+}
+
 @media (max-width: 1870px) {
 	aside #aside-options a span {
 		display: none;
