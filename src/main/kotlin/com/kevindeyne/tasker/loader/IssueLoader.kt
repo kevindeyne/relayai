@@ -21,6 +21,7 @@ import java.sql.Timestamp
 import java.time.LocalDate
 import java.util.Random
 import java.util.stream.Collectors
+import com.kevindeyne.tasker.config.RealdataFaker
 
 @Component
 class IssueLoader(
@@ -29,8 +30,8 @@ class IssueLoader(
 		val tagcloudRepository : TagcloudRepository
 ) : ApplicationListener<ContextRefreshedEvent>, Ordered {
 	
-	val truncateAll : Boolean = false
-	val generateNew : Boolean = false
+	val truncateAll : Boolean = true
+	val generateNew : Boolean = true
 	val maxUserIssuesInSprint : Int = 40
 	val daysPerSprint : Int = 14
 	val totalAmountOfSprints : Int = 10
@@ -112,6 +113,8 @@ class IssueLoader(
 		dsl.delete(Tables.PROJECT).execute()
 	}
 	
+	fun generateTitle() : String = RealdataFaker.INSTANCE.list.get(Random().nextInt(RealdataFaker.INSTANCE.list.size)) 
+		
 	fun getRandomUser() : Long {
 		val r = Random()
 		return dsl.selectFrom(Tables.USER).fetch().parallelStream().map{u -> u.get(Tables.USER.ID) }.collect(Collectors.toList()).get(r.nextInt(100))
@@ -196,7 +199,7 @@ class IssueLoader(
 	}
 	
 	fun insertIntoIssue(faker : Faker, userId : Long, projectId : Long, sprintId : Long, assignedTo : Long) {
-		val title = faker.book().title()
+		val title = generateTitle()
 		val sentenceList : MutableList<String> = ArrayList<String>()
 		for (i in 0..5) {
 			sentenceList.add(faker.harryPotter().quote())

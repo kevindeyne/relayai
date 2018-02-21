@@ -40,6 +40,9 @@ article {
 	
 	div.ss-wrapper {
 		background: linear-gradient(to right, #f3f6f8 , white);
+		position:relative;
+		padding-left: 10px;
+		left: -10px;
 	}
 	
 	#content-userinfo, #content-new-issue-title {

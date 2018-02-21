@@ -4,6 +4,7 @@
 package com.kevindeyne.tasker.jooq;
 
 
+import com.kevindeyne.tasker.jooq.tables.Branch;
 import com.kevindeyne.tasker.jooq.tables.Comments;
 import com.kevindeyne.tasker.jooq.tables.Event;
 import com.kevindeyne.tasker.jooq.tables.FlywaySchemaHistory;
@@ -21,6 +22,8 @@ import com.kevindeyne.tasker.jooq.tables.Tagcloud;
 import com.kevindeyne.tasker.jooq.tables.Timesheet;
 import com.kevindeyne.tasker.jooq.tables.User;
 import com.kevindeyne.tasker.jooq.tables.UserRole;
+import com.kevindeyne.tasker.jooq.tables.VersionIssue;
+import com.kevindeyne.tasker.jooq.tables.Versions;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -46,12 +49,17 @@ import org.jooq.impl.SchemaImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Taskr extends SchemaImpl {
 
-    private static final long serialVersionUID = 2107269948;
+    private static final long serialVersionUID = 1174911278;
 
     /**
      * The reference instance of <code>taskr</code>
      */
     public static final Taskr TASKR = new Taskr();
+
+    /**
+     * The table <code>taskr.branch</code>.
+     */
+    public final Branch BRANCH = com.kevindeyne.tasker.jooq.tables.Branch.BRANCH;
 
     /**
      * The table <code>taskr.comments</code>.
@@ -139,6 +147,16 @@ public class Taskr extends SchemaImpl {
     public final UserRole USER_ROLE = com.kevindeyne.tasker.jooq.tables.UserRole.USER_ROLE;
 
     /**
+     * The table <code>taskr.versions</code>.
+     */
+    public final Versions VERSIONS = com.kevindeyne.tasker.jooq.tables.Versions.VERSIONS;
+
+    /**
+     * The table <code>taskr.version_issue</code>.
+     */
+    public final VersionIssue VERSION_ISSUE = com.kevindeyne.tasker.jooq.tables.VersionIssue.VERSION_ISSUE;
+
+    /**
      * No further instances allowed
      */
     private Taskr() {
@@ -163,6 +181,7 @@ public class Taskr extends SchemaImpl {
 
     private final List<Table<?>> getTables0() {
         return Arrays.<Table<?>>asList(
+            Branch.BRANCH,
             Comments.COMMENTS,
             Event.EVENT,
             FlywaySchemaHistory.FLYWAY_SCHEMA_HISTORY,
@@ -179,6 +198,8 @@ public class Taskr extends SchemaImpl {
             Tagcloud.TAGCLOUD,
             Timesheet.TIMESHEET,
             User.USER,
-            UserRole.USER_ROLE);
+            UserRole.USER_ROLE,
+            Versions.VERSIONS,
+            VersionIssue.VERSION_ISSUE);
     }
 }

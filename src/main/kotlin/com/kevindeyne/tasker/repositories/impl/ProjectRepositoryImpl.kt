@@ -139,7 +139,8 @@ open class ProjectRepositoryImpl (val dsl: DSLContext, val sprintRepository : Sp
 	}
 	
 	override fun getCurrentVersion(projectId : Long) : ProjectVersion {
-		return dsl.select(PROJECT.MAJOR_VERSION, PROJECT.MINOR_VERSION, PROJECT.PATCH_VERSION)
+		return ProjectVersion()
+		/*return dsl.select(PROJECT.MAJOR_VERSION, PROJECT.MINOR_VERSION, PROJECT.PATCH_VERSION)
 				.from(PROJECT)
 			    .where(PROJECT.ID.eq(projectId))
 			    .fetchOne()
@@ -147,6 +148,6 @@ open class ProjectRepositoryImpl (val dsl: DSLContext, val sprintRepository : Sp
 				  n -> ProjectVersion(n.get(PROJECT.MAJOR_VERSION),
 									n.get(PROJECT.MINOR_VERSION),
 									n.get(PROJECT.PATCH_VERSION))
-			   }
+			   }*/
 	}
 }

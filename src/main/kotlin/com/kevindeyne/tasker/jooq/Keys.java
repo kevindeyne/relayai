@@ -4,6 +4,7 @@
 package com.kevindeyne.tasker.jooq;
 
 
+import com.kevindeyne.tasker.jooq.tables.Branch;
 import com.kevindeyne.tasker.jooq.tables.Comments;
 import com.kevindeyne.tasker.jooq.tables.Event;
 import com.kevindeyne.tasker.jooq.tables.FlywaySchemaHistory;
@@ -21,6 +22,9 @@ import com.kevindeyne.tasker.jooq.tables.Tagcloud;
 import com.kevindeyne.tasker.jooq.tables.Timesheet;
 import com.kevindeyne.tasker.jooq.tables.User;
 import com.kevindeyne.tasker.jooq.tables.UserRole;
+import com.kevindeyne.tasker.jooq.tables.VersionIssue;
+import com.kevindeyne.tasker.jooq.tables.Versions;
+import com.kevindeyne.tasker.jooq.tables.records.BranchRecord;
 import com.kevindeyne.tasker.jooq.tables.records.CommentsRecord;
 import com.kevindeyne.tasker.jooq.tables.records.EventRecord;
 import com.kevindeyne.tasker.jooq.tables.records.FlywaySchemaHistoryRecord;
@@ -38,6 +42,8 @@ import com.kevindeyne.tasker.jooq.tables.records.TagcloudRecord;
 import com.kevindeyne.tasker.jooq.tables.records.TimesheetRecord;
 import com.kevindeyne.tasker.jooq.tables.records.UserRecord;
 import com.kevindeyne.tasker.jooq.tables.records.UserRoleRecord;
+import com.kevindeyne.tasker.jooq.tables.records.VersionIssueRecord;
+import com.kevindeyne.tasker.jooq.tables.records.VersionsRecord;
 
 import javax.annotation.Generated;
 
@@ -65,6 +71,7 @@ public class Keys {
     // IDENTITY definitions
     // -------------------------------------------------------------------------
 
+    public static final Identity<BranchRecord, Long> IDENTITY_BRANCH = Identities0.IDENTITY_BRANCH;
     public static final Identity<CommentsRecord, Long> IDENTITY_COMMENTS = Identities0.IDENTITY_COMMENTS;
     public static final Identity<EventRecord, Long> IDENTITY_EVENT = Identities0.IDENTITY_EVENT;
     public static final Identity<InvitationRecord, Long> IDENTITY_INVITATION = Identities0.IDENTITY_INVITATION;
@@ -81,11 +88,14 @@ public class Keys {
     public static final Identity<TimesheetRecord, Long> IDENTITY_TIMESHEET = Identities0.IDENTITY_TIMESHEET;
     public static final Identity<UserRecord, Long> IDENTITY_USER = Identities0.IDENTITY_USER;
     public static final Identity<UserRoleRecord, Long> IDENTITY_USER_ROLE = Identities0.IDENTITY_USER_ROLE;
+    public static final Identity<VersionsRecord, Long> IDENTITY_VERSIONS = Identities0.IDENTITY_VERSIONS;
+    public static final Identity<VersionIssueRecord, Long> IDENTITY_VERSION_ISSUE = Identities0.IDENTITY_VERSION_ISSUE;
 
     // -------------------------------------------------------------------------
     // UNIQUE and PRIMARY KEY definitions
     // -------------------------------------------------------------------------
 
+    public static final UniqueKey<BranchRecord> KEY_BRANCH_PRIMARY = UniqueKeys0.KEY_BRANCH_PRIMARY;
     public static final UniqueKey<CommentsRecord> KEY_COMMENTS_PRIMARY = UniqueKeys0.KEY_COMMENTS_PRIMARY;
     public static final UniqueKey<EventRecord> KEY_EVENT_PRIMARY = UniqueKeys0.KEY_EVENT_PRIMARY;
     public static final UniqueKey<FlywaySchemaHistoryRecord> KEY_FLYWAY_SCHEMA_HISTORY_PRIMARY = UniqueKeys0.KEY_FLYWAY_SCHEMA_HISTORY_PRIMARY;
@@ -103,6 +113,8 @@ public class Keys {
     public static final UniqueKey<TimesheetRecord> KEY_TIMESHEET_PRIMARY = UniqueKeys0.KEY_TIMESHEET_PRIMARY;
     public static final UniqueKey<UserRecord> KEY_USER_PRIMARY = UniqueKeys0.KEY_USER_PRIMARY;
     public static final UniqueKey<UserRoleRecord> KEY_USER_ROLE_PRIMARY = UniqueKeys0.KEY_USER_ROLE_PRIMARY;
+    public static final UniqueKey<VersionsRecord> KEY_VERSIONS_PRIMARY = UniqueKeys0.KEY_VERSIONS_PRIMARY;
+    public static final UniqueKey<VersionIssueRecord> KEY_VERSION_ISSUE_PRIMARY = UniqueKeys0.KEY_VERSION_ISSUE_PRIMARY;
 
     // -------------------------------------------------------------------------
     // FOREIGN KEY definitions
@@ -124,12 +136,17 @@ public class Keys {
     public static final ForeignKey<TimesheetRecord, IssueRecord> TIMESHEET_IBFK_1 = ForeignKeys0.TIMESHEET_IBFK_1;
     public static final ForeignKey<TimesheetRecord, UserRecord> TIMESHEET_IBFK_2 = ForeignKeys0.TIMESHEET_IBFK_2;
     public static final ForeignKey<UserRoleRecord, UserRecord> USER_ROLE_IBFK_1 = ForeignKeys0.USER_ROLE_IBFK_1;
+    public static final ForeignKey<VersionsRecord, ProjectRecord> VERSIONS_IBFK_1 = ForeignKeys0.VERSIONS_IBFK_1;
+    public static final ForeignKey<VersionsRecord, BranchRecord> VERSIONS_IBFK_2 = ForeignKeys0.VERSIONS_IBFK_2;
+    public static final ForeignKey<VersionIssueRecord, VersionsRecord> VERSION_ISSUE_IBFK_1 = ForeignKeys0.VERSION_ISSUE_IBFK_1;
+    public static final ForeignKey<VersionIssueRecord, IssueRecord> VERSION_ISSUE_IBFK_2 = ForeignKeys0.VERSION_ISSUE_IBFK_2;
 
     // -------------------------------------------------------------------------
     // [#1459] distribute members to avoid static initialisers > 64kb
     // -------------------------------------------------------------------------
 
     private static class Identities0 extends AbstractKeys {
+        public static Identity<BranchRecord, Long> IDENTITY_BRANCH = createIdentity(Branch.BRANCH, Branch.BRANCH.ID);
         public static Identity<CommentsRecord, Long> IDENTITY_COMMENTS = createIdentity(Comments.COMMENTS, Comments.COMMENTS.ID);
         public static Identity<EventRecord, Long> IDENTITY_EVENT = createIdentity(Event.EVENT, Event.EVENT.ID);
         public static Identity<InvitationRecord, Long> IDENTITY_INVITATION = createIdentity(Invitation.INVITATION, Invitation.INVITATION.ID);
@@ -146,9 +163,12 @@ public class Keys {
         public static Identity<TimesheetRecord, Long> IDENTITY_TIMESHEET = createIdentity(Timesheet.TIMESHEET, Timesheet.TIMESHEET.ID);
         public static Identity<UserRecord, Long> IDENTITY_USER = createIdentity(User.USER, User.USER.ID);
         public static Identity<UserRoleRecord, Long> IDENTITY_USER_ROLE = createIdentity(UserRole.USER_ROLE, UserRole.USER_ROLE.ID);
+        public static Identity<VersionsRecord, Long> IDENTITY_VERSIONS = createIdentity(Versions.VERSIONS, Versions.VERSIONS.ID);
+        public static Identity<VersionIssueRecord, Long> IDENTITY_VERSION_ISSUE = createIdentity(VersionIssue.VERSION_ISSUE, VersionIssue.VERSION_ISSUE.ID);
     }
 
     private static class UniqueKeys0 extends AbstractKeys {
+        public static final UniqueKey<BranchRecord> KEY_BRANCH_PRIMARY = createUniqueKey(Branch.BRANCH, "KEY_branch_PRIMARY", Branch.BRANCH.ID);
         public static final UniqueKey<CommentsRecord> KEY_COMMENTS_PRIMARY = createUniqueKey(Comments.COMMENTS, "KEY_comments_PRIMARY", Comments.COMMENTS.ID);
         public static final UniqueKey<EventRecord> KEY_EVENT_PRIMARY = createUniqueKey(Event.EVENT, "KEY_event_PRIMARY", Event.EVENT.ID);
         public static final UniqueKey<FlywaySchemaHistoryRecord> KEY_FLYWAY_SCHEMA_HISTORY_PRIMARY = createUniqueKey(FlywaySchemaHistory.FLYWAY_SCHEMA_HISTORY, "KEY_flyway_schema_history_PRIMARY", FlywaySchemaHistory.FLYWAY_SCHEMA_HISTORY.INSTALLED_RANK);
@@ -166,6 +186,8 @@ public class Keys {
         public static final UniqueKey<TimesheetRecord> KEY_TIMESHEET_PRIMARY = createUniqueKey(Timesheet.TIMESHEET, "KEY_timesheet_PRIMARY", Timesheet.TIMESHEET.ID);
         public static final UniqueKey<UserRecord> KEY_USER_PRIMARY = createUniqueKey(User.USER, "KEY_user_PRIMARY", User.USER.ID);
         public static final UniqueKey<UserRoleRecord> KEY_USER_ROLE_PRIMARY = createUniqueKey(UserRole.USER_ROLE, "KEY_user_role_PRIMARY", UserRole.USER_ROLE.ID);
+        public static final UniqueKey<VersionsRecord> KEY_VERSIONS_PRIMARY = createUniqueKey(Versions.VERSIONS, "KEY_versions_PRIMARY", Versions.VERSIONS.ID);
+        public static final UniqueKey<VersionIssueRecord> KEY_VERSION_ISSUE_PRIMARY = createUniqueKey(VersionIssue.VERSION_ISSUE, "KEY_version_issue_PRIMARY", VersionIssue.VERSION_ISSUE.ID);
     }
 
     private static class ForeignKeys0 extends AbstractKeys {
@@ -185,5 +207,9 @@ public class Keys {
         public static final ForeignKey<TimesheetRecord, IssueRecord> TIMESHEET_IBFK_1 = createForeignKey(com.kevindeyne.tasker.jooq.Keys.KEY_ISSUE_PRIMARY, Timesheet.TIMESHEET, "timesheet_ibfk_1", Timesheet.TIMESHEET.ISSUE_ID);
         public static final ForeignKey<TimesheetRecord, UserRecord> TIMESHEET_IBFK_2 = createForeignKey(com.kevindeyne.tasker.jooq.Keys.KEY_USER_PRIMARY, Timesheet.TIMESHEET, "timesheet_ibfk_2", Timesheet.TIMESHEET.USER_ID);
         public static final ForeignKey<UserRoleRecord, UserRecord> USER_ROLE_IBFK_1 = createForeignKey(com.kevindeyne.tasker.jooq.Keys.KEY_USER_PRIMARY, UserRole.USER_ROLE, "user_role_ibfk_1", UserRole.USER_ROLE.USER_ID);
+        public static final ForeignKey<VersionsRecord, ProjectRecord> VERSIONS_IBFK_1 = createForeignKey(com.kevindeyne.tasker.jooq.Keys.KEY_PROJECT_PRIMARY, Versions.VERSIONS, "versions_ibfk_1", Versions.VERSIONS.PROJECT_ID);
+        public static final ForeignKey<VersionsRecord, BranchRecord> VERSIONS_IBFK_2 = createForeignKey(com.kevindeyne.tasker.jooq.Keys.KEY_BRANCH_PRIMARY, Versions.VERSIONS, "versions_ibfk_2", Versions.VERSIONS.BRANCH_ID);
+        public static final ForeignKey<VersionIssueRecord, VersionsRecord> VERSION_ISSUE_IBFK_1 = createForeignKey(com.kevindeyne.tasker.jooq.Keys.KEY_VERSIONS_PRIMARY, VersionIssue.VERSION_ISSUE, "version_issue_ibfk_1", VersionIssue.VERSION_ISSUE.VERSIONS_ID);
+        public static final ForeignKey<VersionIssueRecord, IssueRecord> VERSION_ISSUE_IBFK_2 = createForeignKey(com.kevindeyne.tasker.jooq.Keys.KEY_ISSUE_PRIMARY, VersionIssue.VERSION_ISSUE, "version_issue_ibfk_2", VersionIssue.VERSION_ISSUE.ISSUE_ID);
     }
 }

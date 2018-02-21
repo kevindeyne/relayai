@@ -39,7 +39,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Project extends TableImpl<ProjectRecord> {
 
-    private static final long serialVersionUID = -1457389130;
+    private static final long serialVersionUID = 85147153;
 
     /**
      * The reference instance of <code>taskr.project</code>
@@ -78,21 +78,6 @@ public class Project extends TableImpl<ProjectRecord> {
      * The column <code>taskr.project.sprint_length</code>.
      */
     public final TableField<ProjectRecord, Integer> SPRINT_LENGTH = createField("sprint_length", org.jooq.impl.SQLDataType.INTEGER.nullable(false).defaultValue(org.jooq.impl.DSL.inline("2", org.jooq.impl.SQLDataType.INTEGER)), this, "");
-
-    /**
-     * The column <code>taskr.project.major_version</code>.
-     */
-    public final TableField<ProjectRecord, Integer> MAJOR_VERSION = createField("major_version", org.jooq.impl.SQLDataType.INTEGER.nullable(false).defaultValue(org.jooq.impl.DSL.inline("0", org.jooq.impl.SQLDataType.INTEGER)), this, "");
-
-    /**
-     * The column <code>taskr.project.minor_version</code>.
-     */
-    public final TableField<ProjectRecord, Integer> MINOR_VERSION = createField("minor_version", org.jooq.impl.SQLDataType.INTEGER.nullable(false).defaultValue(org.jooq.impl.DSL.inline("0", org.jooq.impl.SQLDataType.INTEGER)), this, "");
-
-    /**
-     * The column <code>taskr.project.patch_version</code>.
-     */
-    public final TableField<ProjectRecord, Integer> PATCH_VERSION = createField("patch_version", org.jooq.impl.SQLDataType.INTEGER.nullable(false).defaultValue(org.jooq.impl.DSL.inline("0", org.jooq.impl.SQLDataType.INTEGER)), this, "");
 
     /**
      * Create a <code>taskr.project</code> table reference

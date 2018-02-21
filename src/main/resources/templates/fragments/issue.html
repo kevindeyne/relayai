@@ -39,7 +39,8 @@
 		<div id="aside-loader"><img src="/icons/spinner_color.gif" /></div>
 		<div id="aside-issue-list">
 			<section th:each="issue : ${issueList}" th:issue-id="${issue.id}" th:importance="${issue.importance}" th:classappend="${currentIssueId == issue.id}?active">
-				<h1><span th:text="${issue.title}"></span> <i class="fa fa-circle" th:classappend="${issue.clazz}" aria-hidden="true"></i></h1>
+				<i class="fa fa-circle" th:classappend="${issue.clazz}" aria-hidden="true"></i>
+				<h1><span th:text="${issue.title}"></span></h1>
 				<p th:utext="${issue.shortDescr}"></p>
 				<div th:id="${'progress-' + issue.id}" class="progress"></div>
 			</section>

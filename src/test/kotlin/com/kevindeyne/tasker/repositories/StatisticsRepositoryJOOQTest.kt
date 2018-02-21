@@ -35,9 +35,9 @@ class StatisticsRepositoryJOOQTest : JOOQTest() {
 			
 			 if (isSelectStatement(sql)) {				
 	        	if(sql.contains("VERSION")) {
-		        	val result = dsl.newResult(PROJECT.MAJOR_VERSION, PROJECT.MINOR_VERSION, PROJECT.PATCH_VERSION)
+		        	/*val result = dsl.newResult(PROJECT.MAJOR_VERSION, PROJECT.MINOR_VERSION, PROJECT.PATCH_VERSION)
 		            result.add(dsl.newRecord(PROJECT.MAJOR_VERSION, PROJECT.MINOR_VERSION, PROJECT.PATCH_VERSION).values(1, 2, 3))
-					return arrayOf<MockResult>(MockResult(1, result))
+					return arrayOf<MockResult>(MockResult(1, result))*/
 	        	} else if(sql.contains("GROUP BY")) {
 		        	val result = dsl.newResult(ISSUE.STATUS, DSL.count())
 		            result.add(dsl.newRecord(ISSUE.STATUS, DSL.count()).values("NEW", 5))

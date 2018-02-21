@@ -4,6 +4,7 @@
 package com.kevindeyne.tasker.jooq;
 
 
+import com.kevindeyne.tasker.jooq.tables.Branch;
 import com.kevindeyne.tasker.jooq.tables.Comments;
 import com.kevindeyne.tasker.jooq.tables.Event;
 import com.kevindeyne.tasker.jooq.tables.FlywaySchemaHistory;
@@ -21,6 +22,8 @@ import com.kevindeyne.tasker.jooq.tables.Tagcloud;
 import com.kevindeyne.tasker.jooq.tables.Timesheet;
 import com.kevindeyne.tasker.jooq.tables.User;
 import com.kevindeyne.tasker.jooq.tables.UserRole;
+import com.kevindeyne.tasker.jooq.tables.VersionIssue;
+import com.kevindeyne.tasker.jooq.tables.Versions;
 
 import javax.annotation.Generated;
 
@@ -37,6 +40,11 @@ import javax.annotation.Generated;
 )
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Tables {
+
+    /**
+     * The table <code>taskr.branch</code>.
+     */
+    public static final Branch BRANCH = com.kevindeyne.tasker.jooq.tables.Branch.BRANCH;
 
     /**
      * The table <code>taskr.comments</code>.
@@ -122,4 +130,14 @@ public class Tables {
      * The table <code>taskr.user_role</code>.
      */
     public static final UserRole USER_ROLE = com.kevindeyne.tasker.jooq.tables.UserRole.USER_ROLE;
+
+    /**
+     * The table <code>taskr.versions</code>.
+     */
+    public static final Versions VERSIONS = com.kevindeyne.tasker.jooq.tables.Versions.VERSIONS;
+
+    /**
+     * The table <code>taskr.version_issue</code>.
+     */
+    public static final VersionIssue VERSION_ISSUE = com.kevindeyne.tasker.jooq.tables.VersionIssue.VERSION_ISSUE;
 }

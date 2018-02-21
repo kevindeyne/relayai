@@ -89,6 +89,8 @@ $(document).ready(function() {
 	if($("aside section.active").length==0){
 		$("aside section:first").click();
 	}
+	
+	positionAsideContent();
 });
 
 function cloneAndPrepend(newIssue){
@@ -207,7 +209,13 @@ function loadingContent(issue){
 		}
 		
 		$("#comments").append(newComment);
-	}	
+	}
+	
+	positionAsideContent();	
+}
+
+function positionAsideContent(){
+	$("article#main section#content-main p.content").css("padding-top", Math.ceil($("#content-userinfo").height())+25 + "px");
 }
 
 function determineUndecided(){

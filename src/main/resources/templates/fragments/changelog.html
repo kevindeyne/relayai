@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head></head>
+<body>
+	<article id="main" th:fragment="main-article">
+		<section>
+			<h1>Changelog</h1>
+			<h2>Review the current and previous versions with their respective issues.</h2>
+		</section>
+		
+		<section>
+			<h2>Within branch: <span id="change-branch" data-status="Current branch" class="changeable" th:text="${currentBranch.name}" th:data-value="${currentBranch.id}"></span></h2>
+		</section>
+		
+		<section>
+			<div class="standup-options">
+				<a href="#" id="changelog-last" class="t-active" th:text="${'Last completed release - ' + currentBranch.lastCompletedVersion}"></a> 
+				<a href="#" id="changelog-current" th:text="${'Current release - ' + currentBranch.currentVersion}"></a>
+				<a href="#" id="changelog-history">History</a>
+			</div>
+
+			<div>
+				<section th:each="issue : ${activeChangelog}" th:issue-id="${issue.id}" class="changelog-issue">
+					<h4><a th:text="${issue.title}" href="#">Improve DSLContext.batchStore() Javadoc, indicating that it does not execute MERGE / UPSERT semantics - Merge [#6584]</a></h4>
+					<p th:text="${issue.shortDescr}"></p>
+				</section>
+			</div>
+			
+		</section>
+		
+	</article>
+
+</body>
+</html>

@@ -4,6 +4,7 @@
 package com.kevindeyne.tasker.jooq;
 
 
+import com.kevindeyne.tasker.jooq.tables.Branch;
 import com.kevindeyne.tasker.jooq.tables.Comments;
 import com.kevindeyne.tasker.jooq.tables.Event;
 import com.kevindeyne.tasker.jooq.tables.FlywaySchemaHistory;
@@ -21,6 +22,8 @@ import com.kevindeyne.tasker.jooq.tables.Tagcloud;
 import com.kevindeyne.tasker.jooq.tables.Timesheet;
 import com.kevindeyne.tasker.jooq.tables.User;
 import com.kevindeyne.tasker.jooq.tables.UserRole;
+import com.kevindeyne.tasker.jooq.tables.VersionIssue;
+import com.kevindeyne.tasker.jooq.tables.Versions;
 
 import javax.annotation.Generated;
 
@@ -46,6 +49,7 @@ public class Indexes {
     // INDEX definitions
     // -------------------------------------------------------------------------
 
+    public static final Index BRANCH_PRIMARY = Indexes0.BRANCH_PRIMARY;
     public static final Index COMMENTS_ISSUE_ID = Indexes0.COMMENTS_ISSUE_ID;
     public static final Index COMMENTS_PRIMARY = Indexes0.COMMENTS_PRIMARY;
     public static final Index COMMENTS_USER_ID = Indexes0.COMMENTS_USER_ID;
@@ -83,12 +87,19 @@ public class Indexes {
     public static final Index USER_PRIMARY = Indexes0.USER_PRIMARY;
     public static final Index USER_ROLE_PRIMARY = Indexes0.USER_ROLE_PRIMARY;
     public static final Index USER_ROLE_USER_ID = Indexes0.USER_ROLE_USER_ID;
+    public static final Index VERSIONS_BRANCH_ID = Indexes0.VERSIONS_BRANCH_ID;
+    public static final Index VERSIONS_PRIMARY = Indexes0.VERSIONS_PRIMARY;
+    public static final Index VERSIONS_PROJECT_ID = Indexes0.VERSIONS_PROJECT_ID;
+    public static final Index VERSION_ISSUE_ISSUE_ID = Indexes0.VERSION_ISSUE_ISSUE_ID;
+    public static final Index VERSION_ISSUE_PRIMARY = Indexes0.VERSION_ISSUE_PRIMARY;
+    public static final Index VERSION_ISSUE_VERSIONS_ID = Indexes0.VERSION_ISSUE_VERSIONS_ID;
 
     // -------------------------------------------------------------------------
     // [#1459] distribute members to avoid static initialisers > 64kb
     // -------------------------------------------------------------------------
 
     private static class Indexes0 extends AbstractKeys {
+        public static Index BRANCH_PRIMARY = createIndex("PRIMARY", Branch.BRANCH, new OrderField[] { Branch.BRANCH.ID }, true);
         public static Index COMMENTS_ISSUE_ID = createIndex("issue_id", Comments.COMMENTS, new OrderField[] { Comments.COMMENTS.ISSUE_ID }, false);
         public static Index COMMENTS_PRIMARY = createIndex("PRIMARY", Comments.COMMENTS, new OrderField[] { Comments.COMMENTS.ID }, true);
         public static Index COMMENTS_USER_ID = createIndex("user_id", Comments.COMMENTS, new OrderField[] { Comments.COMMENTS.USER_ID }, false);
@@ -126,5 +137,11 @@ public class Indexes {
         public static Index USER_PRIMARY = createIndex("PRIMARY", User.USER, new OrderField[] { User.USER.ID }, true);
         public static Index USER_ROLE_PRIMARY = createIndex("PRIMARY", UserRole.USER_ROLE, new OrderField[] { UserRole.USER_ROLE.ID }, true);
         public static Index USER_ROLE_USER_ID = createIndex("user_id", UserRole.USER_ROLE, new OrderField[] { UserRole.USER_ROLE.USER_ID }, false);
+        public static Index VERSIONS_BRANCH_ID = createIndex("branch_id", Versions.VERSIONS, new OrderField[] { Versions.VERSIONS.BRANCH_ID }, false);
+        public static Index VERSIONS_PRIMARY = createIndex("PRIMARY", Versions.VERSIONS, new OrderField[] { Versions.VERSIONS.ID }, true);
+        public static Index VERSIONS_PROJECT_ID = createIndex("project_id", Versions.VERSIONS, new OrderField[] { Versions.VERSIONS.PROJECT_ID }, false);
+        public static Index VERSION_ISSUE_ISSUE_ID = createIndex("issue_id", VersionIssue.VERSION_ISSUE, new OrderField[] { VersionIssue.VERSION_ISSUE.ISSUE_ID }, false);
+        public static Index VERSION_ISSUE_PRIMARY = createIndex("PRIMARY", VersionIssue.VERSION_ISSUE, new OrderField[] { VersionIssue.VERSION_ISSUE.ID }, true);
+        public static Index VERSION_ISSUE_VERSIONS_ID = createIndex("versions_id", VersionIssue.VERSION_ISSUE, new OrderField[] { VersionIssue.VERSION_ISSUE.VERSIONS_ID }, false);
     }
 }

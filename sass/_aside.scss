@@ -106,6 +106,10 @@ aside section > h1 {
 	font-weight: 500;
 	padding: 1em 1em 0.1em 1em;
 	box-sizing: border-box;
+	
+	span {
+	  line-height: 1.25em;
+	}
 }
 
 aside section > p {
@@ -116,7 +120,7 @@ aside section > p {
 
 aside section[importance="11"] {
     color: white;
-    background: linear-gradient(to right, #15b972, #0e844d) !important;
+    background: linear-gradient(to right, #15b972, #16b76c) !important;
 }
 
 @media (max-width: 1870px) {
