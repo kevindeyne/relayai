@@ -36,7 +36,10 @@ class IssueLoader(
 	val daysPerSprint : Int = 14
 	val totalAmountOfSprints : Int = 10
 	val currentUserRole = Role.DEVELOPER
-
+	
+	val maxInProgress = 4
+	var inProgressIssues = 0
+	
 	override fun getOrder() : Int {
 		return 1
 	}
@@ -237,7 +240,20 @@ class IssueLoader(
 	fun randomWorkload() : Int = Random().nextInt(9) - 1
 	fun randomUrgency(workload : Int) : Urgency = if(workload != -1) Urgency.values()[Random().nextInt(Urgency.values().size)] else Urgency.NORMAL
 	fun randomImpact(workload : Int) : Impact = if(workload != -1) Impact.values()[Random().nextInt(Impact.values().size)] else Impact.NORMAL
-	fun randomStatus(workload : Int) : Progress = if(workload != -1) Progress.values()[Random().nextInt(Progress.values().size)] else Progress.NEW
+	fun randomStatus(workload : Int) : Progress {		
+		if(workload != -1) {
+			val returnValue = Progress.values()[Random().nextInt(Progress.values().size)]			
+			if(Progress.IN_PROGRESS.equals(returnValue)){
+				inProgressIssues++
+				if(inProgressIssues > maxInProgress){
+					return Progress.IN_SPRINT
+				}
+			}			
+			return returnValue
+		}  else {
+			return Progress.NEW
+		}	
+	}
 
 	fun randomUser() : String = Random().nextInt(450).toString()
 	
