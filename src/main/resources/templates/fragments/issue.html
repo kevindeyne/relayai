@@ -23,6 +23,14 @@
 			<ul id="overlay-workload" class="overlay-options">
 				<li th:each="workloadState : ${workloadStates}" th:text="${workloadState.text}" th:data-value="${workloadState}">High, Low workload, ...</li>
 			</ul>
+			
+			<div id="overlay-version">
+				This is the version stuff.
+			</div>
+			
+			<div id="overlay-assignee">
+				This is the assignee stuff.
+			</div>
 						
 			<div class="button-group">
 				<button id="edit-changer-submit" type="button">Change</button>
@@ -67,9 +75,7 @@
 				</div>
 				<div class="milestone-details-col">
 					<p>
-						<span class="changeable" data-status="Current fix version" id="change-fix-1" th:text="${currentIssueFixVersion1}"></span> 
-						<span class="changeable" data-status="Current fix version" id="change-fix-2" th:text="${currentIssueFixVersion2}"></span>
-						<span class="changeable" id="change-fix-plus">[+]</span>
+						<span th:each="version, iterStat : ${versions}" data-status="Current fix version" class="changeable" th:id="${'change-version-' + iterStat.index}" th:text="${version}">No current version</span>
 					</p>
 					<p th:text="${currentIssueSLAStatus}"></p>
 				</div>

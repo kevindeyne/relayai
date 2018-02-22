@@ -111,6 +111,11 @@ $font-main: 'Roboto', Times New Roman, Helvetica, sans-serif;
 	}
 }
 
+#overlay-version, #overlay-assignee {
+	padding-left:0.5em;
+	margin-bottom: 0.5em;
+}
+
 span.changeable {
 	background-color: lightgray; 
 	padding: 2px 5px;

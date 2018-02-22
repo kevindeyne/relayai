@@ -82,7 +82,10 @@ class TaskboardController(var issueRepository : IssueRepository) {
 		model.addAttribute("currentIssueCreateDate", issue.createDate)
 		model.addAttribute("currentIssueSLAStatus", issue.slaStatus)
 		
-		model.addAttribute("comments", issue.comments)		
+		model.addAttribute("comments", issue.comments)
+		model.addAttribute("versions", issue.versions)
+		
+		//<span th:each="version, iterStat : ${versions}" data-status="Current fix version" class="changeable" th:id="${'change-version-' + iterStat.index}" th:text="${urgencyState.text}">No current version</span>
 		
 		model.addAttribute("showCreatePage", false)
 	}

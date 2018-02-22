@@ -1345,6 +1345,12 @@ section.comment p strong {
 }
 
 /* line 114, ../sass/_overlay.scss */
+#overlay-version, #overlay-assignee {
+  padding-left: 0.5em;
+  margin-bottom: 0.5em;
+}
+
+/* line 119, ../sass/_overlay.scss */
 span.changeable {
   background-color: lightgray;
   padding: 2px 5px;
@@ -1354,7 +1360,7 @@ span.changeable {
   line-height: 1.4em;
 }
 
-/* line 124, ../sass/_overlay.scss */
+/* line 129, ../sass/_overlay.scss */
 span.changeable:hover {
   background-color: #ececec;
 }

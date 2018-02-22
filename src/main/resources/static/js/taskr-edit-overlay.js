@@ -10,11 +10,18 @@ $(document).ready(function() {
 		$("#overlay-detail p:first span:first").text($(this).attr("data-status"));
 		$("#overlay-detail p:first span.changing").text($(this).text());
 		
-		$("#overlay-detail .overlay-options").hide();
-		if(typeof(relativeTo) !== "undefined") {$(relativeTo.replace("change-", "#overlay-")).show();}
+		$("#overlay-detail .overlay-options, #overlay-detail #overlay-version, #overlay-detail #overlay-assignee").hide();
+		
+		if(relativeTo.indexOf("version") !== -1){
+			$("#overlay-version").show();
+		} else if(relativeTo.indexOf("assignee") !== -1){
+			$("#overlay-assignee").show();
+		} else {
+			if(typeof(relativeTo) !== "undefined") {$(relativeTo.replace("change-", "#overlay-")).show();}
 				
-		$("#overlay-detail ul li").removeClass("active");
-		$("#overlay-detail ul li:contains('"+$(this).text()+"')").addClass("active");
+			$("#overlay-detail ul li").removeClass("active");
+			$("#overlay-detail ul li:contains('"+$(this).text()+"')").addClass("active");
+		}
 		
 		var position = $(this).position();
 		var left = $("nav").width() + $("aside").width() + position.left;

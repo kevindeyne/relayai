@@ -20,5 +20,6 @@ data class IssueResponse @JsonCreator constructor(
 		var comments: List<CommentListing> = listOf(),
 		val importance: Int = IssueRepositoryImpl.IMPORTANCE_NORMAL,
 		var assigned: String = "",
+		var versions: List<String> = listOf("No version attributed"),
 		val removed: Boolean = false
 )

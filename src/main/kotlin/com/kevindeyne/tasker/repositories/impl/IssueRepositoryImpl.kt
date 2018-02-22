@@ -308,6 +308,7 @@ open class IssueRepositoryImpl (val dsl: DSLContext) : IssueRepository {
 							 "", listOf(),
 							 n.get(Tables.ISSUE.IMPORTANCE),
 							 "",
+							 listOf(),
 							 false
 			)
 		}
