@@ -66,7 +66,7 @@ $(document).ready(function() {
 			newComment.find("span:first").text(response.username);
 			newComment.find("span:last").text(response.date);
 			newComment.append("<p></p>");
-			newComment.find("p:last").text(response.text);
+			newComment.find("p:last").addClass("comment-text").text(response.text);
 			$("#comments").append(newComment);
 			
 			$("#comment-box").val("");

@@ -712,7 +712,7 @@ article#main section#content-main p.content {
 
 /* line 107, ../sass/_main.scss */
 article section p {
-  padding: 0.5em;
+  padding: 0.2em;
   box-sizing: border-box;
 }
 
@@ -1191,44 +1191,53 @@ span.length-limiter {
 
 /* line 98, ../sass/_forms.scss */
 #comment-box {
-  background-color: #e3e8ea;
-  border-radius: 15px;
-  margin: 1em 0em 0.25em 0.5em;
+  margin-top: 1.3em;
+  background-color: #ffffff;
+  color: grey;
   outline: none;
-  resize: none;
-  border: 1px solid #ced3dc;
-  padding: 0.8em;
-  width: 90%;
-  font-family: Roboto;
-  height: 6.5em;
+  font-family: "Courier New", Courier, "Lucida Sans Typewriter", "Lucida Typewriter", monospace !important;
+  font-size: 0.85em !important;
+  resize: vertical;
+  border: 1px solid #e8ebec;
+  padding: 0.5em;
   line-height: 1.3em;
-  font-size: 1em;
+  padding-top: 0.7em;
+  padding-left: 0.8em;
   font-weight: 100;
+  width: 90%;
+  height: 6.5em;
 }
 
-/* line 114, ../sass/_forms.scss */
+/* line 116, ../sass/_forms.scss */
+p.comment-text {
+  font-family: "Courier New", Courier, "Lucida Sans Typewriter", "Lucida Typewriter", monospace !important;
+  font-size: 0.85em !important;
+  font-weight: 100;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+/* line 124, ../sass/_forms.scss */
 section.comment {
-  background: white;
-  border-radius: 15px;
   padding: 0.7em 1em 0.7em 1em;
   margin-bottom: 1em;
   width: 93%;
 }
-/* line 122, ../sass/_forms.scss */
+/* line 130, ../sass/_forms.scss */
 section.comment p strong {
   font-weight: 500;
   color: #565656;
   font-size: 0.9em;
 }
 
-/* line 130, ../sass/_forms.scss */
+/* line 138, ../sass/_forms.scss */
 #content-main .button-group button span {
   position: relative;
   top: 1px !important;
   left: -2px !important;
 }
 
-/* line 136, ../sass/_forms.scss */
+/* line 144, ../sass/_forms.scss */
 #content-new-project {
   display: none;
 }
@@ -1280,28 +1289,38 @@ section.comment p strong {
   -o-transition: color 0 ease-in;
   transition: none;
 }
-/* line 49, ../sass/_overlay.scss */
+/* line 48, ../sass/_overlay.scss */
+#overlay #overlay-detail p span.overlay-span {
+  width: 3.55em;
+  display: inline-block;
+  margin-right: 0.8em;
+}
+/* line 54, ../sass/_overlay.scss */
+#overlay #overlay-detail p span.overlay-span:last-child {
+  margin-bottom: 0.8em;
+}
+/* line 59, ../sass/_overlay.scss */
 #overlay #overlay-detail ul {
   padding-left: 0.5em;
   margin-bottom: 0.5em;
 }
-/* line 53, ../sass/_overlay.scss */
+/* line 63, ../sass/_overlay.scss */
 #overlay #overlay-detail ul li {
   margin: 0.2em;
   cursor: pointer;
   padding: 0.4em 0em 0.4em 0.4em;
   margin-right: 1em;
 }
-/* line 60, ../sass/_overlay.scss */
+/* line 70, ../sass/_overlay.scss */
 #overlay #overlay-detail ul li.active {
   background-color: #2070f7 !important;
   color: #ffffff;
 }
-/* line 65, ../sass/_overlay.scss */
+/* line 75, ../sass/_overlay.scss */
 #overlay #overlay-detail ul li.hover {
   background: #e6e6e6;
 }
-/* line 70, ../sass/_overlay.scss */
+/* line 80, ../sass/_overlay.scss */
 #overlay #overlay-detail span.changing {
   background: linear-gradient(90deg, gainsboro, #e4e4e4);
   padding: 2px 5px;
@@ -1309,11 +1328,11 @@ section.comment p strong {
   font-weight: 300;
   line-height: 1.4em;
 }
-/* line 79, ../sass/_overlay.scss */
+/* line 89, ../sass/_overlay.scss */
 #overlay #overlay-detail span.alert {
   background-color: #ffaaaa !important;
 }
-/* line 83, ../sass/_overlay.scss */
+/* line 93, ../sass/_overlay.scss */
 #overlay #overlay-detail div.button-group {
   background: #e6e6e6;
   padding-left: 0.5em;
@@ -1324,7 +1343,7 @@ section.comment p strong {
   -ms-border-radius: 0px 0px 5px 5px;
   border-radius: 0px 0px 5px 5px;
 }
-/* line 91, ../sass/_overlay.scss */
+/* line 101, ../sass/_overlay.scss */
 #overlay #overlay-detail div.button-group button, #overlay #overlay-detail div.button-group button.altpath {
   font-family: "Roboto", Times New Roman, Helvetica, sans-serif;
   height: 3em;
@@ -1338,19 +1357,19 @@ section.comment p strong {
   border: none;
   font-weight: 500;
 }
-/* line 106, ../sass/_overlay.scss */
+/* line 116, ../sass/_overlay.scss */
 #overlay #overlay-detail div.button-group button:hover {
   background-color: #35394B;
   color: #fbfbfb;
 }
 
-/* line 114, ../sass/_overlay.scss */
+/* line 124, ../sass/_overlay.scss */
 #overlay-version, #overlay-assignee {
   padding-left: 0.5em;
   margin-bottom: 0.5em;
 }
 
-/* line 119, ../sass/_overlay.scss */
+/* line 129, ../sass/_overlay.scss */
 span.changeable {
   background-color: lightgray;
   padding: 2px 5px;
@@ -1360,7 +1379,7 @@ span.changeable {
   line-height: 1.4em;
 }
 
-/* line 129, ../sass/_overlay.scss */
+/* line 139, ../sass/_overlay.scss */
 span.changeable:hover {
   background-color: #ececec;
 }

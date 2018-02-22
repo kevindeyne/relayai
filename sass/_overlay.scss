@@ -43,7 +43,17 @@ $font-main: 'Roboto', Times New Roman, Helvetica, sans-serif;
 			-moz-transition: none;
 			-ms-transition: none;
 			-o-transition: color 0 ease-in;	
-			transition: none;			
+			transition: none;
+
+			span.overlay-span {
+				width: 3.55em;
+				display: inline-block;
+				margin-right: 0.8em;
+			}
+			
+			span.overlay-span:last-child {
+				margin-bottom: 0.8em;
+			}	
 		}
 		
 		ul {

@@ -96,24 +96,32 @@ span.length-limiter {
 }
 
 #comment-box {
-    background-color: #e3e8ea;
-    border-radius: 15px;
-    margin: 1em 0em 0.25em 0.5em;
+    margin-top: 1.3em;
+    background-color: #ffffff;
+    color: grey;
     outline: none;
-    resize: none;
-    border: 1px solid #ced3dc;
-    padding: 0.8em;
-    width: 90%;
-    font-family: Roboto;
-    height: 6.5em;
+    font-family: "Courier New", Courier, "Lucida Sans Typewriter", "Lucida Typewriter", monospace !important;
+    font-size: 0.85em !important;
+    resize: vertical;
+    border: 1px solid #e8ebec;
+    padding: 0.5em;
     line-height: 1.3em;
-    font-size: 1em;
+    padding-top: 0.7em;
+    padding-left: 0.8em;
     font-weight: 100;
+    width: 90%;
+    height: 6.5em;
+}
+
+p.comment-text {
+    font-family: "Courier New", Courier, "Lucida Sans Typewriter", "Lucida Typewriter", monospace !important;
+    font-size: 0.85em !important;
+	font-weight: 100;
+	padding-top: 0;
+    padding-bottom: 0;
 }
 
 section.comment {
-	background: white;
-    border-radius: 15px;
     padding: 0.7em 1em 0.7em 1em;
     margin-bottom: 1em;
 	width: 93%;

@@ -25,7 +25,8 @@
 			</ul>
 			
 			<div id="overlay-version">
-				This is the version stuff.
+				<p><span class="overlay-span">Branch: </span><span class="changing">Trunk</span></p>
+				<p><span class="overlay-span">Version: </span><input type="text"></p>
 			</div>
 			
 			<div id="overlay-assignee">
@@ -102,7 +103,7 @@
 			<div id="comments">
 				<section th:each="comment : ${comments}" class="comment">
 					<p th:comment-id="${comment.id}"><strong><span th:text="${comment.username}">Kevin Deyne</span> at <span th:text="${comment.date}">21 November 2017, 20:05</span></strong></p>
-					<p th:text="${comment.text}">Comment text.</p>
+					<p class="comment-text" th:text="${comment.text}">Comment text.</p>
 				</section>
 			</div>
 			
