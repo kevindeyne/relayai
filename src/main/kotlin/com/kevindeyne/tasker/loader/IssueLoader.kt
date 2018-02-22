@@ -101,7 +101,10 @@ class IssueLoader(
 	}
 	
 	@Transactional
-	fun truncateAll() {
+	fun truncateAll() {		
+		dsl.delete(Tables.VERSION_ISSUE).execute()		
+		dsl.delete(Tables.VERSIONS).execute()
+		dsl.delete(Tables.BRANCH).execute()		
 		dsl.delete(Tables.COMMENTS).execute()
 		dsl.delete(Tables.PROJECT_USERS).execute()
 		dsl.delete(Tables.TAGCLOUD).execute()

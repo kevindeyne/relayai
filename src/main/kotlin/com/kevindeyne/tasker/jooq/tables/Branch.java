@@ -39,7 +39,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Branch extends TableImpl<BranchRecord> {
 
-    private static final long serialVersionUID = -1787975011;
+    private static final long serialVersionUID = 2081168710;
 
     /**
      * The reference instance of <code>taskr.branch</code>
@@ -63,6 +63,11 @@ public class Branch extends TableImpl<BranchRecord> {
      * The column <code>taskr.branch.title</code>.
      */
     public final TableField<BranchRecord, String> TITLE = createField("title", org.jooq.impl.SQLDataType.VARCHAR(255).nullable(false), this, "");
+
+    /**
+     * The column <code>taskr.branch.project_id</code>.
+     */
+    public final TableField<BranchRecord, Long> PROJECT_ID = createField("project_id", org.jooq.impl.SQLDataType.BIGINT.nullable(false).defaultValue(org.jooq.impl.DSL.inline("-1", org.jooq.impl.SQLDataType.BIGINT)), this, "");
 
     /**
      * Create a <code>taskr.branch</code> table reference

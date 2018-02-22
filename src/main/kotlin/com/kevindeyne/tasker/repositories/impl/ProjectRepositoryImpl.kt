@@ -8,6 +8,8 @@ import com.kevindeyne.tasker.domain.SprintFrequency
 import com.kevindeyne.tasker.jooq.Tables.PROJECT
 import com.kevindeyne.tasker.jooq.Tables.PROJECT_USERS
 import com.kevindeyne.tasker.jooq.Tables.SPRINT
+import com.kevindeyne.tasker.jooq.Tables.BRANCH
+import com.kevindeyne.tasker.jooq.Tables.VERSIONS
 import com.kevindeyne.tasker.service.SecurityHolder
 import org.jooq.DSLContext
 import org.springframework.stereotype.Component
@@ -108,6 +110,16 @@ open class ProjectRepositoryImpl (val dsl: DSLContext, val sprintRepository : Sp
 		   .values(projectId, userId, true)
 		   .execute()
 		
+		val branchId = dsl.insertInto(BRANCH,
+				BRANCH.TITLE, BRANCH.PROJECT_ID)
+		   .values("Trunk", projectId)
+		   .returning(BRANCH.ID).fetchOne().get(BRANCH.ID)
+		
+		dsl.insertInto(VERSIONS,
+			  VERSIONS.MAJOR_VERSION, VERSIONS.MINOR_VERSION, VERSIONS.PATCH_VERSION, VERSIONS.PROJECT_ID, VERSIONS.BRANCH_ID)
+		   .values(0, 0, 1, projectId, branchId)
+		   .execute()
+				
 		return projectId
 	}
 	

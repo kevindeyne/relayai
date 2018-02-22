@@ -1,6 +1,7 @@
 package com.kevindeyne.tasker.repositories
 
 
+import com.kevindeyne.tasker.domain.IssueListing
 import com.kevindeyne.tasker.domain.ProjectListing
 import com.kevindeyne.tasker.domain.Role
 import com.kevindeyne.tasker.domain.TeammemberListing
@@ -15,7 +16,7 @@ import java.util.stream.Collectors
 
 @Repository
 open class UserRepositoryImpl (val dsl: DSLContext,
-	val sprintRepository : SprintRepository, val issueRepository : IssueRepository, val projectRepository : ProjectRepository) : UserRepository {
+	val sprintRepository : SprintRepository, val projectRepository : ProjectRepository) : UserRepository {
 	
 	@Transactional
 	override fun findByUsername(username : String) : UserPrincipal? {
@@ -35,8 +36,7 @@ open class UserRepositoryImpl (val dsl: DSLContext,
 			}
 
 			val roles = getUserRoles(userId)
-			val issues = issueRepository.findAllInProgress(userId, sprintId)
-			
+
 			val up : UserPrincipal = record.get().map {
 			      n -> UserPrincipal(userId,
 									 n.get(Tables.USER.EMAIL),
@@ -44,7 +44,7 @@ open class UserRepositoryImpl (val dsl: DSLContext,
 									 projectId,
 									 sprintId,
 									 roles,
-									 issues.toMutableList(),
+									 mutableListOf(),
 									 n.get(Tables.USER.REPORT).compareTo(1) == 0)
 			   }
 			
