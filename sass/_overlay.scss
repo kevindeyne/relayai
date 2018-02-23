@@ -51,9 +51,52 @@ $font-main: 'Roboto', Times New Roman, Helvetica, sans-serif;
 				margin-right: 0.8em;
 			}
 			
+			input {
+				border: 0;
+				height: 1.3em;
+				border-bottom: 1px solid #9c9c9c;
+				color: #3e3e3e;
+				font-family: monospace;
+				font-size: 1.3em;
+				text-align: center;
+				background-color: #e6e6e6;
+				outline: 0;
+			}
+			
+			input.version-text {
+				width: 4.5em;
+			}
+			
+			input.assignee-text {
+				width: 8.5em;
+			}
+			
+			span.overlay-span-large{
+				margin-right: 0.8em;
+				color: grey;
+			}
+			
 			span.overlay-span:last-child {
 				margin-bottom: 0.8em;
-			}	
+			}
+			
+			a, a:link, a:visited, a:active{			
+				border: 0;
+				height: 1.4em;
+				border-bottom: 1px solid #9c9c9c;
+				color: #84878e;
+				font-family: monospace;
+				font-size: 1.3em;
+				text-align: center;
+				width: 4.5em;
+				cursor:  pointer;
+				border-style: dotted;
+			}
+			
+			a:hover {
+			    border-bottom: 1px solid #4270da;
+				color: #4270da;
+			}
 		}
 		
 		ul {
@@ -124,6 +167,9 @@ $font-main: 'Roboto', Times New Roman, Helvetica, sans-serif;
 #overlay-version, #overlay-assignee {
 	padding-left:0.5em;
 	margin-bottom: 0.5em;
+	
+	
+	
 }
 
 span.changeable {

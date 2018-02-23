@@ -111,7 +111,7 @@ button {
   border-radius: 5px;
   display: inline-block;
   background-color: #2070f7;
-  border: 2px solid #4489ff;
+  border: 1px solid #4489ff;
   color: #ffffff;
   cursor: pointer;
   margin: 1em;
@@ -147,7 +147,7 @@ button:hover {
 /* line 84, ../sass/_common.scss */
 button.altpath {
   background-color: #ffffff;
-  border: 2px solid #4489ff;
+  border: 1px solid #4489ff;
   color: #0046bd;
 }
 
@@ -1296,31 +1296,74 @@ section.comment p strong {
   margin-right: 0.8em;
 }
 /* line 54, ../sass/_overlay.scss */
+#overlay #overlay-detail p input {
+  border: 0;
+  height: 1.3em;
+  border-bottom: 1px solid #9c9c9c;
+  color: #3e3e3e;
+  font-family: monospace;
+  font-size: 1.3em;
+  text-align: center;
+  background-color: #e6e6e6;
+  outline: 0;
+}
+/* line 66, ../sass/_overlay.scss */
+#overlay #overlay-detail p input.version-text {
+  width: 4.5em;
+}
+/* line 70, ../sass/_overlay.scss */
+#overlay #overlay-detail p input.assignee-text {
+  width: 8.5em;
+}
+/* line 74, ../sass/_overlay.scss */
+#overlay #overlay-detail p span.overlay-span-large {
+  margin-right: 0.8em;
+  color: grey;
+}
+/* line 79, ../sass/_overlay.scss */
 #overlay #overlay-detail p span.overlay-span:last-child {
   margin-bottom: 0.8em;
 }
-/* line 59, ../sass/_overlay.scss */
+/* line 83, ../sass/_overlay.scss */
+#overlay #overlay-detail p a, #overlay #overlay-detail p a:link, #overlay #overlay-detail p a:visited, #overlay #overlay-detail p a:active {
+  border: 0;
+  height: 1.4em;
+  border-bottom: 1px solid #9c9c9c;
+  color: #84878e;
+  font-family: monospace;
+  font-size: 1.3em;
+  text-align: center;
+  width: 4.5em;
+  cursor: pointer;
+  border-style: dotted;
+}
+/* line 96, ../sass/_overlay.scss */
+#overlay #overlay-detail p a:hover {
+  border-bottom: 1px solid #4270da;
+  color: #4270da;
+}
+/* line 102, ../sass/_overlay.scss */
 #overlay #overlay-detail ul {
   padding-left: 0.5em;
   margin-bottom: 0.5em;
 }
-/* line 63, ../sass/_overlay.scss */
+/* line 106, ../sass/_overlay.scss */
 #overlay #overlay-detail ul li {
   margin: 0.2em;
   cursor: pointer;
   padding: 0.4em 0em 0.4em 0.4em;
   margin-right: 1em;
 }
-/* line 70, ../sass/_overlay.scss */
+/* line 113, ../sass/_overlay.scss */
 #overlay #overlay-detail ul li.active {
   background-color: #2070f7 !important;
   color: #ffffff;
 }
-/* line 75, ../sass/_overlay.scss */
+/* line 118, ../sass/_overlay.scss */
 #overlay #overlay-detail ul li.hover {
   background: #e6e6e6;
 }
-/* line 80, ../sass/_overlay.scss */
+/* line 123, ../sass/_overlay.scss */
 #overlay #overlay-detail span.changing {
   background: linear-gradient(90deg, gainsboro, #e4e4e4);
   padding: 2px 5px;
@@ -1328,11 +1371,11 @@ section.comment p strong {
   font-weight: 300;
   line-height: 1.4em;
 }
-/* line 89, ../sass/_overlay.scss */
+/* line 132, ../sass/_overlay.scss */
 #overlay #overlay-detail span.alert {
   background-color: #ffaaaa !important;
 }
-/* line 93, ../sass/_overlay.scss */
+/* line 136, ../sass/_overlay.scss */
 #overlay #overlay-detail div.button-group {
   background: #e6e6e6;
   padding-left: 0.5em;
@@ -1343,7 +1386,7 @@ section.comment p strong {
   -ms-border-radius: 0px 0px 5px 5px;
   border-radius: 0px 0px 5px 5px;
 }
-/* line 101, ../sass/_overlay.scss */
+/* line 144, ../sass/_overlay.scss */
 #overlay #overlay-detail div.button-group button, #overlay #overlay-detail div.button-group button.altpath {
   font-family: "Roboto", Times New Roman, Helvetica, sans-serif;
   height: 3em;
@@ -1357,19 +1400,19 @@ section.comment p strong {
   border: none;
   font-weight: 500;
 }
-/* line 116, ../sass/_overlay.scss */
+/* line 159, ../sass/_overlay.scss */
 #overlay #overlay-detail div.button-group button:hover {
   background-color: #35394B;
   color: #fbfbfb;
 }
 
-/* line 124, ../sass/_overlay.scss */
+/* line 167, ../sass/_overlay.scss */
 #overlay-version, #overlay-assignee {
   padding-left: 0.5em;
   margin-bottom: 0.5em;
 }
 
-/* line 129, ../sass/_overlay.scss */
+/* line 175, ../sass/_overlay.scss */
 span.changeable {
   background-color: lightgray;
   padding: 2px 5px;
@@ -1379,7 +1422,7 @@ span.changeable {
   line-height: 1.4em;
 }
 
-/* line 139, ../sass/_overlay.scss */
+/* line 185, ../sass/_overlay.scss */
 span.changeable:hover {
   background-color: #ececec;
 }
