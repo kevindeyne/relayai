@@ -34,7 +34,7 @@ $(function() {
 					var issueToEdit = $("#aside-issue-list section[issue-id='"+newIssue.id+"']");
 					$(issueToEdit).find("h1 span").text(newIssue.title);
 					$(issueToEdit).find("p").text(newIssue.descr.replace(/<br\/>/g , " "));
-					$(issueToEdit).find("h1 i").attr("class", "fa fa-circle " + newIssue.clazz);
+					$(issueToEdit).find("i").attr("class", "fa fa-circle " + newIssue.clazz);
 					$(issueToEdit).attr("importance", newIssue.importance);
 				}
 			  }
@@ -57,6 +57,7 @@ $(function() {
 	
 	function cloneAndPrepend(newIssue, listId){
 		var newSection = $("aside section:first").clone(true, true);
+		newSection.find("i").remove();
 		newSection.removeClass("active");
 		newSection.attr("issue-id", newIssue.id);
 		newSection.attr("importance", newIssue.importance);

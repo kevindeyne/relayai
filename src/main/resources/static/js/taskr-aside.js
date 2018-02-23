@@ -95,23 +95,14 @@ $(document).ready(function() {
 
 function cloneAndPrepend(newIssue){
 	var newSection = $("aside section:first").clone(true, true);
-	
-	/*var element = $(newSection).detach();
-	$(asideLoaded).append(element);*/
-	
+	newSection.find("i").remove();
 	newSection.removeClass("active");
 	newSection.attr("issue-id", newIssue.id);
 	newSection.attr("importance", newIssue.importance);
 	newSection.find("h1").text(newIssue.title);
 	newSection.prepend("<i class='fa fa-circle "+ newIssue.clazz +"' aria-hidden='true'></i>");
 	newSection.find("p").text(newIssue.descr);
-	newSection.find("div").attr("id", "progress-"+newIssue.id+Math.random().toString(36).substring(7));
-	
-	//add to section that is correct according to importance value
-	/*$(newSection).insertAfter($("aside section").filter(function() {
-	    return $(this).attr("importance") > newIssue.importance;
-	}).filter(":last"));*/
-	
+	newSection.find("div").attr("id", "progress-"+newIssue.id+Math.random().toString(36).substring(7));	
 	$(asideLoaded).append(newSection);
 }
 
