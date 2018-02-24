@@ -193,7 +193,7 @@ function loadingContent(issue){
 		newComment.find("span:first").text(comment.username);
 		newComment.find("span:last").text(comment.date);
 		newComment.append("<p></p>");
-		newComment.find("p:last").addClass("comment-text").text(comment.text);
+		newComment.find("p:last").addClass("comment-text").html(comment.text);
 		
 		if(highestComment <= comment.id){
 			highestComment = comment.id;

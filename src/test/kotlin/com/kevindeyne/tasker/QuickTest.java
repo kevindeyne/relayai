@@ -19,9 +19,6 @@ public class QuickTest {
 		String actual = "Kevin&Co";
 		actual = StringEscapeUtils.escapeHtml(actual);
 		Assert.assertEquals("Kevin&amp;Co", actual);
-
-		actual = StringEscapeUtils.escapeHtml(actual);
-		Assert.assertEquals("Kevin&amp;Co", actual);
 	}
 
 }

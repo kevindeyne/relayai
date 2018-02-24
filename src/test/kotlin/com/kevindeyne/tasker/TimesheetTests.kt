@@ -115,13 +115,13 @@ class TimesheetTests {
 		val entry = TimesheetEntry(today, time.nextDay(today))
 		
 		//expected 0800-1600
-		//+ 	   0800-0800 (ignore)
+		//		   0800-0800 (would previously ignore this, but it feels wrong to)
 	
 		val result = parser.convertEntriesToListings(listOf(entry))
 		//println()
 		//println(result)
 		Assert.assertTrue(result.isNotEmpty())
-		Assert.assertEquals(1, result.size)
+		Assert.assertEquals(2, result.size)
 	}
 	
 	@Test
