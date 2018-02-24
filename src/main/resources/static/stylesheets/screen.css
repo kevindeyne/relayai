@@ -662,7 +662,7 @@ article #content-userinfo #content-userinfo-details, article #content-new-issue-
 /* line 57, ../sass/_main.scss */
 article #content-userinfo #content-userinfo-details .userinfo-details-col, article #content-userinfo #content-userinfo-details .milestone-details-col, article #content-new-issue-title #content-userinfo-details .userinfo-details-col, article #content-new-issue-title #content-userinfo-details .milestone-details-col {
   float: left;
-  width: 15emem;
+  width: 15em;
 }
 /* line 61, ../sass/_main.scss */
 article #content-userinfo #content-userinfo-details .userinfo-details-col p, article #content-userinfo #content-userinfo-details .milestone-details-col p, article #content-new-issue-title #content-userinfo-details .userinfo-details-col p, article #content-new-issue-title #content-userinfo-details .milestone-details-col p {
