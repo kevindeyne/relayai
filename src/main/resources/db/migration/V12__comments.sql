@@ -1,17 +1,17 @@
 START TRANSACTION;
-CREATE TABLE `comments` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `user_id` bigint(20) NOT NULL,
-  `issue_id` bigint(20) NOT NULL,
-  `post_date` DATETIME NOT NULL,
-  `message` TEXT NOT NULL,
-  PRIMARY KEY (`id`)
+CREATE TABLE comments (
+  id bigint(20) NOT NULL AUTO_INCREMENT,
+  user_id bigint(20) NOT NULL,
+  issue_id bigint(20) NOT NULL,
+  post_date DATETIME NOT NULL,
+  message TEXT NOT NULL,
+  PRIMARY KEY (id)
 ) engine=InnoDB;
 
 ALTER TABLE comments
-ADD FOREIGN KEY (user_id) REFERENCES `user`(id);
+ADD FOREIGN KEY (user_id) REFERENCES user(id);
 
 ALTER TABLE comments
-ADD FOREIGN KEY (issue_id) REFERENCES `issue`(id);
+ADD FOREIGN KEY (issue_id) REFERENCES issue(id);
 
 COMMIT;

@@ -13,6 +13,9 @@ $(document).ready(function() {
 		$("#overlay-detail .overlay-options, #overlay-detail #overlay-version, #overlay-detail #overlay-assignee").hide();
 		
 		if(relativeTo.indexOf("version") !== -1){
+			$("#overlay-version a").off().click(function() {
+				$("#overlay-version input.version-text").val($(this).text());
+			});
 			$("#overlay-version").show();
 		} else if(relativeTo.indexOf("assignee") !== -1){
 			$("#overlay-assignee").show();
@@ -107,7 +110,14 @@ function isClickOutsideOfOverlay(e, position){
 
 function changeRelativeToText(){
 	var relativeTo = "#"+$("#overlay-detail").attr("relative-to");
-	$(relativeTo).text($("#overlay-detail ul:visible li.active").text());	
+	if(relativeTo.indexOf("version") !== -1){
+		$(relativeTo).text($("#overlay-detail input.version-text").val());
+		//add [+] and remove button 
+	} else if(relativeTo.indexOf("assignee") !== -1){
+		$(relativeTo).text($("#overlay-detail input.assignee-text").val());
+	} else {
+		$(relativeTo).text($("#overlay-detail ul:visible li.active").text());	
+	}
 }
 
 function hideOverlay(e){
