@@ -1,4 +1,4 @@
 START TRANSACTION;
-ALTER TABLE project_users
-ADD active BIT(1) NOT NULL DEFAULT 0;
+ALTER TABLE `project_users`
+ADD `active` BIT(1) NOT NULL DEFAULT 0;
 COMMIT;

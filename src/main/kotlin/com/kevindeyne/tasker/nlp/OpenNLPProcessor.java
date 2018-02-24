@@ -182,11 +182,9 @@ public class OpenNLPProcessor {
 			List<String> posTokenized = tokenizer(sentence);
 			for (String posToken : posTokenized) {
 				String key = posToken.toLowerCase().trim();
-				if(key.length() >= 3){
-					if(isCleanKeyword(key)){
-						buffer.append(key);
-						buffer.append(SPACE);
-					}
+				if(key.length() >= 3 && isCleanKeyword(key)){
+					buffer.append(key);
+					buffer.append(SPACE);
 				}
 			}
 		}

@@ -1,9 +1,9 @@
 START TRANSACTION;
 
-ALTER TABLE project
-ADD sprint_length INT NOT NULL DEFAULT 2;
+ALTER TABLE `project`
+ADD `sprint_length` INT NOT NULL DEFAULT 2;
 
-ALTER TABLE user
-ADD weekly_workload INT NOT NULL DEFAULT 38;
+ALTER TABLE `user`
+ADD `weekly_workload` INT NOT NULL DEFAULT 38;
 
 COMMIT;
