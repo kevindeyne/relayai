@@ -7,8 +7,8 @@ object KeywordGeneration {
 	
 	fun generateKeywords(text : String) : Set<String> {
 		val re = Regex("[^a-z]")
-		val newText = text.toLowerCase().replace(re, " ");
-		var splitValues : Set<String> = OpenNLPProcessor.getInstance().process(newText);
+		val newText = text.toLowerCase().replace(re, " ").replace("\\s+".toRegex(), " ")
+		var splitValues : Set<String> = OpenNLPProcessor.getInstance().process(newText)
 		val resultSet = HashSet<String>()
 
 		val stemmer : EnglishStemmer = EnglishStemmer()

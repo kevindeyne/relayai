@@ -72,9 +72,10 @@ public class OpenNLPProcessor {
 	}
 
 	private boolean isCleanKeyword(String key) {
-		String key_ = key.replaceAll("[a-z]", "");
-		key_ = key.replaceAll(SPACE, "");
-		return key_.length() == 0;
+		String leftover = key
+				.replaceAll("[a-z]", "")
+				.replaceAll(SPACE, "");
+		return leftover.length() == 0;
 	}
 
 	private List<String> tokenizer(String sentence) {
