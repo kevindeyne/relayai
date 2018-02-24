@@ -10,8 +10,6 @@ public abstract class JOOQTest {
 
 	public static final SQLDialect sqlDialect = SQLDialect.MYSQL;
 
-	public JOOQTest() { }
-
 	protected DSLContext newDSL() {
 		return DSL.using(sqlDialect);
 	}

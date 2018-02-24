@@ -9,7 +9,7 @@ $(document).ready(function() {
 		projectForm.existingVersion = $("#existing-version").val();
 		
 		hideScreen("#content-new-project");
-		$("#loader").show().css({opacity: '0'}).animate({opacity: '1'}, "fast");
+		$("#loader").show().css({opacity: "0"}).animate({opacity: "1"}, "fast");
 		
 		var progressLine = new ProgressBar.Line("#savebar", {
 	        color: '#2070f7',
@@ -43,18 +43,18 @@ $(document).ready(function() {
 		    } else {
 		    	//did not validate - so show the form again
 		    	$("#loader").hide();
-		    	$("#content-new-project").show().css({opacity: '0'}).animate({opacity: '1'}, "fast");
+		    	$("#content-new-project").show().css({opacity: "0"}).animate({opacity: "1"}, "fast");
 		    	isAnimationDone = false;
 				isPOSTDone = false;
 		    }
-		}, 'json');
+		}, "json");
 	});
 	
 	//create new project - cancel button
 	$("#content-new-project-main button.altpath").click(function(e) {				
 		hideScreen("#content-new-project");
 		$("#main, aside, #content-new-project").removeClass("visible").removeClass("invisible");
-		$("#main, aside").show().css({opacity: '0'}).animate({opacity: '1'}, "fast");
+		$("#main, aside").show().css({opacity: "0"}).animate({opacity: "1"}, "fast");
 	});
 	
 	$("#existing-version, label[for='existing-version']").hide();

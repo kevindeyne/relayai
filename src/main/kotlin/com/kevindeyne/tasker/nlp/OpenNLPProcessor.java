@@ -27,6 +27,9 @@ public class OpenNLPProcessor {
 	private TokenizerModel tokenizerModel = null;
 	private POSModel posModel = null;
 
+	private final List<String> acceptedPOSTags = new ArrayList<String>(Arrays.asList("NN", "N", "JJ"));
+
+
 	private OpenNLPProcessor() {
 	}
 
@@ -44,8 +47,6 @@ public class OpenNLPProcessor {
 		}
 		return nlp;
 	}
-
-	private final List<String> acceptedPOSTags = new ArrayList<String>(Arrays.asList("NN", "N", "JJ"));
 
 	public Set<String> process(String content) {
 		Set<String> contentSet = new HashSet<String>();
@@ -71,9 +72,9 @@ public class OpenNLPProcessor {
 	}
 
 	private boolean isCleanKeyword(String key) {
-		key = key.replaceAll("[a-z]", "");
-		key = key.replaceAll(SPACE, "");
-		return key.length() == 0;
+		String key_ = key.replaceAll("[a-z]", "");
+		key_ = key.replaceAll(SPACE, "");
+		return key_.length() == 0;
 	}
 
 	private List<String> tokenizer(String sentence) {
@@ -106,13 +107,13 @@ public class OpenNLPProcessor {
 			posModel = new POSModel(modelIn);
 			modelIn.close();
 		} catch (final IOException ioe) {
-			throw new RuntimeException(ioe);
+			throw new NLPException(ioe);
 		} finally {
 			if (modelIn != null) {
 				try {
 					modelIn.close();
 				} catch (final IOException e) {
-					throw new RuntimeException(e);
+					throw new NLPException(e);
 				}
 			}
 		}
@@ -127,13 +128,13 @@ public class OpenNLPProcessor {
 			tokenizerModel = new TokenizerModel(modelIn);
 			modelIn.close();
 		} catch (final IOException ioe) {
-			throw new RuntimeException(ioe);
+			throw new NLPException(ioe);
 		} finally {
 			if (modelIn != null) {
 				try {
 					modelIn.close();
 				} catch (final IOException e) {
-					throw new RuntimeException(e);
+					throw new NLPException(e);
 				}
 			}
 		}
@@ -148,13 +149,13 @@ public class OpenNLPProcessor {
 			sentenceModel = new SentenceModel(modelIn);
 			modelIn.close();
 		} catch (final IOException ioe) {
-			throw new RuntimeException(ioe);
+			throw new NLPException(ioe);
 		} finally {
 			if (modelIn != null) {
 				try {
 					modelIn.close();
 				} catch (final IOException e) {
-					throw new RuntimeException(e);
+					throw new NLPException(e);
 				}
 			}
 		}

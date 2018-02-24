@@ -5,8 +5,6 @@ import org.jooq.tools.jdbc.MockExecuteContext;
 
 public abstract class JOOQProvider implements MockDataProvider {
 
-	public JOOQProvider() { }
-
 	protected boolean isSelectStatement(MockExecuteContext ctx) {
 		return getSQLFromContext(ctx).toUpperCase().startsWith("SELECT");
 	}

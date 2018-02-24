@@ -5,7 +5,7 @@ $(document).ready(function() {
 			window.location.href = '/tasks/create';
 		} else {
 			$("#main, aside").hide();
-			$("#content-new-issue").show().css({opacity: '0'}).animate({opacity: '1'}, "fast");
+			$("#content-new-issue").show().css({opacity: "0"}).animate({opacity: "1"}, "fast");
 			$("#main, aside, #content-new-issue").removeClass("visible").removeClass("invisible");
 			$("form input:first").focus();
 			window.history.pushState('taskr-currentpage', null, '/tasks/create');
@@ -19,12 +19,12 @@ $(document).ready(function() {
 		issueForm.description = $("#description").val().replace(/(?:\r\n|\r|\n)/g, '<br />');
 		
 		hideScreen("#content-new-issue");
-		$("#loader").show().css({opacity: '0'}).animate({opacity: '1'}, "fast");
+		$("#loader").show().css({opacity: "0"}).animate({opacity: "1"}, "fast");
 		
 		var progressLine = new ProgressBar.Line("#savebar", {
-	        color: '#2070f7',
+	        color: "#2070f7",
 	        duration: 1500,
-	        easing: 'easeInOut'
+	        easing: "easeInOut"
 	    });
 		
 		var isAnimationDone = false;
@@ -43,7 +43,7 @@ $(document).ready(function() {
 			}
 		});
 		
-		$.post('/issue/new', JSON.stringify(issueForm), function(response) {		
+		$.post("/issue/new", JSON.stringify(issueForm), function(response) {		
 		    if(response.status === "OK"){
 		    	isPOSTDone = true;
 		    	
@@ -54,7 +54,7 @@ $(document).ready(function() {
 		    } else {
 		    	//did not validate - so show the form again
 		    	$("#loader").hide();
-		    	$("#content-new-issue").show().css({opacity: '0'}).animate({opacity: '1'}, "fast");
+		    	$("#content-new-issue").show().css({opacity: "0"}).animate({opacity: "1"}, "fast");
 		    	isAnimationDone = false;
 				isPOSTDone = false;
 		    }
@@ -66,7 +66,7 @@ $(document).ready(function() {
 		hideScreen("#content-new-issue");		
 		$("#title, #description").val("");		
 		$("#main, aside, #content-new-issue").removeClass("visible").removeClass("invisible");
-		$("#main, aside").show().css({opacity: '0'}).animate({opacity: '1'}, "fast");
-		window.history.pushState('taskr-currentpage', null, '/tasks/' + localStorage.getItem("current-issue"));
+		$("#main, aside").show().css({opacity: "0"}).animate({opacity: "1"}, "fast");
+		window.history.pushState("taskr-currentpage", null, "/tasks/" + localStorage.getItem("current-issue"));
 	});
 });

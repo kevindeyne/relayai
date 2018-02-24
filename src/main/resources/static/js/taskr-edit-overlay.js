@@ -30,10 +30,10 @@ $(document).ready(function() {
 		var left = $("nav").width() + $("aside").width() + position.left;
 		var top = position.top;
 		if(isNaN(left)) { left = $("nav").width() + position.left }
-		if("change-workload" == relativeTo) { top += $(this).parent().parent().position().top; }
+		if("change-workload" === relativeTo) { top += $(this).parent().parent().position().top; }
 		
-		$("#overlay").show().css({opacity: '0'}).animate({opacity: '1'}, "fast");
-		$("#overlay-detail").show().css({ "left": left, "top": top }).css({opacity: '0'}).animate({opacity: '1'}, "fast");				
+		$("#overlay").show().css({opacity: "0"}).animate({opacity: "1"}, "fast");
+		$("#overlay-detail").show().css({ "left": left, "top": top }).css({opacity: "0"}).animate({opacity: "1"}, "fast");				
 	});
 	
 	$("#overlay-detail button.altpath").click(function(){hideOverlay();});
@@ -63,17 +63,17 @@ function changeSubmitFunctionality(){
 	
 	if(typeof issueId === "undefined"){
 		if(action === "-1"){
-			$("#content-new-project").show().css({opacity: '0'}).animate({opacity: '1'}, "fast");
+			$("#content-new-project").show().css({opacity: "0"}).animate({opacity: "1"}, "fast");
 			$("#main").hide();
 			$("#content-new-project-main form input:first").focus();
 		} else {
-			$.post("/project/changeto/"+action, {}, function(response) {}, 'json');
+			$.post("/project/changeto/"+action, {}, function(response) {}, "json");
 			localStorage.removeItem("current-issue");
 			$("#taskurl").attr("href", "/tasks/");
 		}		
 	} else {	
 		var relativeTo = $("#overlay-detail").attr("relative-to").replace("change-", "");
-		$.post("/issue/"+issueId+"/"+relativeTo+"/"+action, {}, function(response) {}, 'json');
+		$.post("/issue/"+issueId+"/"+relativeTo+"/"+action, {}, function(response) {}, "json");
 	}
 		
 	afterChange(action);
@@ -86,7 +86,7 @@ function afterChange(action){
 	
 	if(action !== "IN_PROGRESS") {
 		$("#tracker span[entity-id='"+issueId+"']").remove();
-		if($("#tracker span").length == 0){
+		if($("#tracker span").length === 0){
 			$("#tracker").addClass("invisible");
 		}
 	}

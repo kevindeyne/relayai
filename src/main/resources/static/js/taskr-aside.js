@@ -3,7 +3,7 @@ var asideLoaded = "#aside-issue-list";
 var issueLoaded = new Object();
 		
 $(document).ready(function() {
-	initScrollbar('aside');
+	initScrollbar("aside");
 	
 	//task list logic on taskboard
 	$("aside section").click(function (){
@@ -75,7 +75,7 @@ $(document).ready(function() {
 		
 		//set to in progress, assign to you
 		var issueId = $("aside section.active").attr("issue-id");
-		$.post("/issue/"+issueId+"/progress/IN_PROGRESS", {}, function(response) {colorCodeChangeables();}, 'json'); //implicit assign to you
+		$.post("/issue/"+issueId+"/progress/IN_PROGRESS", {}, function(response) {colorCodeChangeables();}, "json"); //implicit assign to you
 		$("#change-progress").attr("class", "changeable in-progress").text("In progress");
 		$("#change-assignee").text("you");
 		reorderIssueInAside();
@@ -136,9 +136,9 @@ function initScrollbar(element){
 
 function buildProgressBar(sectionId){
 	return new ProgressBar.Line(sectionId, {
-        color: '#2070f7',
+        color: "#2070f7",
         duration: 1500,
-        easing: 'easeInOut'
+        easing: "easeInOut"
     });
 }
 
@@ -152,9 +152,9 @@ function handleIssueLoaded(latestClickedIssue, progressLine, issueLoadingAnimati
 			
 			loadingContent(issueLoaded);
 			
-			var taskurl = '/tasks/' + issueId;
+			var taskurl = "/tasks/" + issueId;
 			if(issueId != null) {
-				window.history.pushState('taskr-currentpage', null, taskurl);
+				window.history.pushState("taskr-currentpage", null, taskurl);
 				$("#taskurl").attr("href", taskurl);	
 			}			
 		}

@@ -12,6 +12,8 @@ public class QuickTest {
 		System.out.println(7%7 == 0);
 		System.out.println(10%7 == 0);
 		System.out.println(14%7 == 0);
+
+		Assert.assertTrue(true);
 	}
 
 	@Test

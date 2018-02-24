@@ -102,7 +102,7 @@ function reorderIssueInAside(){
 		});
 	}
 	
-	if(amountOfMoves != 0){
+	if(amountOfMoves !== 0){
 		reorderIssueInAside();
 	}
 }
