@@ -24,7 +24,7 @@ import java.util.stream.Collectors
 import com.kevindeyne.tasker.config.RealdataFaker
 
 @Component
-class IssueLoader(
+open class IssueLoader(
 		val dsl: DSLContext,
 		val passwordEncoder : PasswordEncoder,
 		val tagcloudRepository : TagcloudRepository

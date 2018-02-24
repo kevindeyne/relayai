@@ -143,16 +143,13 @@ enum class TimesheetParser() {
 		val list = map.get(key)
 		if(list != null){
 			for (entry: TimesheetEntry in list) {
-				val minutes = tU.countMinutesBetween(entry.startDate, entry.endDate)
-				if(minutes > 2) {
-				  	result.add(TimesheetListing(
-				  		key,
-						format.format(key),
-						entry.issueName,
-						entry.issueId,
-						entry.startDate,
-						entry.endDate))
-					}
+			  	result.add(TimesheetListing(
+			  		key,
+					format.format(key),
+					entry.issueName,
+					entry.issueId,
+					entry.startDate,
+					entry.endDate))
 			}
 		}
 	}

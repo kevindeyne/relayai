@@ -25,8 +25,8 @@ class CommentController(var commentRepository : CommentRepository, var jmsTempla
 		var errors : Map<String, String>  = form.validate()
 		if(errors.isEmpty()){
 			
-			val userId = SecurityHolder.getUserId()			
-			val newListing = commentRepository.createComment(form.text, issueId.toLong(), userId);
+			val userId = SecurityHolder.getUserId()
+			val newListing = commentRepository.createComment(form.toText(), issueId.toLong(), userId);
 			
 			//add to pulling notification table
 			return newListing
