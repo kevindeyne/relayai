@@ -1,8 +1,12 @@
+var autocomplete_version;
+var autocomplete_assignee;
+
 $(document).ready(function() {
 	
 	$("span.changeable").click(function(){
+		$("#remove-changer-submit").hide();
 		var relativeTo = $(this).attr("id");
-				
+		
 		if(getActiveClass() === "undetermined-issue" && relativeTo !== "change-workload"){ return; }
 		
 		$("#overlay-detail").attr("relative-to", relativeTo);
@@ -13,10 +17,9 @@ $(document).ready(function() {
 		$("#overlay-detail .overlay-options, #overlay-detail #overlay-version, #overlay-detail #overlay-assignee").hide();
 		
 		if(relativeTo.indexOf("version") !== -1){
-			$("#overlay-version a").off().click(function() {
-				$("#overlay-version input.version-text").val($(this).text());
-			});
-			$("#overlay-version").show();
+			setupAutocompleteVersion();
+			$("#overlay-version a").off().click(function() { $("#overlay-version input.version-text").val($(this).text()); });
+			$("#overlay-version, #remove-changer-submit").show();
 		} else if(relativeTo.indexOf("assignee") !== -1){
 			$("#overlay-assignee").show();
 		} else {
@@ -36,7 +39,20 @@ $(document).ready(function() {
 		$("#overlay-detail").show().css({ "left": left, "top": top }).css({opacity: "0"}).animate({opacity: "1"}, "fast");				
 	});
 	
-	$("#overlay-detail button.altpath").click(function(){hideOverlay();});
+	$("#overlay-detail button.altpath").click(function(){
+		if($(this).attr("id") === "remove-changer-submit"){			
+			var relativeTo = "#"+$("#overlay-detail").attr("relative-to");
+			if($("span.changeable[id*='change-version-']").length > 1){	
+				$(relativeTo).remove();
+			}
+			
+			if ($("span.changeable[id*='change-version-']").length == 1) {
+				$("span.changeable[id*='change-version-']").text("No version attributed");
+			}
+		}
+		
+		hideOverlay();
+	});
 	
 	$("#overlay-detail ul li").click(function(e){
 		$("#overlay-detail ul li").removeClass("hover").removeClass("active");
@@ -56,6 +72,23 @@ $(document).ready(function() {
 		}
 	});
 });
+
+function setupAutocompleteVersion(){
+	if(autocomplete_version === undefined || autocomplete_version === null){
+		autocomplete_version = new autoComplete({
+		    selector: 'input[class="version-text"]',
+		    minChars: 1,
+		    source: function(term, suggest){
+		        term = term.toLowerCase();
+		        var choices = ['4.0.28.3', '1.0.0', 'Asp'];
+		        var matches = [];
+		        for (i=0; i<choices.length; i++)
+		            if (~choices[i].toLowerCase().indexOf(term)) matches.push(choices[i]);
+		        suggest(matches);
+		    }
+		});
+	}
+}
 
 function changeSubmitFunctionality(){
 	var issueId = $("aside section.active").attr("issue-id");
@@ -111,8 +144,19 @@ function isClickOutsideOfOverlay(e, position){
 function changeRelativeToText(){
 	var relativeTo = "#"+$("#overlay-detail").attr("relative-to");
 	if(relativeTo.indexOf("version") !== -1){
-		$(relativeTo).text($("#overlay-detail input.version-text").val());
-		//add [+] and remove button 
+		var branch = $("#overlay-version .changing:first").text();
+		var version = $("#overlay-detail input.version-text").val();
+		$(relativeTo).text(version+" ["+branch+"]");
+		
+		var noAddsAvailable = $("span.changeable[id*='change-version-']:contains('[+]')").length;
+		if(noAddsAvailable > 0){
+			$("span.changeable[id*='change-version-']:contains('[+]')").remove();
+		}		
+		var newOption = $("span.changeable[id*='change-version-']:last").clone(true, true);
+		var newId = parseInt($("span.changeable[id*='change-version-']:last").attr('id').replace("change-version-", "")) + 1;
+		$(newOption).text("[+]");
+		$(newOption).attr("id", "change-version-" + newId);
+		$("div.milestone-details-col p:first").append(newOption);
 	} else if(relativeTo.indexOf("assignee") !== -1){
 		$(relativeTo).text($("#overlay-detail input.assignee-text").val());
 	} else {

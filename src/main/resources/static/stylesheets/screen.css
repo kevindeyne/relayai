@@ -1309,7 +1309,7 @@ section.comment p strong {
 }
 /* line 66, ../sass/_overlay.scss */
 #overlay #overlay-detail p input.version-text {
-  width: 4.5em;
+  width: 5.5em;
 }
 /* line 70, ../sass/_overlay.scss */
 #overlay #overlay-detail p input.assignee-text {
@@ -1425,4 +1425,9 @@ span.changeable {
 /* line 185, ../sass/_overlay.scss */
 span.changeable:hover {
   background-color: #ececec;
+}
+
+/* line 189, ../sass/_overlay.scss */
+.milestone-details-col p span.changeable {
+  margin-right: 0.3em;
 }

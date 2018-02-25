@@ -64,7 +64,7 @@ $font-main: 'Roboto', Times New Roman, Helvetica, sans-serif;
 			}
 			
 			input.version-text {
-				width: 4.5em;
+				width: 5.5em;
 			}
 			
 			input.assignee-text {
@@ -184,4 +184,8 @@ span.changeable {
 
 span.changeable:hover {
 	background-color: #ececec; 
+}
+
+.milestone-details-col p span.changeable {
+    margin-right: 0.3em;
 }
