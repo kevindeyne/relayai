@@ -4,28 +4,25 @@ import com.kevindeyne.tasker.repositories.IssueRepository
 import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.GetMapping
 import com.kevindeyne.tasker.service.SecurityHolder
+import com.kevindeyne.tasker.repositories.SprintRepository
 
 @Controller
-class DebugController(var issueRepository : IssueRepository) {
+class DebugController(var sprintRepository : SprintRepository) {
 	
 	companion object {
 		const val DEBUG_GET = "/debug"
-		const val DEBUG_GET_DAYOFDEPLOY = "/debug/dayofdeploy"		
+		const val DEBUG_GET_STARTSPRINT = "/debug/startsprint"		
 	}
 	
 	@GetMapping(DEBUG_GET)
-	fun getDebug() : String {		
+	fun getDebug() : String {
 		return "debug"
 	}
 	
-	@GetMapping(DEBUG_GET_DAYOFDEPLOY)
-	fun getDebugDayOfDeploy() : String {
-		val sprintId = SecurityHolder.getSprintId()
-		val userId = SecurityHolder.getUserId()
-		val projectId = SecurityHolder.getProjectId()
-		
-		issueRepository.createDeployIssue(sprintId, projectId, userId)
-		
+	@GetMapping(DEBUG_GET_STARTSPRINT)
+	fun getDebugDayOfStartSprint() : String {
+		val projectId = SecurityHolder.getProjectId()		
+		sprintRepository.startSprint(projectId)		
 		return "redirect:/tasks"
 	}	
 }

@@ -12,6 +12,7 @@ object SecurityHolder {
 	fun getUserId() : Long {
 		val principal: UserPrincipal? = getUserPrincipal()
 		if (null != principal) {
+			//println("user id: ${principal.userId}")
 			return principal.userId
 		}
 		throw RuntimeException("No userId at this point")
@@ -20,6 +21,7 @@ object SecurityHolder {
 	fun getSprintId() : Long? {
 		val principal: UserPrincipal? = getUserPrincipal()
 		if (null != principal) {
+			//println("sprint id: ${principal.sprintId}")
 			return principal.sprintId
 		}
 		return null;
@@ -28,6 +30,7 @@ object SecurityHolder {
 	fun getProjectId() : Long {
 		val principal: UserPrincipal? = getUserPrincipal()
 		if (null != principal) {
+			//println("project id: ${principal.projectId}")
 			return principal.projectId
 		}
 		throw RuntimeException("No projectId at this point")

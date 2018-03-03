@@ -61,6 +61,4 @@ interface IssueRepository {
 	fun findAllActiveForTeamInCurrentSprint(sprintId: Long, userId: Long): List<IssueListing>
 
 	fun findAllBacklogForProject(projectId: Long): List<IssueListing>
-	
-	fun createDeployIssue(sprintId : Long?, projectId : Long, userId : Long)
 }

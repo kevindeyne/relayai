@@ -20,6 +20,8 @@ $(document).ready(function() {
 			setupAutocompleteVersion();
 			$("#overlay-version a").off().click(function() { $("#overlay-version input.version-text").val($(this).text()); });
 			$("#overlay-version, #remove-changer-submit").show();
+			var relativeTo = "#"+$("#overlay-detail").attr("relative-to");
+			$(relativeTo).show();
 		} else if(relativeTo.indexOf("assignee") !== -1){
 			$("#overlay-assignee").show();
 		} else {
@@ -157,6 +159,7 @@ function changeRelativeToText(){
 		$(newOption).text("[+]");
 		$(newOption).attr("id", "change-version-" + newId);
 		$("div.milestone-details-col p:first").append(newOption);
+		positionAsideContent();
 	} else if(relativeTo.indexOf("assignee") !== -1){
 		$(relativeTo).text($("#overlay-detail input.assignee-text").val());
 	} else {

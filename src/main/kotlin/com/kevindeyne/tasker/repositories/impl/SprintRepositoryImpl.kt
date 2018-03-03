@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional
 import java.sql.Timestamp
 import java.util.Date
 import java.util.stream.Collectors
+import com.kevindeyne.tasker.service.SecurityHolder
 
 @Component
 open class SprintRepositoryImpl (val dsl: DSLContext, val issueRepository : IssueRepository) : SprintRepository {
@@ -78,10 +79,10 @@ open class SprintRepositoryImpl (val dsl: DSLContext, val issueRepository : Issu
 				 hm.put("weeklyWorkload", p.get(USER.WEEKLY_WORKLOAD))
 				 listOfUsers.add(hm)
 			 }
-			
+
 			for(user in listOfUsers){
 				val workloadPerUser = sprintLength*(user.get("weeklyWorkload") as Int)
-				
+
 				var maxWorkload = 0
 				
 				val issueList = dsl.selectFrom(ISSUE)
@@ -89,14 +90,14 @@ open class SprintRepositoryImpl (val dsl: DSLContext, val issueRepository : Issu
 					   ISSUE.ASSIGNED.eq(user.get("userId") as Long)
 					   .and(ISSUE.STATUS.eq(Progress.BACKLOG.name))
 				   )
-				   .orderBy(ISSUE.IMPORTANCE.desc(), ISSUE.CREATE_DATE.asc())
 				   .fetch()
 				   .parallelStream()
 				   .collect(Collectors.toList())
-						
+										
 					for(p in issueList) {
 					 	maxWorkload += p.get(ISSUE.WORKLOAD)
-				   	 	if(maxWorkload < workloadPerUser){		
+						println(maxWorkload)
+				   	 	if(maxWorkload < workloadPerUser){
 		   	 				dsl.update(ISSUE)
 								.set(ISSUE.SPRINT_ID, newSprintId)
 								.set(ISSUE.STATUS, Progress.IN_SPRINT.name)
@@ -107,9 +108,8 @@ open class SprintRepositoryImpl (val dsl: DSLContext, val issueRepository : Issu
 						}
 					}
 			}
-		
-		return newSprintId
-			
+			SecurityHolder.changeProject(SecurityHolder.getProjectId(), newSprintId)		
+			return newSprintId			
 		} else {
 			throw RuntimeException("Cannot retrieve sprint when no project is active")
 		}
