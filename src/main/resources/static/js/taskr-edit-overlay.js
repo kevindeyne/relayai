@@ -50,7 +50,7 @@ $(document).ready(function() {
 				var issueId = $("aside section.active").attr("issue-id");
 				var version = $(".version-text").val();
 				var branch = $(".branch-text").text();
-				$.ajax({ url: "/issue/"+issueId+"/version/"+branch+"/"+version, type: 'DELETE' });
+				$.ajax({ url: "/issue/"+issueId+"/version/"+branch+"/"+version, type: "DELETE" });
 			}
 			
 			if ($("span.changeable[id*='change-version-']").length == 1) {

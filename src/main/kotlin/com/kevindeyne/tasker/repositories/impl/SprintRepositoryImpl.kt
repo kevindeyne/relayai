@@ -116,10 +116,10 @@ open class SprintRepositoryImpl (val dsl: DSLContext, val issueRepository : Issu
 										.from(Tables.ISSUE)			   
 										.where(Tables.ISSUE.PROJECT_ID.eq(projectId))
 										.and(Tables.ISSUE.STATUS.eq(Progress.BACKLOG.name).or(Tables.ISSUE.STATUS.eq(Progress.NEW.name)))
-										.fetchOne(0, Integer::class.java) as Int
-			
+										.fetchOne(0, Integer::class.java) as? Int
+
 			dsl.update(SPRINT)
-				.set(SPRINT.BACKLOG_AT_START, countBacklogIssues)
+				.set(SPRINT.BACKLOG_AT_START, if (countBacklogIssues != null) countBacklogIssues else 0)
 				.set(SPRINT.SPRINT_NR, sprintNr + 1)
 				.execute()
 			

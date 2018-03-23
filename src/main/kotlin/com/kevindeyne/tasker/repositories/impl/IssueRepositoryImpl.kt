@@ -512,12 +512,12 @@ open class IssueRepositoryImpl (val dsl: DSLContext) : IssueRepository {
 			dsl.deleteFrom(Tables.VERSION_ISSUE).where(Tables.VERSION_ISSUE.ID.eq(existing.get(1)))
 			
 			//any other links to version?
-			var count = dsl.selectCount()
+			val count = dsl.selectCount()
 			   .from(Tables.VERSION_ISSUE)
 			   .where(Tables.VERSIONS.ID.eq(existing.get(0)))
-			   .fetchOne(0, Integer::class.java) as Int
+			   .fetchOne(0, Integer::class.java) as? Int
 			
-			if(count == 0){
+			if(count == null || count == 0){
 				//no? then delete version too
 				dsl.deleteFrom(Tables.VERSIONS).where(Tables.VERSIONS.ID.eq(existing.get(0)))
 			}
