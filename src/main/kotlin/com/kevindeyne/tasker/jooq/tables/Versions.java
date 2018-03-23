@@ -40,7 +40,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Versions extends TableImpl<VersionsRecord> {
 
-    private static final long serialVersionUID = -374737201;
+    private static final long serialVersionUID = 1757945961;
 
     /**
      * The reference instance of <code>taskr.versions</code>
@@ -71,19 +71,9 @@ public class Versions extends TableImpl<VersionsRecord> {
     public final TableField<VersionsRecord, Long> BRANCH_ID = createField("branch_id", org.jooq.impl.SQLDataType.BIGINT.nullable(false).defaultValue(org.jooq.impl.DSL.inline("-1", org.jooq.impl.SQLDataType.BIGINT)), this, "");
 
     /**
-     * The column <code>taskr.versions.major_version</code>.
+     * The column <code>taskr.versions.version</code>.
      */
-    public final TableField<VersionsRecord, Integer> MAJOR_VERSION = createField("major_version", org.jooq.impl.SQLDataType.INTEGER.nullable(false).defaultValue(org.jooq.impl.DSL.inline("0", org.jooq.impl.SQLDataType.INTEGER)), this, "");
-
-    /**
-     * The column <code>taskr.versions.minor_version</code>.
-     */
-    public final TableField<VersionsRecord, Integer> MINOR_VERSION = createField("minor_version", org.jooq.impl.SQLDataType.INTEGER.nullable(false).defaultValue(org.jooq.impl.DSL.inline("0", org.jooq.impl.SQLDataType.INTEGER)), this, "");
-
-    /**
-     * The column <code>taskr.versions.patch_version</code>.
-     */
-    public final TableField<VersionsRecord, Integer> PATCH_VERSION = createField("patch_version", org.jooq.impl.SQLDataType.INTEGER.nullable(false).defaultValue(org.jooq.impl.DSL.inline("0", org.jooq.impl.SQLDataType.INTEGER)), this, "");
+    public final TableField<VersionsRecord, String> VERSION = createField("version", org.jooq.impl.SQLDataType.VARCHAR(100).nullable(false).defaultValue(org.jooq.impl.DSL.inline("", org.jooq.impl.SQLDataType.VARCHAR)), this, "");
 
     /**
      * Create a <code>taskr.versions</code> table reference

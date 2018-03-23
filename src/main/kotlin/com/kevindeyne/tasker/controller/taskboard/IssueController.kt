@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.DeleteMapping
 
 @RestController
 class IssueController(var issueRepository : IssueRepository, var jmsTemplate : JmsTemplate) {
@@ -21,6 +22,7 @@ class IssueController(var issueRepository : IssueRepository, var jmsTemplate : J
 	companion object {
 		const val ISSUE_DETAIL = "/issue/{id}"
 		const val ISSUE_PROGRESS = ISSUE_DETAIL + "/{action}/{changedValue}"
+		const val ISSUE_PROGRESS_W_BRANCH = ISSUE_DETAIL + "/{action}/{branch}/{version}"
 		const val ISSUE_LIST_MYISSUES = "/issue/list/issue"
 		const val ISSUE_LIST_TEAM = "/issue/list/team"
 		const val ISSUE_LIST_BACKLOG = "/issue/list/backlog"
@@ -39,7 +41,7 @@ class IssueController(var issueRepository : IssueRepository, var jmsTemplate : J
 				return FormResponse(status = "INVALID")
 			}
 			
-			val message = AMQMessage(id, AMQMessageType.ISSUE_CREATE_OR_EDIT, form.title, form.description, userId, sprintId, projectId)			
+			val message = AMQMessage(id, AMQMessageType.ISSUE_CREATE_OR_EDIT, form.title, "", form.description, userId, sprintId, projectId)			
 			jmsTemplate.convertAndSend("issues", message)
 			//add to pulling notification table
 			return FormResponse(status = "OK")
@@ -70,7 +72,39 @@ class IssueController(var issueRepository : IssueRepository, var jmsTemplate : J
 			return FormResponse(status = "INVALID")
 		}
 				
-		val message = AMQMessage(id, determineMessageType(action), changedValue, "", userId, sprintId, projectId)
+		val message = AMQMessage(id, determineMessageType(action), changedValue, "", "", userId, sprintId, projectId)
+		jmsTemplate.convertAndSend("issues", message)
+		//add to pulling notification table
+		return FormResponse(status = "OK")
+	}
+	
+	@PostMapping(ISSUE_PROGRESS_W_BRANCH)
+	fun progressIssue(@PathVariable id : String, @PathVariable action : String, @PathVariable branch : String, @PathVariable version : String) : FormResponse {
+		val userId = SecurityHolder.getUserId()
+		val sprintId = SecurityHolder.getSprintId()
+		val projectId = SecurityHolder.getProjectId() 
+		
+		if(sprintId == null){
+			return FormResponse(status = "INVALID")
+		}
+				
+		val message = AMQMessage(id, determineMessageType(action), version, branch, "", userId, sprintId, projectId, id.toLong())
+		jmsTemplate.convertAndSend("issues", message)
+		//add to pulling notification table
+		return FormResponse(status = "OK")
+	}
+	
+	@DeleteMapping(ISSUE_PROGRESS_W_BRANCH)
+	fun deleteVersionFromIssue(@PathVariable id : String, @PathVariable action : String, @PathVariable branch : String, @PathVariable version : String) : FormResponse {
+		val userId = SecurityHolder.getUserId()
+		val sprintId = SecurityHolder.getSprintId()
+		val projectId = SecurityHolder.getProjectId() 
+		
+		if(sprintId == null){
+			return FormResponse(status = "INVALID")
+		}
+				
+		val message = AMQMessage(id, AMQMessageType.ISSUE_REMOVE_VERSION, version, branch, "", userId, sprintId, projectId, id.toLong())
 		jmsTemplate.convertAndSend("issues", message)
 		//add to pulling notification table
 		return FormResponse(status = "OK")
@@ -81,7 +115,7 @@ class IssueController(var issueRepository : IssueRepository, var jmsTemplate : J
 			"progress" -> return AMQMessageType.ISSUE_PROGRESS
 			"impact" -> return AMQMessageType.ISSUE_IMPACT
 			"urgency" -> return AMQMessageType.ISSUE_URGENCY
-			"fixversion" -> return AMQMessageType.ISSUE_FIXVERSION
+			"version" -> return AMQMessageType.ISSUE_ADD_VERSION
 			"assignee" -> return AMQMessageType.ISSUE_ASSIGNEE
 		}
 		

@@ -46,6 +46,11 @@ $(document).ready(function() {
 			var relativeTo = "#"+$("#overlay-detail").attr("relative-to");
 			if($("span.changeable[id*='change-version-']").length > 1){	
 				$(relativeTo).remove();
+				
+				var issueId = $("aside section.active").attr("issue-id");
+				var version = $(".version-text").val();
+				var branch = $(".branch-text").text();
+				$.ajax({ url: "/issue/"+issueId+"/version/"+branch+"/"+version, type: 'DELETE' });
 			}
 			
 			if ($("span.changeable[id*='change-version-']").length == 1) {
@@ -108,6 +113,14 @@ function changeSubmitFunctionality(){
 		}		
 	} else {	
 		var relativeTo = $("#overlay-detail").attr("relative-to").replace("change-", "");
+		relativeTo = relativeTo.substring(0, relativeTo.indexOf("-"));
+		
+		if("version" === relativeTo){
+			var version = $(".version-text").val();
+			var branch = $(".branch-text").text();	
+			action = branch+"/"+version;	
+		}
+			
 		$.post("/issue/"+issueId+"/"+relativeTo+"/"+action, {}, function(response) {}, "json");
 	}
 		

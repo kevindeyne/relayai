@@ -120,6 +120,7 @@ public class Keys {
     // FOREIGN KEY definitions
     // -------------------------------------------------------------------------
 
+    public static final ForeignKey<BranchRecord, ProjectRecord> BRANCH_IBFK_1 = ForeignKeys0.BRANCH_IBFK_1;
     public static final ForeignKey<CommentsRecord, UserRecord> COMMENTS_IBFK_1 = ForeignKeys0.COMMENTS_IBFK_1;
     public static final ForeignKey<CommentsRecord, IssueRecord> COMMENTS_IBFK_2 = ForeignKeys0.COMMENTS_IBFK_2;
     public static final ForeignKey<IssueRecord, SprintRecord> ISSUE_IBFK_1 = ForeignKeys0.ISSUE_IBFK_1;
@@ -191,6 +192,7 @@ public class Keys {
     }
 
     private static class ForeignKeys0 extends AbstractKeys {
+        public static final ForeignKey<BranchRecord, ProjectRecord> BRANCH_IBFK_1 = createForeignKey(com.kevindeyne.tasker.jooq.Keys.KEY_PROJECT_PRIMARY, Branch.BRANCH, "branch_ibfk_1", Branch.BRANCH.PROJECT_ID);
         public static final ForeignKey<CommentsRecord, UserRecord> COMMENTS_IBFK_1 = createForeignKey(com.kevindeyne.tasker.jooq.Keys.KEY_USER_PRIMARY, Comments.COMMENTS, "comments_ibfk_1", Comments.COMMENTS.USER_ID);
         public static final ForeignKey<CommentsRecord, IssueRecord> COMMENTS_IBFK_2 = createForeignKey(com.kevindeyne.tasker.jooq.Keys.KEY_ISSUE_PRIMARY, Comments.COMMENTS, "comments_ibfk_2", Comments.COMMENTS.ISSUE_ID);
         public static final ForeignKey<IssueRecord, SprintRecord> ISSUE_IBFK_1 = createForeignKey(com.kevindeyne.tasker.jooq.Keys.KEY_SPRINT_PRIMARY, Issue.ISSUE, "issue_ibfk_1", Issue.ISSUE.SPRINT_ID);

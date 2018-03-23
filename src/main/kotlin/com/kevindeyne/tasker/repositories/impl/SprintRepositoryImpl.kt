@@ -3,18 +3,20 @@ package com.kevindeyne.tasker.repositories
 import com.kevindeyne.tasker.controller.timesheet.TimeUtils
 import com.kevindeyne.tasker.domain.Progress
 import com.kevindeyne.tasker.domain.SprintDates
-import com.kevindeyne.tasker.jooq.Tables.SPRINT
-import com.kevindeyne.tasker.jooq.Tables.PROJECT
+import com.kevindeyne.tasker.jooq.Tables
 import com.kevindeyne.tasker.jooq.Tables.ISSUE
-import com.kevindeyne.tasker.jooq.Tables.USER
+import com.kevindeyne.tasker.jooq.Tables.PROJECT
 import com.kevindeyne.tasker.jooq.Tables.PROJECT_USERS
+import com.kevindeyne.tasker.jooq.Tables.SPRINT
+import com.kevindeyne.tasker.jooq.Tables.USER
+import com.kevindeyne.tasker.service.SecurityHolder
 import org.jooq.DSLContext
+import org.jooq.impl.DSL
 import org.springframework.stereotype.Component
 import org.springframework.transaction.annotation.Transactional
 import java.sql.Timestamp
 import java.util.Date
 import java.util.stream.Collectors
-import com.kevindeyne.tasker.service.SecurityHolder
 
 @Component
 open class SprintRepositoryImpl (val dsl: DSLContext, val issueRepository : IssueRepository) : SprintRepository {
@@ -50,13 +52,14 @@ open class SprintRepositoryImpl (val dsl: DSLContext, val issueRepository : Issu
 	@Transactional
 	override fun startSprint(projectId : Long) : Long {
 
-		val sprintRecord = dsl.selectFrom(PROJECT)
+		val sprintRecord = dsl.selectFrom(PROJECT.join(SPRINT).on(SPRINT.ID.eq(PROJECT.ACTIVE_SPRINT_ID)))
 		.where(PROJECT.ID.eq(projectId))			
 		.fetchOptional()
 		
 		if(sprintRecord.isPresent) {
 			val currentSprint = sprintRecord.get().get(PROJECT.ACTIVE_SPRINT_ID)
 			val sprintLength = sprintRecord.get().get(PROJECT.SPRINT_LENGTH)
+			val sprintNr = sprintRecord.get().get(SPRINT.SPRINT_NR)
 				
 			val newSprintId = createSprint(projectId, 14)
 			endSprint(currentSprint)
@@ -108,6 +111,18 @@ open class SprintRepositoryImpl (val dsl: DSLContext, val issueRepository : Issu
 						}
 					}
 			}
+					
+			val countBacklogIssues = dsl.selectCount()
+										.from(Tables.ISSUE)			   
+										.where(Tables.ISSUE.PROJECT_ID.eq(projectId))
+										.and(Tables.ISSUE.STATUS.eq(Progress.BACKLOG.name).or(Tables.ISSUE.STATUS.eq(Progress.NEW.name)))
+										.fetchOne(0, Integer::class.java) as Int
+			
+			dsl.update(SPRINT)
+				.set(SPRINT.BACKLOG_AT_START, countBacklogIssues)
+				.set(SPRINT.SPRINT_NR, sprintNr + 1)
+				.execute()
+			
 			SecurityHolder.changeProject(SecurityHolder.getProjectId(), newSprintId)		
 			return newSprintId			
 		} else {

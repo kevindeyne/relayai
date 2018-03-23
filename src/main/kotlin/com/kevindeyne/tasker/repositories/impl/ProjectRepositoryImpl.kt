@@ -116,8 +116,8 @@ open class ProjectRepositoryImpl (val dsl: DSLContext, val sprintRepository : Sp
 		   .returning(BRANCH.ID).fetchOne().get(BRANCH.ID)
 		
 		dsl.insertInto(VERSIONS,
-			  VERSIONS.MAJOR_VERSION, VERSIONS.MINOR_VERSION, VERSIONS.PATCH_VERSION, VERSIONS.PROJECT_ID, VERSIONS.BRANCH_ID)
-		   .values(0, 0, 1, projectId, branchId)
+			  VERSIONS.VERSION, VERSIONS.PROJECT_ID, VERSIONS.BRANCH_ID)
+		   .values("0.0.1", projectId, branchId)
 		   .execute()
 				
 		return projectId

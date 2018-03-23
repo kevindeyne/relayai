@@ -15,6 +15,7 @@ import java.util.List;
 import javax.annotation.Generated;
 
 import org.jooq.Field;
+import org.jooq.ForeignKey;
 import org.jooq.Identity;
 import org.jooq.Index;
 import org.jooq.Name;
@@ -39,7 +40,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Branch extends TableImpl<BranchRecord> {
 
-    private static final long serialVersionUID = 2081168710;
+    private static final long serialVersionUID = 277525078;
 
     /**
      * The reference instance of <code>taskr.branch</code>
@@ -111,7 +112,7 @@ public class Branch extends TableImpl<BranchRecord> {
      */
     @Override
     public List<Index> getIndexes() {
-        return Arrays.<Index>asList(Indexes.BRANCH_PRIMARY);
+        return Arrays.<Index>asList(Indexes.BRANCH_PRIMARY, Indexes.BRANCH_PROJECT_ID);
     }
 
     /**
@@ -136,6 +137,14 @@ public class Branch extends TableImpl<BranchRecord> {
     @Override
     public List<UniqueKey<BranchRecord>> getKeys() {
         return Arrays.<UniqueKey<BranchRecord>>asList(Keys.KEY_BRANCH_PRIMARY);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public List<ForeignKey<BranchRecord, ?>> getReferences() {
+        return Arrays.<ForeignKey<BranchRecord, ?>>asList(Keys.BRANCH_IBFK_1);
     }
 
     /**

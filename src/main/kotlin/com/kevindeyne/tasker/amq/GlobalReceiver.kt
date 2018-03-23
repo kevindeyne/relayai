@@ -24,7 +24,8 @@ class GlobalReceiver(val issueRepository: IssueRepository, val tagcloud: Tagclou
 			AMQMessageType.ISSUE_URGENCY -> issueRepository.updateUrgency(getIdFromMessage(m), m.userId, Urgency.valueOf(m.value))
 			AMQMessageType.ISSUE_IMPACT -> issueRepository.updateImpact(getIdFromMessage(m), m.userId, Impact.valueOf(m.value))
 			AMQMessageType.ISSUE_ASSIGNEE -> handleAssignee(m)
-			AMQMessageType.ISSUE_FIXVERSION -> handleFixVersion(m)
+			AMQMessageType.ISSUE_ADD_VERSION -> handleAddVersion(m)
+			AMQMessageType.ISSUE_REMOVE_VERSION -> handleRemoveVersion(m)
 			//else -> throw RuntimeException("Unknown message type")
 		}
 	}
@@ -67,9 +68,25 @@ class GlobalReceiver(val issueRepository: IssueRepository, val tagcloud: Tagclou
 	
 	fun getIdFromMessage(message: AMQMessage) : Long = message.id.toLong()
 	
-	fun handleAssignee(message: AMQMessage){}
+	fun handleAssignee(message: AMQMessage){}	//TODO
 	
-	fun handleFixVersion(message: AMQMessage){}
+	fun handleAddVersion(message: AMQMessage){
+		val version = message.value
+		val branch = message.value2
+		
+		if(null !== message.issueId){
+			issueRepository.addVersion(message.issueId, message.projectId, version, branch)	
+		}		
+	}
+	
+	fun handleRemoveVersion(message: AMQMessage){
+		val version = message.value
+		val branch = message.value2
+		
+		if(null !== message.issueId){
+			issueRepository.removeVersion(message.issueId, message.projectId, version, branch)
+		}
+	}
 	
 	fun handleProgress(m: AMQMessage){
 		val status = Progress.valueOf(m.value)

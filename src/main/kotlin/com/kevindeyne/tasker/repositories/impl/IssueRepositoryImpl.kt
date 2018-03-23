@@ -2,7 +2,6 @@ package com.kevindeyne.tasker.repositories
 
 import com.kevindeyne.tasker.controller.form.IssueResponse
 import com.kevindeyne.tasker.controller.form.StandupResponse
-import com.kevindeyne.tasker.domain.CommentListing
 import com.kevindeyne.tasker.domain.Impact
 import com.kevindeyne.tasker.domain.InProgressIssue
 import com.kevindeyne.tasker.domain.IssueListing
@@ -14,6 +13,7 @@ import com.kevindeyne.tasker.jooq.tables.records.IssueRecord
 import com.kevindeyne.tasker.service.SecurityHolder
 import org.jooq.DSLContext
 import org.jooq.Record
+import org.jooq.impl.DSL
 import org.jooq.tools.StringUtils
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
@@ -486,5 +486,80 @@ open class IssueRepositoryImpl (val dsl: DSLContext) : IssueRepository {
 									n.get(Tables.ISSUE.IMPORTANCE))
 			   }
 			   .collect(Collectors.toList())
+	}
+	
+	override fun addVersion(issueId: Long, projectId: Long, version: String, branch: String) {
+		var branchId = getBranch(branch, projectId)
+		if(-1L == branchId){
+			branchId = createBranch(branch, projectId)
+		}
+		
+		var existing = getVersion(issueId, version, branchId)
+		if(null == existing.getOrNull(0)){
+			 val versionsId = dsl.insertInto(Tables.VERSIONS, Tables.VERSIONS.PROJECT_ID, Tables.VERSIONS.BRANCH_ID, Tables.VERSIONS.VERSION)
+			   .values(projectId, branchId, version)
+			   .returning(Tables.VERSIONS.ID).fetchOne().get(Tables.VERSIONS.ID)
+				
+			 dsl.insertInto(Tables.VERSION_ISSUE, Tables.VERSION_ISSUE.VERSIONS_ID, Tables.VERSION_ISSUE.ISSUE_ID)
+			   .values(versionsId, issueId)
+			   .returning(Tables.VERSION_ISSUE.ID).fetchOne().get(Tables.VERSION_ISSUE.ID)				
+		}
+	}
+	
+	override fun removeVersion(issueId: Long, projectId: Long, version: String, branch: String) {
+		var existing = getVersion(issueId, version, getBranch(branch, projectId))
+		if(null !== existing.getOrNull(0)){
+			dsl.deleteFrom(Tables.VERSION_ISSUE).where(Tables.VERSION_ISSUE.ID.eq(existing.get(1)))
+			
+			//any other links to version?
+			var count = dsl.selectCount()
+			   .from(Tables.VERSION_ISSUE)
+			   .where(Tables.VERSIONS.ID.eq(existing.get(0)))
+			   .fetchOne(0, Integer::class.java) as Int
+			
+			if(count == 0){
+				//no? then delete version too
+				dsl.deleteFrom(Tables.VERSIONS).where(Tables.VERSIONS.ID.eq(existing.get(0)))
+			}
+		}
+	}
+	
+	fun getVersion(issueId: Long, version: String, branchId: Long) : List<Long> {
+		val v = dsl.select(Tables.VERSION_ISSUE.ID, Tables.VERSIONS.ID)
+				.from(Tables.VERSIONS
+						.join(Tables.VERSION_ISSUE)
+						.on(Tables.VERSION_ISSUE.VERSIONS_ID.eq(Tables.VERSIONS.ID)))
+			    .where(Tables.VERSION_ISSUE.ISSUE_ID.eq(issueId)
+						.and(Tables.VERSIONS.VERSION.eq(version))
+						.and(Tables.VERSIONS.BRANCH_ID.eq(branchId)))
+			    .fetchOne()
+				
+		if(v == null){
+			return listOf()
+		} else {
+		   return v.map {
+				  n -> listOf(n.get(Tables.VERSIONS.ID), n.get(Tables.VERSION_ISSUE.ID))
+			   }
+		}
+	}
+	
+	fun getBranch(branch: String, projectId: Long) : Long {
+		val b = dsl.select(Tables.BRANCH.ID)
+				.from(Tables.BRANCH)
+			    .where(Tables.BRANCH.PROJECT_ID.eq(projectId).and(Tables.BRANCH.TITLE.eq(branch)))
+			    .fetchOne()
+		if(b == null){
+			return -1L
+		} else {
+			return b.map {
+				n -> n.get(Tables.BRANCH.ID)
+			}
+		}
+	}
+	
+	fun createBranch(branch: String, projectId: Long) : Long {
+		return dsl.insertInto(Tables.BRANCH, Tables.BRANCH.PROJECT_ID, Tables.BRANCH.TITLE)
+		   .values(projectId, branch)
+		   .returning(Tables.BRANCH.ID).fetchOne().get(Tables.BRANCH.ID);
 	}
 }
