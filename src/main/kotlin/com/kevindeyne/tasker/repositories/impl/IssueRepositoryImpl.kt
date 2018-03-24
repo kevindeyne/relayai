@@ -534,8 +534,8 @@ open class IssueRepositoryImpl (val dsl: DSLContext) : IssueRepository {
 	override fun removeVersion(issueId: Long, projectId: Long, version: String, branch: String) {
 		var existing = getVersion(issueId, version, getBranch(branch, projectId))
 		if(null !== existing.getOrNull(0)){
-			dsl.delete(Tables.VERSION_ISSUE).where(Tables.VERSION_ISSUE.ID.eq(existing.get(1))).execute()
-						
+			val d = dsl.delete(Tables.VERSION_ISSUE).where(Tables.VERSION_ISSUE.ID.eq(existing.get(1))).execute()
+			
 			//any other links to version?
 			val count = dsl.selectCount()
 			   .from(Tables.VERSION_ISSUE)

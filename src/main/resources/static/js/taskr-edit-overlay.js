@@ -12,8 +12,8 @@ $(document).ready(function() {
 				$(relativeTo).remove();
 				
 				var issueId = $("aside section.active").attr("issue-id");
-				var version = $(".version-text").val();
 				var branch = $(".branch-text").text();
+				var version = $("#overlay-detail .changing:first").text().replace(" [" + branch + "]", "");
 				$.ajax({ url: "/issue/"+issueId+"/version/"+branch+"/"+version, type: "DELETE" });
 			}
 			
