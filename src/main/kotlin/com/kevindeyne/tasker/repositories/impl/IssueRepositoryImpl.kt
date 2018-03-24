@@ -338,9 +338,30 @@ open class IssueRepositoryImpl (val dsl: DSLContext) : IssueRepository {
 							 projectRepo.findProject(SecurityHolder.getProjectId()).fullTitle(),
 							 commentsForIssue,
 							 n.get(Tables.ISSUE.IMPORTANCE),
-							 getAssignedName(n.get(Tables.ISSUE.ASSIGNED))
+							 getAssignedName(n.get(Tables.ISSUE.ASSIGNED)),
+							 getVersions(n.get(Tables.ISSUE.ID))
 			)
 		}
+	}
+	
+	fun getVersions(issueId : Long) : List<String>{
+		val v = dsl.select(Tables.VERSIONS.VERSION, Tables.BRANCH.TITLE)
+				.from(Tables.VERSION_ISSUE
+					.join(Tables.VERSIONS)
+					.on(Tables.VERSIONS.ID.eq(Tables.VERSION_ISSUE.VERSIONS_ID))
+					.join(Tables.BRANCH)
+					.on(Tables.BRANCH.ID.eq(Tables.VERSIONS.BRANCH_ID)))
+			   .where(Tables.VERSION_ISSUE.ISSUE_ID.eq(issueId))
+			   .fetch()
+			   .parallelStream()
+			   .map { v -> "${v.get(Tables.VERSIONS.VERSION)} [${v.get(Tables.BRANCH.TITLE)}]" }
+			   .collect(Collectors.toList())
+		
+		if(v.isEmpty()){
+			return listOf("No version attributed")
+		}
+		
+		return v
 	}
 	
 	fun getAssignedName(assigned : Long) : String {
@@ -510,7 +531,7 @@ open class IssueRepositoryImpl (val dsl: DSLContext) : IssueRepository {
 		var existing = getVersion(issueId, version, getBranch(branch, projectId))
 		if(null !== existing.getOrNull(0)){
 			dsl.deleteFrom(Tables.VERSION_ISSUE).where(Tables.VERSION_ISSUE.ID.eq(existing.get(1)))
-			
+						
 			//any other links to version?
 			val count = dsl.selectCount()
 			   .from(Tables.VERSION_ISSUE)
