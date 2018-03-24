@@ -176,7 +176,13 @@ function loadingContent(issue){
 	$("#issue-creator").text(issueLoaded.creator);
 	$("#issue-create-date").text(issueLoaded.createDate);
 	$("#change-assignee").text(issueLoaded.assigned);
-	
+
+	$("div.milestone-details-col p:first").html("");
+	issueLoaded.versions.forEach(function(item, index) {
+	    $("div.milestone-details-col p:first").append("<span data-status=\"Current fix version\" class=\"changeable\" id=\"change-version-"+index+"\">" + item + "</span>");
+	    $("div.milestone-details-col p:first span.changeable:last").click(changeableFunction);
+	});
+
 	determineUndecided();
 	colorCodeChangeables();
 	

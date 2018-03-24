@@ -3,43 +3,7 @@ var autocomplete_assignee;
 
 $(document).ready(function() {
 	
-	$("span.changeable").click(function(){
-		$("#remove-changer-submit").hide();
-		var relativeTo = $(this).attr("id");
-		
-		if(getActiveClass() === "undetermined-issue" && relativeTo !== "change-workload"){ return; }
-		
-		$("#overlay-detail").attr("relative-to", relativeTo);
-		
-		$("#overlay-detail p:first span:first").text($(this).attr("data-status"));
-		$("#overlay-detail p:first span.changing").text($(this).text());
-		
-		$("#overlay-detail .overlay-options, #overlay-detail #overlay-version, #overlay-detail #overlay-assignee").hide();
-		
-		if(relativeTo.indexOf("version") !== -1){
-			setupAutocompleteVersion();
-			$("#overlay-version a").off().click(function() { $("#overlay-version input.version-text").val($(this).text()); });
-			$("#overlay-version, #remove-changer-submit").show();
-			var relativeTo = "#"+$("#overlay-detail").attr("relative-to");
-			$(relativeTo).show();
-		} else if(relativeTo.indexOf("assignee") !== -1){
-			$("#overlay-assignee").show();
-		} else {
-			if(typeof(relativeTo) !== "undefined") {$(relativeTo.replace("change-", "#overlay-")).show();}
-				
-			$("#overlay-detail ul li").removeClass("active");
-			$("#overlay-detail ul li:contains('"+$(this).text()+"')").addClass("active");
-		}
-		
-		var position = $(this).position();
-		var left = $("nav").width() + $("aside").width() + position.left;
-		var top = position.top;
-		if(isNaN(left)) { left = $("nav").width() + position.left }
-		if("change-workload" === relativeTo) { top += $(this).parent().parent().position().top; }
-		
-		$("#overlay").show().css({opacity: "0"}).animate({opacity: "1"}, "fast");
-		$("#overlay-detail").show().css({ "left": left, "top": top }).css({opacity: "0"}).animate({opacity: "1"}, "fast");				
-	});
+	$("span.changeable").click(changeableFunction);
 	
 	$("#overlay-detail button.altpath").click(function(){
 		if($(this).attr("id") === "remove-changer-submit"){			
@@ -80,6 +44,44 @@ $(document).ready(function() {
 	});
 });
 
+function changeableFunction() {
+    $("#remove-changer-submit").hide();
+    var relativeTo = $(this).attr("id");
+
+    if(getActiveClass() === "undetermined-issue" && relativeTo !== "change-workload"){ return; }
+
+    $("#overlay-detail").attr("relative-to", relativeTo);
+
+    $("#overlay-detail p:first span:first").text($(this).attr("data-status"));
+    $("#overlay-detail p:first span.changing").text($(this).text());
+
+    $("#overlay-detail .overlay-options, #overlay-detail #overlay-version, #overlay-detail #overlay-assignee").hide();
+
+    if(relativeTo.indexOf("version") !== -1){
+        setupAutocompleteVersion();
+        $("#overlay-version a").off().click(function() { $("#overlay-version input.version-text").val($(this).text()); });
+        $("#overlay-version, #remove-changer-submit").show();
+        var relativeTo = "#"+$("#overlay-detail").attr("relative-to");
+        $(relativeTo).show();
+    } else if(relativeTo.indexOf("assignee") !== -1){
+        $("#overlay-assignee").show();
+    } else {
+        if(typeof(relativeTo) !== "undefined") {$(relativeTo.replace("change-", "#overlay-")).show();}
+
+        $("#overlay-detail ul li").removeClass("active");
+        $("#overlay-detail ul li:contains('"+$(this).text()+"')").addClass("active");
+    }
+
+    var position = $(this).position();
+    var left = $("nav").width() + $("aside").width() + position.left;
+    var top = position.top;
+    if(isNaN(left)) { left = $("nav").width() + position.left }
+    if("change-workload" === relativeTo) { top += $(this).parent().parent().position().top; }
+
+    $("#overlay").show().css({opacity: "0"}).animate({opacity: "1"}, "fast");
+    $("#overlay-detail").show().css({ "left": left, "top": top }).css({opacity: "0"}).animate({opacity: "1"}, "fast");
+}
+
 function setupAutocompleteVersion(){
 	if(autocomplete_version === undefined || autocomplete_version === null){
 		autocomplete_version = new autoComplete({
@@ -113,7 +115,10 @@ function changeSubmitFunctionality(){
 		}		
 	} else {	
 		var relativeTo = $("#overlay-detail").attr("relative-to").replace("change-", "");
-		relativeTo = relativeTo.substring(0, relativeTo.indexOf("-"));
+
+		if(relativeTo.indexOf("-") !== -1) {
+		    relativeTo = relativeTo.substring(0, relativeTo.indexOf("-"));
+		}
 		
 		if("version" === relativeTo){
 			var version = $(".version-text").val();
@@ -125,7 +130,7 @@ function changeSubmitFunctionality(){
 	}
 		
 	afterChange(action);
-};
+}
 
 function afterChange(action){
 	colorCodeChangeables();

@@ -356,9 +356,11 @@ open class IssueRepositoryImpl (val dsl: DSLContext) : IssueRepository {
 			   .parallelStream()
 			   .map { v -> "${v.get(Tables.VERSIONS.VERSION)} [${v.get(Tables.BRANCH.TITLE)}]" }
 			   .collect(Collectors.toList())
-		
+
 		if(v.isEmpty()){
 			return listOf("No version attributed")
+		} else {
+			v.add("[+]")
 		}
 		
 		return v
@@ -509,6 +511,7 @@ open class IssueRepositoryImpl (val dsl: DSLContext) : IssueRepository {
 			   .collect(Collectors.toList())
 	}
 	
+	@Transactional
 	override fun addVersion(issueId: Long, projectId: Long, version: String, branch: String) {
 		var branchId = getBranch(branch, projectId)
 		if(-1L == branchId){
@@ -527,20 +530,21 @@ open class IssueRepositoryImpl (val dsl: DSLContext) : IssueRepository {
 		}
 	}
 	
+	@Transactional
 	override fun removeVersion(issueId: Long, projectId: Long, version: String, branch: String) {
 		var existing = getVersion(issueId, version, getBranch(branch, projectId))
 		if(null !== existing.getOrNull(0)){
-			dsl.deleteFrom(Tables.VERSION_ISSUE).where(Tables.VERSION_ISSUE.ID.eq(existing.get(1)))
+			dsl.delete(Tables.VERSION_ISSUE).where(Tables.VERSION_ISSUE.ID.eq(existing.get(1))).execute()
 						
 			//any other links to version?
 			val count = dsl.selectCount()
 			   .from(Tables.VERSION_ISSUE)
-			   .where(Tables.VERSIONS.ID.eq(existing.get(0)))
+			   .where(Tables.VERSION_ISSUE.VERSIONS_ID.eq(existing.get(0)))
 			   .fetchOne(0, Integer::class.java) as? Int
 			
 			if(count == null || count == 0){
 				//no? then delete version too
-				dsl.deleteFrom(Tables.VERSIONS).where(Tables.VERSIONS.ID.eq(existing.get(0)))
+				dsl.delete(Tables.VERSIONS).where(Tables.VERSIONS.ID.eq(existing.get(0))).execute()
 			}
 		}
 	}
