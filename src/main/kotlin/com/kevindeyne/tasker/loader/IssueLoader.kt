@@ -35,9 +35,8 @@ open class IssueLoader(
 	val maxUserIssuesInSprint : Int = 40
 	val daysPerSprint : Int = 14
 	val totalAmountOfSprints : Int = 10
-	val currentUserRole = Role.DEVELOPER
 	
-	val maxInProgress = 4
+	val maxInProgress = 2
 	var inProgressIssues = 0
 	
 	override fun getOrder() : Int {
@@ -135,12 +134,15 @@ open class IssueLoader(
 	
 	
 	fun generateUsers(faker : Faker) : Long {
-		val userId = insertIntoUser(faker.name().fullName(), "admin", passwordEncoder.encode("admin"))
-		
+		val userId = insertIntoUser(faker.name().fullName(), "dev3545648941", passwordEncoder.encode("dev3545648941"), Role.DEVELOPER)
+		val teamleaderId = insertIntoUser(faker.name().fullName(), "tld123347", passwordEncoder.encode("tld123347"), Role.TEAM_LEADER)
+		val shareholderId = insertIntoUser(faker.name().fullName(), "shl4654+95+56", passwordEncoder.encode("shl4654+95+56"), Role.SHAREHOLDER)
+		val newProjectId = insertIntoUser(faker.name().fullName(), "new13245645+6", passwordEncoder.encode("new13245645+6"), Role.TEAM_LEADER)
+
 		for(i in 0..500){
 			val email = faker.internet().emailAddress()
-			if(!"admin".equals(email)){
-				insertIntoUser(faker.name().fullName(), email,  faker.internet().password())	
+			if(!"dev3545648941".equals(email) || !"tld123347".equals(email) || !"shl4654+95+56".equals(email) || !"new13245645+6".equals(email)){
+				insertIntoUser(faker.name().fullName(), email,  faker.internet().password(), Role.DEVELOPER)
 			}			
 		}
 		return userId;
@@ -148,7 +150,7 @@ open class IssueLoader(
 	
 	
 	fun generateProjects(faker : Faker) : Long {
-		var projectId = -1L;
+		var projectId = -1L
 		for(i in 0..500){
 			projectId = dsl.insertInto(Tables.PROJECT, Tables.PROJECT.TITLE, Tables.PROJECT.KEY)
 			   .values("${faker.space().nasaSpaceCraft()} ${faker.space().nebula()}", faker.space().agencyAbbreviation())
@@ -190,7 +192,7 @@ open class IssueLoader(
 		   .values(userId, issueId, text, Timestamp(System.currentTimeMillis()))
 		   .returning(Tables.COMMENTS.ID).fetchOne().get(Tables.COMMENTS.ID)
 	
-	fun insertIntoUser(fullName : String, username : String, password : String) : Long {
+	fun insertIntoUser(fullName : String, username : String, password : String, role : Role) : Long {
 		val userId = dsl.insertInto(Tables.USER,
 			 Tables.USER.EMAIL, Tables.USER.PASSWORD, Tables.USER.USERNAME, Tables.USER.CREATE_DATE, Tables.USER.CREATE_USER, Tables.USER.UPDATE_DATE, Tables.USER.UPDATE_USER)
 		   .values(username, password, fullName, getRandomTimestamp(), randomUser(), getRandomTimestamp(), randomUser())
@@ -198,7 +200,7 @@ open class IssueLoader(
 		
 		dsl.insertInto(Tables.USER_ROLE,
 			 Tables.USER_ROLE.USER_ID, Tables.USER_ROLE.ROLE)
-		   .values(userId, currentUserRole.name)
+		   .values(userId, role.name)
 		   .execute()
 		
 		return userId
