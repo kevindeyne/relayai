@@ -6,6 +6,7 @@ import com.kevindeyne.tasker.domain.Impact
 import com.kevindeyne.tasker.domain.InProgressIssue
 import com.kevindeyne.tasker.domain.IssueListing
 import com.kevindeyne.tasker.domain.Progress
+import com.kevindeyne.tasker.domain.TimesheetDayListing
 import com.kevindeyne.tasker.domain.Urgency
 import com.kevindeyne.tasker.domain.Workload
 import java.sql.Timestamp
@@ -65,4 +66,6 @@ interface IssueRepository {
 	fun addVersion(issueId: Long, projectId: Long, version: String, branch: String)
 	
 	fun removeVersion(issueId: Long, projectId: Long, version: String, branch: String)
+	
+	fun getIssuesToday() : List<TimesheetDayListing>
 }

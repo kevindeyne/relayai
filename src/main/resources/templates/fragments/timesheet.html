@@ -7,23 +7,32 @@
 			<h1>Timesheet</h1>
 			<h2>Gives an overview of worked hours in the month</h2>
 		</section>
+		
+		<section class="day-view">
+			<h1 th:text="${currentDay}">March 25</h1>
+			<table>
+				<tr class="day-view" th:each="issue : ${dayIssues}"><td><a th:text="${issue.text}" th:href="/tasks/${issue.id}"></a></td></tr>				
+				<tr th:if="${dayIssues.size() <= 0}"><td>None</td></tr>
+			</table>
+		</section>
 				
 		<section class="month-view">
-			<h1 th:text="${currentMonth}">December</h1>			
+			<h1 th:text="${currentMonth}">March</h1>			
 			<table>
 				<tr class="week-view" th:each="week : ${timesheets}">
 					<td th:each="timesheet : ${week.days}">
 						<section class="day-view" th:classappend="${timesheet.inactive}?inactive">
 							<h1 th:text="${timesheet.day}" th:classappend="${timesheet.today}?today"></h1>
 							<h2 class="day-info"><span th:text="${timesheet.dayName}">Monday</span> <span class="total-time" th:if="${timesheet.dayTotal != '0h'}" th:text="${timesheet.dayTotal}">4.5h</span></h2>
-
-							<h4 th:each="listing : ${timesheet.listings}"><a th:href="${'/tasks/' + listing.issueId}" th:text="${listing.issueName}">The Last Temptation</a></h4>							
-							<h4 th:if="${#lists.isEmpty(timesheet.listings) && !timesheet.inactive}"><span class="none">None</span></h4>				
-						</section>												
+							
+							<h4 th:if="${timesheet.listings.size() > 0}"><a th:text="${timesheet.issueTotal}" >3 issue(s)</a></h4>
+							<h4 th:if="${timesheet.listings.size() <= 0}">None</h4>
+						</section>
 					</td>					
 				</tr>			
 			</table>
-		</section>	
+		</section>
+				
 	</article>
 </body>
 </html>

@@ -54,6 +54,7 @@ enum class TimesheetParser() {
 						tU.isToday(date),
 						!date.getMonthValue().equals(LocalDate.now().getMonthValue()),
 						DecimalFormat("##.##").format(totalInHours) + "h",
+						"${slots.values.size} issue(s)",
 						dayListing))
 			
 			if(days.size == 7){
@@ -79,24 +80,12 @@ enum class TimesheetParser() {
 		
 	fun determineStartDate(date : Date = Date()) : LocalDate {
 		val localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate()
-		
-		if(DayOfWeek.SUNDAY.equals(localDate.getDayOfWeek())){
-			return localDate
-		} else {
-			val firstSunday = localDate.withDayOfMonth(1).with( TemporalAdjusters.previous( DayOfWeek.SUNDAY ) )
-			return firstSunday
-		}
+		return localDate.withDayOfMonth(1).with( TemporalAdjusters.previous( DayOfWeek.SUNDAY ) )
 	}
 	
 	fun determineEndDate(date : Date = Date()) : LocalDate {
 		val localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-		
-		if(DayOfWeek.SATURDAY.equals(localDate.getDayOfWeek())){
-			return localDate			
-		} else {
-			val lastSaturday = localDate.withDayOfMonth(localDate.lengthOfMonth()).with( TemporalAdjusters.next( DayOfWeek.SATURDAY ) )
-			return lastSaturday
-		}
+		return localDate.withDayOfMonth(localDate.lengthOfMonth()).with( TemporalAdjusters.next( DayOfWeek.SATURDAY ) )
 	}
 		
 	fun convertEntriesToListings(entries : List<TimesheetEntry>) : List<TimesheetListing> {

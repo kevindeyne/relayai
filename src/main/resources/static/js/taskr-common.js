@@ -86,6 +86,16 @@ function showScreen(screenId){
 }
 
 function reorderIssueInAside(){
+	var array = $("#"+$(".t-active").attr("id")+"-list section");	
+	var pivot = medianOfThree(array);
+		
+	var sortedArray = array.slice();
+	sortedArray = sortedArray.push(sortedArray.splice(pivot, 1)[0]);
+	
+	
+	
+	
+	////
 	var amountOfMoves = 0;
 	
 	if($(".t-active").length > 0){
@@ -105,4 +115,18 @@ function reorderIssueInAside(){
 	if(amountOfMoves !== 0){
 		reorderIssueInAside();
 	}
+}
+
+function medianOfThree(array){
+	var first = parseInt($(array[0]).attr("importance"));
+	var last = parseInt($(array[array.length-1]).attr("importance"));
+	var mid = parseInt($(array[array.length/2]).attr("importance"));
+	
+	if(mid >= first && mid <= last){
+		return array.length/2;
+	} else if (first >= mid && first <= last) {
+		return 0;
+	} else {
+		return array.length-1;
+	}	
 }

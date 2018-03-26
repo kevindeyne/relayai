@@ -32,38 +32,7 @@ class TimesheetTests {
 		
 		Assert.assertTrue(days.get(0).days.size == 7)
 	}
-	
-		
-	@Test
-	fun testFirstSunday() {
-		val d26nov2017 = time.getDate(2017, 11, 26)
-		val d20dec2017 = time.getDate(2017, 12, 20)
-		
-		Assert.assertEquals(format.format(d26nov2017), format.format(time.localDateToDate(parser.determineStartDate(d20dec2017))))
-	}
-				
-	@Test
-	fun testFirstSundayOnSunday() {
-		val d1octOnSun = time.getDate(2017, 10, 1)
-		
-		Assert.assertEquals(format.format(d1octOnSun), format.format(time.localDateToDate(parser.determineStartDate(d1octOnSun))))
-	}
-	
-	@Test
-	fun testLastSaturday() {		
-		val d6jan2018 = time.getDate(2018, 1, 6)
-		val d20dec2017 = time.getDate(2017, 12, 20)
-		
-		Assert.assertEquals(format.format(d6jan2018), format.format(time.localDateToDate(parser.determineEndDate(d20dec2017))))
-	}
-	
-	@Test
-	fun testLastSaturdayOnSaturday() {
-		val d30sept2017OnSat = time.getDate(2017, 9, 30)
-		
-		Assert.assertEquals(format.format(d30sept2017OnSat), format.format(time.localDateToDate(parser.determineEndDate(d30sept2017OnSat))))
-	}
-	
+
 	@Test
 	fun testAreDatesOnSameDay() {
 		val today = toDate(LocalDateTime.now())

@@ -6,6 +6,7 @@ import com.kevindeyne.tasker.domain.Impact
 import com.kevindeyne.tasker.domain.InProgressIssue
 import com.kevindeyne.tasker.domain.IssueListing
 import com.kevindeyne.tasker.domain.Progress
+import com.kevindeyne.tasker.domain.TimesheetDayListing
 import com.kevindeyne.tasker.domain.Urgency
 import com.kevindeyne.tasker.domain.Workload
 import com.kevindeyne.tasker.jooq.Tables
@@ -13,14 +14,15 @@ import com.kevindeyne.tasker.jooq.tables.records.IssueRecord
 import com.kevindeyne.tasker.service.SecurityHolder
 import org.jooq.DSLContext
 import org.jooq.Record
-import org.jooq.impl.DSL
 import org.jooq.tools.StringUtils
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 import org.springframework.transaction.annotation.Transactional
+import java.sql.Date
 import java.sql.Timestamp
 import java.text.SimpleDateFormat
 import java.util.stream.Collectors
+import org.jooq.impl.DSL
 
 @Component
 open class IssueRepositoryImpl (val dsl: DSLContext) : IssueRepository {
@@ -586,5 +588,20 @@ open class IssueRepositoryImpl (val dsl: DSLContext) : IssueRepository {
 		return dsl.insertInto(Tables.BRANCH, Tables.BRANCH.PROJECT_ID, Tables.BRANCH.TITLE)
 		   .values(projectId, branch)
 		   .returning(Tables.BRANCH.ID).fetchOne().get(Tables.BRANCH.ID);
+	}
+	
+	override fun getIssuesToday() : List<TimesheetDayListing> {
+		val c = DSL.currentTimestamp()
+		val b = dsl.select(Tables.ISSUE.ID, Tables.ISSUE.TITLE)
+				.from(Tables.TIMESHEET.join(Tables.ISSUE).on(Tables.ISSUE.ID.eq(Tables.TIMESHEET.ISSUE_ID)))
+			    .where(Tables.TIMESHEET.START_DATE.lessOrEqual(c))
+				.and(Tables.TIMESHEET.END_DATE.greaterOrEqual(c))
+			    .fetch()
+			    .parallelStream()
+			    .map {
+				  n -> TimesheetDayListing(n.get(Tables.ISSUE.TITLE), n.get(Tables.ISSUE.ID))
+			    }
+			    .collect(Collectors.toList())
+		return b
 	}
 }

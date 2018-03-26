@@ -8,5 +8,6 @@ data class TimesheetDay constructor(
 		var today : Boolean,
 		var inactive : Boolean,
 		var dayTotal : String,
+		var issueTotal : String,
 		var listings: List<TimesheetListing>
 )  { }
