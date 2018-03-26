@@ -38,6 +38,11 @@ open class IssueLoader(
 	
 	val maxInProgress = 2
 	var inProgressIssues = 0
+
+	var userId : Long = -1L
+	var teamleaderId : Long = -1L
+	var shareholderId : Long = -1L
+	var newProjectId : Long = -1L
 	
 	override fun getOrder() : Int {
 		return 1
@@ -64,7 +69,12 @@ open class IssueLoader(
 			assert(projectId != projectId2)
 			
         	attachProjectAndUser(projectId, userId, true)
+			attachProjectAndUser(projectId, teamleaderId, true)
+			attachProjectAndUser(projectId, shareholderId, true)
+
 			attachProjectAndUser(projectId2, userId, false)
+			attachProjectAndUser(projectId2, teamleaderId, false)
+			attachProjectAndUser(projectId2, shareholderId, false)
         	
 			val sprintId = generateSprints(projectId)
 			val sprintId2 = generateSprints(projectId2)
@@ -134,10 +144,10 @@ open class IssueLoader(
 	
 	
 	fun generateUsers(faker : Faker) : Long {
-		val userId = insertIntoUser(faker.name().fullName(), "dev3545648941", passwordEncoder.encode("dev3545648941"), Role.DEVELOPER)
-		val teamleaderId = insertIntoUser(faker.name().fullName(), "tld123347", passwordEncoder.encode("tld123347"), Role.TEAM_LEADER)
-		val shareholderId = insertIntoUser(faker.name().fullName(), "shl4654+95+56", passwordEncoder.encode("shl4654+95+56"), Role.SHAREHOLDER)
-		val newProjectId = insertIntoUser(faker.name().fullName(), "new13245645+6", passwordEncoder.encode("new13245645+6"), Role.TEAM_LEADER)
+		userId = insertIntoUser(faker.name().fullName(), "dev3545648941", passwordEncoder.encode("dev3545648941"), Role.DEVELOPER)
+		teamleaderId = insertIntoUser(faker.name().fullName(), "tld123347", passwordEncoder.encode("tld123347"), Role.TEAM_LEADER)
+		shareholderId = insertIntoUser(faker.name().fullName(), "shl4654+95+56", passwordEncoder.encode("shl4654+95+56"), Role.SHAREHOLDER)
+		newProjectId = insertIntoUser(faker.name().fullName(), "new13245645+6", passwordEncoder.encode("new13245645+6"), Role.TEAM_LEADER)
 
 		for(i in 0..500){
 			val email = faker.internet().emailAddress()
