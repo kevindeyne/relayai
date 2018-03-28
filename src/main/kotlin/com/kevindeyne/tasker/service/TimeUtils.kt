@@ -5,11 +5,15 @@ import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.ZoneId
-import java.util.Date
+import java.util.*
 
 enum class TimeUtils() {
 	
 	INSTANCE;
+
+	fun localDateToTimestamp(localDate : LocalDate) : Timestamp {
+		return Timestamp.valueOf(localDate.atStartOfDay())
+	}
 	
 	fun localDateToDate(localDate : LocalDateTime) : Date {
 		return Date.from(localDate.atZone(ZoneId.systemDefault()).toInstant());

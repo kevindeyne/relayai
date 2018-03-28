@@ -11,7 +11,7 @@
 		<section class="day-view">
 			<h1 th:text="${currentDay}">March 25</h1>
 			<table>
-				<tr class="day-view" th:each="issue : ${dayIssues}"><td><a th:text="${issue.text}" th:href="/tasks/${issue.id}"></a></td></tr>				
+				<tr class="day-view" th:each="issue : ${dayIssues}"><td><a th:text="${issue.name}" th:href="'/tasks/' + ${issue.issueId}"></a></td></tr>
 				<tr th:if="${dayIssues.size() <= 0}"><td>None</td></tr>
 			</table>
 		</section>

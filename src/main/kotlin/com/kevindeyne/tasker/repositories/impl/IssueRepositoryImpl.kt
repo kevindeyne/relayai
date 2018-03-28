@@ -2,13 +2,7 @@ package com.kevindeyne.tasker.repositories
 
 import com.kevindeyne.tasker.controller.form.IssueResponse
 import com.kevindeyne.tasker.controller.form.StandupResponse
-import com.kevindeyne.tasker.domain.Impact
-import com.kevindeyne.tasker.domain.InProgressIssue
-import com.kevindeyne.tasker.domain.IssueListing
-import com.kevindeyne.tasker.domain.Progress
-import com.kevindeyne.tasker.domain.TimesheetDayListing
-import com.kevindeyne.tasker.domain.Urgency
-import com.kevindeyne.tasker.domain.Workload
+import com.kevindeyne.tasker.domain.*
 import com.kevindeyne.tasker.jooq.Tables
 import com.kevindeyne.tasker.jooq.tables.records.IssueRecord
 import com.kevindeyne.tasker.service.SecurityHolder
@@ -18,11 +12,10 @@ import org.jooq.tools.StringUtils
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 import org.springframework.transaction.annotation.Transactional
-import java.sql.Date
 import java.sql.Timestamp
 import java.text.SimpleDateFormat
+import java.time.LocalDate
 import java.util.stream.Collectors
-import org.jooq.impl.DSL
 
 @Component
 open class IssueRepositoryImpl (val dsl: DSLContext) : IssueRepository {
@@ -587,21 +580,32 @@ open class IssueRepositoryImpl (val dsl: DSLContext) : IssueRepository {
 	fun createBranch(branch: String, projectId: Long) : Long {
 		return dsl.insertInto(Tables.BRANCH, Tables.BRANCH.PROJECT_ID, Tables.BRANCH.TITLE)
 		   .values(projectId, branch)
-		   .returning(Tables.BRANCH.ID).fetchOne().get(Tables.BRANCH.ID);
+		   .returning(Tables.BRANCH.ID).fetchOne().get(Tables.BRANCH.ID)
 	}
-	
-	override fun getIssuesToday() : List<TimesheetDayListing> {
-		val c = DSL.currentTimestamp()
+
+	override fun getIssueList(userId: Long, d: LocalDate) : List<TimesheetDayListing> {
+
+		val startOfDay = Timestamp.valueOf(d.atStartOfDay())
+		val endOfDay = Timestamp.valueOf(d.atTime(23,59,59, 59))
+
+		println("start: $startOfDay")
+		println("end: $endOfDay")
+
 		val b = dsl.select(Tables.ISSUE.ID, Tables.ISSUE.TITLE)
 				.from(Tables.TIMESHEET.join(Tables.ISSUE).on(Tables.ISSUE.ID.eq(Tables.TIMESHEET.ISSUE_ID)))
-			    .where(Tables.TIMESHEET.START_DATE.lessOrEqual(c))
-				.and(Tables.TIMESHEET.END_DATE.greaterOrEqual(c))
+			    .where(Tables.TIMESHEET.USER_ID.eq(userId))
+				.and(Tables.TIMESHEET.START_DATE.greaterOrEqual(startOfDay))
+				.and(Tables.TIMESHEET.END_DATE.isNull.or(Tables.TIMESHEET.END_DATE.lessOrEqual(endOfDay)))
+				.orderBy(Tables.TIMESHEET.START_DATE.asc())
 			    .fetch()
 			    .parallelStream()
 			    .map {
 				  n -> TimesheetDayListing(n.get(Tables.ISSUE.TITLE), n.get(Tables.ISSUE.ID))
 			    }
 			    .collect(Collectors.toList())
+
+		println("result: ${b.size}")
+
 		return b
 	}
 }

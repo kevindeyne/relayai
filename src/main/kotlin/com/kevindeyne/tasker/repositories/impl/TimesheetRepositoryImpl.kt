@@ -7,8 +7,7 @@ import org.jooq.DSLContext
 import org.springframework.stereotype.Component
 import org.springframework.transaction.annotation.Transactional
 import java.sql.Timestamp
-import java.util.Date
-import java.util.Optional
+import java.util.*
 import java.util.stream.Collectors
 
 @Component
@@ -53,20 +52,25 @@ open class TimesheetRepositoryImpl (val dsl: DSLContext) : TimesheetRepository {
 	override fun getTimesheetForSprint(sprintId : Long?, userId : Long?) : List<TimesheetEntry> {
 		if(sprintId == null || userId == null){ return listOf() }
 		
-		val entryBasis = dsl.selectFrom(Tables.SPRINT)
-		   .where(Tables.SPRINT.ID.eq(sprintId))
-		   .fetchOne().map {
-			  n -> TimesheetEntry(
-				   n.get(Tables.SPRINT.START_DATE),
-				   n.get(Tables.SPRINT.END_DATE))
-		   }
-		return getTimesheet(entryBasis.startDate, entryBasis?.endDate ?: Date(), userId);
+		val entryBasis = getDatesFromSprint(sprintId)
+		return getTimesheet(entryBasis.startDate, entryBasis?.endDate ?: Date(), userId)
+	}
+
+	fun getDatesFromSprint(sprintId : Long) : TimesheetEntry {
+		return dsl.selectFrom(Tables.SPRINT)
+				.where(Tables.SPRINT.ID.eq(sprintId))
+				.fetchOne().map {
+			n -> TimesheetEntry(
+				n.get(Tables.SPRINT.START_DATE),
+				n.get(Tables.SPRINT.END_DATE)
+			)
+		}
 	}
 	
 	override fun getTimesheet(from : Date, until : Date, userId: Long) : List<TimesheetEntry> {
 		val timeFrom = Timestamp(from.getTime())
 		val timeUntil = Timestamp(until.getTime())
-		
+
 		return dsl.selectFrom(Tables.TIMESHEET.join(Tables.ISSUE).on(Tables.ISSUE.ID.eq(Tables.TIMESHEET.ISSUE_ID)))
 			   .where(Tables.TIMESHEET.USER_ID.eq(userId))
 			   .and(Tables.TIMESHEET.START_DATE.greaterThan(timeFrom))

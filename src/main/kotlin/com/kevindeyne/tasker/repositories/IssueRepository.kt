@@ -2,14 +2,9 @@ package com.kevindeyne.tasker.repositories
 
 import com.kevindeyne.tasker.controller.form.IssueResponse
 import com.kevindeyne.tasker.controller.form.StandupResponse
-import com.kevindeyne.tasker.domain.Impact
-import com.kevindeyne.tasker.domain.InProgressIssue
-import com.kevindeyne.tasker.domain.IssueListing
-import com.kevindeyne.tasker.domain.Progress
-import com.kevindeyne.tasker.domain.TimesheetDayListing
-import com.kevindeyne.tasker.domain.Urgency
-import com.kevindeyne.tasker.domain.Workload
+import com.kevindeyne.tasker.domain.*
 import java.sql.Timestamp
+import java.time.LocalDate
 
 interface IssueRepository {
 
@@ -66,6 +61,6 @@ interface IssueRepository {
 	fun addVersion(issueId: Long, projectId: Long, version: String, branch: String)
 	
 	fun removeVersion(issueId: Long, projectId: Long, version: String, branch: String)
-	
-	fun getIssuesToday() : List<TimesheetDayListing>
+
+	fun getIssueList(userId: Long, detailDate: LocalDate) : List<TimesheetDayListing>
 }
