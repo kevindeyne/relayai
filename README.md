@@ -50,7 +50,8 @@ Take note: This project is an alpha-stage (feature incomplete) work in progress.
 * *  Setting average work day: which days, how long (on user), sprint length (on project) 
 * *  Reconfiguration sprint (based on importance) 
 * Arrive on the project with no active project, force the user to start new project 
-* Separate page for shareholders 
+* Separate page for shareholders
+* Sprint / project statistics
  
 ### Upcoming milestone plan 
 * Setup issues 
@@ -59,7 +60,7 @@ Take note: This project is an alpha-stage (feature incomplete) work in progress.
 * Project, invite people through unique, timed, link 
 * Activate user 
 * Login honeypot for bots 
-* Fix versions/progress in different branches 
+* HTTPS setup and security pass
 * Follow-up (auto-reminder after inaction) 
 * Standup meeting daily or weekly
 * Security rules via interceptors 
@@ -72,7 +73,11 @@ Take note: This project is an alpha-stage (feature incomplete) work in progress.
 * History tab
 * Option to redistribute work when working on development/on holiday 
 * Canned responses
-* Comments should contained user role
+* Comments should contain user role
+* Attachments to issues
+* Canned responses
+* Dynamic changelogs
+* Algorithm efficiency in aside re-ordering, timesheet creation
 
 ## Built With 
  
@@ -87,7 +92,7 @@ Take note: This project is an alpha-stage (feature incomplete) work in progress.
  
 ## Contributing 
  
-Until version 1.0.0, there are no concrete plans to open up development to non-core team members. If you feel contributions are necessary, feel free to contact Kevin Deyne. Once version 1.0.0 is ready for production release, the project will be available open-source and development will be opened up in the interest of feature requests. 
+Until feature completion, there are no concrete plans to open up development to non-core team members. If you feel contributions are necessary, feel free to contact Kevin Deyne. Once feature complete and ready for beta release, the project will be available open-source and development will be opened up in the interest of feature requests, integrations and bugfixes.
  
 ## Authors 
  
