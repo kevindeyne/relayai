@@ -9,10 +9,23 @@ $(document).ready(function() {
         var detail = dayview.attr("date");
 
         $("#timesheet-loading").show();
+        $("#day-details table tbody").html("");
 
         $.getJSON("/timesheet/dayIssues/" + detail, function( data ) {
             $("#timesheet-loading").hide();
             $("#day-details h1").text(currentDay);
+            data.forEach(function(d) {
+                var $tr = $("<tr></tr>");
+                $tr.addClass("day-view");
+
+                var $td = $("<td><a></a></td>");
+                var $a = $td.find("a");
+                $a.text(d.name);
+                $a.attr("href", "/tasks/" + d.issueId);
+                $tr.html($td);
+
+                $("#day-details table tbody").append($tr);
+            });
         });
     });
 });
