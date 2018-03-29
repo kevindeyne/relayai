@@ -14,9 +14,9 @@ enum class TimesheetParser() {
 	
 	INSTANCE;
 
-	fun getTimesheetDays(entries : List<TimesheetEntry>, startPeriod : LocalDate, endPeriod : LocalDate) : List<TimesheetWeek> {
-		val tU = TimeUtils.INSTANCE
+	val tU = TimeUtils.INSTANCE
 
+	fun getTimesheetDays(entries : List<TimesheetEntry>, startPeriod : LocalDate, endPeriod : LocalDate) : List<TimesheetWeek> {
 		val r : MutableList<TimesheetWeek> = mutableListOf()
 		var days : MutableList<TimesheetDay> = mutableListOf()
 
@@ -34,7 +34,9 @@ enum class TimesheetParser() {
 					inactive,
 					0)
 
-			full[tU.toString(tU.localDateToDate(date))] = t
+			val key = tU.toString(tU.localDateToDate(date))
+			full[key] = t
+
 			days.add(t)
 
 			if(days.size == 7){
@@ -44,16 +46,21 @@ enum class TimesheetParser() {
 		}
 
 		for (entry in entries) {
-			val d = full[tU.toString(entry.startDate)]
+			val k = tU.toString(entry.startDate)
+			val d = full[k]
 
 			if (d != null){
-				d.total++
-
 				//TODO check if on the same day or spanning
 				val min = TimeUtils.INSTANCE.countMinutesBetween(entry.startDate, entry.endDate)
-
 				d.hours+=min/60
+				d.total++
+
+				full[k] = d
 			}
+		}
+
+		if(r.size == 0 && days.size > 0) {
+			r.add(TimesheetWeek(days))
 		}
 
 		return r
