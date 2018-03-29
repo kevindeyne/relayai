@@ -3,10 +3,11 @@ package com.kevindeyne.tasker.domain
 data class TimesheetDay constructor(
 		var day : String,
 		var dayName : String,
-		var today : Boolean,
-		var inactive : Boolean,
+		val today : Boolean,
+		val inactive : Boolean,
 		var total : Int = 0,
-		var hours : Double = 0.0
+		var hours : Double = 0.0,
+		val date : String
 ) {
 	fun getIssueTotal() : String{
 		if (total == 0) {

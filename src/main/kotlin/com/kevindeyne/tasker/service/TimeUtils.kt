@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.ZoneId
+import java.time.format.DateTimeFormatter
 import java.util.*
 
 enum class TimeUtils {
@@ -53,8 +54,12 @@ enum class TimeUtils {
 	}
 	
 	fun toString(date : Date) : String  = SimpleDateFormat("yyyy-MM-dd").format(date)
-	
+
+	fun toString(date : LocalDate) : String  = date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
+
 	fun toTimeString(date : Date) : String  = SimpleDateFormat("dd MMMMM yyyy, H:m").format(date)
+
+	fun parseLocalDate(date : String) : LocalDate = LocalDate.parse(date, DateTimeFormatter.ISO_DATE)
 
 	fun localDateToTimestamp(localDate : LocalDate) : Timestamp {
 		return Timestamp.valueOf(localDate.atStartOfDay())

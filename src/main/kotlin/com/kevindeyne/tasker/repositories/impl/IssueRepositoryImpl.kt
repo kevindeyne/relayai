@@ -584,12 +584,8 @@ open class IssueRepositoryImpl (val dsl: DSLContext) : IssueRepository {
 	}
 
 	override fun getIssueList(userId: Long, d: LocalDate) : List<TimesheetDayListing> {
-
 		val startOfDay = Timestamp.valueOf(d.atStartOfDay())
 		val endOfDay = Timestamp.valueOf(d.atTime(23,59,59, 59))
-
-		println("start: $startOfDay")
-		println("end: $endOfDay")
 
 		val b = dsl.select(Tables.ISSUE.ID, Tables.ISSUE.TITLE)
 				.from(Tables.TIMESHEET.join(Tables.ISSUE).on(Tables.ISSUE.ID.eq(Tables.TIMESHEET.ISSUE_ID)))
@@ -603,8 +599,6 @@ open class IssueRepositoryImpl (val dsl: DSLContext) : IssueRepository {
 				  n -> TimesheetDayListing(n.get(Tables.ISSUE.TITLE), n.get(Tables.ISSUE.ID))
 			    }
 			    .collect(Collectors.toList())
-
-		println("result: ${b.size}")
 
 		return b
 	}

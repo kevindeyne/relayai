@@ -64,11 +64,22 @@ section.month-view {
 					color: #0d0e13;
 					text-decoration: none;
 					font-weight: 100;
+					cursor: pointer;
+				}
+				
+				a.none {
+					opacity:0.5;
 				}
 				
 				a:hover {
 					color: #2070f7;
 					text-decoration: underline;
+				}
+				
+				a.none:hover {
+					color: #0d0e13;
+					text-decoration: none;
+					cursor: default;
 				}
 			}
 		}

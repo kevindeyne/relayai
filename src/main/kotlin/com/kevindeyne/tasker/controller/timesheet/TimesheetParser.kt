@@ -32,7 +32,9 @@ enum class TimesheetParser() {
 					date.dayOfWeek.getDisplayName(TextStyle.FULL, Locale.UK),
 					tU.isToday(date),
 					inactive,
-					0)
+					0,
+					0.0,
+					tU.toString(date))
 
 			val key = tU.toString(tU.localDateToDate(date))
 			full[key] = t
