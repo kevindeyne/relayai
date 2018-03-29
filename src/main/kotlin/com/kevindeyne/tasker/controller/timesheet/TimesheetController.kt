@@ -19,6 +19,9 @@ class TimesheetController(val timesheetRepository : TimesheetRepository, val iss
 	companion object {
 		const val TIME_GET = "/timesheet"
 	}
+
+	val tP = TimesheetParser.INSTANCE
+	val tU = TimeUtils.INSTANCE
 	
 	@GetMapping(TIME_GET)
 	fun getTimesheet(model : Model) : String {
@@ -29,16 +32,14 @@ class TimesheetController(val timesheetRepository : TimesheetRepository, val iss
 	}
 	
 	fun getTimesheetInfo(model : Model, detailDate : LocalDate, startDate : LocalDate?, endDate : LocalDate?){
-		val userId = SecurityHolder.getUserId()
+		val u = SecurityHolder.getUserId()
 
-		val startPeriod = startDate ?: TimesheetParser.INSTANCE.determineStartDate()
-		val endPeriod = endDate ?: TimesheetParser.INSTANCE.determineEndDate()
+		val startPeriod = startDate ?: tP.determineStartDate()
+		val endPeriod = endDate ?: tP.determineEndDate()
 
-		val timesheets = timesheetRepository.getTimesheet(TimeUtils.INSTANCE.localDateToDate(startPeriod), TimeUtils.INSTANCE.localDateToDate(endPeriod), userId)
-		model.addAttribute("timesheets", TimesheetParser.INSTANCE.getTimesheetDays(timesheets, startPeriod, endPeriod))
-
-		model.addAttribute("dayIssues", issueRepository.getIssueList(userId, detailDate))
-
+		val timesheets = timesheetRepository.getTimesheet(tU.localDateToDate(startPeriod), tU.localDateToDate(endPeriod), u)
+		model.addAttribute("timesheets", tP.getTimesheetDays(timesheets, startPeriod, endPeriod))
+		model.addAttribute("dayIssues", issueRepository.getIssueList(u, detailDate))
 		
 		val month = detailDate.month.getDisplayName(TextStyle.FULL, Locale.UK)
 		model.addAttribute("currentMonth", month)

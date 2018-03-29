@@ -5,7 +5,8 @@ data class TimesheetDay constructor(
 		var dayName : String,
 		var today : Boolean,
 		var inactive : Boolean,
-		var total : Int
+		var total : Int = 0,
+		var hours : Double = 0.0
 ) {
 	fun getIssueTotal() : String{
 		if (total == 0) {
@@ -15,5 +16,18 @@ data class TimesheetDay constructor(
 		} else {
 			return "$total issues"
 		}
+	}
+
+	fun getDayTotal() : String{
+		if (hours == 0.0 && total > 0) {
+			hours = 0.5
+		}
+
+		if(hours == 0.0) {
+			return "-"
+		} else {
+			return "${hours}h"
+		}
+
 	}
 }

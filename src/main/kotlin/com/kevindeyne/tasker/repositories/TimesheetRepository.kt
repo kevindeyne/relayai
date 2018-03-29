@@ -9,6 +9,5 @@ interface TimesheetRepository {
 	fun stopTrackingIssue(issueId: Long, userId: Long)
 	
 	fun getTimesheet(from: Date, until: Date, userId: Long) : List<TimesheetEntry>
-	
-	fun getTimesheetForSprint(sprintId: Long?, userId: Long?) : List<TimesheetEntry>
+
 }

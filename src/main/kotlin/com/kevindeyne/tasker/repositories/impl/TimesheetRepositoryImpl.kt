@@ -48,28 +48,10 @@ open class TimesheetRepositoryImpl (val dsl: DSLContext) : TimesheetRepository {
 		
 		return null	
 	}
-	
-	override fun getTimesheetForSprint(sprintId : Long?, userId : Long?) : List<TimesheetEntry> {
-		if(sprintId == null || userId == null){ return listOf() }
-		
-		val entryBasis = getDatesFromSprint(sprintId)
-		return getTimesheet(entryBasis.startDate, entryBasis?.endDate ?: Date(), userId)
-	}
 
-	fun getDatesFromSprint(sprintId : Long) : TimesheetEntry {
-		return dsl.selectFrom(Tables.SPRINT)
-				.where(Tables.SPRINT.ID.eq(sprintId))
-				.fetchOne().map {
-			n -> TimesheetEntry(
-				n.get(Tables.SPRINT.START_DATE),
-				n.get(Tables.SPRINT.END_DATE)
-			)
-		}
-	}
-	
 	override fun getTimesheet(from : Date, until : Date, userId: Long) : List<TimesheetEntry> {
-		val timeFrom = Timestamp(from.getTime())
-		val timeUntil = Timestamp(until.getTime())
+		val timeFrom = Timestamp(from.time)
+		val timeUntil = Timestamp(until.time)
 
 		return dsl.selectFrom(Tables.TIMESHEET.join(Tables.ISSUE).on(Tables.ISSUE.ID.eq(Tables.TIMESHEET.ISSUE_ID)))
 			   .where(Tables.TIMESHEET.USER_ID.eq(userId))
@@ -89,11 +71,5 @@ open class TimesheetRepositoryImpl (val dsl: DSLContext) : TimesheetRepository {
 			   .collect(Collectors.toList())
 	}
 	
-	fun endDateOrToday(n : Date?) : Date {
-		if(n != null) {
-			return n
-		} else {
-			return Date()
-		}
-	}
+	fun endDateOrToday(n : Date?) = n ?: Date()
 }

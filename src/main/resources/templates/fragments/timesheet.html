@@ -23,10 +23,8 @@
 					<td th:each="timesheet : ${week.days}">
 						<section class="day-view" th:classappend="${timesheet.inactive}?inactive">
 							<h1 th:text="${timesheet.day}" th:classappend="${timesheet.today}?today"></h1>
-							<h2 class="day-info"><span th:text="${timesheet.dayName}">Monday</span> <span class="total-time" th:if="${timesheet.dayTotal != '0h'}" th:text="${timesheet.dayTotal}">4.5h</span></h2>
-							
-							<h4 th:if="${timesheet.listings.size() > 0}"><a th:text="${timesheet.issueTotal}" >3 issue(s)</a></h4>
-							<h4 th:if="${timesheet.listings.size() <= 0}">None</h4>
+							<h2 class="day-info"><span th:text="${timesheet.dayName}">Monday</span> <span class="total-time" th:if="${timesheet.total > 0}" th:text="${timesheet.getDayTotal()}">4.5h</span></h2>
+							<h4><a th:text="${timesheet.getIssueTotal()}" >3 issue(s)</a></h4>
 						</section>
 					</td>					
 				</tr>			

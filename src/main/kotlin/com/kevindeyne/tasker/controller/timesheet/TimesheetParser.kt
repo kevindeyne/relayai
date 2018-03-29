@@ -3,10 +3,8 @@ package com.kevindeyne.tasker.controller.timesheet
 import com.kevindeyne.tasker.domain.TimesheetDay
 import com.kevindeyne.tasker.domain.TimesheetEntry
 import com.kevindeyne.tasker.domain.TimesheetWeek
-import java.text.SimpleDateFormat
 import java.time.DayOfWeek
 import java.time.LocalDate
-import java.time.ZoneId
 import java.time.format.TextStyle
 import java.time.temporal.ChronoUnit
 import java.time.temporal.TemporalAdjusters
@@ -15,15 +13,14 @@ import java.util.*
 enum class TimesheetParser() {
 	
 	INSTANCE;
-	
-	val tU = TimeUtils.INSTANCE
-	val format = SimpleDateFormat("yyyyMMdd")
-	
+
 	fun getTimesheetDays(entries : List<TimesheetEntry>, startPeriod : LocalDate, endPeriod : LocalDate) : List<TimesheetWeek> {
-		val result : MutableList<TimesheetWeek> = mutableListOf()
+		val tU = TimeUtils.INSTANCE
+
+		val r : MutableList<TimesheetWeek> = mutableListOf()
 		var days : MutableList<TimesheetDay> = mutableListOf()
 
-		val full : MutableMap<Date, TimesheetDay> = mutableMapOf()
+		val full : MutableMap<String, TimesheetDay> = mutableMapOf()
 
 		//make list of days O(1)
 		val dayRange = ChronoUnit.DAYS.between(startPeriod, endPeriod)
@@ -37,32 +34,38 @@ enum class TimesheetParser() {
 					inactive,
 					0)
 
-			full.put(tU.localDateToDate(date), t)
+			full[tU.toString(tU.localDateToDate(date))] = t
 			days.add(t)
 
 			if(days.size == 7){
-				result.add(TimesheetWeek(days))
+				r.add(TimesheetWeek(days))
 				days = mutableListOf()
 			}
 		}
 
 		for (entry in entries) {
-			val d = full[entry.startDate]
+			val d = full[tU.toString(entry.startDate)]
+
 			if (d != null){
 				d.total++
+
+				//TODO check if on the same day or spanning
+				val min = TimeUtils.INSTANCE.countMinutesBetween(entry.startDate, entry.endDate)
+
+				d.hours+=min/60
 			}
 		}
 
-		return result
+		return r
 	}
 
-	fun determineStartDate(date : Date = Date()) : LocalDate {
-		val localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate()
+	fun determineStartDate() : LocalDate {
+		val localDate = TimeUtils.INSTANCE.today().toLocalDateTime().toLocalDate()
 		return localDate.withDayOfMonth(1).with( TemporalAdjusters.previous( DayOfWeek.SUNDAY ) )
 	}
 	
-	fun determineEndDate(date : Date = Date()) : LocalDate {
-		val localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+	fun determineEndDate() : LocalDate {
+		val localDate = TimeUtils.INSTANCE.today().toLocalDateTime().toLocalDate()
 		return localDate.withDayOfMonth(localDate.lengthOfMonth()).with( TemporalAdjusters.next( DayOfWeek.SATURDAY ) )
 	}
 }
