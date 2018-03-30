@@ -12,7 +12,7 @@ $(document).ready(function() {
 				$(relativeTo).remove();
 				
 				var issueId = $("aside section.active").attr("issue-id");
-				var branch = $(".branch-text").text();
+				var branch = $(".branch-text").val();
 				var version = $("#overlay-detail .changing:first").text().replace(" [" + branch + "]", "");
 				$.ajax({ url: "/issue/"+issueId+"/version/"+branch+"/"+version, type: "DELETE" });
 			}
@@ -122,7 +122,7 @@ function changeSubmitFunctionality(){
 		
 		if("version" === relativeTo){
 			var version = $(".version-text").val();
-			var branch = $(".branch-text").text();	
+			var branch = $(".branch-text").val();
 			action = branch+"/"+version;	
 		}
 			
@@ -164,7 +164,7 @@ function isClickOutsideOfOverlay(e, position){
 function changeRelativeToText(){
 	var relativeTo = "#"+$("#overlay-detail").attr("relative-to");
 	if(relativeTo.indexOf("version") !== -1){
-		var branch = $("#overlay-version .changing:first").text();
+		var branch = $("#overlay-version .changing:first").val();
 		var version = $("#overlay-detail input.version-text").val();
 		$(relativeTo).text(version+" ["+branch+"]");
 		
