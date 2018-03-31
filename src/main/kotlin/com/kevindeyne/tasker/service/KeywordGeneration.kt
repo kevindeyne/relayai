@@ -5,10 +5,10 @@ import org.tartarus.snowball.ext.EnglishStemmer
 
 object KeywordGeneration {
 	
-	fun generateKeywords(text : String) : Set<String> {
+	fun generateKeywords(text : String, lang : String) : Set<String> {
 		val re = Regex("[^a-z]")
 		val newText = text.toLowerCase().replace(re, " ").replace("\\s+".toRegex(), " ")
-		var splitValues : Set<String> = OpenNLPProcessor.getInstance().process(newText)
+		var splitValues : Set<String> = OpenNLPProcessor.getInstance(lang).process(newText)
 		val resultSet = HashSet<String>()
 
 		val stemmer : EnglishStemmer = EnglishStemmer()

@@ -1,13 +1,5 @@
 package com.kevindeyne.tasker.nlp;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
 import opennlp.tools.postag.POSModel;
 import opennlp.tools.postag.POSTaggerME;
 import opennlp.tools.sentdetect.SentenceDetector;
@@ -16,6 +8,10 @@ import opennlp.tools.sentdetect.SentenceModel;
 import opennlp.tools.tokenize.Tokenizer;
 import opennlp.tools.tokenize.TokenizerME;
 import opennlp.tools.tokenize.TokenizerModel;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.*;
 
 public class OpenNLPProcessor {
 
@@ -37,7 +33,7 @@ public class OpenNLPProcessor {
 		return getInstance("en");
 	}
 
-	private static OpenNLPProcessor getInstance(String lang) {
+	public static OpenNLPProcessor getInstance(String lang) {
 		if (null == nlp) {
 			nlp = new OpenNLPProcessor();
 

@@ -1,11 +1,8 @@
 package com.kevindeyne.tasker.loader
 
 import com.github.javafaker.Faker
-import com.kevindeyne.tasker.domain.Impact
-import com.kevindeyne.tasker.domain.Progress
-import com.kevindeyne.tasker.domain.Role
-import com.kevindeyne.tasker.domain.SearchResultType
-import com.kevindeyne.tasker.domain.Urgency
+import com.kevindeyne.tasker.config.RealdataFaker
+import com.kevindeyne.tasker.domain.*
 import com.kevindeyne.tasker.jooq.Tables
 import com.kevindeyne.tasker.repositories.IssueRepositoryImpl
 import com.kevindeyne.tasker.repositories.TagcloudRepository
@@ -21,7 +18,7 @@ import java.sql.Timestamp
 import java.time.LocalDate
 import java.util.Random
 import java.util.stream.Collectors
-import com.kevindeyne.tasker.config.RealdataFaker
+import kotlin.collections.ArrayList
 
 @Component
 open class IssueLoader(
@@ -244,7 +241,7 @@ open class IssueLoader(
 		var joinedText = "$title $sentences"
 		joinedText = joinedText.toLowerCase()
 		
-		KeywordGeneration.generateKeywords(joinedText).forEach{k -> tagcloudRepository.addToIssueIfNotExists(k, issueId)}
+		KeywordGeneration.generateKeywords(joinedText, "en").forEach{k -> tagcloudRepository.addToIssueIfNotExists(k, issueId)}
 		
 		dsl.insertInto(Tables.SEARCH, Tables.SEARCH.PROJECT_ID, Tables.SEARCH.TYPE, Tables.SEARCH.SRCVAL, Tables.SEARCH.NAME, Tables.SEARCH.LINKED_ID)
 		.values(projectId, SearchResultType.ISSUE.name, joinedText, "$title", issueId)

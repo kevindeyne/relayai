@@ -6,11 +6,11 @@ import com.kevindeyne.tasker.domain.Urgency
 import com.kevindeyne.tasker.repositories.IssueRepository
 import com.kevindeyne.tasker.repositories.KnowledgeRepository
 import com.kevindeyne.tasker.repositories.TagcloudRepository
+import com.kevindeyne.tasker.repositories.TimesheetRepository
 import com.kevindeyne.tasker.service.KeywordGeneration
 import org.springframework.context.annotation.DependsOn
 import org.springframework.jms.annotation.JmsListener
 import org.springframework.stereotype.Component
-import com.kevindeyne.tasker.repositories.TimesheetRepository
 
 @DependsOn("AMQConfig")
 @Component
@@ -53,11 +53,10 @@ class GlobalReceiver(val issueRepository: IssueRepository, val tagcloud: Tagclou
 		}
 	}
 
-	fun handleTagcloudGeneration(msg: String, issueId : Long) = KeywordGeneration.generateKeywords(msg).forEach { k -> tagcloud.addToIssueIfNotExists(k, issueId) }
+	fun handleTagcloudGeneration(msg: String, issueId : Long) = KeywordGeneration.generateKeywords(msg, "en").forEach { k -> tagcloud.addToIssueIfNotExists(k, issueId) }
 	
 	fun autoAssignment(issueId : Long) {
 		val userId = knowledge.findMostSuitedCandidateForIssue(issueId)
-		println("Most suited : " + userId)
 		if(userId != null){
 			println("Assigning issue to " + userId)
 			issueRepository.assign(issueId, userId)
