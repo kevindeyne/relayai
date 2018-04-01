@@ -22,3 +22,6 @@ nbbuild/
 dist/
 nbdist/
 .nb-gradle/
+src/test/resources/merge.rar
+src/test/resources/merge.xml
+src/test/resources/merge.rar

@@ -1,18 +1,12 @@
 package com.kevindeyne.tasker.controller
 
 import com.kevindeyne.tasker.controller.form.IssueResponse
-import com.kevindeyne.tasker.domain.Impact
-import com.kevindeyne.tasker.domain.IssueListing
-import com.kevindeyne.tasker.domain.Progress
-import com.kevindeyne.tasker.domain.Urgency
+import com.kevindeyne.tasker.domain.*
 import com.kevindeyne.tasker.repositories.IssueRepository
-import com.kevindeyne.tasker.service.SecurityHolder
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
-import com.kevindeyne.tasker.domain.InProgressIssue
-import com.kevindeyne.tasker.domain.Workload
 
 @Controller
 class TaskboardController(var issueRepository : IssueRepository) {
@@ -36,6 +30,10 @@ class TaskboardController(var issueRepository : IssueRepository) {
 	@GetMapping(TASKBOARD_GET_CREATE_NEW_ISSUE)
 	fun getTaskboardWithCreateNewIssuePage(model : Model) : String {
 		genericTaskboardBuildup(model)
+
+		val firstIssue : IssueResponse = issueRepository.findHighestPrioForUser()
+		specificsTaskboardBuildup(model, firstIssue)
+
 		model.addAttribute("showCreatePage", true)
 		return "taskboard"
 	}
