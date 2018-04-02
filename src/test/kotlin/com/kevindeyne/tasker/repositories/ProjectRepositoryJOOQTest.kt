@@ -15,7 +15,7 @@ class ProjectRepositoryJOOQTest : JOOQTest() {
 		val dsl: DSLContext = newDSL(ProjectProvider())
 
 		val issueRepo = IssueRepositoryImpl(dsl)
-		val sprintRepo = SprintRepositoryImpl(dsl, issueRepo)
+		val sprintRepo = SprintRepositoryImpl(dsl)
 
 		val repo = ProjectRepositoryImpl(dsl, sprintRepo, issueRepo)
 		val project = repo.findProject(1L)
@@ -31,7 +31,7 @@ class ProjectRepositoryJOOQTest : JOOQTest() {
 		val dsl: DSLContext = newDSL(ProjectProvider())
 
 		val issueRepo = IssueRepositoryImpl(dsl)
-		val sprintRepo = SprintRepositoryImpl(dsl, issueRepo)
+		val sprintRepo = SprintRepositoryImpl(dsl)
 
 		val repo = ProjectRepositoryImpl(dsl, sprintRepo, issueRepo)
 		val version = repo.getCurrentVersion(1L)

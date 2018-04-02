@@ -2,7 +2,6 @@ package com.kevindeyne.tasker.repositories
 
 import com.kevindeyne.tasker.controller.timesheet.TimeUtils
 import com.kevindeyne.tasker.jooq.Tables.ISSUE
-import com.kevindeyne.tasker.jooq.Tables.PROJECT
 import com.kevindeyne.tasker.jooq.Tables.SPRINT
 import org.jooq.DSLContext
 import org.jooq.impl.DSL
@@ -18,7 +17,7 @@ class StatisticsRepositoryJOOQTest : JOOQTest() {
 		val dsl: DSLContext = newDSL(StatisticsProvider())
 
 		val issueRepo = IssueRepositoryImpl(dsl)
-		val sprintRepo = SprintRepositoryImpl(dsl, issueRepo)
+		val sprintRepo = SprintRepositoryImpl(dsl)
 		val projectRepo = ProjectRepositoryImpl(dsl, sprintRepo, issueRepo)
 		val repo = StatisticsRepositoryImpl(dsl, sprintRepo, projectRepo)
 

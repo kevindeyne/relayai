@@ -4,22 +4,18 @@ import com.kevindeyne.tasker.controller.timesheet.TimeUtils
 import com.kevindeyne.tasker.domain.Progress
 import com.kevindeyne.tasker.domain.SprintDates
 import com.kevindeyne.tasker.jooq.Tables
-import com.kevindeyne.tasker.jooq.Tables.ISSUE
-import com.kevindeyne.tasker.jooq.Tables.PROJECT
-import com.kevindeyne.tasker.jooq.Tables.PROJECT_USERS
-import com.kevindeyne.tasker.jooq.Tables.SPRINT
-import com.kevindeyne.tasker.jooq.Tables.USER
+import com.kevindeyne.tasker.jooq.Tables.*
 import com.kevindeyne.tasker.service.SecurityHolder
 import org.jooq.DSLContext
-import org.jooq.impl.DSL
 import org.springframework.stereotype.Component
 import org.springframework.transaction.annotation.Transactional
 import java.sql.Timestamp
 import java.util.Date
 import java.util.stream.Collectors
+import kotlin.collections.HashMap
 
 @Component
-open class SprintRepositoryImpl (val dsl: DSLContext, val issueRepository : IssueRepository) : SprintRepository {
+open class SprintRepositoryImpl (val dsl: DSLContext) : SprintRepository {
 	
 	val tU = TimeUtils.INSTANCE
 		

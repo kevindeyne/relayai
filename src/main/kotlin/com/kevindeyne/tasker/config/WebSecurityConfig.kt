@@ -23,7 +23,11 @@ open class WebSecurityConfig : WebSecurityConfigurerAdapter() {
 
     override fun configure(http : HttpSecurity) {
 		permitResources(http)
-        http
+		http
+				.requiresChannel()
+				.anyRequest()
+				.requiresSecure()
+			.and()
         	.authenticationProvider(authenticationProvider())
             .authorizeRequests()
 	            .anyRequest().authenticated()
@@ -36,6 +40,7 @@ open class WebSecurityConfig : WebSecurityConfigurerAdapter() {
             .logout()
 				.logoutSuccessUrl("/")
                 .permitAll()
+
     }
 	
 	fun permitResources(http : HttpSecurity) {
