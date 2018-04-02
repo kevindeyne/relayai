@@ -24,22 +24,23 @@ open class WebSecurityConfig : WebSecurityConfigurerAdapter() {
     override fun configure(http : HttpSecurity) {
 		permitResources(http)
 		http
-				.requiresChannel()
-				.anyRequest()
-				.requiresSecure()
+			.requiresChannel() //TODO
+			.anyRequest()
+			.requiresSecure()
+		.and()
+		.authenticationProvider(authenticationProvider())
+		.authorizeRequests()
+			.antMatchers("/welcome", "/landing/**", "/login").permitAll()
+			.anyRequest().authenticated()
 			.and()
-        	.authenticationProvider(authenticationProvider())
-            .authorizeRequests()
-	            .anyRequest().authenticated()
-	            .and()
-            .formLogin()
-				.defaultSuccessUrl("/", true)
-                .loginPage("/login")
-                .permitAll()
-                .and()
-            .logout()
-				.logoutSuccessUrl("/")
-                .permitAll()
+		.formLogin()
+			.defaultSuccessUrl("/", true)
+			.loginPage("/login")
+			.permitAll()
+			.and()
+		.logout()
+			.logoutSuccessUrl("/")
+			.permitAll()
 
     }
 	

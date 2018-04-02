@@ -1,10 +1,9 @@
 package com.kevindeyne.tasker.controller
 
+import com.kevindeyne.tasker.domain.Role
+import com.kevindeyne.tasker.service.SecurityHolder
 import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.ResponseBody
-import com.kevindeyne.tasker.service.SecurityHolder
-import com.kevindeyne.tasker.domain.Role
 
 @Controller
 class ForwardController {
@@ -17,21 +16,21 @@ class ForwardController {
 	fun forwardLogic() : String {
 		if (SecurityHolder.hasRole(Role.DEVELOPER) || SecurityHolder.hasRole(Role.TESTER)) {
 			if(SecurityHolder.isReport()) {
-				return redir(StandupController.STANDUP_REPORT);
+				return redir(StandupController.STANDUP_REPORT)
 			} else {
-				return redir(TaskboardController.TASKBOARD_GET);	
+				return redir(TaskboardController.TASKBOARD_GET)
 			}
 		} else if (SecurityHolder.hasRole(Role.TEAM_LEADER)) {
-			return redir(TaskboardController.TASKBOARD_GET);
+			return redir(TaskboardController.TASKBOARD_GET)
 		} else if (SecurityHolder.hasRole(Role.SHAREHOLDER)) {
-			return redir(OverviewController.OVERVIEW);	
+			return redir(OverviewController.OVERVIEW)
 		}
 		
-		return redir(TaskboardController.TASKBOARD_GET);
+		return redir(LandingController._GET)
 	}
 	
 	private fun redir(redirectTo : String) : String {
-		return "${ForwardController.REDIR}${redirectTo}";
+		return "${ForwardController.REDIR}$redirectTo"
 	}
 	
 }
