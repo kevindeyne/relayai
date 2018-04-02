@@ -1,18 +1,20 @@
-# Taskr
+# Relay AI
 
 [![Kotlin 1.2.30](https://img.shields.io/badge/Kotlin-1.2.30-blue.svg)](http://kotlinlang.org)
 [![Travis CI Build Status Badge](https://travis-ci.org/kevindeyne/tasker.svg?branch=master)](https://travis-ci.org/kevindeyne/tasker)
 [![Dependency Status](https://www.versioneye.com/user/projects/5a88c76a0fb24f1b2f835483/badge.svg?style=flat-square)](https://www.versioneye.com/user/projects/5a88c76a0fb24f1b2f835483?child=summary)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/301284c7a63c4ad3b0a96b6f994c5b62)](https://www.codacy.com/app/kevindeyne/tasker?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=kevindeyne/tasker&amp;utm_campaign=Badge_Grade)
 
-A project management tool that incorporates everything I've learned about working on software in various teams. Along with learning the expertise of team members and assigning relevant tasks to the right people, Taskr takes into account everyone's workload to plan tasks, easily tracks time spent on projects, and simplifies things like: sprint planning, daily standup meetings, meeting SLA standards, and following up on replies. 
+A project management tool that incorporates everything I've learned about working on software in various teams. Along with learning the expertise of team members and assigning relevant tasks to the right people, Relay AI takes into account everyone's workload to plan tasks, easily tracks time spent on projects, and simplifies things like: sprint planning, daily standup meetings, meeting SLA standards, and following up on replies. 
  
-Primary technologies used are Kotlin, Java 8, SASS, JOOQ and jQuery. It runs as a self-contained JAR with Spring Boot on AWS. You can see a running demo of the latest minor release at: http://taskr.us-west-2.elasticbeanstalk.com:8080 
+Primary technologies used are Kotlin, Java 8, SASS, JOOQ and jQuery. It runs as a self-contained JAR with Spring Boot on AWS. You can see a running demo of the latest minor release at: https://www.relayai.io
  
 Take note: This project is an alpha-stage (feature incomplete) work in progress. It is not ready for use in a production environment. Flyway database scripts may change drastically as the project moves into further stages of development. Expect frequent commits. 
 
+Previously named 'taskr'.
+
 <p align="center">
-  <img src="./README/taskr.png" alt="Taskr example"
+  <img src="./README/taskr.png" alt="Relay AI example"
        width="800" height="407">
 </p>
 
