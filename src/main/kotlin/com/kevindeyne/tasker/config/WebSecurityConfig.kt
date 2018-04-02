@@ -4,6 +4,7 @@ import com.kevindeyne.tasker.service.UserRetrievalService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import org.springframework.core.env.Environment
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
@@ -21,13 +22,12 @@ open class WebSecurityConfig : WebSecurityConfigurerAdapter() {
 	@Autowired
     lateinit var userDetailsService: UserRetrievalService
 
+	@Autowired
+	lateinit var env: Environment
+
     override fun configure(http : HttpSecurity) {
 		permitResources(http)
-		http
-			.requiresChannel() //TODO
-			.anyRequest()
-			.requiresSecure()
-		.and()
+		forceHTTPS(http)
 		.authenticationProvider(authenticationProvider())
 		.authorizeRequests()
 			.antMatchers("/welcome", "/landing/**", "/login").permitAll()
@@ -43,7 +43,14 @@ open class WebSecurityConfig : WebSecurityConfigurerAdapter() {
 			.permitAll()
 
     }
-	
+
+	fun forceHTTPS(http : HttpSecurity) : HttpSecurity{
+		if(env.activeProfiles.contains("prd")){
+			http.requiresChannel().anyRequest().requiresSecure()
+		}
+		return http
+	}
+
 	fun permitResources(http : HttpSecurity) {
 		http.authorizeRequests().antMatchers("/js/jquery**").permitAll()
 		http.authorizeRequests().antMatchers("/stylesheets/**").permitAll()
@@ -51,15 +58,14 @@ open class WebSecurityConfig : WebSecurityConfigurerAdapter() {
 		http.authorizeRequests().antMatchers("/icons/**").permitAll()
 	}
 
-    @Bean
-    open fun authenticationProvider() : DaoAuthenticationProvider {
-    	var authProvider : DaoAuthenticationProvider = DaoAuthenticationProvider()
-        authProvider.setUserDetailsService(userDetailsService)
-        authProvider.setPasswordEncoder(encoder())
-        return authProvider
-    }
+	@Bean
+	fun authenticationProvider() : DaoAuthenticationProvider {
+		val authProvider = DaoAuthenticationProvider()
+		authProvider.setUserDetailsService(userDetailsService)
+		authProvider.setPasswordEncoder(encoder())
+		return authProvider
+	}
 
-    @Bean
-    open fun encoder() : PasswordEncoder  = BCryptPasswordEncoder(11)
-
+	@Bean
+	fun encoder() : PasswordEncoder  = BCryptPasswordEncoder(11)
 }

@@ -1,19 +1,7 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
-	<meta charset="utf-8">
-	<title>RelayAI - AI-assisted task management</title>
-	<!-- Stylesheets -->
-	<link href="landing/css/bootstrap.css" rel="stylesheet">
-	<link href="landing/css/style.css" rel="stylesheet">
-	<link rel="shortcut icon" href="landing/images/favicon.png" type="image/x-icon">
-	<link rel="icon" href="landing/images/favicon.png" type="image/x-icon">
-	<!-- Responsive -->
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-	<link href="landing/css/responsive.css" rel="stylesheet">
-	<!--[if lt IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script><![endif]-->
-	<!--[if lt IE 9]><script src="landing/js/respond.js"></script><![endif]-->
+	<th:block th:replace="fragments/template :: meta-shareholder">Meta tags</th:block>
 </head>
 <body>
 <div class="page-wrapper">
@@ -62,7 +50,7 @@
 
 						<!--Other Links-->
 						<div class="other-links">
-							<a href="#" class="theme-btn btn-style-one">SIGN IN</a>
+							<a href="/login" class="theme-btn btn-style-one">SIGN IN</a>
 						</div>
 
 					</div>
@@ -85,8 +73,8 @@
 					<div class="inner">
 						<h4>AI-assisted workflows for developers and shareholders</h4>
 						<h2>Bring your team into a new era of productivity with RelayAI</h2>
-						<p>Along with learning the expertise of team members and assigning relevant tasks to the right people, Relay AI takes into account everyone's workload to plan tasks, easily tracks time spent on projects, and simplifies things like: sprint planning, daily standup meetings, meeting SLA standards, and following up on replies.</p>
-						<a href="#" class="theme-btn btn-style-two">Preview our alpha version <span class="icon ti-arrow-circle-right"></span></a>
+						<p>Along with learning the expertise of team members and assigning relevant tasks to the right people, RelayAI takes into account everyone's workload to plan tasks, easily tracks time spent on projects, and simplifies things like: sprint planning, standup meetings, meeting SLA standards, and following up on replies.</p>
+						<a href="/login" class="theme-btn btn-style-two">Preview our alpha version <span class="icon ti-arrow-circle-right"></span></a>
 					</div>
 				</div>
 
