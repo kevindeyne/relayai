@@ -1,101 +1,679 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
-<th:block th:replace="fragments/template :: meta-shareholder">Meta tags</th:block>
-<title>Tasker - Overview</title>
+	<th:block th:replace="fragments/template :: meta-shareholder">Meta tags</th:block>
+	<title>RelayAI - Overview</title>
 </head>
 <body>
-	<!-- Wrapper -->
-	<div id="wrapper">
+<div class="page-wrapper">
 
-		<!-- Header -->
-		<header id="header">
-			<div class="inner">
+	<!-- Preloader -->
+	<div class="preloader"></div>
 
-				<!-- Logo -->
-				<a href="index.html" class="logo"> <span class="symbol"><img src="/icons/android-chrome-512x512.png" alt="" /></span><span class="title">Tasker</span></a>
+	<!-- Main Header-->
+	<header class="main-header alternate">
 
-				<!-- Nav -->
-				<nav>
-					<ul>
-						<li><a href="#menu">Menu</a></li>
-					</ul>
-				</nav>
+		<!-- Main Box -->
+		<div class="main-box">
+			<div class="auto-container">
+				<div class="outer-container clearfix">
+					<!--Logo Box-->
+					<div class="logo-box">
+						<div class="logo"><a href="index.html"><img src="landing/images/relay.gif" alt="Relay AI"></a></div>
+					</div>
 
-			</div>
-		</header>
+					<!--Nav Outer-->
+					<div class="nav-outer clearfix">
+						<!-- Main Menu -->
+						<nav class="main-menu">
 
-		<!-- Main -->
-		<div id="main">
-			<div class="inner">
-				<h1>Welcome back</h1>
+							<div class="navbar-header">
+								<!-- Toggle Button -->
+								<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+									<span class="icon-bar"></span>
+									<span class="icon-bar"></span>
+									<span class="icon-bar"></span>
+								</button>
+							</div>
 
-				<ul class="actions">
-					<li><a href="#" class="button special">Register a new issue</a></li>
-				</ul>
+							<div class="navbar-collapse collapse scroll-nav clearfix">
+								<ul class="navigation clearfix">
+									<li class="dropdown current"><a href="#banner">Overview</a>
+									</li>
+									<li><a href="#services">Services</a></li>
+									<li><a href="#features">Feature</a></li>
+									<li><a href="#overview">Overview</a></li>
+									<li><a href="#download">Download</a></li>
+								</ul>
+							</div>
 
-				<p>
-					<br />
-				</p>
+						</nav>
+						<!-- Main Menu End-->
 
-				<h2>feedback required</h2>
+						<!--Other Links-->
+						<div class="other-links">
+							<a href="/logout" class="theme-btn btn-style-one">Logout</a>
+						</div>
 
-				<p>The following issues require feedback from you before further
-					progress can be made on them:</p>
+					</div>
+					<!--Nav Outer End-->
 
-				<ul class="alt">
-					<li><a href="/detail/8">Dolor pulvinar etiam.</a></li>
-					<li><a href="/detail/8">Sagittis adipiscing.</a></li>
-					<li><a href="/detail/8">Felis enim feugiat.</a></li>
-				</ul>
-
-				<p>Please respond to these as quickly and detailed as possible
-					for the quickest results.</p>
-
-				<p>
-					<br />
-				</p>
-				<h2>Available next release</h2>
-
-				<p>The following issues have a solution and will be available
-					with a future version fix:</p>
-
-				<ul class="alt">
-					<li><a href="/detail/8">Dolor pulvinar etiam.</a></li>
-					<li><a href="/detail/8">Sagittis adipiscing.</a></li>
-					<li><a href="/detail/8">Felis enim feugiat.</a></li>
-				</ul>
-
-				<p>
-					The next release is planned for <strong>25 december 2017</strong>.
-				</p>
-
-				<p>
-					<br />
-				</p>
-				<h2>in progress</h2>
-
-				<p>The following issues are actively being worked on by our
-					team:</p>
-
-				<ul class="alt">
-					<li><a href="/detail/8">Dolor pulvinar etiam.</a></li>
-					<li><a href="/detail/8">Sagittis adipiscing.</a></li>
-					<li><a href="/detail/8">Felis enim feugiat.</a></li>
-				</ul>
-
-				<p>As soon as a solution has been found, you will be alerted.</p>
+				</div>
 			</div>
 		</div>
 
-	</div>
+	</header>
+	<!--End Main Header -->
 
-	<!-- Scripts -->
-	<script src="/js/jquery-3.2.1.min.js"></script>
-	<script>
-		$(document).ready(function() {
 
-		});
-	</script>
+	<!--Main Banner / Banner Three-->
+	<section class="main-banner banner-three" id="banner" style="background-image:url(images/background/banner-bg-3.png);">
+		<div class="auto-container">
+			<div class="row clearfix">
+				<!--Text Column-->
+				<div class="text-column col-lg-12 col-md-12 col-sm-12 col-xs-12">
+					<div class="inner">
+						<h2>Projectname <br/> v4.2.45-SNAPSHOT</h2>
+						<p>5 issues <strong>require feedback</strong> from you. The next sprint will end in 4 days, and thus far contains fixes for 5 of your reported issues.</p>
+						<div class="links-box clearfix"><a href="#" class="theme-btn btn-style-one">See details</a> <a href="#" class="theme-btn btn-style-two">Register new issue</a></div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</section>
+	<!--End Main Banner-->
+
+
+	<!--What We Offer-->
+	<section class="what-we-offer" id="services">
+		<div class="auto-container">
+			<div class="row clearfix">
+				<!--Text Column-->
+				<div class="text-column col-md-5 col-sm-12 col-xs-12">
+					<div class="inner">
+						<h2>We offer your needs</h2>
+						<div class="text">The standard chunk of Lorem Ipsum useds since the 1500s is reproduced below form those this interested. Sections this 1.10.32 and apps API 1.10.33 from Finibus Bonorum.</div>
+					</div>
+				</div>
+
+				<!--Features Column-->
+				<div class="features-column col-md-7 col-sm-12 col-xs-12">
+					<div class="inner">
+						<div class="row clearfix">
+
+							<!--Service Style Two-->
+							<div class="service-style-two col-md-6 col-sm-6 col-xs-12">
+								<div class="inner-box">
+									<div class="icon"><figure class="image"><img src="images/icons/icon-18.png" alt=""></figure></div>
+									<h3><a href="#">Advance Protection</a></h3>
+									<div class="text">There are many variations of passages of Lorem Ipsume available, but the majority.</div>
+								</div>
+							</div>
+
+							<!--Service Style Two-->
+							<div class="service-style-two col-md-6 col-sm-6 col-xs-12">
+								<div class="inner-box">
+									<div class="icon"><figure class="image"><img src="images/icons/icon-19.png" alt=""></figure></div>
+									<h3><a href="#">Your Data in Cloud</a></h3>
+									<div class="text">There are many variations of passages of Lorem Ipsume available, but the majority.</div>
+								</div>
+							</div>
+
+							<!--Service Style Two-->
+							<div class="service-style-two col-md-6 col-sm-6 col-xs-12">
+								<div class="inner-box">
+									<div class="icon"><figure class="image"><img src="images/icons/icon-20.png" alt=""></figure></div>
+									<h3><a href="#">24/7 Support</a></h3>
+									<div class="text">There are many variations of passages of Lorem Ipsume available, but the majority.</div>
+								</div>
+							</div>
+
+							<!--Service Style Two-->
+							<div class="service-style-two col-md-6 col-sm-6 col-xs-12">
+								<div class="inner-box">
+									<div class="icon"><figure class="image"><img src="images/icons/icon-21.png" alt=""></figure></div>
+									<h3><a href="#">Exclusive Design</a></h3>
+									<div class="text">There are many variations of passages of Lorem Ipsume available, but the majority.</div>
+								</div>
+							</div>
+
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</section>
+
+
+	<!--Key Features Section-->
+	<section class="key-features-section" id="features">
+		<div class="auto-container">
+			<!--Heading-->
+			<div class="sec-title-two alternate centered">
+				<h2>Key Feature</h2>
+				<div class="desc-text">The standard chunk of Lorem Ipsum useds since the 1500s is reproduced below form those</div>
+			</div>
+
+			<!--Key Feature-->
+			<div class="key-feature image-right">
+				<div class="row clearfix">
+					<!--Text Column-->
+					<div class="text-column col-md-6 col-sm-12 col-xs-12">
+						<div class="inner">
+							<h3>Your app activity count</h3>
+							<div class="text">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration.</div>
+							<div class="more-link-one"><a href="#">See more <span class="icon ti-arrow-circle-right"></span></a></div>
+						</div>
+					</div>
+					<!--Image Column-->
+					<div class="image-column col-md-6 col-sm-12 col-xs-12">
+						<div class="inner">
+							<figure class="image"><img src="images/resource/featured-image-8.png" alt=""></figure>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!--Key Feature-->
+			<div class="key-feature image-left">
+				<div class="row clearfix">
+					<!--Text Column-->
+					<div class="text-column col-md-6 col-sm-12 col-xs-12">
+						<div class="inner">
+							<h3>Real time tracking</h3>
+							<div class="text">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration.</div>
+							<div class="more-link-one"><a href="#">See more <span class="icon ti-arrow-circle-right"></span></a></div>
+						</div>
+					</div>
+					<!--Image Column-->
+					<div class="image-column col-md-6 col-sm-12 col-xs-12">
+						<div class="inner">
+							<figure class="image"><img src="images/resource/featured-image-9.png" alt=""></figure>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!--Key Feature-->
+			<div class="key-feature image-right">
+				<div class="row clearfix">
+					<!--Text Column-->
+					<div class="text-column col-md-6 col-sm-12 col-xs-12">
+						<div class="inner">
+							<h3>Social comment activity</h3>
+							<div class="text">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration.</div>
+							<div class="more-link-one"><a href="#">See more <span class="icon ti-arrow-circle-right"></span></a></div>
+						</div>
+					</div>
+					<!--Image Column-->
+					<div class="image-column col-md-6 col-sm-12 col-xs-12">
+						<div class="inner">
+							<figure class="image"><img src="images/resource/featured-image-10.png" alt=""></figure>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</section>
+
+
+	<!--Overview Section-->
+	<section class="review-section" id="overview">
+		<div class="auto-container">
+
+			<!--Heading-->
+			<div class="sec-title-two centered">
+				<h2>Take a quick overview</h2>
+				<div class="desc-text">The standard chunk of Lorem Ipsum useds since the 1500s is reproduced below form those</div>
+			</div>
+
+			<div class="review-tabs tabs-box">
+				<!--Buttons-->
+				<div class="buttons-box">
+					<ul class="tab-buttons clearfix">
+						<li class="tab-btn active-btn" data-tab="#tab-one">Modern Design</li>
+						<li class="tab-btn" data-tab="#tab-two">Friendly use</li>
+						<li class="tab-btn" data-tab="#tab-three">Face ID</li>
+						<li class="tab-btn" data-tab="#tab-four">Wireless Charging</li>
+						<li class="tab-btn" data-tab="#tab-five">New Sensor</li>
+					</ul>
+				</div>
+
+				<!--Tabs Content-->
+				<div class="tabs-content">
+					<!--Tab / Active tab-->
+					<div class="tab active-tab" id="tab-one">
+						<div class="row clearfix">
+							<!--Image Column-->
+							<div class="image-column col-md-4 col-sm-4 col-xs-12">
+								<figure class="image"><img src="images/resource/featured-image-11.png" alt=""></figure>
+							</div>
+							<!--Text Column-->
+							<div class="text-column col-md-8 col-sm-8 col-xs-12">
+								<div class="inner">
+									<div class="icon"><img src="images/icons/icon-22.png" alt=""></div>
+									<h3>Modern Design</h3>
+									<div class="text">There are many variations of passages of Lorem Ipsume available, but the majority. Many museu are transforming thanks to echnology. They are adding interactivity and magic to the visitorer experience. Estimote Beacons have helped the Guggenheim in New York to be at the forefront of this process. The club uses Estimote Beacons to transform the in-stadium experience for its guests.</div>
+									<div class="more-link-one"><a href="#">See more <span class="icon ti-arrow-circle-right"></span></a></div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!--Tab-->
+					<div class="tab" id="tab-two">
+						<div class="row clearfix">
+							<!--Image Column-->
+							<div class="image-column col-md-4 col-sm-4 col-xs-12">
+								<figure class="image"><img src="images/resource/featured-image-11.png" alt=""></figure>
+							</div>
+							<!--Text Column-->
+							<div class="text-column col-md-8 col-sm-8 col-xs-12">
+								<div class="inner">
+									<div class="icon"><img src="images/icons/icon-22.png" alt=""></div>
+									<h3>Friendly use</h3>
+									<div class="text">There are many variations of passages of Lorem Ipsume available, but the majority. Many museu are transforming thanks to echnology. They are adding interactivity and magic to the visitorer experience. Estimote Beacons have helped the Guggenheim in New York to be at the forefront of this process. The club uses Estimote Beacons to transform the in-stadium experience for its guests.</div>
+									<div class="more-link-one"><a href="#">See more <span class="icon ti-arrow-circle-right"></span></a></div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!--Tab -->
+					<div class="tab" id="tab-three">
+						<div class="row clearfix">
+							<!--Image Column-->
+							<div class="image-column col-md-4 col-sm-4 col-xs-12">
+								<figure class="image"><img src="images/resource/featured-image-11.png" alt=""></figure>
+							</div>
+							<!--Text Column-->
+							<div class="text-column col-md-8 col-sm-8 col-xs-12">
+								<div class="inner">
+									<div class="icon"><img src="images/icons/icon-22.png" alt=""></div>
+									<h3>Face ID</h3>
+									<div class="text">There are many variations of passages of Lorem Ipsume available, but the majority. Many museu are transforming thanks to echnology. They are adding interactivity and magic to the visitorer experience. Estimote Beacons have helped the Guggenheim in New York to be at the forefront of this process. The club uses Estimote Beacons to transform the in-stadium experience for its guests.</div>
+									<div class="more-link-one"><a href="#">See more <span class="icon ti-arrow-circle-right"></span></a></div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!--Tab -->
+					<div class="tab" id="tab-four">
+						<div class="row clearfix">
+							<!--Image Column-->
+							<div class="image-column col-md-4 col-sm-4 col-xs-12">
+								<figure class="image"><img src="images/resource/featured-image-11.png" alt=""></figure>
+							</div>
+							<!--Text Column-->
+							<div class="text-column col-md-8 col-sm-8 col-xs-12">
+								<div class="inner">
+									<div class="icon"><img src="images/icons/icon-22.png" alt=""></div>
+									<h3>Wireless Charging</h3>
+									<div class="text">There are many variations of passages of Lorem Ipsume available, but the majority. Many museu are transforming thanks to echnology. They are adding interactivity and magic to the visitorer experience. Estimote Beacons have helped the Guggenheim in New York to be at the forefront of this process. The club uses Estimote Beacons to transform the in-stadium experience for its guests.</div>
+									<div class="more-link-one"><a href="#">See more <span class="icon ti-arrow-circle-right"></span></a></div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!--Tab -->
+					<div class="tab" id="tab-five">
+						<div class="row clearfix">
+							<!--Image Column-->
+							<div class="image-column col-md-4 col-sm-4 col-xs-12">
+								<figure class="image"><img src="images/resource/featured-image-11.png" alt=""></figure>
+							</div>
+							<!--Text Column-->
+							<div class="text-column col-md-8 col-sm-8 col-xs-12">
+								<div class="inner">
+									<div class="icon"><img src="images/icons/icon-22.png" alt=""></div>
+									<h3>New Sensor</h3>
+									<div class="text">There are many variations of passages of Lorem Ipsume available, but the majority. Many museu are transforming thanks to echnology. They are adding interactivity and magic to the visitorer experience. Estimote Beacons have helped the Guggenheim in New York to be at the forefront of this process. The club uses Estimote Beacons to transform the in-stadium experience for its guests.</div>
+									<div class="more-link-one"><a href="#">See more <span class="icon ti-arrow-circle-right"></span></a></div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+
+		</div>
+	</section>
+
+	<!--Testimonials Section Two-->
+	<section class="testimonials-two" id="testimonials">
+		<div class="auto-container">
+			<!--Heading-->
+			<div class="sec-title-two centered">
+				<h2>What customer says</h2>
+				<div class="desc-text">Grow your traffic and draw customers to your business We couldn't put it better than our users.</div>
+			</div>
+
+			<div class="testimonial-style-two owl-theme owl-carousel">
+				<!--Slide Item-->
+				<div class="slide-item">
+					<div class="inner">
+						<div class="quote-icon"></div>
+						<div class="text">Since investing the time to learn good SEO strategies, using tool such as Traffic Travis, we have come to dominate our specific niche, event photography for the Asian community.</div>
+						<div class="quote-info">
+							<figure class="thumb img-circle"><img class="img-circle" src="images/resource/author-thumb-1.jpg" alt=""></figure>
+							<h4>David Ramirez</h4>
+							<div class="designation">Envato Market</div>
+						</div>
+					</div>
+				</div>
+				<!--Slide Item-->
+				<div class="slide-item">
+					<div class="inner">
+						<div class="quote-icon"></div>
+						<div class="text">Since investing the time to learn good SEO strategies, using tool such as Traffic Travis, we have come to dominate our specific niche, event photography for the Asian community.</div>
+						<div class="quote-info">
+							<figure class="thumb img-circle"><img class="img-circle" src="images/resource/author-thumb-1.jpg" alt=""></figure>
+							<h4>David Ramirez</h4>
+							<div class="designation">Envato Market</div>
+						</div>
+					</div>
+				</div>
+				<!--Slide Item-->
+				<div class="slide-item">
+					<div class="inner">
+						<div class="quote-icon"></div>
+						<div class="text">Since investing the time to learn good SEO strategies, using tool such as Traffic Travis, we have come to dominate our specific niche, event photography for the Asian community.</div>
+						<div class="quote-info">
+							<figure class="thumb img-circle"><img class="img-circle" src="images/resource/author-thumb-1.jpg" alt=""></figure>
+							<h4>David Ramirez</h4>
+							<div class="designation">Envato Market</div>
+						</div>
+					</div>
+				</div>
+				<!--Slide Item-->
+				<div class="slide-item">
+					<div class="inner">
+						<div class="quote-icon"></div>
+						<div class="text">Since investing the time to learn good SEO strategies, using tool such as Traffic Travis, we have come to dominate our specific niche, event photography for the Asian community.</div>
+						<div class="quote-info">
+							<figure class="thumb img-circle"><img class="img-circle" src="images/resource/author-thumb-1.jpg" alt=""></figure>
+							<h4>David Ramirez</h4>
+							<div class="designation">Envato Market</div>
+						</div>
+					</div>
+				</div>
+				<!--Slide Item-->
+				<div class="slide-item">
+					<div class="inner">
+						<div class="quote-icon"></div>
+						<div class="text">Since investing the time to learn good SEO strategies, using tool such as Traffic Travis, we have come to dominate our specific niche, event photography for the Asian community.</div>
+						<div class="quote-info">
+							<figure class="thumb img-circle"><img class="img-circle" src="images/resource/author-thumb-1.jpg" alt=""></figure>
+							<h4>David Ramirez</h4>
+							<div class="designation">Envato Market</div>
+						</div>
+					</div>
+				</div>
+				<!--Slide Item-->
+				<div class="slide-item">
+					<div class="inner">
+						<div class="quote-icon"></div>
+						<div class="text">Since investing the time to learn good SEO strategies, using tool such as Traffic Travis, we have come to dominate our specific niche, event photography for the Asian community.</div>
+						<div class="quote-info">
+							<figure class="thumb img-circle"><img class="img-circle" src="images/resource/author-thumb-1.jpg" alt=""></figure>
+							<h4>David Ramirez</h4>
+							<div class="designation">Envato Market</div>
+						</div>
+					</div>
+				</div>
+				<!--Slide Item-->
+				<div class="slide-item">
+					<div class="inner">
+						<div class="quote-icon"></div>
+						<div class="text">Since investing the time to learn good SEO strategies, using tool such as Traffic Travis, we have come to dominate our specific niche, event photography for the Asian community.</div>
+						<div class="quote-info">
+							<figure class="thumb img-circle"><img class="img-circle" src="images/resource/author-thumb-1.jpg" alt=""></figure>
+							<h4>David Ramirez</h4>
+							<div class="designation">Envato Market</div>
+						</div>
+					</div>
+				</div>
+				<!--Slide Item-->
+				<div class="slide-item">
+					<div class="inner">
+						<div class="quote-icon"></div>
+						<div class="text">Since investing the time to learn good SEO strategies, using tool such as Traffic Travis, we have come to dominate our specific niche, event photography for the Asian community.</div>
+						<div class="quote-info">
+							<figure class="thumb img-circle"><img class="img-circle" src="images/resource/author-thumb-1.jpg" alt=""></figure>
+							<h4>David Ramirez</h4>
+							<div class="designation">Envato Market</div>
+						</div>
+					</div>
+				</div>
+				<!--Slide Item-->
+				<div class="slide-item">
+					<div class="inner">
+						<div class="quote-icon"></div>
+						<div class="text">Since investing the time to learn good SEO strategies, using tool such as Traffic Travis, we have come to dominate our specific niche, event photography for the Asian community.</div>
+						<div class="quote-info">
+							<figure class="thumb img-circle"><img class="img-circle" src="images/resource/author-thumb-1.jpg" alt=""></figure>
+							<h4>David Ramirez</h4>
+							<div class="designation">Envato Market</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!--Blog Section-->
+	<section class="blog-section">
+		<div class="auto-container">
+			<!--Heading-->
+			<div class="sec-title-two centered">
+				<h2>Recent Blog</h2>
+				<div class="desc-text">Solution is an easy to use tool for eCommerce. <br>You can present your products.</div>
+			</div>
+
+			<div class="row clearfix">
+
+				<!--News Block-->
+				<div class="news-style-one col-md-4 col-sm-6 col-xs-12">
+					<div class="inner-box wow fadeInLeft" data-wow-delay="0ms" data-wow-duration="1500ms">
+						<figure class="image-box"><a href="blog-single.html"><img src="images/resource/blog-image-1.jpg" alt=""></a></figure>
+						<div class="lower-content">
+							<div class="post-meta">26 March 2017 By Author</div>
+							<h3><a href="blog-single.html">Excepteur sint occaecat cupidatat</a></h3>
+							<div class="text">Accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae.</div>
+						</div>
+					</div>
+				</div>
+
+				<!--News Block-->
+				<div class="news-style-one col-md-4 col-sm-6 col-xs-12">
+					<div class="inner-box wow fadeInLeft" data-wow-delay="300ms" data-wow-duration="1500ms">
+						<figure class="image-box"><a href="blog-single.html"><img src="images/resource/blog-image-2.jpg" alt=""></a></figure>
+						<div class="lower-content">
+							<div class="post-meta">26 March 2017 By Author</div>
+							<h3><a href="blog-single.html">Excepteur sint occaecat cupidatat</a></h3>
+							<div class="text">Accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae.</div>
+						</div>
+					</div>
+				</div>
+
+				<!--News Block-->
+				<div class="news-style-one col-md-4 col-sm-6 col-xs-12">
+					<div class="inner-box wow fadeInLeft" data-wow-delay="600ms" data-wow-duration="1500ms">
+						<figure class="image-box"><a href="blog-single.html"><img src="images/resource/blog-image-3.jpg" alt=""></a></figure>
+						<div class="lower-content">
+							<div class="post-meta">26 March 2017 By Author</div>
+							<h3><a href="blog-single.html">Excepteur sint occaecat cupidatat</a></h3>
+							<div class="text">Accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae.</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+
+			<div class="text-center wow tada" data-wow-delay="0ms" data-wow-duration="1500ms"><a href="blog.html" class="theme-btn btn-style-seven">Go To Blog</a></div>
+
+		</div>
+	</section>
+
+
+	<!--Get App Section-->
+	<section class="get-app-section" id="download">
+		<div class="auto-container">
+			<!--Heading-->
+			<div class="sec-title-two centered">
+				<h2>Get The App</h2>
+				<div class="desc-text">Grow your traffic and draw customers to your business We couldn't put it better than our users.</div>
+			</div>
+
+			<div class="links-outer">
+				<ul class="get-app-links clearfix">
+					<li><a href="#" class="link-box"><div class="icon-box"><span class="icon"><img src="images/icons/apple-icon.png" alt=""></span></div><span class="title">App Store</span><span class="text">Available on</span></a></li>
+					<li><a href="#" class="link-box"><div class="icon-box"><span class="icon"><img src="images/icons/android-icon.png" alt=""></span></div><span class="title">Google Play</span><span class="text">Available on</span></a></li>
+				</ul>
+			</div>
+
+		</div>
+	</section>
+
+
+	<!--Footer Style Three-->
+	<footer class="footer-style-three">
+		<!--Footer Upper-->
+		<div class="footer-upper">
+			<div class="auto-container">
+				<div class="row clearfix">
+					<!--Big Column-->
+					<div class="big-column col-md-6 col-sm-12 col-xs-12">
+						<div class="row clearfix">
+							<!--Footer Column-->
+							<div class="footer-column col-md-7 col-sm-6 col-xs-12">
+								<div class="footer-widget info-widget">
+									<div class="widget-inner">
+										<div class="logo"><img src="images/footer-logo.png" alt=""></div>
+										<ul class="info">
+											<li><a href="#">info@solution.com</a></li>
+											<li><a href="#">+65 2545 57581</a></li>
+										</ul>
+										<div class="social-links">
+											<ul class="clearfix">
+												<li><a href="#"><span class="fa fa-facebook-f"></span></a></li>
+												<li><a href="#"><span class="fa fa-twitter"></span></a></li>
+												<li><a href="#"><span class="fa fa-instagram"></span></a></li>
+												<li><a href="#"><span class="fa fa-linkedin"></span></a></li>
+												<li><a href="#"><span class="fa fa-google-plus"></span></a></li>
+											</ul>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!--Footer Column-->
+							<div class="footer-column col-md-5 col-sm-6 col-xs-12">
+								<div class="footer-widget links-widget">
+									<div class="widget-inner">
+										<h3>Company</h3>
+										<div class="links">
+											<ul>
+												<li><a href="#">About us</a></li>
+												<li><a href="#">Careers</a></li>
+												<li><a href="#">Contact us</a></li>
+												<li><a href="#">Customers</a></li>
+												<li><a href="#">Career</a></li>
+											</ul>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!--Big Column-->
+					<div class="big-column col-md-6 col-sm-12 col-xs-12">
+						<div class="row clearfix">
+
+							<!--Footer Column-->
+							<div class="footer-column col-md-5 col-sm-6 col-xs-12">
+								<div class="footer-widget links-widget">
+									<div class="widget-inner">
+										<h3>Resources</h3>
+										<div class="links">
+											<ul>
+												<li><a href="#">Learning Hub</a></li>
+												<li><a href="#">Video Tutorials</a></li>
+												<li><a href="#">Quick Start Guide</a></li>
+												<li><a href="#">SEO Software Reviews</a></li>
+												<li><a href="#">Update Stories</a></li>
+											</ul>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!--Footer Column-->
+							<div class="footer-column col-md-7 col-sm-6 col-xs-12">
+								<div class="footer-widget newsletter-widget">
+									<div class="widget-inner">
+										<h3>Join Our Newsletter</h3>
+										<div class="text">There are many variations of passages of Lorem Ipsume available.</div>
+										<form method="post" action="index.html">
+											<div class="form-group">
+												<input type="email" name="email-field" value="" placeholder="Email here...">
+												<button type="submit"><span class="icon lnr lnr-arrow-right"></span></button>
+											</div>
+										</form>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+		<!--Footer Bottom-->
+		<div class="footer-bottom">
+			<div class="auto-container">
+				<div class="row clearfix">
+					<div class="bottom-column col-md-6 col-sm-12 col-xs-12">
+						<div class="copyright">Copyright &copy; 2018, Solution.Com</div>
+					</div>
+					<div class="bottom-column col-md-6 col-sm-12 col-xs-12">
+						<div class="bottom-nav">
+							<ul class="clearfix">
+								<li><a href="#">Privacy</a></li>
+								<li><a href="#">FAQs</a></li>
+								<li><a href="#">Account</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</footer>
+
+
+</div>
+<!--End pagewrapper-->
+
+<!--Scroll to top-->
+<div class="scroll-to-top scroll-to-target" data-target="html"><span class="fa fa-angle-double-up"></span></div>
+
+
+<script src="landing/js/jquery.js"></script>
+<script src="landing/js/bootstrap.min.js"></script>
+<script src="landing/js/pagenav.js"></script>
+<script src="landing/js/jquery.scrollTo.js"></script>
+<script src="landing/js/jquery.fancybox.pack.js"></script>
+<script src="landing/js/owl.js"></script>
+<script src="landing/js/wow.js"></script>
+
+<script src="landing/js/script.js"></script>
+
 </body>
 </html>
