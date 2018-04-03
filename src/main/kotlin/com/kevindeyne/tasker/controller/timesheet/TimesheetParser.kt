@@ -5,6 +5,8 @@ import com.kevindeyne.tasker.domain.TimesheetEntry
 import com.kevindeyne.tasker.domain.TimesheetWeek
 import java.time.DayOfWeek
 import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.ZoneId
 import java.time.format.TextStyle
 import java.time.temporal.ChronoUnit
 import java.time.temporal.TemporalAdjusters
@@ -16,7 +18,7 @@ enum class TimesheetParser() {
 
 	val tU = TimeUtils.INSTANCE
 
-	fun getTimesheetDays(entries : List<TimesheetEntry>, startPeriod : LocalDate, endPeriod : LocalDate) : List<TimesheetWeek> {
+	fun getTimesheetDays(entries : MutableList<TimesheetEntry>, startPeriod : LocalDate, endPeriod : LocalDate) : List<TimesheetWeek> {
 		val r : MutableList<TimesheetWeek> = mutableListOf()
 		var days : MutableList<TimesheetDay> = mutableListOf()
 
@@ -47,17 +49,69 @@ enum class TimesheetParser() {
 			}
 		}
 
-		for (entry in entries) {
+		var sortedEntries = entries.sortedWith(compareBy({ it.startDate })).toMutableList()
+
+		var startDate : Date? = null
+		var endDate : Date? = null
+
+		var i = 0
+		while (i < sortedEntries.size) {
+			val entry = sortedEntries[i]
 			val k = tU.toString(entry.startDate)
 			val d = full[k]
 
 			if (d != null){
-				//TODO check if on the same day or spanning
-				val min = TimeUtils.INSTANCE.countMinutesBetween(entry.startDate, entry.endDate)
-				d.hours+=min/60
+				var end = entry.endDate
+				if(!TimeUtils.INSTANCE.areDatesOnSameDay(entry.startDate, end)){
+					end = Date.from(LocalDateTime.ofInstant(entry.startDate.toInstant(), ZoneId.systemDefault()).withHour(17).withMinute(0).atZone(ZoneId.systemDefault()).toInstant())
+					val start = Date.from(LocalDateTime.ofInstant(entry.startDate.toInstant(), ZoneId.systemDefault()).plusDays(1).withHour(8).withMinute(0).atZone(ZoneId.systemDefault()).toInstant())
+					val e2 = TimesheetEntry(start,
+							entry.endDate,
+							entry.avgWorkday,
+							entry.issueName,
+							entry.issueId)
+					sortedEntries.add(e2)
+					println("Not on the same day, adding: ${e2.startDate}, end: ${e2.endDate}")
+				}
+
+				if(startDate == null){
+					startDate = entry.startDate
+					endDate = end
+				} else if (endDate != null) {
+					if(TimeUtils.INSTANCE.areDatesOnSameDay(startDate, entry.startDate)){
+						if(entry.startDate.after(endDate)){
+							d.hours += calculateHour(startDate, endDate)
+
+							startDate = entry.startDate
+							endDate = end
+
+							d.hours += calculateHour(startDate, endDate)
+						} else {
+							endDate = end
+							if(i + 1 == entries.size) {
+								d.hours += calculateHour(startDate, endDate)
+							}
+						}
+					} else {
+						println("diff day - start: ${startDate}, end: ${endDate}")
+						val kPrev = tU.toString(startDate)
+						val d2 = full[kPrev]
+						if(d2 != null){
+							d2.hours += calculateHour(startDate, endDate)
+						}
+
+						startDate = entry.startDate
+						endDate = end
+						d.hours += calculateHour(startDate, endDate)
+					}
+				}
+
+				println("start: ${entry.startDate}, end: ${end}, hours: ${d.hours}")
+
 				d.total++
 
 				full[k] = d
+				i++
 			}
 		}
 
@@ -66,6 +120,12 @@ enum class TimesheetParser() {
 		}
 
 		return r
+	}
+
+	private fun calculateHour(startDate: Date, endDate: Date): Int {
+		val min = TimeUtils.INSTANCE.countMinutesBetween(startDate, endDate)
+		val x = min / 60
+		return x
 	}
 
 	fun determineStartDate() : LocalDate {

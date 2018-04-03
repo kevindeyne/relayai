@@ -49,7 +49,7 @@ open class TimesheetRepositoryImpl (val dsl: DSLContext) : TimesheetRepository {
 		return null	
 	}
 
-	override fun getTimesheet(from : Date, until : Date, userId: Long) : List<TimesheetEntry> {
+	override fun getTimesheet(from : Date, until : Date, userId: Long) : MutableList<TimesheetEntry> {
 		val timeFrom = Timestamp(from.time)
 		val timeUntil = Timestamp(until.time)
 

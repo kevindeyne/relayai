@@ -8,6 +8,6 @@ interface TimesheetRepository {
 	
 	fun stopTrackingIssue(issueId: Long, userId: Long)
 	
-	fun getTimesheet(from: Date, until: Date, userId: Long) : List<TimesheetEntry>
+	fun getTimesheet(from: Date, until: Date, userId: Long) : MutableList<TimesheetEntry>
 
 }

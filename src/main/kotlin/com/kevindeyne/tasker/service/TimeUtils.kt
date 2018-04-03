@@ -26,6 +26,8 @@ enum class TimeUtils {
 	}
 	
 	fun isToday(date : LocalDate) : Boolean = areDatesOnSameDay(Date(), localDateToDate(date))
+
+	fun isToday(date : Date) : Boolean = areDatesOnSameDay(Date(), date)
 	
 	fun addHours(date : Date, hours : Int) : Date {
 		val ldt : LocalDateTime = LocalDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault())
