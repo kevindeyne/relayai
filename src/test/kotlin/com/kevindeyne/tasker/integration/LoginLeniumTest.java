@@ -9,7 +9,7 @@ public class LoginLeniumTest extends FluentTest {
 
     @Test
     public void testLoginAsDevGetToTaskboard() {
-        goTo("https://www.relayai.io");
+        goTo("https://www.relayai.io/login");
         $("#as-dev").click();
         assertThat(window().title()).contains("board");
     }
