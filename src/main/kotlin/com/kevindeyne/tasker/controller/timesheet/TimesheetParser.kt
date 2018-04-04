@@ -131,7 +131,7 @@ enum class TimesheetParser() {
 	}
 
 	private fun debug(text: String) {
-		if(true){
+		if(false){
 			println(text)
 		}
 	}
