@@ -8,10 +8,8 @@
 A project management tool that incorporates everything I've learned about working on software in various teams. Along with learning the expertise of team members and assigning relevant tasks to the right people, Relay AI takes into account everyone's workload to plan tasks, easily tracks time spent on projects, and simplifies things like: sprint planning, daily standup meetings, meeting SLA standards, and following up on replies. 
  
 Primary technologies used are Kotlin, Java 8, SASS, JOOQ and jQuery. It runs as a self-contained JAR with Spring Boot on AWS. You can see a running demo of the latest minor release at: https://www.relayai.io
- 
-Take note: This project is an alpha-stage (feature incomplete) work in progress. It is not ready for use in a production environment. Flyway database scripts may change drastically as the project moves into further stages of development. Expect frequent commits. 
 
-Previously named 'taskr'.
+Take note: This project is an alpha-stage (feature incomplete) work in progress. It is not ready for use in a production environment. Flyway database scripts may change drastically as the project moves into further stages of development. Expect frequent commits and rewrites.
 
 <p align="center">
   <img src="./README/taskr.png" alt="Relay AI example"
@@ -54,32 +52,37 @@ Previously named 'taskr'.
 * Arrive on the project with no active project, force the user to start new project 
 * Separate page for shareholders
 * Sprint / project statistics
- 
-### Upcoming milestone plan 
-* Setup issues 
-* Milestones/Branching 
+* HTTPS setup 
+* Branching 
 * Intro page (html with check if online) 
-* Project, invite people through unique, timed, link 
-* Activate user 
+* Timesheet re-write
+ 
+### Upcoming milestone plan
+* Security pass / Security rules via interceptors
 * Login honeypot for bots 
-* HTTPS setup and security pass
-* Follow-up (auto-reminder after inaction) 
-* Standup meeting daily or weekly
-* Security rules via interceptors 
+* Manual ticket assignments
+* Shareholder page
+* Dynamic sprint info
+* Dynamic changelogs
+* Settings: Project time zone, Time zone setting for issues, when average day starts/ends (automatically)
+* Registration and activation
+* Project, invite people through unique, timed, link 
+* IntroJS
+* Standup meeting daily or weekly 
 * AJAX call 404 error follow-up (refresh)
+* Validation pass
 * localstorage updates via tabs in pulling (implemented, to test)
+* Landing page details
+* Algorithm efficiency in aside re-ordering
+
+### Nice to have
+* Follow-up (auto-reminder after inaction) 
+* Canned responses
+* Attachments to issues
+* Comments should contain user role
 * Similar issues
-* Issue change log
-* Time zone setting for issues
-* Project time zone 
 * History tab
 * Option to redistribute work when working on development/on holiday 
-* Canned responses
-* Comments should contain user role
-* Attachments to issues
-* Canned responses
-* Dynamic changelogs
-* Algorithm efficiency in aside re-ordering, timesheet creation
 
 ## Built With 
  
