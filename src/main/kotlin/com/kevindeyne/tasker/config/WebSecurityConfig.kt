@@ -41,7 +41,9 @@ open class WebSecurityConfig : WebSecurityConfigurerAdapter() {
 		.logout()
 			.logoutSuccessUrl("/")
 			.permitAll()
-
+		.and()
+			.headers()
+			.contentSecurityPolicy("default-src 'self'; script-src 'self' 'unsafe-inline'; object-src 'none'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; media-src 'none'; frame-src 'none'; font-src *; connect-src 'self'")
     }
 
 	fun forceHTTPS(http : HttpSecurity) : HttpSecurity{
