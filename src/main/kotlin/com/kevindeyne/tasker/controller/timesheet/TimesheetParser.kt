@@ -79,10 +79,12 @@ enum class TimesheetParser() {
 					startDate = entry.startDate
 					endDate = end
 				} else if (endDate != null) {
+					var endTransfer = false
 					if(TimeUtils.INSTANCE.areDatesOnSameDay(startDate, entry.startDate)){
 						if(entry.startDate.after(endDate)){
 							debug("startDate.after(endDate)")
 							startDate = entry.startDate
+							endTransfer = true
 						} else {
 							val h = calculateHour(endDate, entry.endDate)
 							if(h > 0){
@@ -90,13 +92,19 @@ enum class TimesheetParser() {
 								d.hours += h
 								d.total++
 								i++
+								endTransfer = true
 								debug("start: ${entry.startDate}, end: ${end}, hours: ${calculateHour(entry.startDate, end)}")
 								continue
 							}
 						}
+					} else {
+						startDate = entry.startDate
+						endTransfer = true
 					}
 
-					endDate = Date(Math.max(end.time, endDate.time))
+					if(endTransfer) {
+						endDate = Date(Math.max(end.time, endDate.time))
+					}
 				}
 
 				debug("start: ${entry.startDate}, end: ${end}, hours: ${calculateHour(entry.startDate, end)}")
@@ -123,7 +131,7 @@ enum class TimesheetParser() {
 	}
 
 	private fun debug(text: String) {
-		if(false){
+		if(true){
 			println(text)
 		}
 	}
