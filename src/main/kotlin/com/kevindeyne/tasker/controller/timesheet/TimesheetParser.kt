@@ -52,7 +52,7 @@ enum class TimesheetParser() {
 		var sortedEntries = entries.sortedWith(compareBy({ it.startDate })).toMutableList()
 
 		var startDate : Date? = null
-		var endDate : Date? = null
+		var endDate : Date? = TimeUtils.INSTANCE.getDate(1900, 1,1)
 
 		var i = 0
 		while (i < sortedEntries.size) {
@@ -71,7 +71,7 @@ enum class TimesheetParser() {
 							entry.issueName,
 							entry.issueId)
 					sortedEntries.add(e2)
-					println("Not on the same day, adding: ${e2.startDate}, end: ${e2.endDate}")
+					debug("> Not on the same day, adding: ${e2.startDate}, end: ${e2.endDate}")
 				}
 
 				if(startDate == null){
@@ -80,34 +80,32 @@ enum class TimesheetParser() {
 				} else if (endDate != null) {
 					if(TimeUtils.INSTANCE.areDatesOnSameDay(startDate, entry.startDate)){
 						if(entry.startDate.after(endDate)){
-							d.hours += calculateHour(startDate, endDate)
-
+							debug("startDate.after(endDate)")
 							startDate = entry.startDate
-							endDate = end
-
-							d.hours += calculateHour(startDate, endDate)
 						} else {
-							endDate = end
-							if(i + 1 == entries.size) {
-								d.hours += calculateHour(startDate, endDate)
+							val h = calculateHour(endDate, entry.endDate)
+							if(h > 0){
+								debug("> ${d.hours} += $h")
+								d.hours += h
+								d.total++
+								i++
+								debug("start: ${entry.startDate}, end: ${end}, hours: ${calculateHour(entry.startDate, end)}")
+								continue
 							}
 						}
-					} else {
-						println("diff day - start: ${startDate}, end: ${endDate}")
-						val kPrev = tU.toString(startDate)
-						val d2 = full[kPrev]
-						if(d2 != null){
-							d2.hours += calculateHour(startDate, endDate)
-						}
-
-						startDate = entry.startDate
-						endDate = end
-						d.hours += calculateHour(startDate, endDate)
+						endDate = Date(Math.max(end.time, endDate.time))
 					}
 				}
 
-				println("start: ${entry.startDate}, end: ${end}, hours: ${d.hours}")
-
+				debug("start: ${entry.startDate}, end: ${end}, hours: ${calculateHour(entry.startDate, end)}")
+				debug("$endDate // ${entry.endDate}")
+				val x = full[tU.toString(entry.startDate)]
+				if(x != null && endDate != null && (end == endDate || endDate.before(entry.endDate))) {
+					val count = calculateHour(entry.startDate, end)
+					debug(" ${x.hours}h + $count")
+					x.hours += calculateHour(entry.startDate, end)
+					debug(" = ${x.hours}h")
+				}
 				d.total++
 
 				full[k] = d
@@ -120,6 +118,12 @@ enum class TimesheetParser() {
 		}
 
 		return r
+	}
+
+	private fun debug(text: String) {
+		if(false){
+			println(text)
+		}
 	}
 
 	private fun calculateHour(startDate: Date, endDate: Date): Int {

@@ -129,6 +129,72 @@ class TimesheetTests {
 		Assert.assertEquals(12.0, days[0].days[0].hours, 0.0)
 	}
 
+	@Test
+	fun testGenerateDaysOverlap2() {
+		val startD1 = LocalDateTime.now().withHour(6).withMinute(0)
+		val endD1 = LocalDateTime.now().withHour(17).withMinute(0)
+		val e1 = TimesheetEntry(toDate(startD1), toDate(endD1))
+
+		val startD2 = LocalDateTime.now().withHour(7).withMinute(0)
+		val endD2 = LocalDateTime.now().withHour(18).withMinute(0)
+		val e2 = TimesheetEntry(toDate(startD2), toDate(endD2))
+
+		val startD3 = LocalDateTime.now().withHour(12).withMinute(0)
+		val endD3 = LocalDateTime.now().withHour(16).withMinute(0)
+		val e3 = TimesheetEntry(toDate(startD3), toDate(endD3))
+
+		val days = parser.getTimesheetDays(mutableListOf(e1, e2, e3), startD1.toLocalDate(), endD2.toLocalDate())
+
+		Assert.assertTrue(days[0].days.size > 0)
+		Assert.assertEquals(3, days[0].days[0].total)
+		Assert.assertEquals(12.0, days[0].days[0].hours, 0.0)
+	}
+
+
+	@Test
+	fun testGenerateDaysOverlap3() {
+		val startD1 = LocalDateTime.now().withHour(6).withMinute(0)
+		val endD1 = LocalDateTime.now().withHour(17).withMinute(0)
+		val e1 = TimesheetEntry(toDate(startD1), toDate(endD1))
+
+		val startD2 = LocalDateTime.now().withHour(7).withMinute(0)
+		val endD2 = LocalDateTime.now().withHour(18).withMinute(0)
+		val e2 = TimesheetEntry(toDate(startD2), toDate(endD2))
+
+		val startD3 = LocalDateTime.now().withHour(12).withMinute(0)
+		val endD3 = LocalDateTime.now().withHour(16).withMinute(0)
+		val e3 = TimesheetEntry(toDate(startD3), toDate(endD3))
+
+		val startD4 = LocalDateTime.now().withHour(10).withMinute(0)
+		val endD4 = LocalDateTime.now().withHour(13).withMinute(0)
+		val e4 = TimesheetEntry(toDate(startD4), toDate(endD4))
+
+		val days = parser.getTimesheetDays(mutableListOf(e1, e4, e2, e3), startD1.toLocalDate(), endD2.toLocalDate())
+
+		Assert.assertTrue(days[0].days.size > 0)
+		Assert.assertEquals(4, days[0].days[0].total)
+		Assert.assertEquals(12.0, days[0].days[0].hours, 0.0)
+	}
+
+	@Test
+	fun testComplexTimesheet() {
+		val startD1 = LocalDateTime.now().withHour(8).withMinute(0)
+		val endD1 = LocalDateTime.now().withHour(12).withMinute(0)
+		val e1 = TimesheetEntry(toDate(startD1), toDate(endD1))
+
+		val startD2 = LocalDateTime.now().withHour(14).withMinute(0)
+		val endD2 = LocalDateTime.now().plusDays(1).withHour(12).withMinute(0)
+		val e2 = TimesheetEntry(toDate(startD2), toDate(endD2))
+
+		val days = parser.getTimesheetDays(mutableListOf(e2, e1), startD1.toLocalDate(), endD2.toLocalDate())
+
+		Assert.assertTrue(days[0].days.size > 0)
+		Assert.assertEquals(2, days[0].days[0].total)
+		Assert.assertEquals(7.0, days[0].days[0].hours, 0.0)
+		Assert.assertEquals(1, days[0].days[1].total)
+		Assert.assertEquals(4.0, days[0].days[1].hours, 0.0)
+	}
+
 	fun toDate(localDate : LocalDateTime) : Date = TimeUtils.INSTANCE.localDateToDate(localDate)
 
 	//@Test
