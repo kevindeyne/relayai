@@ -71,6 +71,7 @@ enum class TimesheetParser() {
 							entry.issueName,
 							entry.issueId)
 					sortedEntries.add(e2)
+					sortedEntries = sortedEntries.sortedWith(compareBy({ it.startDate })).toMutableList()
 					debug("> Not on the same day, adding: ${e2.startDate}, end: ${e2.endDate}")
 				}
 
@@ -93,8 +94,9 @@ enum class TimesheetParser() {
 								continue
 							}
 						}
-						endDate = Date(Math.max(end.time, endDate.time))
 					}
+
+					endDate = Date(Math.max(end.time, endDate.time))
 				}
 
 				debug("start: ${entry.startDate}, end: ${end}, hours: ${calculateHour(entry.startDate, end)}")

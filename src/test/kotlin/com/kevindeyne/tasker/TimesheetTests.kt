@@ -186,13 +186,25 @@ class TimesheetTests {
 		val endD2 = LocalDateTime.now().plusDays(1).withHour(12).withMinute(0)
 		val e2 = TimesheetEntry(toDate(startD2), toDate(endD2))
 
-		val days = parser.getTimesheetDays(mutableListOf(e2, e1), startD1.toLocalDate(), endD2.toLocalDate())
+		val startD3 = LocalDateTime.now().plusDays(1).withHour(13).withMinute(0)
+		val endD3 = LocalDateTime.now().plusDays(1).withHour(19).withMinute(0)
+		val e3 = TimesheetEntry(toDate(startD3), toDate(endD3))
+
+		val startD4 = LocalDateTime.now().plusDays(1).withHour(14).withMinute(0)
+		val endD4 = LocalDateTime.now().plusDays(1).withHour(17).withMinute(0)
+		val e4 = TimesheetEntry(toDate(startD4), toDate(endD4))
+
+		val startD5 = LocalDateTime.now().plusDays(1).withHour(15).withMinute(0)
+		val endD5 = LocalDateTime.now().plusDays(1).withHour(18).withMinute(0)
+		val e5 = TimesheetEntry(toDate(startD5), toDate(endD5))
+
+		val days = parser.getTimesheetDays(mutableListOf(e2, e1, e4, e5, e3), startD1.toLocalDate(), endD5.toLocalDate())
 
 		Assert.assertTrue(days[0].days.size > 0)
 		Assert.assertEquals(2, days[0].days[0].total)
 		Assert.assertEquals(7.0, days[0].days[0].hours, 0.0)
-		Assert.assertEquals(1, days[0].days[1].total)
-		Assert.assertEquals(4.0, days[0].days[1].hours, 0.0)
+		Assert.assertEquals(4, days[0].days[1].total)
+		Assert.assertEquals(10.0, days[0].days[1].hours, 0.0)
 	}
 
 	fun toDate(localDate : LocalDateTime) : Date = TimeUtils.INSTANCE.localDateToDate(localDate)
