@@ -29,11 +29,11 @@ class CommonInterceptor(val issueRepository : IssueRepository) : HandlerIntercep
 	}
 
 	override fun postHandle(request: HttpServletRequest, response: HttpServletResponse, handler: Any, model: ModelAndView?) {
-		if(model != null && isValidHandle(request)){		
-			if (SecurityHolder.hasRole(Role.DEVELOPER) || SecurityHolder.hasRole(Role.TESTER)) {					
+		if(model != null && isValidHandle(request)){
+			if (SecurityHolder.hasRole(Role.DEVELOPER) || SecurityHolder.hasRole(Role.TESTER)) {
 				model.addObject("inProgressIssueList", issueRepository.findAllInProgress())
-			} 
-		}				
+			}
+		}
 	}
 	
 	fun isValidHandle(request: HttpServletRequest) : Boolean {

@@ -12,7 +12,7 @@ class ForwardController {
 		const val REDIR = "redirect:"
 	}
 	
-	@GetMapping("/")
+	@GetMapping("/", "/loginSuccess")
 	fun forwardLogic() : String {
 		if (SecurityHolder.hasRole(Role.DEVELOPER) || SecurityHolder.hasRole(Role.TESTER)) {
 			if(SecurityHolder.isReport()) {

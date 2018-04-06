@@ -1,17 +1,21 @@
 package com.kevindeyne.tasker.config
 
+import com.kevindeyne.tasker.interceptors.HoneypotAuthenticationFilter
 import com.kevindeyne.tasker.service.UserRetrievalService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.core.env.Environment
+import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider
+import org.springframework.security.config.BeanIds
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.security.crypto.password.PasswordEncoder
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter
 
 
 @Configuration
@@ -28,13 +32,14 @@ open class WebSecurityConfig : WebSecurityConfigurerAdapter() {
     override fun configure(http : HttpSecurity) {
 		permitResources(http)
 		forceHTTPS(http)
+
 		.authenticationProvider(authenticationProvider())
 		.authorizeRequests()
 			.antMatchers("/welcome", "/landing/**", "/login").permitAll()
 			.anyRequest().authenticated()
 			.and()
 		.formLogin()
-			.defaultSuccessUrl("/", true)
+			.defaultSuccessUrl("/loginSuccess", true)
 			.loginPage("/login")
 			.permitAll()
 			.and()
@@ -42,6 +47,7 @@ open class WebSecurityConfig : WebSecurityConfigurerAdapter() {
 			.logoutSuccessUrl("/")
 			.permitAll()
 		.and()
+		.addFilterAt(honeypotAuthFilter(), UsernamePasswordAuthenticationFilter::class.java)
 			.headers()
 			.contentSecurityPolicy("default-src 'self'; script-src 'self' 'unsafe-inline'; object-src 'none'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; media-src 'none'; frame-src 'none'; font-src *; connect-src 'self'")
     }
@@ -58,6 +64,18 @@ open class WebSecurityConfig : WebSecurityConfigurerAdapter() {
 		http.authorizeRequests().antMatchers("/stylesheets/**").permitAll()
 		http.authorizeRequests().antMatchers("/fonts/**").permitAll()
 		http.authorizeRequests().antMatchers("/icons/**").permitAll()
+	}
+
+	fun honeypotAuthFilter() : HoneypotAuthenticationFilter {
+		val h = HoneypotAuthenticationFilter()
+		h.setAuthenticationManager(authenticationManagerBean())
+		return h
+	}
+
+	@Bean(name = [BeanIds.AUTHENTICATION_MANAGER])
+	@Throws(Exception::class)
+	override fun authenticationManagerBean(): AuthenticationManager {
+		return super.authenticationManagerBean()
 	}
 
 	@Bean

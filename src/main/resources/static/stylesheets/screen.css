@@ -1531,3 +1531,8 @@ span.changeable:hover {
   font-weight: 500;
   font-size: 1em;
 }
+/* line 92, ../sass/_login.scss */
+#login-page #login-form #email {
+  position: absolute;
+  left: 105%;
+}
