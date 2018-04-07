@@ -1,5 +1,6 @@
 package com.kevindeyne.tasker.config
 
+import com.kevindeyne.tasker.interceptors.CustomAuthenticationSuccessHandler
 import com.kevindeyne.tasker.interceptors.HoneypotAuthenticationFilter
 import com.kevindeyne.tasker.service.UserRetrievalService
 import org.springframework.beans.factory.annotation.Autowired
@@ -69,6 +70,7 @@ open class WebSecurityConfig : WebSecurityConfigurerAdapter() {
 	fun honeypotAuthFilter() : HoneypotAuthenticationFilter {
 		val h = HoneypotAuthenticationFilter()
 		h.setAuthenticationManager(authenticationManagerBean())
+		h.setAuthenticationSuccessHandler(CustomAuthenticationSuccessHandler())
 		return h
 	}
 
