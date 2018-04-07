@@ -1,7 +1,6 @@
 package com.kevindeyne.tasker.repositories
 
 
-import com.kevindeyne.tasker.domain.IssueListing
 import com.kevindeyne.tasker.domain.ProjectListing
 import com.kevindeyne.tasker.domain.Role
 import com.kevindeyne.tasker.domain.TeammemberListing
@@ -11,7 +10,7 @@ import com.kevindeyne.tasker.jooq.tables.records.UserRecord
 import org.jooq.DSLContext
 import org.springframework.stereotype.Repository
 import org.springframework.transaction.annotation.Transactional
-import java.util.Optional
+import java.util.*
 import java.util.stream.Collectors
 
 @Repository
