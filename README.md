@@ -58,10 +58,10 @@ Take note: This project is an alpha-stage (feature incomplete) work in progress.
 * Branching 
 * Intro page (html with check if online) 
 * Timesheet re-write
+* Login honeypot for bots
+* Initial security pass
  
 ### Upcoming milestone plan
-* Security pass / Security rules via interceptors
-* Login honeypot for bots 
 * Manual ticket assignments
 * Shareholder page
 * Dynamic sprint info
@@ -76,6 +76,7 @@ Take note: This project is an alpha-stage (feature incomplete) work in progress.
 * localstorage updates via tabs in pulling (implemented, to test)
 * Landing page details
 * Algorithm efficiency in aside re-ordering
+* Security rules via interceptors / method-level
 
 ### Nice to have
 * Follow-up (auto-reminder after inaction) 
