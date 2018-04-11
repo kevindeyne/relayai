@@ -51,17 +51,19 @@ class TaskboardController(var issueRepository : IssueRepository) {
 	
 	fun genericTaskboardBuildup(model : Model) {
 		val issueList = issueRepository.findAllActiveForUserInCurrentSprint()
-		model.addAttribute("issueList", issueList);
+
+		model.addAttribute("issueList", issueList)
+		model.addAttribute("showCreatePage", issueList.isEmpty())
 		model.addAttribute("urlPostIssue", IssueController.ISSUE_DETAIL)
-		
-		model.addAttribute("progressStates", Progress.values());
-		model.addAttribute("impactStates", Impact.values());
-		model.addAttribute("urgencyStates", Urgency.values());
-		model.addAttribute("workloadStates", Workload.values());		
-		
-		model.addAttribute("maxid", determineMaxId(issueList));
-		
-		model.addAttribute("activePage", "tasks");	
+
+		model.addAttribute("progressStates", Progress.values())
+		model.addAttribute("impactStates", Impact.values())
+		model.addAttribute("urgencyStates", Urgency.values())
+		model.addAttribute("workloadStates", Workload.values())
+
+		model.addAttribute("maxid", determineMaxId(issueList))
+
+		model.addAttribute("activePage", "tasks")
 	}
 	
 	fun determineMaxId(list : List<IssueListing>) : Long = if(list.isEmpty()) 0L else list.stream().mapToLong{ i -> i.id }.max().asLong

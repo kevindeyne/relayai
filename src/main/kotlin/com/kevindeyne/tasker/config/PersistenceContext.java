@@ -1,6 +1,5 @@
 package com.kevindeyne.tasker.config;
-import javax.sql.DataSource;
-
+import com.jolbox.bonecp.BoneCPDataSource;
 import org.jooq.SQLDialect;
 import org.jooq.impl.DataSourceConnectionProvider;
 import org.jooq.impl.DefaultConfiguration;
@@ -18,7 +17,7 @@ import org.springframework.jdbc.datasource.TransactionAwareDataSourceProxy;
 import org.springframework.jdbc.datasource.init.DataSourceInitializer;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-import com.jolbox.bonecp.BoneCPDataSource;
+import javax.sql.DataSource;
 
 @Configuration
 @ComponentScan("com.kevindeyne.tasker")
@@ -41,12 +40,10 @@ public class PersistenceContext {
         return dataSource;
     }
 
-    @Bean
     public LazyConnectionDataSourceProxy lazyConnectionDataSource() {
         return new LazyConnectionDataSourceProxy(dataSource());
     }
 
-    @Bean
     public TransactionAwareDataSourceProxy transactionAwareDataSource() {
         return new TransactionAwareDataSourceProxy(lazyConnectionDataSource());
     }
@@ -56,7 +53,6 @@ public class PersistenceContext {
         return new DataSourceTransactionManager(lazyConnectionDataSource());
     }
 
-    @Bean
     public DataSourceConnectionProvider connectionProvider() {
         return new DataSourceConnectionProvider(transactionAwareDataSource());
     }
