@@ -10,6 +10,7 @@ import com.kevindeyne.tasker.jooq.tables.records.UserRecord
 import org.jooq.DSLContext
 import org.springframework.stereotype.Repository
 import org.springframework.transaction.annotation.Transactional
+import java.sql.Timestamp
 import java.util.*
 import java.util.stream.Collectors
 
@@ -51,6 +52,24 @@ open class UserRepositoryImpl (val dsl: DSLContext,
 		}
 		
 		return null;
+	}
+
+	@Transactional
+	override fun create(username : String, email : String, password : String) : Long {
+		val now = Timestamp(System.currentTimeMillis())
+		val sys = "[System]"
+
+		val userId = dsl.insertInto(Tables.USER,
+				Tables.USER.EMAIL, Tables.USER.PASSWORD, Tables.USER.USERNAME, Tables.USER.CREATE_DATE, Tables.USER.CREATE_USER, Tables.USER.UPDATE_DATE, Tables.USER.UPDATE_USER)
+				.values(email, password, username, now, sys, now, sys)
+				.returning(Tables.USER.ID).fetchOne().get(Tables.USER.ID)
+
+		dsl.insertInto(Tables.USER_ROLE,
+				Tables.USER_ROLE.USER_ID, Tables.USER_ROLE.ROLE)
+				.values(userId, Role.TEAM_LEADER.name)
+				.execute()
+
+		return userId
 	}
 	
 	fun getUserRoles(userId : Long) : List<Role> {

@@ -4231,3 +4231,7 @@ img{
 	min-width:180px;
 	text-transform:uppercase;
 }
+
+input.invalid {
+    border-color:#ff0071 !important;
+}

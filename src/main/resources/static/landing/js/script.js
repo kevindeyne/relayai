@@ -2,6 +2,13 @@
 
 	"use strict";
 
+    var token = $("meta[name='_csrf']").attr("content");
+    var header = $("meta[name='_csrf_header']").attr("content");
+
+    $(document).ajaxSend(function(e, xhr, options) {
+        xhr.setRequestHeader(header, token);
+        xhr.setRequestHeader("Content-Type", "application/json");
+    });
 
 	//Hide Loading Box (Preloader)
 	function handlePreloader() {
@@ -27,6 +34,24 @@
 	}
 	
 	headerStyle();
+
+	$("#registration-button").click(function() {
+	    var regForm = new Object();
+        regForm.projectName = $("#registration-form input[name='projectName']").val();
+        regForm.username = $("#registration-form input[name='username']").val();
+        regForm.email = $("#registration-form input[name='email']").val();
+        regForm.password = $("#registration-form input[name='password']").val();
+
+        $.post('/registration', JSON.stringify(regForm), function(response) {
+            if(response.status === "OK") {
+                 $(".sec-title:last h2").text("RelayAI.io activation mail sent");
+                 $("form:last").hide();
+            } else {
+                 $("#registration-form input").removeAttr("class");
+                 $("#registration-form input[name='"+response.element+"']").addClass("invalid").focus();
+            }
+        }, 'json');
+	});
 
 	//Submenu Dropdown Toggle
 	if($('.main-header li.dropdown ul').length){
