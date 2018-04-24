@@ -4,6 +4,7 @@
 package com.kevindeyne.tasker.jooq;
 
 
+import com.kevindeyne.tasker.jooq.tables.ActivationPending;
 import com.kevindeyne.tasker.jooq.tables.Branch;
 import com.kevindeyne.tasker.jooq.tables.Comments;
 import com.kevindeyne.tasker.jooq.tables.Event;
@@ -49,6 +50,8 @@ public class Indexes {
     // INDEX definitions
     // -------------------------------------------------------------------------
 
+    public static final Index ACTIVATION_PENDING_PRIMARY = Indexes0.ACTIVATION_PENDING_PRIMARY;
+    public static final Index ACTIVATION_PENDING_USER_ID = Indexes0.ACTIVATION_PENDING_USER_ID;
     public static final Index BRANCH_PRIMARY = Indexes0.BRANCH_PRIMARY;
     public static final Index BRANCH_PROJECT_ID = Indexes0.BRANCH_PROJECT_ID;
     public static final Index COMMENTS_ISSUE_ID = Indexes0.COMMENTS_ISSUE_ID;
@@ -100,6 +103,8 @@ public class Indexes {
     // -------------------------------------------------------------------------
 
     private static class Indexes0 extends AbstractKeys {
+        public static Index ACTIVATION_PENDING_PRIMARY = createIndex("PRIMARY", ActivationPending.ACTIVATION_PENDING, new OrderField[] { ActivationPending.ACTIVATION_PENDING.ID }, true);
+        public static Index ACTIVATION_PENDING_USER_ID = createIndex("user_id", ActivationPending.ACTIVATION_PENDING, new OrderField[] { ActivationPending.ACTIVATION_PENDING.USER_ID }, false);
         public static Index BRANCH_PRIMARY = createIndex("PRIMARY", Branch.BRANCH, new OrderField[] { Branch.BRANCH.ID }, true);
         public static Index BRANCH_PROJECT_ID = createIndex("project_id", Branch.BRANCH, new OrderField[] { Branch.BRANCH.PROJECT_ID }, false);
         public static Index COMMENTS_ISSUE_ID = createIndex("issue_id", Comments.COMMENTS, new OrderField[] { Comments.COMMENTS.ISSUE_ID }, false);

@@ -4,6 +4,7 @@
 package com.kevindeyne.tasker.jooq;
 
 
+import com.kevindeyne.tasker.jooq.tables.ActivationPending;
 import com.kevindeyne.tasker.jooq.tables.Branch;
 import com.kevindeyne.tasker.jooq.tables.Comments;
 import com.kevindeyne.tasker.jooq.tables.Event;
@@ -24,6 +25,7 @@ import com.kevindeyne.tasker.jooq.tables.User;
 import com.kevindeyne.tasker.jooq.tables.UserRole;
 import com.kevindeyne.tasker.jooq.tables.VersionIssue;
 import com.kevindeyne.tasker.jooq.tables.Versions;
+import com.kevindeyne.tasker.jooq.tables.records.ActivationPendingRecord;
 import com.kevindeyne.tasker.jooq.tables.records.BranchRecord;
 import com.kevindeyne.tasker.jooq.tables.records.CommentsRecord;
 import com.kevindeyne.tasker.jooq.tables.records.EventRecord;
@@ -71,6 +73,7 @@ public class Keys {
     // IDENTITY definitions
     // -------------------------------------------------------------------------
 
+    public static final Identity<ActivationPendingRecord, Long> IDENTITY_ACTIVATION_PENDING = Identities0.IDENTITY_ACTIVATION_PENDING;
     public static final Identity<BranchRecord, Long> IDENTITY_BRANCH = Identities0.IDENTITY_BRANCH;
     public static final Identity<CommentsRecord, Long> IDENTITY_COMMENTS = Identities0.IDENTITY_COMMENTS;
     public static final Identity<EventRecord, Long> IDENTITY_EVENT = Identities0.IDENTITY_EVENT;
@@ -95,6 +98,7 @@ public class Keys {
     // UNIQUE and PRIMARY KEY definitions
     // -------------------------------------------------------------------------
 
+    public static final UniqueKey<ActivationPendingRecord> KEY_ACTIVATION_PENDING_PRIMARY = UniqueKeys0.KEY_ACTIVATION_PENDING_PRIMARY;
     public static final UniqueKey<BranchRecord> KEY_BRANCH_PRIMARY = UniqueKeys0.KEY_BRANCH_PRIMARY;
     public static final UniqueKey<CommentsRecord> KEY_COMMENTS_PRIMARY = UniqueKeys0.KEY_COMMENTS_PRIMARY;
     public static final UniqueKey<EventRecord> KEY_EVENT_PRIMARY = UniqueKeys0.KEY_EVENT_PRIMARY;
@@ -120,6 +124,7 @@ public class Keys {
     // FOREIGN KEY definitions
     // -------------------------------------------------------------------------
 
+    public static final ForeignKey<ActivationPendingRecord, UserRecord> ACTIVATION_PENDING_IBFK_1 = ForeignKeys0.ACTIVATION_PENDING_IBFK_1;
     public static final ForeignKey<BranchRecord, ProjectRecord> BRANCH_IBFK_1 = ForeignKeys0.BRANCH_IBFK_1;
     public static final ForeignKey<CommentsRecord, UserRecord> COMMENTS_IBFK_1 = ForeignKeys0.COMMENTS_IBFK_1;
     public static final ForeignKey<CommentsRecord, IssueRecord> COMMENTS_IBFK_2 = ForeignKeys0.COMMENTS_IBFK_2;
@@ -147,6 +152,7 @@ public class Keys {
     // -------------------------------------------------------------------------
 
     private static class Identities0 extends AbstractKeys {
+        public static Identity<ActivationPendingRecord, Long> IDENTITY_ACTIVATION_PENDING = createIdentity(ActivationPending.ACTIVATION_PENDING, ActivationPending.ACTIVATION_PENDING.ID);
         public static Identity<BranchRecord, Long> IDENTITY_BRANCH = createIdentity(Branch.BRANCH, Branch.BRANCH.ID);
         public static Identity<CommentsRecord, Long> IDENTITY_COMMENTS = createIdentity(Comments.COMMENTS, Comments.COMMENTS.ID);
         public static Identity<EventRecord, Long> IDENTITY_EVENT = createIdentity(Event.EVENT, Event.EVENT.ID);
@@ -169,6 +175,7 @@ public class Keys {
     }
 
     private static class UniqueKeys0 extends AbstractKeys {
+        public static final UniqueKey<ActivationPendingRecord> KEY_ACTIVATION_PENDING_PRIMARY = createUniqueKey(ActivationPending.ACTIVATION_PENDING, "KEY_activation_pending_PRIMARY", ActivationPending.ACTIVATION_PENDING.ID);
         public static final UniqueKey<BranchRecord> KEY_BRANCH_PRIMARY = createUniqueKey(Branch.BRANCH, "KEY_branch_PRIMARY", Branch.BRANCH.ID);
         public static final UniqueKey<CommentsRecord> KEY_COMMENTS_PRIMARY = createUniqueKey(Comments.COMMENTS, "KEY_comments_PRIMARY", Comments.COMMENTS.ID);
         public static final UniqueKey<EventRecord> KEY_EVENT_PRIMARY = createUniqueKey(Event.EVENT, "KEY_event_PRIMARY", Event.EVENT.ID);
@@ -192,6 +199,7 @@ public class Keys {
     }
 
     private static class ForeignKeys0 extends AbstractKeys {
+        public static final ForeignKey<ActivationPendingRecord, UserRecord> ACTIVATION_PENDING_IBFK_1 = createForeignKey(com.kevindeyne.tasker.jooq.Keys.KEY_USER_PRIMARY, ActivationPending.ACTIVATION_PENDING, "activation_pending_ibfk_1", ActivationPending.ACTIVATION_PENDING.USER_ID);
         public static final ForeignKey<BranchRecord, ProjectRecord> BRANCH_IBFK_1 = createForeignKey(com.kevindeyne.tasker.jooq.Keys.KEY_PROJECT_PRIMARY, Branch.BRANCH, "branch_ibfk_1", Branch.BRANCH.PROJECT_ID);
         public static final ForeignKey<CommentsRecord, UserRecord> COMMENTS_IBFK_1 = createForeignKey(com.kevindeyne.tasker.jooq.Keys.KEY_USER_PRIMARY, Comments.COMMENTS, "comments_ibfk_1", Comments.COMMENTS.USER_ID);
         public static final ForeignKey<CommentsRecord, IssueRecord> COMMENTS_IBFK_2 = createForeignKey(com.kevindeyne.tasker.jooq.Keys.KEY_ISSUE_PRIMARY, Comments.COMMENTS, "comments_ibfk_2", Comments.COMMENTS.ISSUE_ID);

@@ -4,6 +4,7 @@
 package com.kevindeyne.tasker.jooq;
 
 
+import com.kevindeyne.tasker.jooq.tables.ActivationPending;
 import com.kevindeyne.tasker.jooq.tables.Branch;
 import com.kevindeyne.tasker.jooq.tables.Comments;
 import com.kevindeyne.tasker.jooq.tables.Event;
@@ -49,12 +50,17 @@ import org.jooq.impl.SchemaImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Taskr extends SchemaImpl {
 
-    private static final long serialVersionUID = 1174911278;
+    private static final long serialVersionUID = 1360176908;
 
     /**
      * The reference instance of <code>taskr</code>
      */
     public static final Taskr TASKR = new Taskr();
+
+    /**
+     * The table <code>taskr.activation_pending</code>.
+     */
+    public final ActivationPending ACTIVATION_PENDING = com.kevindeyne.tasker.jooq.tables.ActivationPending.ACTIVATION_PENDING;
 
     /**
      * The table <code>taskr.branch</code>.
@@ -181,6 +187,7 @@ public class Taskr extends SchemaImpl {
 
     private final List<Table<?>> getTables0() {
         return Arrays.<Table<?>>asList(
+            ActivationPending.ACTIVATION_PENDING,
             Branch.BRANCH,
             Comments.COMMENTS,
             Event.EVENT,

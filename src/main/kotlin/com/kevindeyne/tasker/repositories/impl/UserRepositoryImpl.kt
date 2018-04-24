@@ -8,6 +8,7 @@ import com.kevindeyne.tasker.domain.UserPrincipal
 import com.kevindeyne.tasker.jooq.Tables
 import com.kevindeyne.tasker.jooq.tables.records.UserRecord
 import org.jooq.DSLContext
+import org.jooq.TableField
 import org.springframework.stereotype.Repository
 import org.springframework.transaction.annotation.Transactional
 import java.sql.Timestamp
@@ -90,6 +91,18 @@ open class UserRepositoryImpl (val dsl: DSLContext,
 		}
 		
 		return "[System]"
+	}
+
+	override fun findElementById(element : TableField<UserRecord, String>, id : Long) : String {
+		val record : Optional<UserRecord> = dsl.selectFrom(Tables.USER)
+				.where(Tables.USER.ID.eq(id.toLong()))
+				.fetchOptional()
+
+		if(record.isPresent) {
+			return record.get().map { n -> n.get(element) }
+		}
+
+		throw RuntimeException("Could not find element for userId [$id]")
 	}
 	
 	fun getUserIdFromRecord(record : UserRecord) : Long = record.get(Tables.USER.ID)

@@ -28,6 +28,11 @@ enum class TimeUtils {
 	fun isToday(date : LocalDate) : Boolean = areDatesOnSameDay(Date(), localDateToDate(date))
 
 	fun isToday(date : Date) : Boolean = areDatesOnSameDay(Date(), date)
+
+	fun timeStampInXHours(hours: Int): Timestamp {
+		val ldt : LocalDateTime = LocalDateTime.ofInstant(Date().toInstant(), ZoneId.systemDefault())
+		return Timestamp(Date.from(ldt.atZone(ZoneId.systemDefault()).plusHours(hours.toLong()).toInstant()).time)
+	}
 	
 	fun addHours(date : Date, hours : Int) : Date {
 		val ldt : LocalDateTime = LocalDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault())

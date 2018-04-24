@@ -107,8 +107,9 @@ open class IssueLoader(
 	}
 	
 	@Transactional
-	fun truncateAll() {		
-		dsl.delete(Tables.VERSION_ISSUE).execute()		
+	fun truncateAll() {
+		dsl.delete(Tables.ACTIVATION_PENDING).execute()
+		dsl.delete(Tables.VERSION_ISSUE).execute()
 		dsl.delete(Tables.VERSIONS).execute()
 		dsl.delete(Tables.BRANCH).execute()		
 		dsl.delete(Tables.COMMENTS).execute()

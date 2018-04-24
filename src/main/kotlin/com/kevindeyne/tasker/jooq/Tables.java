@@ -4,6 +4,7 @@
 package com.kevindeyne.tasker.jooq;
 
 
+import com.kevindeyne.tasker.jooq.tables.ActivationPending;
 import com.kevindeyne.tasker.jooq.tables.Branch;
 import com.kevindeyne.tasker.jooq.tables.Comments;
 import com.kevindeyne.tasker.jooq.tables.Event;
@@ -40,6 +41,11 @@ import javax.annotation.Generated;
 )
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Tables {
+
+    /**
+     * The table <code>taskr.activation_pending</code>.
+     */
+    public static final ActivationPending ACTIVATION_PENDING = com.kevindeyne.tasker.jooq.tables.ActivationPending.ACTIVATION_PENDING;
 
     /**
      * The table <code>taskr.branch</code>.
