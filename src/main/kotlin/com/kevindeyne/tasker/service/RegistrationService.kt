@@ -2,6 +2,7 @@ package com.kevindeyne.tasker.service
 
 import com.kevindeyne.tasker.controller.form.FormResponse
 import com.kevindeyne.tasker.controller.form.RegistrationForm
+import com.kevindeyne.tasker.repositories.ActivationRepository
 import com.kevindeyne.tasker.repositories.ProjectRepository
 import com.kevindeyne.tasker.repositories.UserRepository
 import org.apache.commons.validator.GenericValidator
@@ -10,15 +11,15 @@ import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Component
 
 @Component
-open class RegistrationService(var userRepository: UserRepository, var projectRepository: ProjectRepository, var passwordEncoder : PasswordEncoder) {
+open class RegistrationService(var userRepository: UserRepository, var projectRepository: ProjectRepository, var passwordEncoder : PasswordEncoder, var activationRepository: ActivationRepository) {
 		
 	fun registerUser(form : RegistrationForm) : FormResponse {
 		val v = validate(form)
 		if(v.status == "OK"){
 			form.encodePassword(passwordEncoder)
 			val userId : Long = userRepository.create(form.username, form.email, form.password)
-			println("New userid : $userId")
-			//val projectId : Long = projectRepository.createNewProject(userId, projectForm)
+			projectRepository.createNewProject(userId, form.projectName)
+			activationRepository.registerActivation(userId)
 		}
 
 		return v

@@ -17,5 +17,6 @@ interface ProjectRepository {
 	fun createNewProject(userId : Long, form : ProjectForm)
 	
 	fun getCurrentVersion(projectId : Long) : ProjectVersion
-	
+
+	fun createNewProject(userId : Long, projectTitle: String)
 }

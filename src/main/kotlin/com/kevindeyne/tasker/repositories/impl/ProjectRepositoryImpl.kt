@@ -5,17 +5,14 @@ import com.kevindeyne.tasker.controller.timesheet.TimeUtils
 import com.kevindeyne.tasker.domain.ProjectListing
 import com.kevindeyne.tasker.domain.ProjectVersion
 import com.kevindeyne.tasker.domain.SprintFrequency
-import com.kevindeyne.tasker.jooq.Tables.PROJECT
-import com.kevindeyne.tasker.jooq.Tables.PROJECT_USERS
-import com.kevindeyne.tasker.jooq.Tables.SPRINT
-import com.kevindeyne.tasker.jooq.Tables.BRANCH
-import com.kevindeyne.tasker.jooq.Tables.VERSIONS
+import com.kevindeyne.tasker.domain.UserPrincipal
+import com.kevindeyne.tasker.jooq.Tables.*
 import com.kevindeyne.tasker.service.SecurityHolder
 import org.jooq.DSLContext
 import org.springframework.stereotype.Component
 import org.springframework.transaction.annotation.Transactional
 import java.sql.Timestamp
-import java.util.Date
+import java.util.*
 import java.util.stream.Collectors
 
 @Component
@@ -73,7 +70,10 @@ open class ProjectRepositoryImpl (val dsl: DSLContext, val sprintRepository : Sp
 	
 	@Transactional
 	override fun changeActiveProject(userId : Long, projectId : Long) {
-		updateActiveProjectUser(userId, SecurityHolder.getProjectId(), false)
+		val principal: UserPrincipal? = SecurityHolder.getUserPrincipal()
+		if (null != principal) {
+			updateActiveProjectUser(userId, principal.projectId, false)
+		}
 		updateActiveProjectUser(userId, projectId, true)
 		
 		val sprintId = sprintRepository.findCurrentSprintByProjectId(projectId)
@@ -161,5 +161,14 @@ open class ProjectRepositoryImpl (val dsl: DSLContext, val sprintRepository : Sp
 									n.get(PROJECT.MINOR_VERSION),
 									n.get(PROJECT.PATCH_VERSION))
 			   }*/
+	}
+
+	override fun createNewProject(userId: Long, projectName : String) {
+		val title : String = projectName.capitalize()
+		val sprintLength : Int = SprintFrequency.WEEKLY.weeks
+		val projectId = buildProject(userId, title, sprintLength)
+
+		setProjectAsActive(projectId, buildOriginSprint(userId, projectId, sprintLength))
+		changeActiveProject(userId, projectId)
 	}
 }
