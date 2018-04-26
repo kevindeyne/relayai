@@ -12,7 +12,7 @@ import java.util.*
 
 @Component
 @Transactional
-open class ActivationRepositoryImpl (val dsl: DSLContext, val encoder : PasswordEncoder, val emailService: EmailService, val userRepository: UserRepository) : ActivationRepository {
+open class ActivationRepositoryImpl (val dsl: DSLContext, var encoder: PasswordEncoder, val emailService: EmailService, val userRepository: UserRepository) : ActivationRepository {
 
 	override fun registerActivation(userId : Long) {
 		val newKey = Random().nextInt(Integer.MAX_VALUE).toString()
@@ -39,5 +39,9 @@ open class ActivationRepositoryImpl (val dsl: DSLContext, val encoder : Password
 		dsl.deleteFrom(Tables.ACTIVATION_PENDING)
 				.where(Tables.ACTIVATION_PENDING.ACTIVATION_KEY.eq(key))
 				.execute()
+	}
+
+	override fun encodePassword(password : String) : String {
+		return encoder.encode(password)
 	}
 }

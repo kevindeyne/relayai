@@ -9,16 +9,8 @@ import org.springframework.web.bind.annotation.PathVariable
 class ActivationController(var activationRepository: ActivationRepository) {
 
 	companion object {
-		const val GET_ATTEMPT_ACTIVATION = "/activation-sample"
 		const val GET_ACTIVATION_KEY = "/activation/{key}"
 	}
-
-	/*@GetMapping(GET_ATTEMPT_ACTIVATION)
-	fun attemptActivation() : String {
-		val userId = SecurityHolder.getUserId()
-		activationRepository.registerActivation(userId)
-		return "/settings"
-	}*/
 
 	@GetMapping(GET_ACTIVATION_KEY)
 	fun checkActivationKey(@PathVariable key : String) : String {

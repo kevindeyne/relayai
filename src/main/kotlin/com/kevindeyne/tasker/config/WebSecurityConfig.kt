@@ -14,8 +14,6 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
-import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter
 
 
@@ -23,6 +21,9 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 open class WebSecurityConfig : WebSecurityConfigurerAdapter() {
+
+	@Autowired
+	lateinit var encoder: Encoder
 	
 	@Autowired
     lateinit var userDetailsService: UserRetrievalService
@@ -36,7 +37,7 @@ open class WebSecurityConfig : WebSecurityConfigurerAdapter() {
 
 		.authenticationProvider(authenticationProvider())
 		.authorizeRequests()
-			.antMatchers("/welcome", "/landing/**", "/login", "/monitoring", "/registration**", "/registration/**", "/activation/**").permitAll()
+			.antMatchers("/welcome", "/landing/**", "/login**", "/monitoring", "/registration**", "/registration/**", "/activation/**").permitAll()
 			.anyRequest().authenticated()
 			.and()
 		.formLogin()
@@ -84,10 +85,7 @@ open class WebSecurityConfig : WebSecurityConfigurerAdapter() {
 	fun authenticationProvider() : DaoAuthenticationProvider {
 		val authProvider = DaoAuthenticationProvider()
 		authProvider.setUserDetailsService(userDetailsService)
-		authProvider.setPasswordEncoder(encoder())
+		authProvider.setPasswordEncoder(encoder)
 		return authProvider
 	}
-
-	@Bean
-	fun encoder() : PasswordEncoder  = BCryptPasswordEncoder(11)
 }

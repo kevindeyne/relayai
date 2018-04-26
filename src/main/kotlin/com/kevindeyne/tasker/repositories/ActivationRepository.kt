@@ -7,4 +7,6 @@ interface ActivationRepository {
 	fun hasActiveActivation(userId : Long) : Boolean
 
 	fun deleteActivation(key : String)
+
+	fun encodePassword(password : String) : String
 }

@@ -7,11 +7,8 @@ import com.kevindeyne.tasker.repositories.ActivationRepository
 import com.kevindeyne.tasker.repositories.UserRepository
 import org.apache.commons.validator.GenericValidator
 import org.apache.commons.validator.routines.EmailValidator
-import org.springframework.security.crypto.password.PasswordEncoder
-import org.springframework.stereotype.Component
 
-@Component
-open class RegistrationService(var userRepository: UserRepository, var passwordEncoder : PasswordEncoder, var activationRepository: ActivationRepository) {
+open class RegistrationService(var userRepository: UserRepository, var activationRepository: ActivationRepository) {
 		
 	fun registerUser(form : RegistrationForm) : FormResponse {
 		val v = validate(form)
@@ -20,7 +17,7 @@ open class RegistrationService(var userRepository: UserRepository, var passwordE
 			if(user != null){
 				return FormResponse("NOK", "email")
 			} else {
-				form.encodePassword(passwordEncoder)
+				form.password = activationRepository.encodePassword(form.password)
 				val userId : Long = userRepository.create(form.username, form.email, form.password)
 				activationRepository.registerActivation(userId)
 			}

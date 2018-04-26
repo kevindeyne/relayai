@@ -4,11 +4,10 @@ import com.amazonaws.auth.AWSCredentialsProvider
 import com.amazonaws.regions.Regions
 import com.amazonaws.services.simpleemail.AmazonSimpleEmailService
 import com.amazonaws.services.simpleemail.AmazonSimpleEmailServiceClientBuilder
-import org.springframework.cloud.aws.mail.simplemail.SimpleEmailServiceMailSender
+import org.springframework.cloud.aws.mail.simplemail.SimpleEmailServiceJavaMailSender
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
-import org.springframework.mail.MailSender
-
+import org.springframework.mail.javamail.JavaMailSender
 
 @Configuration
 open class MailConfig {
@@ -21,7 +20,7 @@ open class MailConfig {
 	}
 
 	@Bean
-	fun mailSender(ses: AmazonSimpleEmailService): MailSender {
-		return SimpleEmailServiceMailSender(ses)
+	fun mailSender(ses: AmazonSimpleEmailService): JavaMailSender {
+		return SimpleEmailServiceJavaMailSender(ses)
 	}
 }

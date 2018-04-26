@@ -40,7 +40,7 @@ open class IssueLoader(
 	var teamleaderId : Long = -1L
 	var shareholderId : Long = -1L
 	var newProjectId : Long = -1L
-	
+
 	override fun getOrder() : Int {
 		return 1
 	}
