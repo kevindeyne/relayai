@@ -30,7 +30,14 @@ $font-form: 'Roboto', Times New Roman, Helvetica, sans-serif;
 		padding: 10px;
 		margin-top: 20px;
 	}
-
+	
+	.alert.alert-success {
+	    background: linear-gradient(to right, #00b936, #43e027);
+		color: white;
+		padding: 10px;
+		margin-top: 20px;
+	}
+	
 	#login-form {	
 		width: 400px;
 		height: auto;
@@ -56,7 +63,7 @@ $font-form: 'Roboto', Times New Roman, Helvetica, sans-serif;
 		}
 		
 		input {
-			width: 250px;
+			width: 350px;
 			margin-left: auto;
 			margin-right: auto;
 			display: block;

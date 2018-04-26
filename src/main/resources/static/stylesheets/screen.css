@@ -466,7 +466,7 @@ aside section {
   -ms-border-radius: 5px;
   border-radius: 5px;
   padding: 0.75em;
-  width: 96%;
+  max-width: 96%;
   background-color: #ffffff;
   margin: 0.7em 0em;
   border: 2px solid #f3f6f8;
@@ -1475,6 +1475,13 @@ span.changeable:hover {
   margin-top: 20px;
 }
 /* line 34, ../sass/_login.scss */
+#login-page .alert.alert-success {
+  background: linear-gradient(to right, #00b936, #43e027);
+  color: white;
+  padding: 10px;
+  margin-top: 20px;
+}
+/* line 41, ../sass/_login.scss */
 #login-page #login-form {
   width: 400px;
   height: auto;
@@ -1485,7 +1492,7 @@ span.changeable:hover {
   margin-right: auto;
   margin-top: 50px;
 }
-/* line 45, ../sass/_login.scss */
+/* line 52, ../sass/_login.scss */
 #login-page #login-form legend {
   font-size: 2.35em;
   color: #4e5369;
@@ -1493,13 +1500,13 @@ span.changeable:hover {
   text-align: center;
   margin-bottom: 10px;
 }
-/* line 54, ../sass/_login.scss */
+/* line 61, ../sass/_login.scss */
 #login-page #login-form label {
   display: none;
 }
-/* line 58, ../sass/_login.scss */
+/* line 65, ../sass/_login.scss */
 #login-page #login-form input {
-  width: 250px;
+  width: 350px;
   margin-left: auto;
   margin-right: auto;
   display: block;
@@ -1514,13 +1521,13 @@ span.changeable:hover {
   outline: none;
   line-height: 1.5em;
 }
-/* line 75, ../sass/_login.scss */
+/* line 82, ../sass/_login.scss */
 #login-page #login-form .form-actions {
   width: 100px;
   margin-left: auto;
   margin-right: auto;
 }
-/* line 80, ../sass/_login.scss */
+/* line 87, ../sass/_login.scss */
 #login-page #login-form .form-actions button {
   width: 100px;
   text-align: center;
@@ -1531,7 +1538,7 @@ span.changeable:hover {
   font-weight: 500;
   font-size: 1em;
 }
-/* line 92, ../sass/_login.scss */
+/* line 99, ../sass/_login.scss */
 #login-page #login-form #email {
   position: absolute;
   left: 105%;

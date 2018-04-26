@@ -18,6 +18,7 @@
 
                     <div th:if="${param.error}" class="alert alert-error">Invalid username and password.</div>
                     <div th:if="${param.logout}" class="alert alert-success">You have been logged out.</div>
+                    <div th:if="${param.activated}" class="alert alert-success">Your account was activated, please log in to continue.</div>
                     <label for="username">Username</label>
                     <input type="text" id="username" name="username"/>
                     <label for="password">Password</label>

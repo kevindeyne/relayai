@@ -58,7 +58,7 @@ aside section {
 	@include border-radius(5px);
 
 	padding: 0.75em;
-	width:96%;
+	max-width:96%;
 	background-color: #ffffff;
 	margin: 0.7em 0em;
 	border: 2px solid #f3f6f8;
