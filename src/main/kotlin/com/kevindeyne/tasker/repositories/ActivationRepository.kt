@@ -9,4 +9,6 @@ interface ActivationRepository {
 	fun deleteActivation(key : String)
 
 	fun encodePassword(password : String) : String
+
+	fun deleteActivationOutOfTime()
 }

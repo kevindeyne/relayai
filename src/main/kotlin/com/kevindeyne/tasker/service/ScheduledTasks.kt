@@ -1,12 +1,12 @@
 package com.kevindeyne.tasker.service
 
+import com.kevindeyne.tasker.repositories.ActivationRepository
 import com.kevindeyne.tasker.repositories.SprintRepository
 import org.springframework.scheduling.annotation.Scheduled
 import org.springframework.stereotype.Component
-import java.util.Date
 
 @Component
-open class ScheduledTasks(val sprintRepository : SprintRepository) {
+open class ScheduledTasks(val sprintRepository : SprintRepository, val activationRepository: ActivationRepository) {
 	
 	companion object {
 		const val HOURLY = "0 0 * * * *"
@@ -16,6 +16,7 @@ open class ScheduledTasks(val sprintRepository : SprintRepository) {
 	fun hourlySprintCheck() {
 		val projectIds = sprintRepository.findEndedSprints()
 		projectIds.forEach{ p -> sprintRepository.startSprint(p) }
+
+		activationRepository.deleteActivationOutOfTime()
 	}
-	
 }

@@ -41,6 +41,12 @@ open class ActivationRepositoryImpl (val dsl: DSLContext, var encoder: PasswordE
 				.execute()
 	}
 
+    override fun deleteActivationOutOfTime() {
+        dsl.deleteFrom(Tables.ACTIVATION_PENDING)
+                .where(Tables.ACTIVATION_PENDING.VALID_UNTIL.lessThan(Timestamp(System.currentTimeMillis())))
+                .execute()
+    }
+
 	override fun encodePassword(password : String) : String {
 		return encoder.encode(password)
 	}

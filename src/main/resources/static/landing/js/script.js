@@ -44,7 +44,7 @@
 
         $.post('/registration', JSON.stringify(regForm), function(response) {
             if(response.status === "OK") {
-                 $(".sec-title:last h2").text("RelayAI.io activation mail sent");
+                 $(".sec-title:last h2").text("Thank you! Check your e-mail to continue.");
                  $("form:last").hide();
             } else {
                  $("#registration-form input").removeAttr("class");
