@@ -4,6 +4,7 @@
 	<th:block th:replace="fragments/template :: meta">Meta tags</th:block>
     <title>RelayAI - Taskboard</title>
     <link href="/stylesheets/auto-complete.css" media="screen, projection" rel="stylesheet" type="text/css" />
+	<link href="/stylesheets/shepherd-theme-arrows.css" media="screen, projection" rel="stylesheet" type="text/css" />
 </head>
 <body>
 	<nav th:replace="fragments/template :: navigation">Side menu</nav>
@@ -33,7 +34,11 @@
 	<script src="/js/taskr-aside.js"></script>
 	<script src="/js/taskr-undetermined.js"></script>
 	<script src="/js/taskr-new-issue.js"></script>
-	<script src="/js/taskr-edit-overlay.js"></script>	
+	<script src="/js/taskr-edit-overlay.js"></script>
+
+	<script src="/js/tether.js"></script>
+	<script src="/js/shepherd.js"></script>
+	<script src="/js/taskr-shepherd-test.js"></script>
 
 </body>
 </html>
