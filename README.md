@@ -60,6 +60,8 @@ Take note: This project is an alpha-stage (feature incomplete) work in progress.
 * Timesheet re-write
 * Login honeypot for bots
 * Initial security pass
+* Registration and activation
+* Landing page details
  
 ### Upcoming milestone plan
 * Manual ticket assignments
@@ -67,14 +69,12 @@ Take note: This project is an alpha-stage (feature incomplete) work in progress.
 * Dynamic sprint info
 * Dynamic changelogs
 * Settings: Project time zone, Time zone setting for issues, when average day starts/ends (automatically)
-* Registration and activation
 * Project, invite people through unique, timed, link 
 * IntroJS
 * Standup meeting daily or weekly 
 * AJAX call 404 error follow-up (refresh)
 * Validation pass
 * localstorage updates via tabs in pulling (implemented, to test)
-* Landing page details
 * Algorithm efficiency in aside re-ordering
 * Security rules via interceptors / method-level
 
