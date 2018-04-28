@@ -1,6 +1,9 @@
 var autocomplete_version;
 var autocomplete_assignee;
 
+//TODO this JS needs some serious rework, trying to do too much
+//TODO now that I have a better idea of what I want everywhere, this should be written in function of that
+
 $(document).ready(function() {
 	
 	$("span.changeable").click(changeableFunction);
@@ -104,15 +107,16 @@ function changeSubmitFunctionality(){
 	var action = $("#overlay-detail ul:visible li.active").attr("data-value");
 	
 	if(typeof issueId === "undefined"){
+		var ulId = $("#overlay-detail ul:visible").attr("id");
 		if(action === "-1"){
 			$("#content-new-project").show().css({opacity: "0"}).animate({opacity: "1"}, "fast");
 			$("#main").hide();
 			$("#content-new-project-main form input:first").focus();
-		} else {
+		} else if(ulId === "overlay-project"){
 			$.post("/project/changeto/"+action, {}, function(response) {}, "json");
 			localStorage.removeItem("current-issue");
 			$("#taskurl").attr("href", "/tasks/");
-		}		
+		}
 	} else {	
 		var relativeTo = $("#overlay-detail").attr("relative-to").replace("change-", "");
 

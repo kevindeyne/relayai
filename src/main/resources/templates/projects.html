@@ -17,6 +17,10 @@
 			<ul id="overlay-project" class="overlay-options">
 				<li th:each="project : ${projects}" th:text="${project.title}" th:data-value="${project.id}">KBI, ETC, ...</li>
 			</ul>
+
+			<ul id="overlay-usertype" class="overlay-options">
+				<li th:each="role : ${roles}" th:text="${role.text}" th:data-value="${role}">DEV, SHAREHOLDER, ...</li>
+			</ul>
 						
 			<div class="button-group">
 				<button id="edit-changer-submit" type="button">Change</button>
@@ -39,6 +43,7 @@
 	<script src="/js/taskr-notification-pulling.js"></script>
 	<script src="/js/taskr-new-issue.js"></script>
 	<script src="/js/taskr-new-project.js"></script>
+	<script src="/js/taskr-invites.js"></script>
 	<script src="/js/taskr-edit-overlay.js"></script>
 	
 	<script>

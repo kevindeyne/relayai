@@ -1,6 +1,7 @@
 package com.kevindeyne.tasker.controller.project
 
 import com.kevindeyne.tasker.domain.ProjectListing
+import com.kevindeyne.tasker.domain.Role
 import com.kevindeyne.tasker.repositories.ProjectRepository
 import com.kevindeyne.tasker.repositories.UserRepository
 import com.kevindeyne.tasker.service.SecurityHolder
@@ -24,9 +25,10 @@ class ProjectController(val projectRepository : ProjectRepository, val userRepos
 	}
 	
 	fun genericProjectLayout(model : Model) : String {
-		model.addAttribute("activePage", "project");
+		model.addAttribute("activePage", "project")
 		
 		model.addAttribute("projects", projectsList())
+		model.addAttribute("roles", Role.values())
 		
 		val projectId : Long = SecurityHolder.getProjectId()
 		if(SecurityHolder.getProjectId() != -1L){
@@ -47,7 +49,7 @@ class ProjectController(val projectRepository : ProjectRepository, val userRepos
 		result.add(newProject())
 		return result
 	}
-	
+
 	fun newProject() : ProjectListing = ProjectListing(-1L, "Create a new project", "NEW")
 	
 	@GetMapping(PROJECT_NEW) 

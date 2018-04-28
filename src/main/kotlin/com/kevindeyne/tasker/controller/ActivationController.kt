@@ -14,7 +14,9 @@ class ActivationController(var activationRepository: ActivationRepository) {
 
 	@GetMapping(GET_ACTIVATION_KEY)
 	fun checkActivationKey(@PathVariable key : String) : String {
+		println("start activation: $key")
 		activationRepository.deleteActivation(key)
+		println("activation completed - now forwarding to /login?activated")
 		return "redirect:/login?activated"
 	}
 
