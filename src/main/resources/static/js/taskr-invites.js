@@ -10,7 +10,7 @@ $(document).ready(function() {
         $("#team-members table").append("<tr><td><strong>"+inviteForm.email+" (pending)</strong></td><td><span class=\"changeable\">"+visualUserType+"</span></td><td><a href=\"#11629\">Remove from project</a></td></tr>");
 
 		$.post('/invite', JSON.stringify(inviteForm), function(response) {
-            
+
 		}, 'json');
 	});
 });
