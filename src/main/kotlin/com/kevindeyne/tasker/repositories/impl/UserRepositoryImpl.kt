@@ -95,7 +95,7 @@ open class UserRepositoryImpl (val dsl: DSLContext,
 
 	override fun findElementById(element : TableField<UserRecord, String>, id : Long) : String {
 		val record : Optional<UserRecord> = dsl.selectFrom(Tables.USER)
-				.where(Tables.USER.ID.eq(id.toLong()))
+				.where(Tables.USER.ID.eq(id))
 				.fetchOptional()
 
 		if(record.isPresent) {
@@ -129,20 +129,15 @@ open class UserRepositoryImpl (val dsl: DSLContext,
 	
 	override fun findInvitesByProject(projectId : Long) : List<TeammemberListing> {
 		return dsl.select()
-				  .from(Tables.USER
-							.join(Tables.INVITATION)
-							.on(Tables.INVITATION.USER_ID.eq(Tables.USER.ID))
-							.join(Tables.USER_ROLE)
-							.on(Tables.USER_ROLE.USER_ID.eq(Tables.USER.ID))
-						)
+				  .from(Tables.INVITATION)
 			   .where(Tables.INVITATION.PROJECT_ID.eq(projectId))
-			   .orderBy(Tables.USER_ROLE.ROLE)
+			   .orderBy(Tables.INVITATION.ROLE)
 			   .fetch()
 			   .parallelStream()
 			   .map {
-				  n -> TeammemberListing(n.get(Tables.USER.ID),
-									n.get(Tables.USER.USERNAME),
-									Role.valueOf(n.get(Tables.USER_ROLE.ROLE)).text)
+				  n -> TeammemberListing(n.get(Tables.INVITATION.ID),
+									n.get(Tables.INVITATION.EMAIL),
+									Role.valueOf(n.get(Tables.INVITATION.ROLE)).text)
 			   }
 			   .collect(Collectors.toList())
 	}
