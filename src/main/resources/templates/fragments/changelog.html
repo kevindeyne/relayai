@@ -20,10 +20,27 @@
 			</div>
 
 			<div>
-				<section th:each="issue : ${activeChangelog}" th:issue-id="${issue.id}" class="changelog-issue">
-					<h4><a th:text="${issue.title}" href="#">Improve DSLContext.batchStore() Javadoc, indicating that it does not execute MERGE / UPSERT semantics - Merge [#6584]</a></h4>
-					<p th:text="${issue.shortDescr}"></p>
-				</section>
+				<table id="example" class="datatable display" style="width:100%">
+					<thead>
+					<tr>
+						<th>Task</th>
+					</tr>
+					</thead>
+					<tbody>
+					<tr th:each="issue : ${activeChangelog}" th:issue-id="${issue.id}" class="changelog-issue">
+						<td>
+						<a th:text="${issue.title}" th:href="${'/tasks/' + issue.id}">Improve DSLContext.batchStore() Javadoc, indicating that it does not execute MERGE / UPSERT semantics - Merge [#6584]</a><br/>
+						<span th:text="${issue.shortDescr}"></span>
+						</td>
+					</tr>
+					</tbody>
+					<tfoot>
+					<tr>
+						<th>Task</th>
+					</tr>
+					</tfoot>
+				</table>
+
 			</div>
 			
 		</section>
