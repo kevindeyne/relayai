@@ -407,7 +407,7 @@ nav > a {
 aside {
   background-color: #f3f6f8;
   height: 100vh;
-  min-width: 350px;
+  min-width: 400px;
   flex: 3 1 15%;
   order: 2;
   color: #404854;
