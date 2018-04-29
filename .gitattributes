@@ -3,3 +3,10 @@
 *.min.js linguist-vendored
 tether.js linguist-vendored
 shepherd.js linguist-vendored
+jquery.js linguist-vendored
+jquery.scrollTo.js linguist-vendored
+owl.js linguist-vendored
+pagenav.js linguist-vendored
+wow.js linguist-vendored
+respond.js linguist-vendored
+script.js linguist-vendored

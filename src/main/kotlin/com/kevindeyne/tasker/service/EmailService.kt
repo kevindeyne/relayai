@@ -9,13 +9,7 @@ import org.springframework.stereotype.Component
 @Component
 open class EmailService(val mailSender : JavaMailSender, val environment: Environment) {
 
-	//TODO add by who, add which project
-	//TODO maybe use a login-once unique URL?
-	//TODO what if user is already register with Relay?
-	fun sendInvitationMail(email : String) {
-		val username : String = "Kevin Deyne" //TODO
-		val projectName : String = "Test project" //TODO
-
+	fun sendInvitationMail(email : String, inviteId: String, key : String, inviter: String, projectName : String) {
 		if(!environment.activeProfiles.contains("dev")){
 			val message = mailSender.createMimeMessage()
 			message.subject = "RelayAI.io: Invitation to join"
@@ -25,8 +19,8 @@ open class EmailService(val mailSender : JavaMailSender, val environment: Enviro
 			helper.setFrom("noreply@relayai.io")
 			helper.setText(buildTemplate(
 					addParagraph("Hi there,") +
-							addParagraph("You have been invited to '$projectName' by $username in the RelayAI project management tool. If you wish to join, click the button below.") +
-							addButton("https://www.relayai.io/welcome#register?email=$email", "Join this project") +
+							addParagraph("You have been invited to '$projectName' by $inviter in the RelayAI project management tool. If you wish to join, click the button below.") +
+							addButton("https://www.relayai.io/invite/$inviteId/$key", "Join this project") +
 							addParagraph("When you register a new account with us under this e-mail, it will automatically be coupled with the '$projectName' and require no further setup from you.") +
 							addParagraph("Kind regards, ")
 			), true)
