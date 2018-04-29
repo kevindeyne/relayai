@@ -10,62 +10,10 @@
 	<div class="preloader"></div>
 
 	<!-- Main Header-->
-	<header class="main-header">
-
-		<!-- Main Box -->
-		<div class="main-box">
-			<div class="auto-container">
-				<div class="outer-container clearfix">
-					<!--Logo Box-->
-					<div class="logo-box">
-						<div class="logo"><a href="index.html"><img src="landing/images/relay.gif" alt="Relay AI"></a></div>
-					</div>
-
-					<!--Nav Outer-->
-					<div class="nav-outer clearfix">
-						<!-- Main Menu -->
-						<nav class="main-menu">
-
-							<div class="navbar-header">
-								<!-- Toggle Button -->
-								<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-									<span class="icon-bar"></span>
-									<span class="icon-bar"></span>
-									<span class="icon-bar"></span>
-								</button>
-							</div>
-
-							<div class="navbar-collapse collapse scroll-nav clearfix">
-								<ul class="navigation clearfix">
-									<li class="dropdown current"><a href="index.html#banner">Home</a></li>
-									<li><a href="index.html#features">Features</a></li>
-									<li><a href="index.html#pricing">Pricing</a></li>
-									<li><a href="index.html#tech">Technical details</a></li>
-									<li><a href="index.html#register">Register</a></li>
-								</ul>
-							</div>
-
-						</nav>
-						<!-- Main Menu End-->
-
-						<!--Other Links-->
-						<div class="other-links">
-							<a href="/login" class="theme-btn btn-style-one">SIGN IN</a>
-						</div>
-
-					</div>
-					<!--Nav Outer End-->
-
-				</div>
-			</div>
-		</div>
-
-	</header>
-	<!--End Main Header -->
-
+	<th:block th:replace="fragments/landing :: main-header">main-header</th:block>
 
 	<!--Main Banner / Banner One-->
-	<section class="main-banner banner-one" id="banner" style="background-image:url(landing/images/background/banner-bg-1.png);">
+	<section class="main-banner banner-one" id="banner" style="background-image:url(/landing/images/background/banner-bg-1.png);">
 		<div class="auto-container">
 			<div class="row clearfix">
 				<!--Text Column-->
@@ -81,7 +29,7 @@
 				<!--Image Column-->
 				<div class="image-column col-md-6 col-sm-12 col-xs-12">
 					<div class="inner">
-						<figure class="image"><img src="landing/images/intro.png" alt=""></figure>
+						<figure class="image"><img src="/landing/images/intro.png" alt=""></figure>
 					</div>
 				</div>
 
@@ -90,54 +38,12 @@
 	</section>
 	<!--End Main Banner-->
 
-
-	<!--Features Section-->
-	<section class="products-section" id="features">
-		<div class="auto-container">
-			<!--Heading-->
-			<div class="sec-title">
-				<div class="icon"><figure class="image"><img src="landing/images/icons/icon-2.png" alt=""></figure></div>
-				<h2>RelayAI is all about cutting down on time you spend managing your project, for you, your developers and your shareholders.</h2>
-				<div class="desc-text">By applying smart defaults and adaptive learning we can handle the delegation and follow-up of tasks.</div>
-			</div>
-
-			<!--Services-->
-			<div class="services-outer clearfix">
-				<!--Service Style One-->
-				<div class="service-style-one col-md-4 col-sm-6 col-xs-12">
-					<div class="inner-box">
-						<div class="icon"><figure class="image"><img src="landing/images/icons/brain.png" alt=""></figure></div>
-						<h3><a href="#">Learns developer expertise and workload</a></h3>
-						<div class="text">RelayAI understands your tasks, your workload and generates a tag cloud of expertise per user. <br><br> It can then match any new issues with the existing knowledge and direct tasks to the right people in your team. <br><br> However, users can always override this themselves. The workload will automatically adjust. It's all about smart defaults.</div>
-					</div>
-				</div>
-
-				<!--Service Style One-->
-				<div class="service-style-one col-md-4 col-sm-6 col-xs-12">
-					<div class="inner-box">
-						<div class="icon"><figure class="image"><img src="landing/images/icons/icon-24.png" alt=""></figure></div>
-						<h3><a href="#">Integrates time-tracking</a></h3>
-						<div class="text">By guiding the user to track issues where applicable, we can provide accurate and automatic integrated time tracking of any issues being worked on. <br><br> This integrates with the sprint system to provide the developers with an accurate estimate on their sprint progress, and tools to ask colleagues for help. <br><br> This allows us also to make work in progress  visible for teamleaders and shareholders. </div>
-					</div>
-				</div>
-
-				<!--Service Style One-->
-				<div class="service-style-one col-md-4 col-sm-6 col-xs-12">
-					<div class="inner-box">
-						<div class="icon"><figure class="image"><img src="landing/images/icons/icon-28.png" alt=""></figure></div>
-						<h3><a href="#">Clarity for shareholders</a></h3>
-						<div class="text"> Shareholders do not get to see the in depth tool the developers need, instead they get a cleanly formatted site customised just for them.<br><br> This helps them gain a better understanding of the project as a whole, which features are upcoming and if their input is required. <br><br> RelayAI will also follow-up and contact shareholders if time-sensitive feedback is necessary.</div>
-					</div>
-				</div>
-
-			</div>
-		</div>
-	</section>
+	<th:block th:replace="fragments/landing :: features">features</th:block>
 
 	<!--Pricing Section-->
     <section class="plans-section" id="pricing">
     	<div class="auto-container">
-            
+
             <div class="row clearfix">
             	<!--Title Column-->
                 <div class="title-column col-lg-5 col-md-4 col-sm-12 col-xs-12">
@@ -146,14 +52,14 @@
                         <div class="text">We offer a no-nonsense SaaS pricing plan. No setup required, we host everything in the cloud.</div>
                     </div>
                 </div>
-                
+
                 <!--Plans Column-->
                 <div class="plans-col col-lg-7 col-md-8 col-sm-12 col-xs-12">
                 	<div class="row clearfix">
                     	<!--Plan Column-->
                         <div class="plan-column col-md12 col-sm-12 col-xs-12">
                             <div class="inner-box">
-                            	<div class="icon"><figure class="image"><img src="landing/images/icons/piggy-bank.png" alt=""></figure></div>
+                            	<div class="icon"><figure class="image"><img src="/landing/images/icons/piggy-bank.png" alt=""></figure></div>
                                 <h3>25$ per user <br /> per month</h3>
                                 <div class="text">This includes: <br/>
 								<ul>
@@ -167,38 +73,10 @@
                     </div>
                 </div>
             </div>
-            
         </div>
     </section>
 
-	<!--Tech details Section-->
-    <section class="blog-section" id="tech">
-    	<div class="auto-container">
-            
-            <div class="row clearfix">
-            	<!--Title Column-->
-                <div class="title-column col-lg-12 col-md-12 col-sm-12 col-xs-12">
-					<div class="inner">
-                    	<h2>Technical details</h2>
-						<br/>
-                        <div class="text">
-						<p>Primary technologies used are Kotlin, Java 8, SASS, JOOQ and jQuery. This project runs as a self-contained JAR with Spring Boot on Amazon Web Services (AWS). Certification, hosting and load balancing is provided by AWS.</p>
-
-						<p>Monitoring is done internally with JavaMelody APM, and is available at the <a href="https://www.relayai.io/monitoring">Monitoring station</a>.</p>
-
-						<p>The entire project is open-source and available on <a href="https://github.com/kevindeyne/tasker">GitHub</a>.</p>
-
-						<p>Continious Integration for the project is based of the main trunk of the github branch, and automatically builds and runs the full test-suite on every deploy. This is provided by <a href="https://travis-ci.org/kevindeyne/tasker">Travis CI</a>.</p>
-
-						<p>Code review and static code analysis is performed through the Codacy project, which currently rates the project with a grade A project certification. Details can be found at <a href="https://app.codacy.com/app/kevindeyne/tasker/dashboard ">Codacy</a>.</p>
-						</div>
-                    </div>
-                </div>
-            </div>
-            
-        </div>
-    </section>
-
+	<th:block th:replace="fragments/landing :: tech">tech</th:block>
 
 	<!--Contact Section-->
 	<section class="contact-section" id="register">
@@ -222,16 +100,26 @@
 					<div id="registration-form" class="default-form contact-form">
 						<form>
 							<div class="form-group">
-								<input type="text" name="username" value="" placeholder="Username" required>
+								<span>Full name</span>
+								<input type="text" name="username" value="" required>
 							</div>
 
 							<div class="form-group">
-								<input type="text" name="email" value="" placeholder="Email Address" required>
+								<span>E-mail address</span>
+								<input type="email" name="email" value="" required>
 							</div>
-							
+
 							<div class="form-group">
-								<input type="password" name="password" value="" placeholder="Password" required>
+								<span>Password</span>
+								<input type="password" name="password" value="" required>
 							</div>
+
+							<div class="form-group">
+								<span>Confirm password</span>
+								<input type="password" name="password2" value="" required>
+							</div>
+
+							<input type="email" id="country" name="country" autocomplete="off" />
 
 							<div class="form-group">
 								<button id="registration-button" type="button" class="theme-btn btn-style-two">Register <span class="icon ti-arrow-circle-right"></span></button>
@@ -243,70 +131,11 @@
 		</div>
 	</section>
 
-
-	<!--Footer Style One-->
-	<footer class="footer-style-one">
-		<!--Footer Upper-->
-		<div class="footer-upper">
-			<div class="auto-container">
-				<div class="row clearfix">
-					<!--Big Column-->
-					<div class="big-column col-lg-3 col-md-12 col-sm-12 col-xs-12">
-						<div class="footer-column">
-							<div class="footer-widget about-widget">
-								<div class="widget-inner">
-									<div class="logo"><img src="images/footer-logo.png" alt=""></div>
-									<div class="copyright">&copy; 2018 relayai.io <br/>
-										<div>Some icons made by <a href="https://www.flaticon.com/authors/nikita-golubev" title="Nikita Golubev">Nikita Golubev</a> and <a href="http://www.freepik.com" title="Freepik">Freepik</a>, licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div></div>
-									</div>
-								</div>
-							</div>
-						</div>						
-						<div class="big-column col-lg-9 col-md-12 col-sm-12 col-xs-12">
-							<div class="row clearfix">
-								<!--Footer Column-->
-								<div class="footer-column col-lg-12 col-md-12 col-sm-12 col-xs-12">
-									<div class="footer-widget links-widget">
-										<div class="widget-inner">
-											<div class="links">
-												<ul>
-													<li><a href="#banner">Home</a></li>
-													<li><a href="#features">Features</a></li>
-													<li><a href="#pricing">Pricing</a></li>
-													<li><a href="#tech">Technical details</a></li>
-													<li><a href="#register">Register</a></li>
-												</ul>											
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-
-	</footer>
-
-
+	<th:block th:replace="fragments/landing :: footer">footer</th:block>
 </div>
 <!--End pagewrapper-->
 
-<!--Scroll to top-->
-<div class="scroll-to-top scroll-to-target" data-target="html"><span class="fa fa-angle-double-up"></span></div>
-
-
-<script src="landing/js/jquery.js"></script>
-<script src="landing/js/bootstrap.min.js"></script>
-<script src="landing/js/pagenav.js"></script>
-<script src="landing/js/jquery.scrollTo.js"></script>
-<script src="landing/js/jquery.fancybox.pack.js"></script>
-<script src="landing/js/owl.js"></script>
-<script src="landing/js/wow.js"></script>
-
-<script src="landing/js/script.js"></script>
-
+<th:block th:replace="fragments/landing :: scripts">scripts</th:block>
 
 </body>
 </html>

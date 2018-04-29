@@ -26,7 +26,7 @@ class ForwardController {
 			return redir(OverviewController.OVERVIEW)
 		}
 		
-		return redir(LandingController._GET)
+		return redir(LandingController.GET)
 	}
 	
 	private fun redir(redirectTo : String) : String {

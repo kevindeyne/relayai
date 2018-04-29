@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head></head>
+<body>
+
+<header class="main-header" th:fragment="main-header">
+    <!-- Main Box -->
+    <div class="main-box">
+        <div class="auto-container">
+            <div class="outer-container clearfix">
+                <!--Logo Box-->
+                <div class="logo-box">
+                    <div class="logo"><a href="index.html"><img src="/landing/images/relay.gif" alt="Relay AI"></a></div>
+                </div>
+
+                <!--Nav Outer-->
+                <div class="nav-outer clearfix">
+                    <!-- Main Menu -->
+                    <nav class="main-menu">
+
+                        <div class="navbar-header">
+                            <!-- Toggle Button -->
+                            <button type="button" class="navbar-toggle" data-toggle="collapse"
+                                    data-target=".navbar-collapse">
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                        </div>
+
+                        <div class="navbar-collapse collapse scroll-nav clearfix">
+                            <ul class="navigation clearfix">
+                                <li class="dropdown current"><a href="index.html#banner">Home</a></li>
+                                <li><a href="index.html#features">Features</a></li>
+                                <li th:if="${isLanding}"><a href="index.html#pricing">Pricing</a></li>
+                                <li><a href="index.html#tech">Technical details</a></li>
+                                <li th:if="${isLanding}"><a href="index.html#register">Register</a></li>
+                                <li th:if="${!isLanding}"><a href="index.html#register">Activate your account</a></li>
+                            </ul>
+                        </div>
+
+                    </nav>
+                    <!-- Main Menu End-->
+
+                    <!--Other Links-->
+                    <div class="other-links">
+                        <a sec:authorize="isAnonymous()" href="/login" class="theme-btn btn-style-one">SIGN IN</a>
+                        <a sec:authorize="isAuthenticated()" href="/logout" class="theme-btn btn-style-one">LOG OUT</a>
+                    </div>
+
+                </div>
+                <!--Nav Outer End-->
+
+            </div>
+        </div>
+    </div>
+</header>
+
+<!--Features Section-->
+<section class="products-section" id="features" th:fragment="features">
+    <div class="auto-container">
+        <!--Heading-->
+        <div class="sec-title">
+            <div class="icon">
+                <figure class="image"><img src="/landing/images/icons/icon-2.png" alt=""></figure>
+            </div>
+            <h2>RelayAI is all about cutting down on time you spend managing your project, for you, your developers and
+                your shareholders.</h2>
+            <div class="desc-text">By applying smart defaults and adaptive learning we can handle the delegation and
+                follow-up of tasks.
+            </div>
+        </div>
+
+        <!--Services-->
+        <div class="services-outer clearfix">
+            <!--Service Style One-->
+            <div class="service-style-one col-md-4 col-sm-6 col-xs-12">
+                <div class="inner-box">
+                    <div class="icon">
+                        <figure class="image"><img src="/landing/images/icons/brain.png" alt=""></figure>
+                    </div>
+                    <h3><a href="#">Learns developer expertise and workload</a></h3>
+                    <div class="text">RelayAI understands your tasks, your workload and generates a tag cloud of
+                        expertise per user. <br><br> It can then match any new issues with the existing knowledge and
+                        direct tasks to the right people in your team. <br><br> However, users can always override this
+                        themselves. The workload will automatically adjust. It's all about smart defaults.
+                    </div>
+                </div>
+            </div>
+
+            <!--Service Style One-->
+            <div class="service-style-one col-md-4 col-sm-6 col-xs-12">
+                <div class="inner-box">
+                    <div class="icon">
+                        <figure class="image"><img src="/landing/images/icons/icon-24.png" alt=""></figure>
+                    </div>
+                    <h3><a href="#">Integrates time-tracking</a></h3>
+                    <div class="text">By guiding the user to track issues where applicable, we can provide accurate and
+                        automatic integrated time tracking of any issues being worked on. <br><br> This integrates with
+                        the sprint system to provide the developers with an accurate estimate on their sprint progress,
+                        and tools to ask colleagues for help. <br><br> This allows us also to make work in progress
+                        visible for teamleaders and shareholders.
+                    </div>
+                </div>
+            </div>
+
+            <!--Service Style One-->
+            <div class="service-style-one col-md-4 col-sm-6 col-xs-12">
+                <div class="inner-box">
+                    <div class="icon">
+                        <figure class="image"><img src="/landing/images/icons/icon-28.png" alt=""></figure>
+                    </div>
+                    <h3><a href="#">Clarity for shareholders</a></h3>
+                    <div class="text"> Shareholders do not get to see the in depth tool the developers need, instead
+                        they get a cleanly formatted site customised just for them.<br><br> This helps them gain a
+                        better understanding of the project as a whole, which features are upcoming and if their input
+                        is required. <br><br> RelayAI will also follow-up and contact shareholders if time-sensitive
+                        feedback is necessary.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!--Tech details Section-->
+<section class="blog-section" id="tech" th:fragment="tech">
+    <div class="auto-container">
+        <div class="row clearfix">
+            <!--Title Column-->
+            <div class="title-column col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="inner">
+                    <h2>Technical details</h2>
+                    <br/>
+                    <div class="text">
+                        <p>Primary technologies used are Kotlin, Java 8, SASS, JOOQ and jQuery. This project runs as a
+                            self-contained JAR with Spring Boot on Amazon Web Services (AWS). Certification, hosting and
+                            load balancing is provided by AWS.</p>
+
+                        <p>Monitoring is done internally with JavaMelody APM, and is available at the <a
+                                href="https://www.relayai.io/monitoring">Monitoring station</a>.</p>
+
+                        <p>The entire project is open-source and available on <a
+                                href="https://github.com/kevindeyne/tasker">GitHub</a>.</p>
+
+                        <p>Continious Integration for the project is based of the main trunk of the github branch, and
+                            automatically builds and runs the full test-suite on every deploy. This is provided by <a
+                                    href="https://travis-ci.org/kevindeyne/tasker">Travis CI</a>.</p>
+
+                        <p>Code review and static code analysis is performed through the Codacy project, which currently
+                            rates the project with a grade A project certification. Details can be found at <a
+                                    href="https://app.codacy.com/app/kevindeyne/tasker/dashboard">Codacy</a>.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!--Footer Style One-->
+<footer class="footer-style-one" th:fragment="footer">
+    <!--Footer Upper-->
+    <div class="footer-upper">
+        <div class="auto-container">
+            <div class="row clearfix">
+                <!--Big Column-->
+                <div class="big-column col-lg-3 col-md-12 col-sm-12 col-xs-12">
+                    <div class="footer-column">
+                        <div class="footer-widget about-widget">
+                            <div class="widget-inner">
+                                <div class="logo"><img src="images/footer-logo.png" alt=""></div>
+                                <div class="copyright">&copy; 2018 relayai.io <br/>
+                                    <div>Some icons made by <a href="https://www.flaticon.com/authors/nikita-golubev"
+                                                               title="Nikita Golubev">Nikita Golubev</a> and <a
+                                            href="http://www.freepik.com" title="Freepik">Freepik</a>, licensed by <a
+                                            href="http://creativecommons.org/licenses/by/3.0/"
+                                            title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="big-column col-lg-9 col-md-12 col-sm-12 col-xs-12">
+                    <div class="row clearfix">
+                        <!--Footer Column-->
+                        <div class="footer-column col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div class="footer-widget links-widget">
+                                <div class="widget-inner">
+                                    <div class="links">
+                                        <ul>
+                                            <li><a href="#banner">Home</a></li>
+                                            <li><a href="#features">Features</a></li>
+                                            <li th:if="${isLanding}"><a href="#pricing">Pricing</a></li>
+                                            <li><a href="#tech">Technical details</a></li>
+                                            <li th:if="${isLanding}"><a href="#register">Register</a></li>
+                                            <li th:if="${!isLanding}"><a href="#register">Activate your account</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<th:block th:fragment="scripts">
+    <!--Scroll to top-->
+    <div class="scroll-to-top scroll-to-target" data-target="html"><span class="fa fa-angle-double-up"></span></div>
+
+    <script src="/landing/js/jquery.js"></script>
+    <script src="/landing/js/bootstrap.min.js"></script>
+    <script src="/landing/js/pagenav.js"></script>
+    <script src="/landing/js/jquery.scrollTo.js"></script>
+    <script src="/landing/js/jquery.fancybox.pack.js"></script>
+    <script src="/landing/js/owl.js"></script>
+    <script src="/landing/js/wow.js"></script>
+
+    <script src="/landing/js/script.js"></script>
+
+    <style>
+        #register form #country {
+            position: absolute;
+            left: 205%;
+        }
+    </style>
+</th:block>
+
+</body>
+</html>

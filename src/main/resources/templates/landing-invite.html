@@ -1,0 +1,115 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+	<th:block th:replace="fragments/template :: meta-shareholder">Meta tags</th:block>
+</head>
+<body>
+<div class="page-wrapper">
+
+	<!-- Preloader -->
+	<div class="preloader"></div>
+
+	<!-- Main Header-->
+	<th:block th:replace="fragments/landing :: main-header">main-header</th:block>
+
+	<!--Main Banner / Banner Three-->
+	<section class="main-banner banner-three" id="banner" style="background-image:url(images/background/banner-bg-3.png);">
+		<div class="auto-container">
+			<div class="row clearfix">
+				<!--Text Column-->
+				<div class="text-column col-lg-12 col-md-12 col-sm-12 col-xs-12">
+					<div class="inner">
+						<h2>Join Kruispuntbank Inburgering at RelayAI<br/></h2>
+						<p>Kevin Deyne has invited you to be a member on their team. RelayAI enables everyone in your team to be part of the project management.</p>
+						<div class="links-box clearfix"><a href="#register" class="theme-btn btn-style-one">Accept & register</a> <a href="#banner2" class="theme-btn btn-style-two">Details on RelayAI</a></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!--End Main Banner-->
+
+	<!--Contact Section-->
+	<section class="contact-section" id="register">
+		<div class="auto-container">
+			<div class="row clearfix">
+
+				<!--Image Column-->
+				<div class="image-column col-md-6 col-sm-12 col-xs-12">
+					<div class="inner">
+						<figure class="image"><img src="images/resource/featured-image-4.png" alt=""></figure>
+					</div>
+				</div>
+
+				<!--Form Column-->
+				<div class="form-column col-md-6 col-sm-12 col-xs-12">
+					<div class="sec-title">
+						<h2>Activate your RelayAI.io account</h2>
+					</div>
+
+					<!--Contact Form-->
+					<div id="registration-form" class="default-form contact-form">
+						<form>
+							<div class="form-group">
+								<span>Full name</span>
+								<input type="text" name="username" value="" required>
+							</div>
+
+							<div class="form-group">
+								<span>Password</span>
+								<input type="password" name="password" value="" required>
+							</div>
+
+							<div class="form-group">
+								<span>Confirm password</span>
+								<input type="password" name="password2" value="" required>
+							</div>
+
+							<input type="email" id="country" name="country" autocomplete="off" />
+
+							<div class="form-group">
+								<button id="registration-button" type="button" class="theme-btn btn-style-two">Accept invitation <span class="icon ti-arrow-circle-right"></span></button>
+							</div>
+						</form>
+					</div><!--End Contact Form-->
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!--Main Banner / Banner One-->
+	<section class="main-banner banner-one" id="banner2" style="background-image:url(/landing/images/background/banner-bg-1.png);">
+		<div class="auto-container">
+			<div class="row clearfix">
+				<!--Text Column-->
+				<div class="text-column col-md-6 col-sm-12 col-xs-12">
+					<div class="inner">
+						<h4>What is RelayAI?</h4>
+						<h2>AI-assisted workflows for developers and shareholders</h2>
+						<p>Along with learning the expertise of team members and assigning relevant tasks to the right people, RelayAI takes into account everyone's workload to plan tasks, easily tracks time spent on projects, and simplifies things like: sprint planning, standup meetings, meeting SLA standards, and following up on replies.</p>
+					</div>
+				</div>
+
+				<!--Image Column-->
+				<div class="image-column col-md-6 col-sm-12 col-xs-12">
+					<div class="inner">
+						<figure class="image"><img src="/landing/images/intro.png" alt=""></figure>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!--End Main Banner-->
+
+	<th:block th:replace="fragments/landing :: features">features</th:block>
+
+	<th:block th:replace="fragments/landing :: tech">tech</th:block>
+
+	<th:block th:replace="fragments/landing :: footer">footer</th:block>
+</div>
+<!--End pagewrapper-->
+
+<th:block th:replace="fragments/landing :: scripts">scripts</th:block>
+
+</body>
+</html>

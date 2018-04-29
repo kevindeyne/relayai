@@ -37,7 +37,14 @@ open class WebSecurityConfig : WebSecurityConfigurerAdapter() {
 
 		.authenticationProvider(authenticationProvider())
 		.authorizeRequests()
-			.antMatchers("/welcome", "/landing/**", "/login**", "/monitoring", "/registration**", "/registration/**", "/activation/**").permitAll()
+			.antMatchers("/welcome",
+					"/landing/js/*", "/landing/css/*", "/landing/img/*","/landing/images/*","/landing/images/icons/*","/landing/images/fancybox/*",
+					"/landing/images/background/*","/landing/images/resource/*", "/landing/fonts/*",
+					"/login*",
+					"/monitoring",
+					"/registration",
+					"/invite/*/*",
+					"/activation/*").permitAll()
 			.anyRequest().authenticated()
 			.and()
 		.formLogin()

@@ -26,7 +26,7 @@ open class RegistrationService(var userRepository: UserRepository, var activatio
 		return v
     }
 
-	fun validate(form : RegistrationForm) : FormResponse {
+	private fun validate(form : RegistrationForm) : FormResponse {
 		if(!(GenericValidator.maxLength(form.username, 30) && GenericValidator.minLength(form.username, 2))){
 			return FormResponse("NOK", "username")
 		}
@@ -35,8 +35,20 @@ open class RegistrationService(var userRepository: UserRepository, var activatio
 			return FormResponse("NOK", "email")
 		}
 
-		if(GenericValidator.isBlankOrNull(form.password) || !GenericValidator.minLength(form.username, 4)){
+		if(GenericValidator.isBlankOrNull(form.password) || !GenericValidator.minLength(form.password, 4)){
 			return FormResponse("NOK", "password")
+		}
+
+		if(GenericValidator.isBlankOrNull(form.password2) || !GenericValidator.minLength(form.password2, 4)){
+			return FormResponse("NOK", "password2")
+		}
+
+		if(form.password != form.password2){
+			return FormResponse("NOK", "password2")
+		}
+
+		if(!GenericValidator.isBlankOrNull(form.country)){ //honeypot
+			return FormResponse("NOK", "email")
 		}
 
 		return FormResponse("OK")

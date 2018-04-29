@@ -1,5 +1,6 @@
 package com.kevindeyne.tasker.repositories
 
+import com.kevindeyne.tasker.controller.timesheet.Keygen
 import com.kevindeyne.tasker.controller.timesheet.TimeUtils
 import com.kevindeyne.tasker.jooq.Tables
 import com.kevindeyne.tasker.service.EmailService
@@ -8,14 +9,13 @@ import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Component
 import org.springframework.transaction.annotation.Transactional
 import java.sql.Timestamp
-import java.util.*
 
 @Component
 @Transactional
 open class ActivationRepositoryImpl (val dsl: DSLContext, var encoder: PasswordEncoder, val emailService: EmailService, val userRepository: UserRepository) : ActivationRepository {
 
 	override fun registerActivation(userId : Long) {
-		val newKey = Random().nextInt(Integer.MAX_VALUE).toString()
+		val newKey = Keygen.INSTANCE.newKey()
 
 		val email = userRepository.findElementById(Tables.USER.EMAIL, userId)
 		emailService.sendActivationMail(newKey, email)
