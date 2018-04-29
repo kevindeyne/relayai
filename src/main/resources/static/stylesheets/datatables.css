@@ -10,6 +10,17 @@
  *   DataTables 1.10.16
  */
 
+.dataTables_info {
+    padding-top: 13px;
+    font-size: 15px;
+}
+
+.dataTables_paginate {
+    font-size: 15px;
+}
+
+
+
 table.datatable{
     font-family: 'Open Sans', sans-serif;
     font-size: 15px;
@@ -299,6 +310,7 @@ table.dataTable td {
  */
 .dataTables_wrapper {
   position: relative;
+  top: -1.55em;
   clear: both;
   *zoom: 1;
   zoom: 1;
