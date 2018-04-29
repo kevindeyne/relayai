@@ -1,0 +1,18 @@
+START TRANSACTION;
+
+ALTER TABLE invitation
+ADD invitation_key VARCHAR(35) NOT NULL;
+
+ALTER TABLE invitation
+ADD valid_until DATETIME NOT NULL;
+
+ALTER TABLE invitation
+ADD email VARCHAR(35) NOT NULL;
+
+ALTER TABLE invitation
+ADD role VARCHAR(15) NOT NULL;
+
+ALTER TABLE invitation
+DROP COLUMN user_id;
+
+COMMIT;

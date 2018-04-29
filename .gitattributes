@@ -1,5 +1,3 @@
-*/jooq/*.java linguist-language=Kotlin
-*/jooq/*/*.java linguist-language=Kotlin
 *.min.js linguist-vendored
 tether.js linguist-vendored
 shepherd.js linguist-vendored
@@ -10,3 +8,5 @@ pagenav.js linguist-vendored
 wow.js linguist-vendored
 respond.js linguist-vendored
 script.js linguist-vendored
+*.css linguist-generated=true
+*.scss linguist-language=CSS

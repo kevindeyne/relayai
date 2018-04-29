@@ -183,7 +183,7 @@ open class IssueRepositoryImpl (val dsl: DSLContext) : IssueRepository {
 				Tables.ISSUE.TITLE, Tables.ISSUE.DESCRIPTION, Tables.ISSUE.ASSIGNED, Tables.ISSUE.SPRINT_ID, Tables.ISSUE.PROJECT_ID,
 				Tables.ISSUE.CREATE_USER, Tables.ISSUE.UPDATE_USER, Tables.ISSUE.CREATE_DATE, Tables.ISSUE.UPDATE_DATE, Tables.ISSUE.IMPORTANCE)
 		   .values(title.capitalize(), description.capitalize(), assignedTo, sprintId, projectId, createAndUpdateUser, createAndUpdateUser, timestamp, timestamp, IMPORTANCE_UNDECIDED)
-		   .returning(Tables.ISSUE.ID).fetchOne().get(Tables.ISSUE.ID);
+		   .returning(Tables.ISSUE.ID).fetchOne().get(Tables.ISSUE.ID)
 	}
 	
 	@Transactional
@@ -196,7 +196,7 @@ open class IssueRepositoryImpl (val dsl: DSLContext) : IssueRepository {
 				Tables.ISSUE.STATUS, Tables.ISSUE.WORKLOAD,
 				Tables.ISSUE.CREATE_USER, Tables.ISSUE.UPDATE_USER, Tables.ISSUE.CREATE_DATE, Tables.ISSUE.UPDATE_DATE, Tables.ISSUE.IMPORTANCE)
 		   .values(title, description, assignedTo, sprintId, projectId, Progress.IN_PROGRESS.name, 1, createAndUpdateUser, createAndUpdateUser, timestamp, timestamp, IMPORTANCE_HIGHIMPACT)
-		   .returning(Tables.ISSUE.ID).fetchOne().get(Tables.ISSUE.ID);
+		   .returning(Tables.ISSUE.ID).fetchOne().get(Tables.ISSUE.ID)
 	}
 	
 		

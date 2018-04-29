@@ -9,6 +9,7 @@ import com.kevindeyne.tasker.jooq.Keys;
 import com.kevindeyne.tasker.jooq.Taskr;
 import com.kevindeyne.tasker.jooq.tables.records.InvitationRecord;
 
+import java.sql.Timestamp;
 import java.util.Arrays;
 import java.util.List;
 
@@ -39,7 +40,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Invitation extends TableImpl<InvitationRecord> {
 
-    private static final long serialVersionUID = -157036418;
+    private static final long serialVersionUID = -1206264925;
 
     /**
      * The reference instance of <code>taskr.invitation</code>
@@ -60,14 +61,29 @@ public class Invitation extends TableImpl<InvitationRecord> {
     public final TableField<InvitationRecord, Long> ID = createField("id", org.jooq.impl.SQLDataType.BIGINT.nullable(false).identity(true), this, "");
 
     /**
-     * The column <code>taskr.invitation.user_id</code>.
-     */
-    public final TableField<InvitationRecord, Long> USER_ID = createField("user_id", org.jooq.impl.SQLDataType.BIGINT.nullable(false), this, "");
-
-    /**
      * The column <code>taskr.invitation.project_id</code>.
      */
     public final TableField<InvitationRecord, Long> PROJECT_ID = createField("project_id", org.jooq.impl.SQLDataType.BIGINT.nullable(false), this, "");
+
+    /**
+     * The column <code>taskr.invitation.invitation_key</code>.
+     */
+    public final TableField<InvitationRecord, String> INVITATION_KEY = createField("invitation_key", org.jooq.impl.SQLDataType.VARCHAR(35).nullable(false), this, "");
+
+    /**
+     * The column <code>taskr.invitation.valid_until</code>.
+     */
+    public final TableField<InvitationRecord, Timestamp> VALID_UNTIL = createField("valid_until", org.jooq.impl.SQLDataType.TIMESTAMP.nullable(false), this, "");
+
+    /**
+     * The column <code>taskr.invitation.email</code>.
+     */
+    public final TableField<InvitationRecord, String> EMAIL = createField("email", org.jooq.impl.SQLDataType.VARCHAR(35).nullable(false), this, "");
+
+    /**
+     * The column <code>taskr.invitation.role</code>.
+     */
+    public final TableField<InvitationRecord, String> ROLE = createField("role", org.jooq.impl.SQLDataType.VARCHAR(15).nullable(false), this, "");
 
     /**
      * Create a <code>taskr.invitation</code> table reference
