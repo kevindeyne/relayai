@@ -7,6 +7,6 @@ interface InvitationRepository {
 
 	fun create(email : String, key : String, userType : Role, projectId: Long) : InvitationDTO
 
-    fun find(inviteID: String, inviteCode: String): InvitationDTO
+    fun find(inviteID: String, inviteCode: String): InvitationDTO?
 
 }

@@ -13,14 +13,14 @@
 	<th:block th:replace="fragments/landing :: main-header">main-header</th:block>
 
 	<!--Main Banner / Banner Three-->
-	<section class="main-banner banner-three" id="banner" style="background-image:url(images/background/banner-bg-3.png);">
+	<section class="main-banner banner-three" id="banner" style="background-image:url(/images/background/banner-bg-3.png);">
 		<div class="auto-container">
 			<div class="row clearfix">
 				<!--Text Column-->
 				<div class="text-column col-lg-12 col-md-12 col-sm-12 col-xs-12">
 					<div class="inner">
-						<h2>Join Kruispuntbank Inburgering at RelayAI<br/></h2>
-						<p>Kevin Deyne has invited you to be a member on their team. RelayAI enables everyone in your team to be part of the project management.</p>
+						<h2>Join <span th:text="${projectName}" /> at RelayAI<br/></h2>
+						<p><span th:text="${invitorName}" /> has invited you to be a member on their team. RelayAI enables everyone in your team to be part of the project management.</p>
 						<div class="links-box clearfix"><a href="#register" class="theme-btn btn-style-one">Accept & register</a> <a href="#banner2" class="theme-btn btn-style-two">Details on RelayAI</a></div>
 					</div>
 				</div>
@@ -37,7 +37,7 @@
 				<!--Image Column-->
 				<div class="image-column col-md-6 col-sm-12 col-xs-12">
 					<div class="inner">
-						<figure class="image"><img src="images/resource/featured-image-4.png" alt=""></figure>
+						<figure class="image"><img src="/images/resource/featured-image-4.png" alt=""></figure>
 					</div>
 				</div>
 

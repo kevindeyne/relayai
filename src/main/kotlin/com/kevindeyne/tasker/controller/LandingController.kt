@@ -23,8 +23,12 @@ class LandingController(val invitationRepository: InvitationRepository) {
 
 	@GetMapping(GET_INVITE)
 	fun getInviteLanding(model : Model, @PathVariable inviteID : String, @PathVariable inviteCode : String) : String {
+		val dto : InvitationDTO = invitationRepository.find(inviteID, inviteCode) ?: return "redirect:/login?error"
 		model.addAttribute("isLanding", false)
-		val dto : InvitationDTO = invitationRepository.find(inviteID, inviteCode)
+
+		model.addAttribute("projectName", dto.projectName)
+		model.addAttribute("invitorName", dto.invitorName)
+
 		return "landing-invite"
 	}
 }

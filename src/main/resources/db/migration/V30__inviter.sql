@@ -1,0 +1,6 @@
+START TRANSACTION;
+
+ALTER TABLE invitation
+ADD `inviter` bigint(20) NOT NULL;
+
+COMMIT;

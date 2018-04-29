@@ -40,7 +40,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Invitation extends TableImpl<InvitationRecord> {
 
-    private static final long serialVersionUID = -1206264925;
+    private static final long serialVersionUID = -1315272959;
 
     /**
      * The reference instance of <code>taskr.invitation</code>
@@ -68,7 +68,7 @@ public class Invitation extends TableImpl<InvitationRecord> {
     /**
      * The column <code>taskr.invitation.invitation_key</code>.
      */
-    public final TableField<InvitationRecord, String> INVITATION_KEY = createField("invitation_key", org.jooq.impl.SQLDataType.VARCHAR(35).nullable(false), this, "");
+    public final TableField<InvitationRecord, String> INVITATION_KEY = createField("invitation_key", org.jooq.impl.SQLDataType.VARCHAR(36), this, "");
 
     /**
      * The column <code>taskr.invitation.valid_until</code>.
@@ -84,6 +84,11 @@ public class Invitation extends TableImpl<InvitationRecord> {
      * The column <code>taskr.invitation.role</code>.
      */
     public final TableField<InvitationRecord, String> ROLE = createField("role", org.jooq.impl.SQLDataType.VARCHAR(15).nullable(false), this, "");
+
+    /**
+     * The column <code>taskr.invitation.inviter</code>.
+     */
+    public final TableField<InvitationRecord, Long> INVITER = createField("inviter", org.jooq.impl.SQLDataType.BIGINT.nullable(false), this, "");
 
     /**
      * Create a <code>taskr.invitation</code> table reference

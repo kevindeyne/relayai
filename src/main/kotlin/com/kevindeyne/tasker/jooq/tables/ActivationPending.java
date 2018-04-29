@@ -41,7 +41,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class ActivationPending extends TableImpl<ActivationPendingRecord> {
 
-    private static final long serialVersionUID = 931999316;
+    private static final long serialVersionUID = 1261701972;
 
     /**
      * The reference instance of <code>taskr.activation_pending</code>
@@ -69,7 +69,7 @@ public class ActivationPending extends TableImpl<ActivationPendingRecord> {
     /**
      * The column <code>taskr.activation_pending.activation_key</code>.
      */
-    public final TableField<ActivationPendingRecord, String> ACTIVATION_KEY = createField("activation_key", org.jooq.impl.SQLDataType.VARCHAR(35).nullable(false), this, "");
+    public final TableField<ActivationPendingRecord, String> ACTIVATION_KEY = createField("activation_key", org.jooq.impl.SQLDataType.VARCHAR(36), this, "");
 
     /**
      * The column <code>taskr.activation_pending.valid_until</code>.
