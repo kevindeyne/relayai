@@ -1,2 +1,4 @@
 *.rb linguist-language=Java
 *.min.js linguist-vendored
+tether.js linguist-vendored
+shepherd.js linguist-vendored
