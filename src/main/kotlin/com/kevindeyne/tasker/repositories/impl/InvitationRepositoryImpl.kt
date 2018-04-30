@@ -1,5 +1,6 @@
 package com.kevindeyne.tasker.repositories
 
+import com.kevindeyne.tasker.controller.mappings.AcceptInvitationDTO
 import com.kevindeyne.tasker.controller.mappings.InvitationDTO
 import com.kevindeyne.tasker.controller.timesheet.TimeUtils
 import com.kevindeyne.tasker.domain.Role
@@ -37,7 +38,6 @@ open class InvitationRepositoryImpl (val dsl: DSLContext) : InvitationRepository
 	}
 
 	override fun find(inviteID: String, inviteCode: String): InvitationDTO? {
-
 		val invitationResult = dsl.select(Tables.INVITATION.ID, Tables.INVITATION.PROJECT_ID, Tables.INVITATION.INVITER)
 				.from(Tables.INVITATION)
 				.where(Tables.INVITATION.ID.eq(inviteID.toLong())
@@ -57,5 +57,20 @@ open class InvitationRepositoryImpl (val dsl: DSLContext) : InvitationRepository
 								.fetchOne().value1()
 
 		return InvitationDTO(inviterName, projectName, invitationResult.value1().toString())
+	}
+
+	override fun findEmail(inviteID: String, inviteCode: String) : AcceptInvitationDTO? {
+		val invitationResult = dsl.select(Tables.INVITATION.EMAIL, Tables.INVITATION.PROJECT_ID)
+				.from(Tables.INVITATION)
+				.where(Tables.INVITATION.ID.eq(inviteID.toLong())
+						.and(Tables.INVITATION.INVITATION_KEY.eq(inviteCode))
+				).fetchOne() ?: return null
+		return AcceptInvitationDTO(invitationResult.value1(), invitationResult.value2())
+	}
+
+	override fun removeInvitation(inviteID : String) {
+		dsl.deleteFrom(Tables.INVITATION)
+				.where(Tables.INVITATION.ID.eq(inviteID.toLong()))
+				.execute()
 	}
 }

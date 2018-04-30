@@ -39,6 +39,7 @@ open class ProjectRepositoryImpl (val dsl: DSLContext, val sprintRepository : Sp
 				.join(PROJECT_USERS).on(PROJECT_USERS.PROJECT_ID.eq(PROJECT.ID))
 			    .where(PROJECT_USERS.USER_ID.eq(userId))
 			    .and(PROJECT_USERS.ACTIVE.eq(true))
+				.limit(1)
 			    .fetchOptional()
 
 		if(record.isPresent){

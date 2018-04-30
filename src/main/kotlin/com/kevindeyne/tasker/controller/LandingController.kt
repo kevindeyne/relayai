@@ -29,6 +29,9 @@ class LandingController(val invitationRepository: InvitationRepository) {
 		model.addAttribute("projectName", dto.projectName)
 		model.addAttribute("invitorName", dto.invitorName)
 
+		model.addAttribute("inviteID", inviteID)
+		model.addAttribute("key", inviteCode)
+
 		return "landing-invite"
 	}
 }

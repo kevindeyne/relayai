@@ -43,7 +43,7 @@ open class WebSecurityConfig : WebSecurityConfigurerAdapter() {
 					"/login*",
 					"/monitoring",
 					"/registration",
-					"/invite/*/*",
+					"/invite/*/*", "/accept-invite/*/*",
 					"/activation/*").permitAll()
 			.anyRequest().authenticated()
 			.and()

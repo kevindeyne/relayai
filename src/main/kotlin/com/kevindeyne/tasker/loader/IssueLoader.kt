@@ -27,8 +27,8 @@ open class IssueLoader(
 		val tagcloudRepository : TagcloudRepository
 ) : ApplicationListener<ContextRefreshedEvent>, Ordered {
 	
-	val truncateAll : Boolean = false
-	val generateNew : Boolean = false
+	val truncateAll : Boolean = true
+	val generateNew : Boolean = true
 	val maxUserIssuesInSprint : Int = 40
 	val daysPerSprint : Int = 14
 	val totalAmountOfSprints : Int = 10
@@ -109,6 +109,7 @@ open class IssueLoader(
 	@Transactional
 	fun truncateAll() {
 		dsl.delete(Tables.ACTIVATION_PENDING).execute()
+		dsl.delete(Tables.INVITATION).execute()
 		dsl.delete(Tables.VERSION_ISSUE).execute()
 		dsl.delete(Tables.VERSIONS).execute()
 		dsl.delete(Tables.BRANCH).execute()		

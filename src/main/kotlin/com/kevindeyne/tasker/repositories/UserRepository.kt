@@ -18,5 +18,6 @@ interface UserRepository {
 	fun findInvitesByProject(projectId : Long) : List<TeammemberListing>
 
 	fun create(username : String, email : String, password : String) : Long
-	
+
+	fun addUserToProject(userId : Long, projectID : Long)
 }

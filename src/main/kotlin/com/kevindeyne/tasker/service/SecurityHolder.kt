@@ -74,7 +74,7 @@ object SecurityHolder {
 	}
 	
 	fun changeProject(projectId : Long, sprintId : Long) {
-		val authentication : Authentication = SecurityContextHolder.getContext().getAuthentication()
+		val authentication : Authentication = SecurityContextHolder.getContext().authentication
 		if (!(authentication is AnonymousAuthenticationToken)) {		    
 			val principal = authentication.principal as UserPrincipal
 			println("Switching projectid: ${principal.projectId}, sprintid: ${principal.sprintId} to $projectId, $sprintId")

@@ -37,10 +37,11 @@
 
 	$("#registration-button").click(function() {
 	    var regForm = new Object();
-        regForm.projectName = $("#registration-form input[name='projectName']").val();
         regForm.username = $("#registration-form input[name='username']").val();
         regForm.email = $("#registration-form input[name='email']").val();
         regForm.password = $("#registration-form input[name='password']").val();
+        regForm.password2 = $("#registration-form input[name='password2']").val();
+        regForm.country = $("#registration-form input[name='country']").val();
 
         $.post('/registration', JSON.stringify(regForm), function(response) {
             if(response.status === "OK") {
@@ -52,6 +53,25 @@
             }
         }, 'json');
 	});
+
+    $("#accept-button").click(function() {
+        var regForm = new Object();
+        regForm.username = $("#registration-form input[name='username']").val();
+        regForm.password = $("#registration-form input[name='password']").val();
+        regForm.password2 = $("#registration-form input[name='password2']").val();
+        regForm.country = $("#registration-form input[name='country']").val();
+
+        $.post('/accept-invite/' + inviteID + '/' + key, JSON.stringify(regForm), function(response) {
+            if(response.status === "OK") {
+                 $("#login-form #login-username").val(response.element);
+                 $("#login-form #login-password").val($("#registration-form input[name='password']").val());
+                 $("#login-submit").click();
+            } else {
+                 $("#registration-form input").removeAttr("class");
+                 $("#registration-form input[name='"+response.element+"']").addClass("invalid").focus();
+            }
+        }, 'json');
+    });
 
 	//Submenu Dropdown Toggle
 	if($('.main-header li.dropdown ul').length){

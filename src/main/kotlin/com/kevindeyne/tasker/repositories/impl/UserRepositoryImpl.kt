@@ -16,8 +16,7 @@ import java.util.*
 import java.util.stream.Collectors
 
 @Repository
-open class UserRepositoryImpl (val dsl: DSLContext,
-	val sprintRepository : SprintRepository, val projectRepository : ProjectRepository) : UserRepository {
+open class UserRepositoryImpl (val dsl: DSLContext, val sprintRepository : SprintRepository, val projectRepository : ProjectRepository) : UserRepository {
 	
 	@Transactional
 	override fun findByUsername(username : String) : UserPrincipal? {
@@ -140,5 +139,13 @@ open class UserRepositoryImpl (val dsl: DSLContext,
 									Role.valueOf(n.get(Tables.INVITATION.ROLE)).text)
 			   }
 			   .collect(Collectors.toList())
+	}
+
+	override fun addUserToProject(userId : Long, projectID : Long) {
+		val projectCount = dsl.fetchCount(dsl.selectFrom(Tables.PROJECT_USERS).where(Tables.PROJECT_USERS.USER_ID.eq(userId)))
+		dsl.insertInto(Tables.PROJECT_USERS,
+				Tables.PROJECT_USERS.PROJECT_ID, Tables.PROJECT_USERS.USER_ID, Tables.PROJECT_USERS.ACTIVE)
+				.values(projectID, userId, 0 == projectCount)
+				.execute()
 	}
 }

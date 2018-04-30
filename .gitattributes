@@ -7,6 +7,5 @@ owl.js linguist-vendored
 pagenav.js linguist-vendored
 wow.js linguist-vendored
 respond.js linguist-vendored
-script.js linguist-vendored
 *.css linguist-generated=true
 *.scss linguist-language=CSS

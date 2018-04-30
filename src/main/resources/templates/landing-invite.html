@@ -68,7 +68,7 @@
 							<input type="email" id="country" name="country" autocomplete="off" />
 
 							<div class="form-group">
-								<button id="registration-button" type="button" class="theme-btn btn-style-two">Accept invitation <span class="icon ti-arrow-circle-right"></span></button>
+								<button id="accept-button" type="button" class="theme-btn btn-style-two">Accept invitation <span class="icon ti-arrow-circle-right"></span></button>
 							</div>
 						</form>
 					</div><!--End Contact Form-->
@@ -76,6 +76,17 @@
 			</div>
 		</div>
 	</section>
+
+	<div id="login-form" style="display: none;">
+		<form name="f" th:action="@{/login}" method="post">
+			<fieldset>
+				<input type="text" id="login-username" name="username" value="" required>
+				<input type="password" id="login-password" name="password" value="" required>
+				<input type="email" id="email" name="email" autocomplete="off" />
+				<button id="login-submit" type="submit" class="btn">Log in</button>
+			</fieldset>
+		</form>
+	</div>
 
 	<!--Main Banner / Banner One-->
 	<section class="main-banner banner-one" id="banner2" style="background-image:url(/landing/images/background/banner-bg-1.png);">
@@ -108,7 +119,12 @@
 	<th:block th:replace="fragments/landing :: footer">footer</th:block>
 </div>
 <!--End pagewrapper-->
-
+<script th:inline="javascript">
+/*<![CDATA[*/
+    var inviteID = /*[[${inviteID}]]*/;
+    var key = /*[[${key}]]*/;
+/*]]>*/
+</script>
 <th:block th:replace="fragments/landing :: scripts">scripts</th:block>
 
 </body>
