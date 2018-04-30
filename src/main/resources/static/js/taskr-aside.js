@@ -213,6 +213,12 @@ function loadingContent(issue){
 
 function positionAsideContent(){
 	$("article#main section#content-main p.content").css("padding-top", Math.ceil($("#content-userinfo").height())+25 + "px");
+
+	if($("#aside-issue-list section.active").attr("issue-id") == -1) {
+	    $("#main .ss-content").hide();
+	} else {
+        $("#main .ss-content").show();
+	}
 }
 
 function determineUndecided(){

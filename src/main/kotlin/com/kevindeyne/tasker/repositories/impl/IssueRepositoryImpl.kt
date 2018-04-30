@@ -32,7 +32,7 @@ open class IssueRepositoryImpl (val dsl: DSLContext) : IssueRepository {
 	/*initial load*/
 	@Transactional
 	override fun findAllActiveForUserInCurrentSprint() : List<IssueListing> {
-		return dsl.selectFrom(Tables.ISSUE)
+		val res = dsl.selectFrom(Tables.ISSUE)
 			   .where(
 				   Tables.ISSUE.ASSIGNED.eq(SecurityHolder.getUserId())
 				   .and(Tables.ISSUE.SPRINT_ID.eq(SecurityHolder.getSprintId()))
@@ -50,6 +50,13 @@ open class IssueRepositoryImpl (val dsl: DSLContext) : IssueRepository {
 									n.get(Tables.ISSUE.IMPORTANCE))
 			   }
 			   .collect(Collectors.toList())
+
+        if(res.size == 0){
+            val descr = "Add more issues through the new issue button on the left."
+            return listOf(IssueListing(-1, "No issues in list", descr, descr, "empty-list"))
+        }
+
+        return res
 	}
 	
 	/*pulling*/

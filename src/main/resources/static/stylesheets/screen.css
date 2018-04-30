@@ -501,66 +501,74 @@ aside section i.overload-issue {
 }
 
 /* line 95, ../sass/_aside.scss */
-aside section.active {
+aside section.active:not([issue-id='-1']) {
+  opacity: 0.7;
   background: linear-gradient(to right, #2070f7, #1a5fd4) !important;
   color: #ffffff !important;
   cursor: default;
 }
 
-/* line 101, ../sass/_aside.scss */
+/* line 102, ../sass/_aside.scss */
+aside section[issue-id='-1'] {
+  background: linear-gradient(to right, #383838, #717171) !important;
+  color: #ffffff !important;
+  cursor: default;
+}
+
+/* line 108, ../sass/_aside.scss */
 aside section.hover {
   border: 2px solid #2070f7;
 }
 
-/* line 105, ../sass/_aside.scss */
+/* line 112, ../sass/_aside.scss */
 aside section > h1 {
   font-weight: 500;
   padding: 1em 1em 0.1em 1em;
   box-sizing: border-box;
 }
-/* line 110, ../sass/_aside.scss */
+/* line 117, ../sass/_aside.scss */
 aside section > h1 span {
   line-height: 1.25em;
 }
 
-/* line 115, ../sass/_aside.scss */
+/* line 122, ../sass/_aside.scss */
 aside section > p {
   padding: 1em;
   box-sizing: border-box;
   font-weight: 300;
 }
 
-/* line 121, ../sass/_aside.scss */
+/* line 128, ../sass/_aside.scss */
 aside section[importance="11"] {
   color: white;
   background: linear-gradient(to right, #15b972, #16b76c) !important;
 }
 
 @media (max-width: 1870px) {
-  /* line 127, ../sass/_aside.scss */
+  /* line 134, ../sass/_aside.scss */
   aside #aside-options a span {
     display: none;
   }
 }
 @media (max-width: 1201px) {
-  /* line 133, ../sass/_aside.scss */
+  /* line 140, ../sass/_aside.scss */
   aside #aside-options a {
     display: block;
     text-align: center;
   }
 
-  /* line 138, ../sass/_aside.scss */
+  /* line 145, ../sass/_aside.scss */
   article#main section#content-main p.content {
     padding-top: 18em !important;
   }
 
-  /* line 142, ../sass/_aside.scss */
+  /* line 149, ../sass/_aside.scss */
   div.milestone-details-col {
     display: block;
     width: 100%;
   }
 
-  /* line 147, ../sass/_aside.scss */
+  /* line 154, ../sass/_aside.scss */
   .userinfo-details-col {
     width: 45%;
   }
