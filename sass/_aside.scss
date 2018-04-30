@@ -93,13 +93,13 @@ aside section {
 }
 
 aside section.active:not([issue-id='-1']) {
-    opacity: 0.7;
 	background: linear-gradient(to right, #2070f7, #1a5fd4) !important;
 	color: #ffffff !important;
 	cursor: default;
 }
 
 aside section[issue-id='-1'] {
+    opacity: 0.7;
 	background: linear-gradient(to right, #383838, #717171) !important;
 	color: #ffffff !important;
 	cursor: default;
