@@ -180,7 +180,7 @@ function loadingContent(issue){
 	$("div.milestone-details-col p:first").html("");
 	issueLoaded.versions.forEach(function(item, index) {
 	    $("div.milestone-details-col p:first").append("<span data-status=\"Current fix version\" class=\"changeable\" id=\"change-version-"+index+"\">" + item + "</span>");
-	    $("div.milestone-details-col p:first span.changeable:last").click(changeableFunction);
+	    $("div.milestone-details-col p:first span.changeable:last").click(startOverlay);
 	});
 
 	determineUndecided();

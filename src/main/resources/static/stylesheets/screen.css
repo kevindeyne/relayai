@@ -1332,18 +1332,19 @@ section.comment p strong {
 }
 /* line 66, ../sass/_overlay.scss */
 #overlay #overlay-detail p input.assignee-text {
-  width: 8.5em;
+  margin-left: 0.5em;
+  width: 15em;
 }
-/* line 70, ../sass/_overlay.scss */
+/* line 71, ../sass/_overlay.scss */
 #overlay #overlay-detail p span.overlay-span-large {
   margin-right: 0.8em;
   color: grey;
 }
-/* line 75, ../sass/_overlay.scss */
+/* line 76, ../sass/_overlay.scss */
 #overlay #overlay-detail p span.overlay-span:last-child {
   margin-bottom: 0.8em;
 }
-/* line 79, ../sass/_overlay.scss */
+/* line 80, ../sass/_overlay.scss */
 #overlay #overlay-detail p a, #overlay #overlay-detail p a:link, #overlay #overlay-detail p a:visited, #overlay #overlay-detail p a:active {
   border: 0;
   height: 1.4em;
@@ -1356,33 +1357,33 @@ section.comment p strong {
   cursor: pointer;
   border-style: dotted;
 }
-/* line 92, ../sass/_overlay.scss */
+/* line 93, ../sass/_overlay.scss */
 #overlay #overlay-detail p a:hover {
   border-bottom: 1px solid #4270da;
   color: #4270da;
 }
-/* line 98, ../sass/_overlay.scss */
+/* line 99, ../sass/_overlay.scss */
 #overlay #overlay-detail ul {
   padding-left: 0.5em;
   margin-bottom: 0.5em;
 }
-/* line 102, ../sass/_overlay.scss */
+/* line 103, ../sass/_overlay.scss */
 #overlay #overlay-detail ul li {
   margin: 0.2em;
   cursor: pointer;
   padding: 0.4em 0em 0.4em 0.4em;
   margin-right: 1em;
 }
-/* line 109, ../sass/_overlay.scss */
+/* line 110, ../sass/_overlay.scss */
 #overlay #overlay-detail ul li.active {
   background-color: #2070f7 !important;
   color: #ffffff;
 }
-/* line 114, ../sass/_overlay.scss */
+/* line 115, ../sass/_overlay.scss */
 #overlay #overlay-detail ul li.hover {
   background: #e6e6e6;
 }
-/* line 119, ../sass/_overlay.scss */
+/* line 120, ../sass/_overlay.scss */
 #overlay #overlay-detail span.changing {
   background: linear-gradient(90deg, gainsboro, #e4e4e4);
   padding: 2px 5px;
@@ -1390,11 +1391,11 @@ section.comment p strong {
   font-weight: 300;
   line-height: 1.4em;
 }
-/* line 128, ../sass/_overlay.scss */
+/* line 129, ../sass/_overlay.scss */
 #overlay #overlay-detail span.alert {
   background-color: #ffaaaa !important;
 }
-/* line 132, ../sass/_overlay.scss */
+/* line 133, ../sass/_overlay.scss */
 #overlay #overlay-detail div.button-group {
   background: #e6e6e6;
   padding-left: 0.5em;
@@ -1405,7 +1406,7 @@ section.comment p strong {
   -ms-border-radius: 0px 0px 5px 5px;
   border-radius: 0px 0px 5px 5px;
 }
-/* line 140, ../sass/_overlay.scss */
+/* line 141, ../sass/_overlay.scss */
 #overlay #overlay-detail div.button-group button, #overlay #overlay-detail div.button-group button.altpath {
   font-family: "Roboto", Times New Roman, Helvetica, sans-serif;
   height: 3em;
@@ -1419,19 +1420,19 @@ section.comment p strong {
   border: none;
   font-weight: 500;
 }
-/* line 155, ../sass/_overlay.scss */
+/* line 156, ../sass/_overlay.scss */
 #overlay #overlay-detail div.button-group button:hover {
   background-color: #35394B;
   color: #fbfbfb;
 }
 
-/* line 163, ../sass/_overlay.scss */
+/* line 164, ../sass/_overlay.scss */
 #overlay-version, #overlay-assignee {
   padding-left: 0.5em;
   margin-bottom: 0.5em;
 }
 
-/* line 171, ../sass/_overlay.scss */
+/* line 172, ../sass/_overlay.scss */
 span.changeable {
   background-color: lightgray;
   padding: 2px 5px;
@@ -1441,12 +1442,12 @@ span.changeable {
   line-height: 1.4em;
 }
 
-/* line 181, ../sass/_overlay.scss */
+/* line 182, ../sass/_overlay.scss */
 span.changeable:hover {
   background-color: #ececec;
 }
 
-/* line 185, ../sass/_overlay.scss */
+/* line 186, ../sass/_overlay.scss */
 .milestone-details-col p span.changeable {
   margin-right: 0.3em;
 }

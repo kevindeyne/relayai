@@ -5,39 +5,43 @@
 
 	<div id="overlay" th:fragment="overlay-edits">
 		<div id="overlay-detail">
-			<p><span></span>: <span class="changing"></span></p>
+			<p><span id="overlay-descr"></span>: <span id="overlay-current-val" class="changing"></span></p>
 			<hr/>
 
-			<ul id="overlay-progress" class="overlay-options">
+			<ul id="overlay-progress" class="overlay-options overlay-subelement">
 				<li th:each="progressState : ${progressStates}" th:text="${progressState.text}" th:data-value="${progressState}">New, Backlog, In Progress, ...</li>
 			</ul>
 			
-			<ul id="overlay-impact" class="overlay-options">
+			<ul id="overlay-impact" class="overlay-options overlay-subelement">
 				<li th:each="impactState : ${impactStates}" th:text="${impactState.text}" th:data-value="${impactState}">High impact, Low impact, ...</li>
 			</ul>
 			
-			<ul id="overlay-urgency" class="overlay-options">
+			<ul id="overlay-urgency" class="overlay-options overlay-subelement">
 				<li th:each="urgencyState : ${urgencyStates}" th:text="${urgencyState.text}" th:data-value="${urgencyState}">High priority, Low urgency, ...</li>
 			</ul>
 			
-			<ul id="overlay-workload" class="overlay-options">
+			<ul id="overlay-workload" class="overlay-options overlay-subelement">
 				<li th:each="workloadState : ${workloadStates}" th:text="${workloadState.text}" th:data-value="${workloadState}">High, Low workload, ...</li>
 			</ul>
 			
-			<div id="overlay-version">
-				<p><span class="overlay-span">Branch: </span><input class="branch-text changing" value="Trunk" /></p>
-				<p><span class="overlay-span">Version: </span><input class="version-text" type="text"></p>
-				<p><span class="overlay-span-large">Current sprint versions: </span><a>4.0.28.3</a> , <a>4.0.27.3</a></p>
+			<div id="overlay-version" class="overlay-subelement hasAutoCs">
+				<p><span class="overlay-span">Branch: </span><input id="autoc-branch-text" class="branch-text changing auto-cs" value="Trunk" /></p>
+				<p><span class="overlay-span">Version: </span><input id="autoc-version-text" class="version-text auto-cs" type="text"></p>
+				<p><span class="overlay-span-large">Current branches: </span><a class="autoc-branch-val">Trunk</a> , <a class="autoc-branch-val">Websocket</a></p>
+				<p><span class="overlay-span-large">Current sprint versions: </span><a class="autoc-version-val">4.0.28.3</a> , <a class="autoc-version-val">4.0.27.3</a></p>
 			</div>
 			
-			<div id="overlay-assignee">
-				<p><span class="overlay-span">Assignee: </span><input class="assignee-text" type="text"></p>
+			<div id="overlay-assignee" class="overlay-subelement hasAutoCs">
+				<p><span class="overlay-span">Assignee: </span><input id="autoc-assignee-text" class="assignee-text auto-cs" type="text"></p>
+				<p><span class="overlay-span-large">Previous assignments: </span><a class="autoc-assignee-val">Kevin Deyne</a> , <a class="autoc-assignee-val">Roger Van Wommelgem</a></p>
+				<p><span class="overlay-span-large">Assign to role: </span><a class="autoc-assignee-val">Myself</a> , <a class="autoc-assignee-val">Teamlead</a>, <a class="autoc-assignee-val">Tester</a></p>
 			</div>
-						
+
 			<div class="button-group">
-				<button id="edit-changer-submit" type="button">Change</button>
-				<button id="remove-changer-submit" type="button" class="altpath remove" style="display:none;">Remove</button>
-				<button type="button" class="altpath">Cancel</button>
+				<button id="button-overlay-add" type="button">Add</button>
+				<button id="button-overlay-change" type="button">Change</button>
+				<button id="button-overlay-remove" type="button" class="altpath">Remove</button>
+				<button id="button-overlay-cancel" type="button" class="altpath">Cancel</button>
 			</div>
 		</div>
 	</div>

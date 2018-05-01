@@ -1,52 +1,146 @@
-var autocomplete_version;
-var autocomplete_assignee;
-
-//TODO this JS needs some serious rework, trying to do too much
-//TODO now that I have a better idea of what I want everywhere, this should be written in function of that
-
 $(document).ready(function() {
-	
-	/*$("span.changeable").click(changeableFunction);
-	
-	$("#overlay-detail button.altpath").click(function(){
-		if($(this).attr("id") === "remove-changer-submit"){			
-			var relativeTo = "#"+$("#overlay-detail").attr("relative-to");
-			if($("span.changeable[id*='change-version-']").length > 1){	
-				$(relativeTo).remove();
-				
-				var issueId = $("aside section.active").attr("issue-id");
-				var branch = $(".branch-text").val();
-				var version = $("#overlay-detail .changing:first").text().replace(" [" + branch + "]", "");
-				$.ajax({ url: "/issue/"+issueId+"/version/"+branch+"/"+version, type: "DELETE" });
-			}
-			
-			if ($("span.changeable[id*='change-version-']").length == 1) {
-				$("span.changeable[id*='change-version-']").text("No version attributed");
-			}
-		}
-		
-		hideOverlay();
-	});
-	
-	$("#overlay-detail ul li").click(function(e){
-		$("#overlay-detail ul li").removeClass("hover").removeClass("active");
-		$(this).addClass("active");
-	});
-	
-	$("#edit-changer-submit").click(function () {
-		changeRelativeToText();
-		if(getActiveClass() !== "undetermined-issue"){ changeSubmitFunctionality();	}
-		hideOverlay();
-	});
-	
+	makeEveryChangeableSpanClickable();
+    cancellingOverlay();
+});
+
+function makeEveryChangeableSpanClickable(){
+     $("span.changeable").click(startOverlay);
+}
+
+function cancellingOverlay(){
 	$("#overlay").click(function(e){
 		var position = $("#overlay-detail").position();
 		if(isClickOutsideOfOverlay(e, position)) {
-			hideOverlay();	
+			hideOverlay();
 		}
-	});*/
-});
+	});
 
+    $("#button-overlay-cancel").click(function(e){
+        hideOverlay();
+    });
+}
+
+function hideOverlay(e){
+	$("#overlay, #overlay-detail").hide();
+}
+
+function startOverlay(){
+    let $span = $(this);
+    let $relevantSubElement = getRelevantSubElement($span);
+
+    setCurrentValueAsTitle($span);
+    setVisualPartOfOverlay($span, $relevantSubElement);
+    setAutocompletes($relevantSubElement);
+    setButtonsAvailable($relevantSubElement);
+    showPositionalOverlay($span);
+}
+
+function getRelevantSubElement($span){
+    let value = $span.attr("id").replace("change-", "#overlay-");
+    let hasNumberAsLastChar = !isNaN(value.substr(value.length - 1));
+
+    if(hasNumberAsLastChar){
+        let lastIndex = value.lastIndexOf("-");
+        value = value.substring(0, lastIndex);
+    }
+
+    return $(value);
+}
+
+function showPositionalOverlay($span){
+    let speed = 100;
+    let position = $span.offset();
+    let left = position.left - (($span.width()/3) + ($span.width()/2));
+    let top = position.top - ($span.height()/3);
+
+    $("#overlay").show().css({opacity: "0"}).animate({opacity: "1"}, speed);
+    $("#overlay-detail").show().css({ "left": left, "top": top }).css({opacity: "0"}).animate({opacity: "1"}, speed);
+}
+
+function setCurrentValueAsTitle($span){
+    $("#overlay-descr").text($span.attr("data-status"));
+    $("#overlay-current-val").text($span.text());
+}
+
+function setVisualPartOfOverlay($span, $relevantSubElement){
+    $("#overlay-detail .overlay-subelement").hide();
+    $relevantSubElement.show();
+
+    let isOptions = $relevantSubElement.hasClass("overlay-options");
+    if(isOptions) {
+        setDefaultSelectionForOptionList($span, $relevantSubElement);
+    }
+}
+
+function setDefaultSelectionForOptionList($span, $relevantSubElement){
+     $("#overlay-detail ul li").removeClass("active");
+     $relevantSubElement.find("li:contains('" + $span.text() + "')").addClass("active");
+}
+
+function setAutocompletes($relevantSubElement){
+    if($relevantSubElement.hasClass("hasAutoCs")){
+		$relevantSubElement.find(".auto-cs").each(function() {
+            let label = "#" + $(this).attr("id");
+            setupAutocomplete(label);
+		});
+
+		$relevantSubElement.find("a").click(function(){
+		    let text = $(this).text();
+            let attr = "#" + $(this).attr("class").replace("-val","-text");
+            $(attr).val(text);
+		});
+    }
+}
+
+function setupAutocomplete(label){
+    let $autocomplete = $(label);
+
+    if(!$autocomplete.hasClass("autoc-setup")){
+        $autocomplete.addClass("autoc-setup");
+        new autoComplete({
+            selector: label,
+            minChars: 1,
+            source: function(term, suggest){
+                term = term.toLowerCase();
+                var choices = autoCLoad(label);
+                var matches = [];
+                for (i=0; i<choices.length; i++)
+                    if (~choices[i].toLowerCase().indexOf(term)) matches.push(choices[i]);
+                suggest(matches);
+            }
+        });
+    }
+}
+
+function autoCLoad(type) {
+    if(labelContains(type, "version")){
+        return ['4.0.28.3', '1.0.0', 'Asp']; //TODO preloaded
+    }
+    return ["Blabla", "Bloop bloop"];
+}
+
+function labelContains(label, type){
+    return label.indexOf(type) != -1;
+}
+
+function setButtonsAvailable($relevantSubElement){
+    $(".button-group button").hide();
+
+    let type = $relevantSubElement.attr("id").replace("overlay-", "");
+    if(type == "version"){
+        $("#button-overlay-add, #button-overlay-remove, #button-overlay-cancel").show();
+    } else {
+        $("#button-overlay-change, #button-overlay-cancel").show();
+    }
+}
+
+function isClickOutsideOfOverlay(e, position){
+	return (e.pageX < position.left || e.pageX > (position.left + $("#overlay-detail").width()))
+	|| (e.pageY < position.top || e.pageY > (position.top + $("#overlay-detail").height()));
+}
+
+
+/*
 function changeableFunction() {
     $("#remove-changer-submit").hide();
     var relativeTo = $(this).attr("id");
@@ -84,23 +178,6 @@ function changeableFunction() {
 
     $("#overlay").show().css({opacity: "0"}).animate({opacity: "1"}, "fast");
     $("#overlay-detail").show().css({ "left": left, "top": top }).css({opacity: "0"}).animate({opacity: "1"}, "fast");
-}
-
-function setupAutocompleteVersion(){
-	if(autocomplete_version === undefined || autocomplete_version === null){
-		autocomplete_version = new autoComplete({
-		    selector: 'input[class="version-text"]',
-		    minChars: 1,
-		    source: function(term, suggest){
-		        term = term.toLowerCase();
-		        var choices = ['4.0.28.3', '1.0.0', 'Asp'];
-		        var matches = [];
-		        for (i=0; i<choices.length; i++)
-		            if (~choices[i].toLowerCase().indexOf(term)) matches.push(choices[i]);
-		        suggest(matches);
-		    }
-		});
-	}
 }
 
 function changeSubmitFunctionality(){
@@ -160,12 +237,6 @@ function afterChange(action){
 	}
 }
 
-
-function isClickOutsideOfOverlay(e, position){
-	return (e.pageX < position.left || e.pageX > (position.left + $("#overlay-detail").width())) 
-	|| (e.pageY < position.top || e.pageY > (position.top + $("#overlay-detail").height()));
-}
-
 function changeRelativeToText(){
 	var relativeTo = "#"+$("#overlay-detail").attr("relative-to");
 	if(relativeTo.indexOf("version") !== -1){
@@ -188,8 +259,5 @@ function changeRelativeToText(){
 	} else {
 		$(relativeTo).text($("#overlay-detail ul:visible li.active").text());	
 	}
-}
+}*/
 
-function hideOverlay(e){
-	$("#overlay, #overlay-detail").hide();
-}
