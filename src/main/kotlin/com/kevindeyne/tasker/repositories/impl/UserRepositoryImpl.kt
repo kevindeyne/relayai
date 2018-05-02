@@ -148,4 +148,20 @@ open class UserRepositoryImpl (val dsl: DSLContext, val sprintRepository : Sprin
 				.values(projectID, userId, 0 == projectCount)
 				.execute()
 	}
+
+	override fun findByUsernameInProject(projectId : Long, value : String) : Long {
+		return dsl.select(Tables.USER.ID)
+				.from(Tables.USER
+						.join(Tables.PROJECT_USERS)
+						.on(Tables.PROJECT_USERS.USER_ID.eq(Tables.USER.ID))
+						.join(Tables.USER_ROLE)
+						.on(Tables.USER_ROLE.USER_ID.eq(Tables.USER.ID))
+				)
+				.where(
+						Tables.PROJECT_USERS.PROJECT_ID.eq(projectId)
+						.and(Tables.USER.USERNAME.eq(value)))
+				.limit(1)
+				.fetchOne()
+				.value1()
+	}
 }

@@ -32,7 +32,16 @@ function startOverlay(){
     setVisualPartOfOverlay($span, $relevantSubElement);
     setAutocompletes($relevantSubElement);
     setButtonsAvailable($relevantSubElement);
+    setOverlayOptionClicks();
+    addOverlayChangeButton($span, $relevantSubElement);
     showPositionalOverlay($span);
+}
+
+function setOverlayOptionClicks(){
+    $("ul.overlay-options li").click(function(){
+        $(this).parent().find("li.active").removeClass("active");
+        $(this).addClass("active");
+    });
 }
 
 function getRelevantSubElement($span){
@@ -131,6 +140,40 @@ function setButtonsAvailable($relevantSubElement){
         $("#button-overlay-add, #button-overlay-remove, #button-overlay-cancel").show();
     } else {
         $("#button-overlay-change, #button-overlay-cancel").show();
+    }
+}
+
+function addOverlayChangeButton($span, $relevantSubElement){
+     if(!$("#button-overlay-change").hasClass("inited")) {
+        $("#button-overlay-change").addClass("inited");
+        $("#button-overlay-change").click(function(){
+            let issueId = $("aside section.active").attr("issue-id");
+            let type = $relevantSubElement.attr("id").replace("overlay-", "");
+
+            if($relevantSubElement.hasClass("overlay-options")){
+                let data = $relevantSubElement.find("li.active").attr("data-value");
+                $.post("/issue/"+issueId+"/"+type+"/"+data, {}, function(response) {}, "json");
+                $span.text($relevantSubElement.find("li.active").text());
+            } else if(labelContains(type, "version")) {
+                //TODO
+            } else if(labelContains(type, "assignee")) {
+                let data = $relevantSubElement.find("#autoc-assignee-text").val();
+                $.post("/issue/"+issueId+"/"+type+"/"+data, {}, function(response) {}, "json");
+                $span.text(data);
+            }
+
+            hideOverlay();
+        });
+    }
+}
+
+
+function addOverlayAddButton(){
+     if(!$("#button-overlay-add").hasClass("inited")) {
+        $("#button-overlay-add").addClass("inited");
+        $("#button-overlay-add").click(function(){
+
+        });
     }
 }
 

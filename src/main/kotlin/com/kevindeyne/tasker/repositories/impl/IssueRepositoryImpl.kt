@@ -272,7 +272,7 @@ open class IssueRepositoryImpl (val dsl: DSLContext) : IssueRepository {
 			.where(Tables.ISSUE.ID.eq(issueId))
 			.execute()
 	}
-	
+
 	@Transactional
 	override fun updateCritical(issueId : Long, userId : Long, sprintId : Long){
 		val timestamp = Timestamp(System.currentTimeMillis())
@@ -300,6 +300,7 @@ open class IssueRepositoryImpl (val dsl: DSLContext) : IssueRepository {
 			.set(Tables.ISSUE.ASSIGNED, userId)
 			.set(Tables.ISSUE.UPDATE_USER, updateUser)
 			.set(Tables.ISSUE.UPDATE_DATE, timestamp)
+			.where(Tables.ISSUE.ID.eq(issueId))
 			.execute()
 	}
 	

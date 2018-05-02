@@ -2,11 +2,9 @@ package com.kevindeyne.tasker.amq
 
 import com.kevindeyne.tasker.domain.Impact
 import com.kevindeyne.tasker.domain.Progress
+import com.kevindeyne.tasker.domain.Role
 import com.kevindeyne.tasker.domain.Urgency
-import com.kevindeyne.tasker.repositories.IssueRepository
-import com.kevindeyne.tasker.repositories.KnowledgeRepository
-import com.kevindeyne.tasker.repositories.TagcloudRepository
-import com.kevindeyne.tasker.repositories.TimesheetRepository
+import com.kevindeyne.tasker.repositories.*
 import com.kevindeyne.tasker.service.KeywordGeneration
 import org.springframework.context.annotation.DependsOn
 import org.springframework.jms.annotation.JmsListener
@@ -14,7 +12,7 @@ import org.springframework.stereotype.Component
 
 @DependsOn("AMQConfig")
 @Component
-class GlobalReceiver(val issueRepository: IssueRepository, val tagcloud: TagcloudRepository, val knowledge: KnowledgeRepository, val timesheet : TimesheetRepository) {
+class GlobalReceiver(val issueRepository: IssueRepository, val tagcloud: TagcloudRepository, val knowledge: KnowledgeRepository, val timesheet : TimesheetRepository, val userRepository: UserRepository) {
 
 	@JmsListener(destination = "issues", containerFactory = "jmsFactory")
 	fun onMessage(m: AMQMessage) {
@@ -58,16 +56,46 @@ class GlobalReceiver(val issueRepository: IssueRepository, val tagcloud: Tagclou
 	fun autoAssignment(issueId : Long) {
 		val userId = knowledge.findMostSuitedCandidateForIssue(issueId)
 		if(userId != null){
-			println("Assigning issue to " + userId)
+			println("Assigning issue to $userId")
 			issueRepository.assign(issueId, userId)
 		} else {
 			println("Nobody to assign to, staying with current user")
 		}
 	}
+
+	fun autoAssignment(issueId : Long?, role : Role) : Long? {
+		if(issueId != null) { return knowledge.findMostSuitedCandidateForIssue(issueId, role) }
+		return -1L
+	}
 	
 	fun getIdFromMessage(message: AMQMessage) : Long = message.id.toLong()
 	
-	fun handleAssignee(message: AMQMessage){}	//TODO
+	fun handleAssignee(message: AMQMessage){
+		if(null !== message.issueId){
+			var assignee = handlePredefinedAssignees(message)
+			if(assignee == -1L) {
+				assignee = userRepository.findByUsernameInProject(message.projectId, message.value)
+			}
+			issueRepository.assign(message.issueId, assignee)
+		}
+	}
+
+	fun handlePredefinedAssignees(m: AMQMessage) : Long {
+		var userId : Long? = -1L
+		if("Myself" === m.value) {
+			return m.userId
+		} else if("Teamlead" === m.value) {
+			userId = autoAssignment(m.issueId, Role.TEAM_LEADER)
+		} else if("Tester" === m.value) {
+			userId = autoAssignment(m.issueId, Role.TESTER)
+		}
+
+		if(userId != null){
+			return userId
+		} else {
+			return -1L
+		}
+	}
 	
 	fun handleAddVersion(message: AMQMessage){
 		val version = message.value

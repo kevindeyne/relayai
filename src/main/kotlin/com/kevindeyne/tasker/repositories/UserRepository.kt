@@ -20,4 +20,6 @@ interface UserRepository {
 	fun create(username : String, email : String, password : String) : Long
 
 	fun addUserToProject(userId : Long, projectID : Long)
+
+	fun findByUsernameInProject(projectId : Long, value : String) : Long
 }
