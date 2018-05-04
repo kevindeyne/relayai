@@ -11,6 +11,8 @@ Primary technologies used are Kotlin, Java 8, SASS, JOOQ and jQuery. It runs as 
 
 Monitoring is done internally with JavaMelody APM, and is available at: https://www.relayai.io/monitoring
 
+Documentation is available at: https://kevindeyne.github.io/relayai-docs
+
 Take note: This project is an alpha-stage (feature incomplete) work in progress. It is not ready for use in a production environment. Flyway database scripts may change drastically as the project moves into further stages of development. Expect frequent commits and rewrites.
 
 <p align="center">
