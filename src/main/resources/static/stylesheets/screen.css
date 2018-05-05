@@ -960,28 +960,21 @@ div.undecided-option div.undecided-group button.critical:hover {
 }
 /* line 54, ../sass/_standup.scss */
 #team-progress h3 {
-  -webkit-border-radius: 10px;
-  -moz-border-radius: 10px;
-  -ms-border-radius: 10px;
-  border-radius: 10px;
-  background: #ffffff;
   color: #212121;
-  padding: 0.5em;
-  padding-left: 0.75em;
   margin-top: 0.5em;
   font-size: 1.1em;
   font-weight: 500;
 }
-/* line 64, ../sass/_standup.scss */
+/* line 60, ../sass/_standup.scss */
 #team-progress h3 i {
   text-align: left;
 }
-/* line 70, ../sass/_standup.scss */
+/* line 66, ../sass/_standup.scss */
 #team-progress div section.daily-issue:last-child {
   margin-bottom: 1em;
 }
 
-/* line 76, ../sass/_standup.scss */
+/* line 72, ../sass/_standup.scss */
 section.daily-issue, section.changelog-issue {
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
@@ -995,21 +988,21 @@ section.daily-issue, section.changelog-issue {
   font-size: 0.9em;
   border: 2px solid #ffffff;
 }
-/* line 87, ../sass/_standup.scss */
+/* line 83, ../sass/_standup.scss */
 section.daily-issue h4, section.changelog-issue h4 {
   font-weight: 500;
 }
-/* line 90, ../sass/_standup.scss */
+/* line 86, ../sass/_standup.scss */
 section.daily-issue h4 a, section.daily-issue h4 a:link, section.daily-issue h4 a:active, section.daily-issue h4 a:visited, section.changelog-issue h4 a, section.changelog-issue h4 a:link, section.changelog-issue h4 a:active, section.changelog-issue h4 a:visited {
   color: #1b1e2b;
   text-decoration: none;
 }
-/* line 95, ../sass/_standup.scss */
+/* line 91, ../sass/_standup.scss */
 section.daily-issue h4 a:hover, section.changelog-issue h4 a:hover {
   color: #2070f7;
   text-decoration: none;
 }
-/* line 100, ../sass/_standup.scss */
+/* line 96, ../sass/_standup.scss */
 section.daily-issue h4 span.mine, section.changelog-issue h4 span.mine {
   color: #fb0764;
 }

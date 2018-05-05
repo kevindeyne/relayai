@@ -3,6 +3,7 @@
 <head>
 	<th:block th:replace="fragments/template :: meta">Meta tags</th:block>
     <title>RelayAI - Sprint</title>
+	<link href="/stylesheets/datatables.css" media="screen, projection" rel="stylesheet" type="text/css" />
 </head>
 <body>
 	<nav th:replace="fragments/template :: navigation">Side menu</nav>
@@ -21,9 +22,20 @@
 	<script src="/js/taskr-new-issue.js"></script>
 	<script src="/js/taskr-edit-overlay.js"></script>
 
-	<script>
+	<script src="/js/datatables.min.js"></script>
 
+	<script>
+	$(document).ready(function() {
+		$('.datatable').DataTable({
+			"lengthChange": false,
+			"searching": true,
+			"pageLength": 50,
+			"initComplete": function(settings, json) {
+				$('.datatable').css({opacity: 0.0, visibility: "visible"}).animate({opacity: 1.0});
+			}
+		});
+	});
 	</script>
-	
+
 </body>
 </html>

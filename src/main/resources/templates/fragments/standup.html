@@ -86,26 +86,74 @@
 			
 			<h3><i class="fa fa-question-circle" aria-hidden="true"></i> Help requested</h3>
 			<div>
-				<section th:each="issue : ${issueList1}" th:issue-id="${issue.id}" class="daily-issue help">
-					<h4><a th:text="${issue.title}" href="#"></a></h4>
-					<p th:text="${issue.shortDescr}"></p>
-				</section>
+				<table id="help-req-listing" class="datatable display" style="width:100%">
+					<thead>
+					<tr>
+						<th>Task</th>
+					</tr>
+					</thead>
+					<tbody>
+					<tr th:each="issue : ${issueList1}" th:issue-id="${issue.id}" class="changelog-issue">
+						<td>
+							<a th:text="${issue.title}" th:href="${'/tasks/' + issue.id}">Improve DSLContext.batchStore() Javadoc, indicating that it does not execute MERGE / UPSERT semantics - Merge [#6584]</a><br/>
+							<span th:text="${issue.shortDescr}"></span>
+						</td>
+					</tr>
+					</tbody>
+					<tfoot>
+					<tr>
+						<th>Task</th>
+					</tr>
+					</tfoot>
+				</table>
 			</div>
 
 			<h3><i class="fa fa-cogs" aria-hidden="true"></i> In progress</h3>
 			<div>
-				<section th:each="issue : ${issueList2}" th:issue-id="${issue.id}" class="daily-issue inprogress">
-					<h4><a th:text="${issue.title}" href="#"></a></h4>
-					<p th:text="${issue.shortDescr}"></p>
-				</section>
+				<table id="in=progress-listing" class="datatable display" style="width:100%">
+					<thead>
+					<tr>
+						<th>Task</th>
+					</tr>
+					</thead>
+					<tbody>
+					<tr th:each="issue : ${issueList2}" th:issue-id="${issue.id}" class="changelog-issue">
+						<td>
+							<a th:text="${issue.title}" th:href="${'/tasks/' + issue.id}">Improve DSLContext.batchStore() Javadoc, indicating that it does not execute MERGE / UPSERT semantics - Merge [#6584]</a><br/>
+							<span th:text="${issue.shortDescr}"></span>
+						</td>
+					</tr>
+					</tbody>
+					<tfoot>
+					<tr>
+						<th>Task</th>
+					</tr>
+					</tfoot>
+				</table>
 			</div>
 
 			<h3><i class="fa fa-check" aria-hidden="true"></i> Finished</h3>
 			<div>
-				<section th:each="issue : ${issueList3}" th:issue-id="${issue.id}" class="daily-issue finished">
-					<h4><a th:text="${issue.title}" href="#"></a></h4>
-					<p th:text="${issue.shortDescr}"></p>
-				</section>
+				<table id="finished-listing" class="datatable display" style="width:100%">
+					<thead>
+					<tr>
+						<th>Task</th>
+					</tr>
+					</thead>
+					<tbody>
+					<tr th:each="issue : ${issueList3}" th:issue-id="${issue.id}" class="changelog-issue">
+						<td>
+							<a th:text="${issue.title}" th:href="${'/tasks/' + issue.id}">Improve DSLContext.batchStore() Javadoc, indicating that it does not execute MERGE / UPSERT semantics - Merge [#6584]</a><br/>
+							<span th:text="${issue.shortDescr}"></span>
+						</td>
+					</tr>
+					</tbody>
+					<tfoot>
+					<tr>
+						<th>Task</th>
+					</tr>
+					</tfoot>
+				</table>
 			</div>
 		</section>
 	</article>

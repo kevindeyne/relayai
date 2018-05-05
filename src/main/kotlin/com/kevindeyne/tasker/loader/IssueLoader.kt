@@ -27,8 +27,8 @@ open class IssueLoader(
 		val tagcloudRepository : TagcloudRepository
 ) : ApplicationListener<ContextRefreshedEvent>, Ordered {
 	
-	val truncateAll : Boolean = true
-	val generateNew : Boolean = true
+	val truncateAll : Boolean = false
+	val generateNew : Boolean = false
 	val maxUserIssuesInSprint : Int = 40
 	val daysPerSprint : Int = 14
 	val totalAmountOfSprints : Int = 10
