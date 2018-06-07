@@ -1,7 +1,7 @@
 # Relay AI
 
 [![Kotlin 1.2.30](https://img.shields.io/badge/Kotlin-1.2.30-blue.svg)](http://kotlinlang.org)
-[![Travis CI Build Status Badge](https://travis-ci.org/kevindeyne/tasker.svg?branch=master)](https://travis-ci.org/kevindeyne/tasker)
+[![Travis CI Build Status Badge](https://travis-ci.org/kevindeyne/relayai.svg?branch=master)](https://travis-ci.org/kevindeyne/relayai)
 [![Dependency Status](https://www.versioneye.com/user/projects/5a88c76a0fb24f1b2f835483/badge.svg?style=flat-square)](https://www.versioneye.com/user/projects/5a88c76a0fb24f1b2f835483?child=summary)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/301284c7a63c4ad3b0a96b6f994c5b62)](https://www.codacy.com/app/kevindeyne/tasker?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=kevindeyne/tasker&amp;utm_campaign=Badge_Grade)
 
